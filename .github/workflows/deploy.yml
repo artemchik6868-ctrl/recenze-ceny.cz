@@ -37,3 +37,13 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: deploy --config .output/server/wrangler.json --domain recenze-ceny.cz --domain www.recenze-ceny.cz
+
+      - name: Telegram alert on deploy failure
+        if: failure()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: >
+          node scripts/notify-telegram.mjs
+          --title="recenze-ceny.cz: деплой не удался"
+          --body="Ручной Deploy to Cloudflare Workers упал (npm ci / build / wrangler). Проверьте Actions."

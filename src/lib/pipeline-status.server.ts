@@ -1,6 +1,8 @@
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import type { OfferSource } from "./types";
 import { getFeedWaveStatus, WAVE_STALE_MS } from "./feed-sync-wave.server";
+import { getGoogleAccessToken, GOOGLE_SCOPE_WEBMASTERS } from "./google-sa.server";
+import { getSitemapFromGsc } from "./gsc-sitemap.server";
 
 const PIPELINE_SOURCES: OfferSource[] = [
   "cpa_tl",
@@ -14,8 +16,16 @@ const PIPELINE_SOURCES: OfferSource[] = [
 
 /** Hard indexing errors in the last day before Telegram/ops digest alerts. */
 const INDEXING_ERROR_ALERT_MIN = 10;
-/** Image-facts rows with repeated failures. */
+/** GSC URL Inspection errors in the last day. */
+const INSPECT_ERROR_ALERT_MIN = 5;
+/** Image-facts / landing-facts rows with repeated failures. */
 const IMAGE_FACTS_FAIL_ALERT_MIN = 5;
+const LANDING_FACTS_FAIL_ALERT_MIN = 5;
+const LANDING_FACTS_TABLES = [
+  "shakes_landing_facts",
+  "m1_landing_facts",
+  "cpa_tl_landing_facts",
+] as const;
 
 const SOURCE_TABLES: Record<OfferSource, string> = {
   cpa_tl: "cpa_tl_offers",
@@ -68,7 +78,16 @@ export type PipelineOpsSignals = {
   feed_wave_stale: boolean;
   indexing_errors_24h: number;
   indexing_config_skips_24h: number;
+  /** GSC URL Inspection failures written by indexing-retry. */
+  inspect_errors_24h: number;
   image_facts_high_fail: number;
+  /** Proxy for circuit / hard vision failures. */
+  image_facts_exhausted: number;
+  landing_facts_high_fail: number;
+  /** null = GSC token missing (skipped). */
+  gsc_sitemap_errors: number | null;
+  gsc_sitemap_error: string | null;
+  gsc_sitemap_skipped: "no_token" | null;
 };
 
 export type PipelineStatusResult = {
@@ -288,6 +307,7 @@ export async function getPipelineStatus(): Promise<PipelineStatusResult> {
   }
 
   let imageFactsHighFail = 0;
+  let imageFactsExhausted = 0;
   try {
     const { count } = await supabaseAdmin
       .from("offer_image_facts")
@@ -297,9 +317,92 @@ export async function getPipelineStatus(): Promise<PipelineStatusResult> {
     if (imageFactsHighFail >= IMAGE_FACTS_FAIL_ALERT_MIN) {
       alerts.push(`image-facts: ${imageFactsHighFail} rows with fail_count≥${RETRY_ALERT_FAIL_COUNT}`);
     }
+
+    const { count: exhaustedCount } = await supabaseAdmin
+      .from("offer_image_facts")
+      .select("*", { count: "exact", head: true })
+      .in("status", ["exhausted", "fetch_error"]);
+    imageFactsExhausted = exhaustedCount ?? 0;
+    if (imageFactsExhausted >= IMAGE_FACTS_FAIL_ALERT_MIN) {
+      alerts.push(
+        `image-facts: ${imageFactsExhausted} rows status exhausted/fetch_error (circuit risk)`,
+      );
+    }
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     alerts.push(`image-facts: status failed — ${message}`);
+  }
+
+  let landingFactsHighFail = 0;
+  try {
+    for (const table of LANDING_FACTS_TABLES) {
+      const { count, error } = await supabaseAdmin
+        .from(table)
+        .select("*", { count: "exact", head: true })
+        .or(`fail_count.gte.${RETRY_ALERT_FAIL_COUNT},status.eq.exhausted`);
+      if (error) {
+        alerts.push(`landing-facts: ${table} query failed — ${error.message}`);
+        continue;
+      }
+      landingFactsHighFail += count ?? 0;
+    }
+    if (landingFactsHighFail >= LANDING_FACTS_FAIL_ALERT_MIN) {
+      alerts.push(
+        `landing-facts: ${landingFactsHighFail} rows with fail_count≥${RETRY_ALERT_FAIL_COUNT} or exhausted`,
+      );
+    }
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    alerts.push(`landing-facts: status failed — ${message}`);
+  }
+
+  let inspectErrors24h = 0;
+  try {
+    const { count } = await supabaseAdmin
+      .from("indexing_status")
+      .select("*", { count: "exact", head: true })
+      .not("inspect_error", "is", null)
+      .gte("last_inspected_at", sinceIso);
+    inspectErrors24h = count ?? 0;
+    if (inspectErrors24h >= INSPECT_ERROR_ALERT_MIN) {
+      alerts.push(`indexing-retry: ${inspectErrors24h} GSC inspect errors in last 24h`);
+    }
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    alerts.push(`indexing-retry: status failed — ${message}`);
+  }
+
+  let gscSitemapErrors: number | null = null;
+  let gscSitemapError: string | null = null;
+  let gscSitemapSkipped: "no_token" | null = null;
+  try {
+    const token = await getGoogleAccessToken(GOOGLE_SCOPE_WEBMASTERS);
+    if (!token) {
+      gscSitemapSkipped = "no_token";
+      alerts.push("gsc-sitemap: skipped_config (no GSC token)");
+    } else {
+      const get = await getSitemapFromGsc(token);
+      if (!get.ok) {
+        gscSitemapError = get.error;
+        alerts.push(`gsc-sitemap: get failed — ${get.error}`);
+      } else {
+        const errorsRaw = get.body.errors;
+        const n =
+          typeof errorsRaw === "number"
+            ? errorsRaw
+            : errorsRaw != null
+              ? Number(errorsRaw)
+              : 0;
+        gscSitemapErrors = Number.isFinite(n) ? n : 0;
+        if (gscSitemapErrors > 0) {
+          alerts.push(`gsc-sitemap: ${gscSitemapErrors} errors in Search Console`);
+        }
+      }
+    }
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    gscSitemapError = message;
+    alerts.push(`gsc-sitemap: status failed — ${message}`);
   }
 
   const ops: PipelineOpsSignals = {
@@ -309,7 +412,13 @@ export async function getPipelineStatus(): Promise<PipelineStatusResult> {
     feed_wave_stale: feedWaveStale,
     indexing_errors_24h: indexingErrors24h,
     indexing_config_skips_24h: indexingConfigSkips24h,
+    inspect_errors_24h: inspectErrors24h,
     image_facts_high_fail: imageFactsHighFail,
+    image_facts_exhausted: imageFactsExhausted,
+    landing_facts_high_fail: landingFactsHighFail,
+    gsc_sitemap_errors: gscSitemapErrors,
+    gsc_sitemap_error: gscSitemapError,
+    gsc_sitemap_skipped: gscSitemapSkipped,
   };
 
   return {

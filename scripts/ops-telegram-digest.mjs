@@ -42,7 +42,10 @@ const forceNotify = process.argv.includes("--force");
 const STALE_ALERT_MIN = Number(process.env.OPS_STALE_MIN || "5");
 const REPEATED_FAIL_MIN = Number(process.env.OPS_REPEATED_FAIL_MIN || "3");
 const INDEXING_ERROR_MIN = Number(process.env.OPS_INDEXING_ERROR_MIN || "10");
+const INSPECT_ERROR_MIN = Number(process.env.OPS_INSPECT_ERROR_MIN || "5");
 const IMAGE_FACTS_FAIL_MIN = Number(process.env.OPS_IMAGE_FACTS_FAIL_MIN || "5");
+const LANDING_FACTS_FAIL_MIN = Number(process.env.OPS_LANDING_FACTS_FAIL_MIN || "5");
+const SITEMAP_MIN_BYTES = Number(process.env.OPS_SITEMAP_MIN_BYTES || "500");
 
 const statePath =
   process.env.OPS_TELEGRAM_STATE_PATH || resolve(root, ".ops-telegram-state.json");
@@ -95,6 +98,35 @@ function saveState(state) {
   writeFileSync(statePath, `${JSON.stringify(state, null, 2)}\n`);
 }
 
+function checkPublicSitemap() {
+  const url = `${base}/sitemap.xml`;
+  const res = spawnSync(
+    process.execPath,
+    [
+      "--input-type=module",
+      "-e",
+      `const res = await fetch(${JSON.stringify(url)}, { signal: AbortSignal.timeout(20000), redirect: "follow" });
+const text = await res.text();
+console.log(JSON.stringify({ status: res.status, bytes: text.length, hasUrlset: text.includes("<urlset") || text.includes("<sitemapindex") }));`,
+    ],
+    { encoding: "utf8" },
+  );
+  if (res.status !== 0) {
+    return { ok: false, text: `Публичный sitemap.xml недоступен: ${res.stderr || res.stdout || "fetch failed"}` };
+  }
+  const payload = JSON.parse(res.stdout.trim());
+  if (payload.status < 200 || payload.status >= 400) {
+    return { ok: false, text: `Публичный sitemap.xml HTTP ${payload.status}` };
+  }
+  if (!payload.hasUrlset || payload.bytes < SITEMAP_MIN_BYTES) {
+    return {
+      ok: false,
+      text: `Публичный sitemap.xml подозрительно мал/пуст (${payload.bytes} байт)`,
+    };
+  }
+  return { ok: true, text: null };
+}
+
 function buildIssues(status) {
   const ops = status?.ops ?? {};
   const totals = status?.totals ?? {};
@@ -108,10 +140,16 @@ function buildIssues(status) {
   let feedStale = Boolean(ops.feed_wave_stale || status?.feed_wave?.stale);
   let indexingErr = Number(ops.indexing_errors_24h ?? 0);
   let indexingCfg = Number(ops.indexing_config_skips_24h ?? 0);
+  let inspectErr = Number(ops.inspect_errors_24h ?? 0);
   let imageFail = Number(ops.image_facts_high_fail ?? 0);
+  let imageExhausted = Number(ops.image_facts_exhausted ?? 0);
+  let landingFail = Number(ops.landing_facts_high_fail ?? 0);
+  let gscErrors = ops.gsc_sitemap_errors;
+  let gscErrMsg = ops.gsc_sitemap_error || null;
+  let gscSkipped = ops.gsc_sitemap_skipped || null;
 
-  // Fallback when worker not yet redeployed with `ops` block.
-  if (!status?.ops) {
+  // Fallback when worker not yet redeployed with full `ops` block.
+  if (!status?.ops || ops.inspect_errors_24h == null) {
     for (const a of alerts) {
       const staleMatch = String(a).match(/(\d+)\s+offers missing AI > 2h/i);
       if (staleMatch) stale += Number(staleMatch[1]);
@@ -125,8 +163,20 @@ function buildIssues(status) {
       if (idxErr) indexingErr = Math.max(indexingErr, Number(idxErr[1]));
       const idxCfg = String(a).match(/indexing:\s*(\d+)\s+skipped_config/i);
       if (idxCfg) indexingCfg = Math.max(indexingCfg, Number(idxCfg[1]));
-      const img = String(a).match(/image-facts:\s*(\d+)\s+rows/i);
+      const insp = String(a).match(/indexing-retry:\s*(\d+)\s+GSC inspect/i);
+      if (insp) inspectErr = Math.max(inspectErr, Number(insp[1]));
+      const img = String(a).match(/image-facts:\s*(\d+)\s+rows with fail_count/i);
       if (img) imageFail = Math.max(imageFail, Number(img[1]));
+      const imgEx = String(a).match(/image-facts:\s*(\d+)\s+rows status exhausted/i);
+      if (imgEx) imageExhausted = Math.max(imageExhausted, Number(imgEx[1]));
+      const land = String(a).match(/landing-facts:\s*(\d+)\s+rows/i);
+      if (land) landingFail = Math.max(landingFail, Number(land[1]));
+      const gsc = String(a).match(/gsc-sitemap:\s*(\d+)\s+errors/i);
+      if (gsc) gscErrors = Math.max(Number(gscErrors ?? 0), Number(gsc[1]));
+      if (/gsc-sitemap:\s*skipped_config/i.test(a)) gscSkipped = "no_token";
+      if (/gsc-sitemap:\s*get failed/i.test(a) && !gscErrMsg) {
+        gscErrMsg = String(a).replace(/^.*get failed —\s*/i, "");
+      }
     }
   }
 
@@ -166,11 +216,52 @@ function buildIssues(status) {
       text: `Индексация: ${indexingCfg} skipped_config за 24ч (проверьте ключи/SA)`,
     });
   }
+  if (inspectErr >= INSPECT_ERROR_MIN) {
+    issues.push({
+      code: "inspect_errors",
+      text: `GSC inspect (indexing-retry): ${inspectErr} ошибок за 24ч`,
+    });
+  }
   if (imageFail >= IMAGE_FACTS_FAIL_MIN) {
     issues.push({
       code: "image_facts",
-      text: `Image-facts: ${imageFail} строк с fail_count≥3 (возможен circuit breaker)`,
+      text: `Image-facts: ${imageFail} строк с fail_count≥3`,
     });
+  }
+  if (imageExhausted >= IMAGE_FACTS_FAIL_MIN) {
+    issues.push({
+      code: "image_facts_circuit",
+      text: `Image-facts: ${imageExhausted} строк exhausted/fetch_error (риск circuit breaker)`,
+    });
+  }
+  if (landingFail >= LANDING_FACTS_FAIL_MIN) {
+    issues.push({
+      code: "landing_facts",
+      text: `Landing-facts: ${landingFail} строк с fail_count≥3 или exhausted`,
+    });
+  }
+  if (gscSkipped === "no_token") {
+    issues.push({
+      code: "gsc_config",
+      text: "GSC sitemap: нет токена (GOOGLE_INDEXING_SA_JSON / права Search Console)",
+    });
+  }
+  if (gscErrMsg) {
+    issues.push({
+      code: "gsc_sitemap_api",
+      text: `GSC sitemap API: ${String(gscErrMsg).slice(0, 200)}`,
+    });
+  }
+  if (typeof gscErrors === "number" && gscErrors > 0) {
+    issues.push({
+      code: "gsc_sitemap_errors",
+      text: `GSC sitemap: ${gscErrors} ошибок в Search Console`,
+    });
+  }
+
+  const pub = checkPublicSitemap();
+  if (!pub.ok) {
+    issues.push({ code: "public_sitemap", text: pub.text });
   }
 
   return issues;
