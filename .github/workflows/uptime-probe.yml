@@ -5,13 +5,18 @@ on:
     # Every 10 minutes
     - cron: "*/10 * * * *"
   workflow_dispatch:
+    inputs:
+      base_url:
+        description: "URL для проверки (для теста падения укажите https://example.com)"
+        required: false
+        default: ""
 
 jobs:
   uptime:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     env:
-      SITE_BASE: ${{ vars.BG_SYNC_BASE || 'https://recenze-ceny.cz' }}
+      SITE_BASE: ${{ inputs.base_url || vars.BG_SYNC_BASE || 'https://recenze-ceny.cz' }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
     steps:
@@ -38,6 +43,7 @@ jobs:
           else
             echo "previous=ok" >> "$GITHUB_OUTPUT"
           fi
+          echo "Проверяем: $SITE_BASE (previous=${{ steps.state.outputs.previous }})"
 
       - name: Probe site
         id: probe
