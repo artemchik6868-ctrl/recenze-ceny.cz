@@ -1,8 +1,7 @@
 name: Deploy to Cloudflare Workers
 
+# Manual only — production deploy is done locally via `npm run deploy`.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 concurrency:
