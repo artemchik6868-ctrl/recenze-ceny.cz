@@ -1,0 +1,2577 @@
+{
+  "startedCandidates": 321,
+  "processed": 321,
+  "okCount": 291,
+  "failCount": 30,
+  "maxLlmPerDay": "500",
+  "results": [
+    {
+      "source": "shakes",
+      "offerId": 15054,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1192
+    },
+    {
+      "source": "shakes",
+      "offerId": 5911,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1218
+    },
+    {
+      "source": "shakes",
+      "offerId": 15214,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1203
+    },
+    {
+      "source": "shakes",
+      "offerId": 15098,
+      "status": "ok",
+      "method": "paid",
+      "error": null,
+      "tokens": 1206
+    },
+    {
+      "source": "shakes",
+      "offerId": 15938,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1199
+    },
+    {
+      "source": "shakes",
+      "offerId": 15682,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1911
+    },
+    {
+      "source": "shakes",
+      "offerId": 15972,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1814
+    },
+    {
+      "source": "shakes",
+      "offerId": 15970,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1254
+    },
+    {
+      "source": "shakes",
+      "offerId": 16114,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1243
+    },
+    {
+      "source": "shakes",
+      "offerId": 16098,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1945
+    },
+    {
+      "source": "shakes",
+      "offerId": 16266,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 3151
+    },
+    {
+      "source": "shakes",
+      "offerId": 16240,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1251
+    },
+    {
+      "source": "shakes",
+      "offerId": 16278,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2401
+    },
+    {
+      "source": "shakes",
+      "offerId": 16376,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1246
+    },
+    {
+      "source": "shakes",
+      "offerId": 16414,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1229
+    },
+    {
+      "source": "shakes",
+      "offerId": 16402,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1835
+    },
+    {
+      "source": "shakes",
+      "offerId": 16458,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1223
+    },
+    {
+      "source": "shakes",
+      "offerId": 16446,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1260
+    },
+    {
+      "source": "shakes",
+      "offerId": 16576,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1260
+    },
+    {
+      "source": "shakes",
+      "offerId": 16560,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1770
+    },
+    {
+      "source": "shakes",
+      "offerId": 16612,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1261
+    },
+    {
+      "source": "shakes",
+      "offerId": 16624,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1910
+    },
+    {
+      "source": "shakes",
+      "offerId": 16724,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1244
+    },
+    {
+      "source": "shakes",
+      "offerId": 16710,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1258
+    },
+    {
+      "source": "shakes",
+      "offerId": 16830,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2341
+    },
+    {
+      "source": "shakes",
+      "offerId": 16812,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1258
+    },
+    {
+      "source": "shakes",
+      "offerId": 16862,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1260
+    },
+    {
+      "source": "shakes",
+      "offerId": 16876,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1260
+    },
+    {
+      "source": "shakes",
+      "offerId": 16912,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1234
+    },
+    {
+      "source": "shakes",
+      "offerId": 16896,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1233
+    },
+    {
+      "source": "shakes",
+      "offerId": 17168,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1997
+    },
+    {
+      "source": "shakes",
+      "offerId": 17156,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2227
+    },
+    {
+      "source": "shakes",
+      "offerId": 17350,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1211
+    },
+    {
+      "source": "shakes",
+      "offerId": 17312,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1504
+    },
+    {
+      "source": "shakes",
+      "offerId": 17362,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1242
+    },
+    {
+      "source": "shakes",
+      "offerId": 17510,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1919
+    },
+    {
+      "source": "shakes",
+      "offerId": 17620,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1238
+    },
+    {
+      "source": "shakes",
+      "offerId": 17788,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1250
+    },
+    {
+      "source": "shakes",
+      "offerId": 17790,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1984
+    },
+    {
+      "source": "shakes",
+      "offerId": 13905,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1207
+    },
+    {
+      "source": "shakes",
+      "offerId": 17940,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1872
+    },
+    {
+      "source": "shakes",
+      "offerId": 17952,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2150
+    },
+    {
+      "source": "shakes",
+      "offerId": 13521,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1884
+    },
+    {
+      "source": "shakes",
+      "offerId": 18462,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2373
+    },
+    {
+      "source": "shakes",
+      "offerId": 13763,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1729
+    },
+    {
+      "source": "shakes",
+      "offerId": 18536,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1258
+    },
+    {
+      "source": "shakes",
+      "offerId": 14177,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1966
+    },
+    {
+      "source": "shakes",
+      "offerId": 18570,
+      "status": "ok",
+      "method": "paid",
+      "error": null,
+      "tokens": 1225
+    },
+    {
+      "source": "shakes",
+      "offerId": 18656,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1229
+    },
+    {
+      "source": "shakes",
+      "offerId": 18644,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2001
+    },
+    {
+      "source": "shakes",
+      "offerId": 18742,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1931
+    },
+    {
+      "source": "shakes",
+      "offerId": 18760,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2111
+    },
+    {
+      "source": "shakes",
+      "offerId": 18792,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2520
+    },
+    {
+      "source": "shakes",
+      "offerId": 18776,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1242
+    },
+    {
+      "source": "shakes",
+      "offerId": 18812,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1920
+    },
+    {
+      "source": "shakes",
+      "offerId": 18826,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1258
+    },
+    {
+      "source": "shakes",
+      "offerId": 18992,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1230
+    },
+    {
+      "source": "shakes",
+      "offerId": 18982,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1679
+    },
+    {
+      "source": "shakes",
+      "offerId": 19040,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1234
+    },
+    {
+      "source": "shakes",
+      "offerId": 19046,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1250
+    },
+    {
+      "source": "shakes",
+      "offerId": 19294,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1242
+    },
+    {
+      "source": "shakes",
+      "offerId": 19238,
+      "status": "ok",
+      "method": "paid",
+      "error": null,
+      "tokens": 1321
+    },
+    {
+      "source": "shakes",
+      "offerId": 19328,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1183
+    },
+    {
+      "source": "shakes",
+      "offerId": 19314,
+      "status": "ok",
+      "method": "paid",
+      "error": null,
+      "tokens": 1196
+    },
+    {
+      "source": "shakes",
+      "offerId": 19362,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1221
+    },
+    {
+      "source": "shakes",
+      "offerId": 19372,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1238
+    },
+    {
+      "source": "shakes",
+      "offerId": 19410,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1233
+    },
+    {
+      "source": "shakes",
+      "offerId": 19414,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1860
+    },
+    {
+      "source": "shakes",
+      "offerId": 19608,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1672
+    },
+    {
+      "source": "shakes",
+      "offerId": 19606,
+      "status": "ok",
+      "method": "paid",
+      "error": null,
+      "tokens": 1313
+    },
+    {
+      "source": "shakes",
+      "offerId": 19644,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1245
+    },
+    {
+      "source": "shakes",
+      "offerId": 19620,
+      "status": "ok",
+      "method": "paid",
+      "error": null,
+      "tokens": 1208
+    },
+    {
+      "source": "shakes",
+      "offerId": 19680,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1247
+    },
+    {
+      "source": "shakes",
+      "offerId": 19678,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1259
+    },
+    {
+      "source": "shakes",
+      "offerId": 19698,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1238
+    },
+    {
+      "source": "shakes",
+      "offerId": 19720,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2077
+    },
+    {
+      "source": "shakes",
+      "offerId": 19736,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1247
+    },
+    {
+      "source": "shakes",
+      "offerId": 19764,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1995
+    },
+    {
+      "source": "shakes",
+      "offerId": 19776,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1235
+    },
+    {
+      "source": "shakes",
+      "offerId": 19766,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1872
+    },
+    {
+      "source": "shakes",
+      "offerId": 19810,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1181
+    },
+    {
+      "source": "shakes",
+      "offerId": 19780,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1240
+    },
+    {
+      "source": "shakes",
+      "offerId": 19838,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1250
+    },
+    {
+      "source": "shakes",
+      "offerId": 19840,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1875
+    },
+    {
+      "source": "shakes",
+      "offerId": 19944,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2128
+    },
+    {
+      "source": "shakes",
+      "offerId": 19842,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1252
+    },
+    {
+      "source": "shakes",
+      "offerId": 20010,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1254
+    },
+    {
+      "source": "shakes",
+      "offerId": 19966,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1774
+    },
+    {
+      "source": "shakes",
+      "offerId": 20282,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1209
+    },
+    {
+      "source": "shakes",
+      "offerId": 20172,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1958
+    },
+    {
+      "source": "shakes",
+      "offerId": 20286,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1210
+    },
+    {
+      "source": "shakes",
+      "offerId": 20288,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1771
+    },
+    {
+      "source": "shakes",
+      "offerId": 20318,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1229
+    },
+    {
+      "source": "shakes",
+      "offerId": 20316,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1203
+    },
+    {
+      "source": "shakes",
+      "offerId": 21256,
+      "status": "ok",
+      "method": "paid",
+      "error": null,
+      "tokens": 1205
+    },
+    {
+      "source": "shakes",
+      "offerId": 21258,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2601
+    },
+    {
+      "source": "shakes",
+      "offerId": 21838,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1191
+    },
+    {
+      "source": "shakes",
+      "offerId": 21260,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2294
+    },
+    {
+      "source": "shakes",
+      "offerId": 21866,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1233
+    },
+    {
+      "source": "shakes",
+      "offerId": 22128,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1261
+    },
+    {
+      "source": "shakes",
+      "offerId": 12903,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1920
+    },
+    {
+      "source": "shakes",
+      "offerId": 22380,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1897
+    },
+    {
+      "source": "shakes",
+      "offerId": 22420,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1227
+    },
+    {
+      "source": "shakes",
+      "offerId": 22706,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2004
+    },
+    {
+      "source": "shakes",
+      "offerId": 13815,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1247
+    },
+    {
+      "source": "shakes",
+      "offerId": 22718,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2006
+    },
+    {
+      "source": "shakes",
+      "offerId": 22716,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1186
+    },
+    {
+      "source": "shakes",
+      "offerId": 13867,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1847
+    },
+    {
+      "source": "shakes",
+      "offerId": 22874,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1771
+    },
+    {
+      "source": "shakes",
+      "offerId": 22868,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2308
+    },
+    {
+      "source": "shakes",
+      "offerId": 23014,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1705
+    },
+    {
+      "source": "shakes",
+      "offerId": 22886,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1261
+    },
+    {
+      "source": "shakes",
+      "offerId": 12907,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1220
+    },
+    {
+      "source": "shakes",
+      "offerId": 23016,
+      "status": "ok",
+      "method": "paid",
+      "error": null,
+      "tokens": 1205
+    },
+    {
+      "source": "shakes",
+      "offerId": 23060,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1206
+    },
+    {
+      "source": "shakes",
+      "offerId": 23018,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1849
+    },
+    {
+      "source": "shakes",
+      "offerId": 23404,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1866
+    },
+    {
+      "source": "shakes",
+      "offerId": 23428,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1232
+    },
+    {
+      "source": "shakes",
+      "offerId": 8889,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1199
+    },
+    {
+      "source": "shakes",
+      "offerId": 23504,
+      "status": "ok",
+      "method": "paid",
+      "error": null,
+      "tokens": 1190
+    },
+    {
+      "source": "shakes",
+      "offerId": 14405,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1227
+    },
+    {
+      "source": "shakes",
+      "offerId": 14309,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1225
+    },
+    {
+      "source": "shakes",
+      "offerId": 15936,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1247
+    },
+    {
+      "source": "shakes",
+      "offerId": 17632,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1245
+    },
+    {
+      "source": "shakes",
+      "offerId": 20160,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1247
+    },
+    {
+      "source": "shakes",
+      "offerId": 21856,
+      "status": "ok",
+      "method": "paid",
+      "error": null,
+      "tokens": 1220
+    },
+    {
+      "source": "shakes",
+      "offerId": 22338,
+      "status": "ok",
+      "method": "paid",
+      "error": null,
+      "tokens": 1241
+    },
+    {
+      "source": "shakes",
+      "offerId": 22182,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1872
+    },
+    {
+      "source": "shakes",
+      "offerId": 22170,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1255
+    },
+    {
+      "source": "shakes",
+      "offerId": 22710,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1771
+    },
+    {
+      "source": "shakes",
+      "offerId": 23156,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1220
+    },
+    {
+      "source": "shakes",
+      "offerId": 23090,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1247
+    },
+    {
+      "source": "shakes",
+      "offerId": 23610,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1808
+    },
+    {
+      "source": "shakes",
+      "offerId": 23250,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1243
+    },
+    {
+      "source": "shakes",
+      "offerId": 23620,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1937
+    },
+    {
+      "source": "shakes",
+      "offerId": 23178,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1746
+    },
+    {
+      "source": "shakes",
+      "offerId": 23776,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1219
+    },
+    {
+      "source": "shakes",
+      "offerId": 23682,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1223
+    },
+    {
+      "source": "shakes",
+      "offerId": 23260,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1201
+    },
+    {
+      "source": "shakes",
+      "offerId": 22140,
+      "status": "ok",
+      "method": "paid",
+      "error": null,
+      "tokens": 1232
+    },
+    {
+      "source": "shakes",
+      "offerId": 23416,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1937
+    },
+    {
+      "source": "shakes",
+      "offerId": 23780,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1223
+    },
+    {
+      "source": "shakes",
+      "offerId": 23832,
+      "status": "ok",
+      "method": "paid",
+      "error": null,
+      "tokens": 1208
+    },
+    {
+      "source": "shakes",
+      "offerId": 23800,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1213
+    },
+    {
+      "source": "shakes",
+      "offerId": 23048,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1245
+    },
+    {
+      "source": "shakes",
+      "offerId": 23842,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1224
+    },
+    {
+      "source": "shakes",
+      "offerId": 23168,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1219
+    },
+    {
+      "source": "shakes",
+      "offerId": 23190,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1929
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 18531,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 5126
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 21417,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1272
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 9177,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2775
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 9178,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2769
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 10739,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2730
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 13070,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2743
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 13631,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2761
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 18677,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 3538
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 20980,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2761
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 23135,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1219
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 22853,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1651
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 17769,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1248
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 23632,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2651
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 17818,
+      "status": "thin",
+      "method": "none",
+      "error": "The operation was aborted due to timeout",
+      "tokens": 0
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 19114,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2748
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 9181,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2118
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 13320,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2730
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 12616,
+      "status": "ok",
+      "method": "paid",
+      "error": null,
+      "tokens": 2718
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 8917,
+      "status": "ok",
+      "method": "paid",
+      "error": null,
+      "tokens": 2768
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 19809,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1211
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 23334,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2771
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 23354,
+      "status": "ok",
+      "method": "paid",
+      "error": null,
+      "tokens": 2770
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 21110,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2815
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 23355,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2760
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 23353,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1244
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 18532,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 5800
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 23980,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2773
+    },
+    {
+      "source": "kma",
+      "offerId": 11723,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2269
+    },
+    {
+      "source": "kma",
+      "offerId": 8104,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1886
+    },
+    {
+      "source": "kma",
+      "offerId": 8103,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1244
+    },
+    {
+      "source": "kma",
+      "offerId": 6883,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1245
+    },
+    {
+      "source": "kma",
+      "offerId": 9208,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1942
+    },
+    {
+      "source": "kma",
+      "offerId": 7126,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1233
+    },
+    {
+      "source": "kma",
+      "offerId": 8383,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1254
+    },
+    {
+      "source": "kma",
+      "offerId": 8764,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1238
+    },
+    {
+      "source": "kma",
+      "offerId": 11900,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1287
+    },
+    {
+      "source": "kma",
+      "offerId": 9039,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1236
+    },
+    {
+      "source": "kma",
+      "offerId": 9187,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1245
+    },
+    {
+      "source": "kma",
+      "offerId": 9220,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1211
+    },
+    {
+      "source": "kma",
+      "offerId": 11899,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1772
+    },
+    {
+      "source": "kma",
+      "offerId": 6348,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1260
+    },
+    {
+      "source": "kma",
+      "offerId": 9108,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1254
+    },
+    {
+      "source": "kma",
+      "offerId": 10753,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1250
+    },
+    {
+      "source": "kma",
+      "offerId": 8384,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1262
+    },
+    {
+      "source": "kma",
+      "offerId": 10315,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2426
+    },
+    {
+      "source": "kma",
+      "offerId": 11811,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1225
+    },
+    {
+      "source": "kma",
+      "offerId": 6423,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 3546
+    },
+    {
+      "source": "kma",
+      "offerId": 7626,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2074
+    },
+    {
+      "source": "kma",
+      "offerId": 11813,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1276
+    },
+    {
+      "source": "kma",
+      "offerId": 11834,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2073
+    },
+    {
+      "source": "kma",
+      "offerId": 11832,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1919
+    },
+    {
+      "source": "kma",
+      "offerId": 8675,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1253
+    },
+    {
+      "source": "kma",
+      "offerId": 8788,
+      "status": "ok",
+      "method": "paid",
+      "error": null,
+      "tokens": 2268
+    },
+    {
+      "source": "kma",
+      "offerId": 8947,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 3161
+    },
+    {
+      "source": "kma",
+      "offerId": 11812,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1238
+    },
+    {
+      "source": "m1_top",
+      "offerId": 6153,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1201
+    },
+    {
+      "source": "m1_top",
+      "offerId": 5958,
+      "status": "ok",
+      "method": "paid",
+      "error": null,
+      "tokens": 1238
+    },
+    {
+      "source": "m1_top",
+      "offerId": 6066,
+      "status": "ok",
+      "method": "paid",
+      "error": null,
+      "tokens": 1245
+    },
+    {
+      "source": "m1_top",
+      "offerId": 5941,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1819
+    },
+    {
+      "source": "m1_top",
+      "offerId": 6075,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1229
+    },
+    {
+      "source": "m1_top",
+      "offerId": 5567,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1218
+    },
+    {
+      "source": "m1_top",
+      "offerId": 5641,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1220
+    },
+    {
+      "source": "m1_top",
+      "offerId": 7068,
+      "status": "ok",
+      "method": "paid",
+      "error": null,
+      "tokens": 1220
+    },
+    {
+      "source": "m1_top",
+      "offerId": 5845,
+      "status": "ok",
+      "method": "paid",
+      "error": null,
+      "tokens": 1212
+    },
+    {
+      "source": "m1_top",
+      "offerId": 5725,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1233
+    },
+    {
+      "source": "m1_top",
+      "offerId": 5482,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1824
+    },
+    {
+      "source": "m1_top",
+      "offerId": 7069,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1752
+    },
+    {
+      "source": "m1_top",
+      "offerId": 5860,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1244
+    },
+    {
+      "source": "m1_top",
+      "offerId": 5092,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1220
+    },
+    {
+      "source": "m1_top",
+      "offerId": 6151,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2048
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 6318,
+      "status": "exhausted",
+      "method": "none",
+      "error": "max_llm_per_image",
+      "tokens": 0
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 11349,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1864
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 5831,
+      "status": "fetch_error",
+      "method": "none",
+      "error": "preflight:http_404;url_only:AI gateway 400: {\"error\":{\"message\":\"Received 404 status code when fetching image from URL: https://s.cpagetti.com/img/sci/small/Offer/fbe995422a79ee815103230f9dc527f9.png\",\"code\":400,\"metadata\":{\"provider_name\":\"Google AI Studio\",\"previous_errors\":[{\"code\":400,\"message\":\"Received 404 status code when fetching imag",
+      "tokens": 0
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 7785,
+      "status": "fetch_error",
+      "method": "none",
+      "error": "preflight:http_404;url_only:AI gateway 400: {\"error\":{\"message\":\"Received 404 status code when fetching image from URL: https://s.cpagetti.com/img/sci/small/Offer/50bb9422d2167cc60a3f8ab168df9cc2.png\",\"code\":400,\"metadata\":{\"provider_name\":\"Google AI Studio\",\"previous_errors\":[{\"code\":400,\"message\":\"Received 404 status code when fetching imag",
+      "tokens": 0
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 9027,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1230
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17109,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1224
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17115,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1222
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17111,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1234
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17117,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1227
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 9329,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1217
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 10447,
+      "status": "fetch_error",
+      "method": "none",
+      "error": "preflight:http_404;url_only:AI gateway 400: {\"error\":{\"message\":\"Received 404 status code when fetching image from URL: https://s.cpagetti.com/img/sci/small/Offer/b55178c9d73fef149659a7488d8f5d1e.png\",\"code\":400,\"metadata\":{\"provider_name\":\"Google AI Studio\",\"previous_errors\":[{\"code\":400,\"message\":\"Received 404 status code when fetching imag",
+      "tokens": 0
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 11373,
+      "status": "thin",
+      "method": "none",
+      "error": "Failed to parse LLM JSON: User Safety: safe",
+      "tokens": 0
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 11683,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1894
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 15481,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1212
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 16279,
+      "status": "thin",
+      "method": "none",
+      "error": "Failed to parse LLM JSON: User Safety: safe",
+      "tokens": 0
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 16059,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1234
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 10565,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1237
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 10745,
+      "status": "thin",
+      "method": "none",
+      "error": "Failed to parse LLM JSON: User Safety: safe",
+      "tokens": 0
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 11319,
+      "status": "thin",
+      "method": "none",
+      "error": "Failed to parse LLM JSON: User Safety: safe",
+      "tokens": 0
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 11073,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2552
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 11689,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1228
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 11691,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1262
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 13031,
+      "status": "thin",
+      "method": "none",
+      "error": "Failed to parse LLM JSON: User Safety: safe",
+      "tokens": 0
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 12157,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1245
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 13697,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1224
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 16057,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2287
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 15493,
+      "status": "thin",
+      "method": "none",
+      "error": "Failed to parse LLM JSON: User Safety: safe",
+      "tokens": 0
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17025,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1238
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17027,
+      "status": "thin",
+      "method": "none",
+      "error": "Failed to parse LLM JSON: User Safety: safe",
+      "tokens": 0
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17031,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1234
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17033,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1222
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17039,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1223
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17055,
+      "status": "thin",
+      "method": "none",
+      "error": "Failed to parse LLM JSON: User Safety: safe",
+      "tokens": 0
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17041,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2106
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 16285,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1204
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 16281,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1201
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 16629,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1206
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 16287,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1241
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 11339,
+      "status": "thin",
+      "method": "none",
+      "error": "Failed to parse LLM JSON: User Safety: safe",
+      "tokens": 0
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 11321,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2327
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 16999,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1716
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 11347,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1191
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17009,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1828
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 11505,
+      "status": "thin",
+      "method": "none",
+      "error": "Failed to parse LLM JSON: User Safety: safe",
+      "tokens": 0
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17015,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1238
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17013,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1238
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17019,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1227
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17021,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1238
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17061,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1224
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 7839,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1216
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 10563,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1855
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 11983,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1233
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 13555,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1669
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 11515,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1199
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17069,
+      "status": "thin",
+      "method": "none",
+      "error": "Failed to parse LLM JSON: User Safety: safe",
+      "tokens": 0
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17063,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1242
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17071,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1238
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17075,
+      "status": "thin",
+      "method": "none",
+      "error": "The operation was aborted due to timeout",
+      "tokens": 0
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 12185,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1628
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 12183,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1898
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 12347,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1188
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 12345,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1241
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 12775,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1905
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 12779,
+      "status": "thin",
+      "method": "none",
+      "error": "Failed to parse LLM JSON: User Safety: safe",
+      "tokens": 0
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 13009,
+      "status": "thin",
+      "method": "none",
+      "error": "Failed to parse LLM JSON: User Safety: safe",
+      "tokens": 0
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 16737,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1189
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 13687,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1196
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 16739,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1263
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 15497,
+      "status": "thin",
+      "method": "none",
+      "error": "Failed to parse LLM JSON: User Safety: safe",
+      "tokens": 0
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 13701,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1727
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 15495,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1238
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 15815,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1219
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 13589,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1195
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 13209,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1202
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 13879,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2242
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 13801,
+      "status": "thin",
+      "method": "none",
+      "error": "Failed to parse LLM JSON: User Safety: safe",
+      "tokens": 0
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 13969,
+      "status": "thin",
+      "method": "none",
+      "error": "Failed to parse LLM JSON: User Safety: safe",
+      "tokens": 0
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 13883,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1254
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 14101,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1215
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 14099,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1227
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 14105,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1237
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 14103,
+      "status": "thin",
+      "method": "none",
+      "error": "The operation was aborted due to timeout",
+      "tokens": 0
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 11679,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1191
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 14233,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1704
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17057,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1230
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 11375,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1236
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17077,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1247
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17085,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1236
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17087,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1238
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17091,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2385
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17097,
+      "status": "thin",
+      "method": "none",
+      "error": "Failed to parse LLM JSON: User Safety: safe",
+      "tokens": 0
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17093,
+      "status": "thin",
+      "method": "none",
+      "error": "Failed to parse LLM JSON: User Safety: safe",
+      "tokens": 0
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17103,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1234
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17099,
+      "status": "thin",
+      "method": "none",
+      "error": "Failed to parse LLM JSON: User Safety: safe",
+      "tokens": 0
+    },
+    {
+      "source": "adcombo",
+      "offerId": 40599,
+      "status": "exhausted",
+      "method": "none",
+      "error": "max_llm_per_image",
+      "tokens": 0
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17105,
+      "status": "thin",
+      "method": "none",
+      "error": "Failed to parse LLM JSON: User Safety: safe",
+      "tokens": 0
+    },
+    {
+      "source": "adcombo",
+      "offerId": 39225,
+      "status": "thin",
+      "method": "none",
+      "error": "Failed to parse LLM JSON: User Safety: safe",
+      "tokens": 0
+    },
+    {
+      "source": "adcombo",
+      "offerId": 39561,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 4964
+    },
+    {
+      "source": "adcombo",
+      "offerId": 40658,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 4720
+    },
+    {
+      "source": "adcombo",
+      "offerId": 38771,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 5959
+    },
+    {
+      "source": "adcombo",
+      "offerId": 39221,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1226
+    },
+    {
+      "source": "adcombo",
+      "offerId": 39219,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1218
+    },
+    {
+      "source": "adcombo",
+      "offerId": 39166,
+      "status": "thin",
+      "method": "none",
+      "error": "AI gateway 429: {\"error\":{\"message\":\"Rate limit exceeded: free-models-per-min. \",\"code\":429,\"metadata\":{\"headers\":{\"X-RateLimit-Limit\":\"20\",\"X-RateLimit-Remaining\":\"0\",\"X-RateLimit-Reset\":\"1785069180000\"},\"provider_name\":null,\"previous_errors\":[{\"code\":429,\"message\":\"Rate limit exceeded: free-models-per-min. \"},{\"c",
+      "tokens": 0
+    }
+  ]
+}

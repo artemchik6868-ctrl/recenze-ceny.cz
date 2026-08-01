@@ -1,0 +1,267 @@
+﻿[
+    {
+        "ok":  true,
+        "offerId":  12197,
+        "source":  "shakes",
+        "elapsed_ms":  35916,
+        "landing":  {
+                        "status":  "ok",
+                        "langHint":  "cs",
+                        "sourceUrl":  "https://cz2.proctonicsale.com",
+                        "jsonChars":  133,
+                        "fullTextChars":  3771,
+                        "facts":  {
+                                      "form":  "krem",
+                                      "role":  "proctology",
+                                      "dosage":  null,
+                                      "ingredients":  [
+
+                                                      ],
+                                      "benefits":  [
+
+                                                   ],
+                                      "h1":  "EFEKTIVN├Н L├Й─МBA HEMOROID┼о V JAK├ЙMKOLIV STADIU"
+                                  },
+                        "promptBlock":  "Fakta z adaptive landingu (strukturovan├б, stru─Нn├б):\nforma: krem\nrole/indikace: proctology\nnadpis: EFEKTIVN├Н L├Й─МBA HEMOROID┼о V JAK├ЙMKOLIV STADIU",
+                        "timing":  {
+                                       "pickMs":  159,
+                                       "fetchMs":  167,
+                                       "extractMs":  0,
+                                       "totalMs":  326
+                                   },
+                        "error":  null
+                    },
+        "generate":  {
+                         "status":  "generated",
+                         "error":  null,
+                         "saved":  true,
+                         "genMs":  35590,
+                         "metrics":  {
+                                         "promptTokens":  10220,
+                                         "completionTokens":  1315,
+                                         "totalTokens":  11535,
+                                         "requestedCompletionTokens":  17828,
+                                         "attempts":  8,
+                                         "retries":  0,
+                                         "durationMs":  34900
+                                     },
+                         "displayTitle":  "Proctonic тАУ l├й─Нba hemoroid┼п",
+                         "htmlLen":  2002,
+                         "htmlPreview":  "\u003ch2\u003eЁЯМ┐ Co je Proctonic a k ─Нemu slou┼╛├н?\u003c/h2\u003e\n\u003cp\u003eProctonic je kr├йm, kter├╜ se pou┼╛├нv├б p┼Щi pot├н┼╛├нch s hemoroidy. Je ur─Нen├╜ pro ty, kte┼Щ├н hledaj├н ├║levu od nep┼Щ├нjemn├╜ch projev┼п spojen├╜ch s t├нmto probl├йmem.\u003c/p\u003e\n\u003cp\u003eM┼п┼╛e pomoci zm├нrnit nepohodl├н, kter├й hemoroidy ─Нasto doprov├бz├н. Kr├йm se nan├б┼б├н p┼Щ├нmo na posti┼╛en├й m├нsto.\u003c/p\u003e\n\n\u003ch2\u003eЁЯОп Indikace k pou┼╛it├н\u003c/h2\u003e\n\u003cp\u003eProctonic je vhodn├╜, pokud se pot├╜k├бte s hemoroidy. M┼п┼╛e pomoci v r┼пzn├╜ch f├бz├нch. Pou┼╛├нv├б se pro:\u003c/p\u003e\n\u003cul\u003e\n    \u003cli\u003eZm├нrn─Ыn├н sv─Ыd─Ыn├н v oblasti kone─Нn",
+                         "hasSlozeni":  true,
+                         "hasFormHint":  true
+                     }
+    },
+    {
+        "ok":  true,
+        "offerId":  12619,
+        "source":  "shakes",
+        "elapsed_ms":  33656,
+        "landing":  {
+                        "status":  "ok",
+                        "langHint":  "cs",
+                        "sourceUrl":  "https://czl2.hondrofrostsale.com",
+                        "jsonChars":  200,
+                        "fullTextChars":  11589,
+                        "facts":  {
+                                      "form":  "gel",
+                                      "role":  "zrak",
+                                      "dosage":  null,
+                                      "ingredients":  [
+
+                                                      ],
+                                      "benefits":  [
+
+                                                   ],
+                                      "h1":  "\"Kdy┼╛ v├бm klouby neumo┼╛┼Иuj├н ┼╛├нt ┼╛ivot naplno, nezb├╜v├б ne┼╛ doufat v z├бzrak \"- Exkluzivn├н rozhovor s legend├бrn├нm mu┼╛em!"
+                                  },
+                        "promptBlock":  "Fakta z adaptive landingu (strukturovan├б, stru─Нn├б):\nforma: gel\nrole/indikace: zrak\nnadpis: \"Kdy┼╛ v├бm klouby neumo┼╛┼Иuj├н ┼╛├нt ┼╛ivot naplno, nezb├╜v├б ne┼╛ doufat v z├бzrak \"- Exkluzivn├н rozhovor s legend├бrn├нm mu┼╛em!",
+                        "timing":  {
+                                       "pickMs":  129,
+                                       "fetchMs":  203,
+                                       "extractMs":  0,
+                                       "totalMs":  332
+                                   },
+                        "error":  null
+                    },
+        "generate":  {
+                         "status":  "generated",
+                         "error":  null,
+                         "saved":  true,
+                         "genMs":  33324,
+                         "metrics":  {
+                                         "promptTokens":  9654,
+                                         "completionTokens":  1349,
+                                         "totalTokens":  11003,
+                                         "requestedCompletionTokens":  17828,
+                                         "attempts":  8,
+                                         "retries":  0,
+                                         "durationMs":  32792
+                                     },
+                         "displayTitle":  "Hondrofrost тАУ kloubn├н gel",
+                         "htmlLen":  1791,
+                         "htmlPreview":  "\u003ch2\u003eЁЯМ┐ Co je Hondrofrost a k ─Нemu slou┼╛├н?\u003c/h2\u003e\n\u003cp\u003eHondrofrost je kloubn├н gel. Je ur─Нen├╜ pro ty, kte┼Щ├н cht─Ыj├н podpo┼Щit sv├й klouby. Pom├бh├б tam, kde je pot┼Щeba zklidnit a ulevit.\u003c/p\u003e\n\u003cp\u003eGel se nan├б┼б├н p┼Щ├нmo na poko┼╛ku. M┼п┼╛e se hodit, kdy┼╛ c├нt├нte nepohodl├н v kloubech, t┼Щeba po n├бmaze nebo p┼Щi b─Ы┼╛n├╜ch denn├нch aktivit├бch.\u003c/p\u003e\n\n\u003ch2\u003eЁЯОп Indikace k pou┼╛it├н\u003c/h2\u003e\n\u003cp\u003eHondrofrost je vhodn├╜ pro lidi, kte┼Щ├н:\u003c/p\u003e\n\u003cul\u003e\n    \u003cli\u003eC├нt├н nepohodl├н v kloubech.\u003c/li\u003e\n    \u003cli\u003eCht─Ыj├н podpo┼Щit pohyblivost sv├╜ch kloub┼п.\u003c/li\u003e\n ",
+                         "hasSlozeni":  true,
+                         "hasFormHint":  true
+                     }
+    },
+    {
+        "ok":  true,
+        "offerId":  11937,
+        "source":  "shakes",
+        "elapsed_ms":  25324,
+        "landing":  {
+                        "status":  "ok",
+                        "langHint":  "cs",
+                        "sourceUrl":  "https://cz2-redusizer.wlossh.com",
+                        "jsonChars":  201,
+                        "fullTextChars":  5472,
+                        "facts":  {
+                                      "form":  null,
+                                      "role":  "hubnuti",
+                                      "dosage":  "1 kapky Redusizer sn├н┼╛├н tuto dobu na 40-50 minut, b─Ыhem n├н┼╛ za─Нne proces p┼Щem─Ыny tuk┼п n",
+                                      "ingredients":  [
+
+                                                      ],
+                                      "benefits":  [
+                                                       "podpora hubnuti / keto"
+                                                   ],
+                                      "h1":  "Redusizer"
+                                  },
+                        "promptBlock":  "Fakta z adaptive landingu (strukturovan├б, stru─Нn├б):\nrole/indikace: hubnuti\ndavkovani: 1 kapky Redusizer sn├н┼╛├н tuto dobu na 40-50 minut, b─Ыhem n├н┼╛ za─Нne proces p┼Щem─Ыny tuk┼п n\nbenefity: podpora hubnuti / keto\nnadpis: Redusizer",
+                        "timing":  {
+                                       "pickMs":  112,
+                                       "fetchMs":  195,
+                                       "extractMs":  0,
+                                       "totalMs":  307
+                                   },
+                        "error":  null
+                    },
+        "generate":  {
+                         "status":  "generated",
+                         "error":  null,
+                         "saved":  true,
+                         "genMs":  25017,
+                         "metrics":  {
+                                         "promptTokens":  9665,
+                                         "completionTokens":  1309,
+                                         "totalTokens":  10974,
+                                         "requestedCompletionTokens":  17828,
+                                         "attempts":  8,
+                                         "retries":  0,
+                                         "durationMs":  24550
+                                     },
+                         "displayTitle":  "Redusizer тАУ kapky na hubnut├н",
+                         "htmlLen":  1687,
+                         "htmlPreview":  "\u003ch2\u003eтЬи Redusizer тАУ kapky na hubnut├н\u003c/h2\u003e\n\u003cp\u003eRedusizer jsou kapky, kter├й pom├бhaj├н s kontrolou hmotnosti. Jsou ur─Нen├й pro ty, kte┼Щ├н hledaj├н podporu p┼Щi hubnut├н.\u003c/p\u003e\n\u003cp\u003eKdy┼╛ chcete zhubnout, je d┼пle┼╛it├й, aby t─Ыlo efektivn─Ы zpracov├бvalo tuky. Tyto kapky mohou pomoci nastartovat tento proces.\u003c/p\u003e\n\n\u003ch2\u003eЁЯОп K ─Нemu Redusizer slou┼╛├н?\u003c/h2\u003e\n\u003cul\u003e\n    \u003cli\u003ePodpora p┼Щi hubnut├н.\u003c/li\u003e\n    \u003cli\u003ePomoc s p┼Щem─Ыnou tuk┼п na energii.\u003c/li\u003e\n    \u003cli\u003eM┼п┼╛e zkr├бtit dobu, za kterou t─Ыlo za─Нne spalovat tuky.\u003c/li\u003e\n\u003c/ul\u003e\n\n\u003ch2\u003eЁЯМ┐ Sl",
+                         "hasSlozeni":  true,
+                         "hasFormHint":  true
+                     }
+    },
+    {
+        "ok":  true,
+        "offerId":  4201,
+        "source":  "shakes",
+        "elapsed_ms":  11000,
+        "landing":  {
+                        "status":  "ok",
+                        "langHint":  "cs",
+                        "sourceUrl":  "https://cza-gigant.potencsh.com",
+                        "jsonChars":  90,
+                        "fullTextChars":  2616,
+                        "facts":  {
+                                      "form":  "gel",
+                                      "role":  "potence",
+                                      "dosage":  null,
+                                      "ingredients":  [
+
+                                                      ],
+                                      "benefits":  [
+
+                                                   ],
+                                      "h1":  "Gigant"
+                                  },
+                        "promptBlock":  "Fakta z adaptive landingu (strukturovan├б, stru─Нn├б):\nforma: gel\nrole/indikace: potence\nnadpis: Gigant",
+                        "timing":  {
+                                       "pickMs":  71,
+                                       "fetchMs":  182,
+                                       "extractMs":  0,
+                                       "totalMs":  253
+                                   },
+                        "error":  null
+                    },
+        "generate":  {
+                         "status":  "generated",
+                         "error":  null,
+                         "saved":  true,
+                         "genMs":  10747,
+                         "metrics":  {
+                                         "promptTokens":  10384,
+                                         "completionTokens":  1310,
+                                         "totalTokens":  11694,
+                                         "requestedCompletionTokens":  17828,
+                                         "attempts":  8,
+                                         "retries":  0,
+                                         "durationMs":  10321
+                                     },
+                         "displayTitle":  "Gigant тАУ gel na zv─Ыt┼бen├н penisu",
+                         "htmlLen":  2047,
+                         "htmlPreview":  "\u003ch2\u003eЁЯНЖ Co je Gigant gel a k ─Нemu slou┼╛├н?\u003c/h2\u003e\n\u003cp\u003eGigant je gel, kter├╜ je ur─Нen├╜ pro mu┼╛e. M┼п┼╛e pomoci s pocitem nedostate─Нn├й velikosti penisu. Je to lok├бln├н p┼Щ├нpravek, kter├╜ se nan├б┼б├н p┼Щ├нmo na k┼п┼╛i.\u003c/p\u003e\n\u003cp\u003eC├нlem je podpo┼Щit prokrven├н a pru┼╛nost tk├бn├н. M┼п┼╛e tak p┼Щisp─Ыt k pocitu v─Ыt┼б├нho objemu a d├йlky.\u003c/p\u003e\n\u003ch2\u003eЁЯОп Indikace k pou┼╛it├н\u003c/h2\u003e\n\u003cp\u003eTento gel je vhodn├╜ pro mu┼╛e, kte┼Щ├н cht─Ыj├н:\u003c/p\u003e\n\u003cul\u003e\n    \u003cli\u003eZlep┼бit sv┼пj sexu├бln├н ┼╛ivot.\u003c/li\u003e\n    \u003cli\u003eZ├нskat v─Ыt┼б├н sebev─Ыdom├н v intimn├нch situac├нch.\u003c/li\u003e\n    \u003c",
+                         "hasSlozeni":  true,
+                         "hasFormHint":  true
+                     }
+    },
+    {
+        "ok":  true,
+        "offerId":  12889,
+        "source":  "shakes",
+        "elapsed_ms":  44591,
+        "landing":  {
+                        "status":  "ok",
+                        "langHint":  "cs",
+                        "sourceUrl":  "https://cz2-abslim.wlossh.com",
+                        "jsonChars":  113,
+                        "fullTextChars":  3993,
+                        "facts":  {
+                                      "form":  null,
+                                      "role":  "hubnuti",
+                                      "dosage":  null,
+                                      "ingredients":  [
+
+                                                      ],
+                                      "benefits":  [
+                                                       "podpora hubnuti / keto"
+                                                   ],
+                                      "h1":  "ABSlim"
+                                  },
+                        "promptBlock":  "Fakta z adaptive landingu (strukturovan├б, stru─Нn├б):\nrole/indikace: hubnuti\nbenefity: podpora hubnuti / keto\nnadpis: ABSlim",
+                        "timing":  {
+                                       "pickMs":  79,
+                                       "fetchMs":  151,
+                                       "extractMs":  0,
+                                       "totalMs":  230
+                                   },
+                        "error":  null
+                    },
+        "generate":  {
+                         "status":  "generated",
+                         "error":  null,
+                         "saved":  true,
+                         "genMs":  44361,
+                         "metrics":  {
+                                         "promptTokens":  9536,
+                                         "completionTokens":  1455,
+                                         "totalTokens":  10991,
+                                         "requestedCompletionTokens":  17828,
+                                         "attempts":  8,
+                                         "retries":  0,
+                                         "durationMs":  43758
+                                     },
+                         "displayTitle":  "ABSlim тАУ kapky na hubnut├н",
+                         "htmlLen":  2314,
+                         "htmlPreview":  "\u003ch2\u003eЁЯТз ABSlim тАУ kapky na hubnut├н\u003c/h2\u003e\n\u003cp\u003eABSlim jsou kapky, kter├й mohou pomoci s kontrolou hmotnosti. Jsou ur─Нen├й pro ty, kdo hledaj├н podporu p┼Щi hubnut├н. Pokud se sna┼╛├нte zhubnout, tyto kapky mohou b├╜t jedn├нm z n├бstroj┼п, kter├й v├бm pomohou.\u003c/p\u003e\n\u003cp\u003eProdukt je navr┼╛en tak, aby dopl┼Иoval v├б┼б ┼╛ivotn├н styl. Nejde o z├бzra─Нn├й ┼Щe┼бen├н, ale o dopln─Ыk, kter├╜ m┼п┼╛e p┼Щisp─Ыt k va┼бim c├нl┼пm.\u003c/p\u003e\n\n\u003ch2\u003eЁЯОп Pro koho jsou kapky ABSlim?\u003c/h2\u003e\n\u003cp\u003eKapky ABSlim jsou vhodn├й pro dosp─Ыl├й, kte┼Щ├н:\u003c/p\u003e\n\u003cul\u003e\n    \u003cli\u003eCht─Ыj├н podpo",
+                         "hasSlozeni":  true,
+                         "hasFormHint":  true
+                     }
+    }
+]

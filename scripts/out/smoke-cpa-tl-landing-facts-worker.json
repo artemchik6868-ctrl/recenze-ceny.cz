@@ -1,0 +1,368 @@
+[
+  {
+    "ok": true,
+    "offerId": 9177,
+    "source": "cpa_tl",
+    "mode": "llm",
+    "elapsed_ms": 18300,
+    "landing": {
+      "status": "ok",
+      "langHint": "cs",
+      "sourceUrl": "http://vermixin.xcartpro.com/r1/",
+      "jsonChars": 611,
+      "fullTextChars": 18047,
+      "method": "llm",
+      "usage": {
+        "prompt_tokens": 6536,
+        "completion_tokens": 285,
+        "total_tokens": 6821
+      },
+      "facts": {
+        "form": "kapsle",
+        "role": "odstranění parazitů a papilomů",
+        "dosage": null,
+        "ingredients": [],
+        "benefits": [
+          "odstranění hlístů a jejich vajíček",
+          "normalizace funkcí a stavu slinivky",
+          "odstranění alergické dermatitidy",
+          "odstranění gastritidy, vředů, průjmů",
+          "odstranění anémie"
+        ],
+        "h1": "PAPILOMY ZPŮSOBUJÍ PARAZITI V TĚLE!",
+        "application": "oral",
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [
+          "Vyplnit formulář na stránce: zadat své jméno a telefonní číslo.",
+          "Operátor se ozve pro potvrzení objednávky."
+        ],
+        "audience": null,
+        "warnings": [
+          "Nabídka je časově omezená.",
+          "Dávejte si pozor na padělky."
+        ],
+        "categoryHint": "papillomas"
+      },
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: kapsle\naplikace: oral\nrole/indikace: odstranění parazitů a papilomů\nkategorieHint: papillomas\nbenefity: odstranění hlístů a jejich vajíček; normalizace funkcí a stavu slinivky; odstranění alergické dermatitidy; odstranění gastritidy, vředů, průjmů; odstranění anémie\nnavod: 1. Vyplnit formulář na stránce: zadat své jméno a telefonní číslo. | 2. Operátor se ozve pro potvrzení objednávky.\nupozorneni: Nabídka je časově omezená.; Dávejte si pozor na padělky.\nnadpis: PAPILOMY ZPŮSOBUJÍ PARAZITI V TĚLE!",
+      "timing": {
+        "pickMs": 154,
+        "fetchMs": 310,
+        "extractMs": 1583,
+        "totalMs": 2047
+      },
+      "error": null
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "saved": true,
+      "genMs": 16253,
+      "metrics": {
+        "promptTokens": 8677,
+        "completionTokens": 1625,
+        "totalTokens": 10302,
+        "requestedCompletionTokens": 16804,
+        "attempts": 7,
+        "retries": 0,
+        "durationMs": 15658
+      },
+      "displayTitle": "Vermixin – kapsle proti parazitům",
+      "htmlLen": 2805,
+      "htmlPreview": "<h2>💊 Vermixin – kapsle proti parazitům</h2>\n<p>Verminix jsou kapsle, které pomáhají tělu zbavit se parazitů. Jsou určené pro lidi, kteří chtějí řešit problémy spojené s jejich přítomností v těle. Cílem je odstranit parazity a jejich vajíčka.</p>\n<p>Tyto kapsle mohou pomoci s odstraněním toxinů a dalších látek, které paraziti v těle zanechávají. To může vést k celkovému zlepšení stavu organismu.</p>\n\n<h2>🎯 Kdy Vermixin použít?</h2>\n<p>Verminix se používá, pokud máte podezření na přítomnost par",
+      "hasSlozeni": true,
+      "hasNavod": true,
+      "hasFormHint": true
+    }
+  },
+  {
+    "ok": true,
+    "offerId": 22853,
+    "source": "cpa_tl",
+    "mode": "llm",
+    "elapsed_ms": 13360,
+    "landing": {
+      "status": "ok",
+      "langHint": "cs",
+      "sourceUrl": "http://mystery.xcartpro.com/r4saxv/",
+      "jsonChars": 629,
+      "fullTextChars": 4168,
+      "method": "llm",
+      "usage": {
+        "prompt_tokens": 1923,
+        "completion_tokens": 288,
+        "total_tokens": 2211
+      },
+      "facts": {
+        "form": null,
+        "role": null,
+        "dosage": null,
+        "ingredients": [],
+        "benefits": [
+          "Možnost vyhrát produkty v hodnotě 3x oproti skutečné hodnotě",
+          "Široká škála produktů (iPhone 14, luxusní hodinky, fitness trenéři)",
+          "Účast v tombole o Mac Book Air 13” s čipem M2",
+          "Vzrušující zážitek z rozbalování",
+          "Radost z očekávání a překvapení"
+        ],
+        "h1": "Mystery Box NOVÝ A VZRUŠUJÍCÍ ZÁŽITEK VYHRAJTE UNIKÁTNÍ ODMĚNY",
+        "application": null,
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [],
+        "audience": "Pro ty, kteří milují překvapení a jsou otevření zkoušení nových produktů, pro fanoušky překvapení, pro ty, kteří hledaj…",
+        "warnings": [],
+        "categoryHint": "other"
+      },
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nkategorieHint: other\nbenefity: Možnost vyhrát produkty v hodnotě 3x oproti skutečné hodnotě; Široká škála produktů (iPhone 14, luxusní hodinky, fitness trenéři); Účast v tombole o Mac Book Air 13” s čipem M2; Vzrušující zážitek z rozbalování; Radost z očekávání a překvapení\nproKoho: Pro ty, kteří milují překvapení a jsou otevření zkoušení nových produktů, pro fanoušky překvapení, pro ty, kteří hledaj…\nnadpis: Mystery Box NOVÝ A VZRUŠUJÍCÍ ZÁŽITEK VYHRAJTE UNIKÁTNÍ ODMĚNY",
+      "timing": {
+        "pickMs": 194,
+        "fetchMs": 2974,
+        "extractMs": 1335,
+        "totalMs": 4503
+      },
+      "error": null
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "saved": true,
+      "genMs": 8857,
+      "metrics": {
+        "promptTokens": 8855,
+        "completionTokens": 1142,
+        "totalTokens": 9997,
+        "requestedCompletionTokens": 16804,
+        "attempts": 7,
+        "retries": 0,
+        "durationMs": 8248
+      },
+      "displayTitle": "Mystery Box – tajná krabička",
+      "htmlLen": 1896,
+      "htmlPreview": "<h2>📦 Mystery Box – tajná krabička</h2>\n<p>Mystery Box je krabička plná překvapení. Nikdy nevíte, co v ní najdete. Může to být cokoliv od telefonu po hodinky. Je to pro ty, kdo mají rádi napětí a překvapení.</p>\n<p>Není to jen o tom, co dostanete. Je to i o zážitku. O tom, jak se těšíte, co na vás čeká uvnitř. A možná i o tom, že vyhrajete něco, co má mnohem vyšší hodnotu než cena, kterou zaplatíte.</p>\n\n<h2>🎯 Pro koho je Mystery Box?</h2>\n<ul>\n    <li>Pro ty, kteří milují překvapení.</li>\n   ",
+      "hasSlozeni": false,
+      "hasNavod": true,
+      "hasFormHint": false
+    }
+  },
+  {
+    "ok": true,
+    "offerId": 17811,
+    "source": "cpa_tl",
+    "mode": "llm",
+    "elapsed_ms": 13689,
+    "landing": {
+      "status": "ok",
+      "langHint": "cs",
+      "sourceUrl": "http://light.xcartpro.com/m4/",
+      "jsonChars": 533,
+      "fullTextChars": 2936,
+      "method": "llm",
+      "usage": {
+        "prompt_tokens": 1573,
+        "completion_tokens": 232,
+        "total_tokens": 1805
+      },
+      "facts": {
+        "form": "jiné",
+        "role": "sváteční dekorace",
+        "dosage": null,
+        "ingredients": [],
+        "benefits": [
+          "Tisíce hvězd v obývacím pokoji nebo na stěnách vašeho domu během několika sekund!",
+          "Už žádné otravné kabely a spálené vánoční osvětlení.",
+          "Rychlá a snadná instalace během několika minut.",
+          "Voděodolný a mrazuvzdorný, vhodný do všech venkovních podmínek.",
+          "Používá se venku i uvnitř."
+        ],
+        "h1": "HVĚZDNÁ SPRCHA LASEROVÉ SVĚTLO",
+        "application": "other",
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [],
+        "audience": null,
+        "warnings": [],
+        "categoryHint": "other"
+      },
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: jiné\naplikace: other\nrole/indikace: sváteční dekorace\nkategorieHint: other\nbenefity: Tisíce hvězd v obývacím pokoji nebo na stěnách vašeho domu během několika sekund!; Už žádné otravné kabely a spálené vánoční osvětlení.; Rychlá a snadná instalace během několika minut.; Voděodolný a mrazuvzdorný, vhodný do všech venkovních podmínek.; Používá se venku i uvnitř.\nnadpis: HVĚZDNÁ SPRCHA LASEROVÉ SVĚTLO",
+      "timing": {
+        "pickMs": 156,
+        "fetchMs": 770,
+        "extractMs": 1027,
+        "totalMs": 1953
+      },
+      "error": null
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "saved": true,
+      "genMs": 11736,
+      "metrics": {
+        "promptTokens": 7535,
+        "completionTokens": 1420,
+        "totalTokens": 8955,
+        "requestedCompletionTokens": 16804,
+        "attempts": 7,
+        "retries": 0,
+        "durationMs": 11151
+      },
+      "displayTitle": "Laser Light – laserový projektor",
+      "htmlLen": 2771,
+      "htmlPreview": "<h2>✨ Co je Laser Light a k čemu slouží?</h2>\n<p>Laser Light je laserový projektor. Dokáže proměnit váš domov v pohádkové místo. Může to být uvnitř, třeba v obývacím pokoji, nebo venku na fasádě.</p>\n<p>Vytvoří tisíce světelných bodů. Ty vypadají jako hvězdy. Je to rychlý způsob, jak vyzdobit dům na svátky nebo jen tak pro radost.</p>\n<p>Už nemusíte řešit složité vánoční osvětlení. Žádné zamotané kabely ani spálené žárovky. Laser Light to zařídí jednoduše.</p>\n\n<h2>🎄 Kdy se Laser Light hodí?</h",
+      "hasSlozeni": false,
+      "hasNavod": true,
+      "hasFormHint": false
+    }
+  },
+  {
+    "ok": true,
+    "offerId": 23352,
+    "source": "cpa_tl",
+    "mode": "llm",
+    "elapsed_ms": 22124,
+    "landing": {
+      "status": "ok",
+      "langHint": "cs",
+      "sourceUrl": "http://myhero.xcartpro.com/r1xz3z/",
+      "jsonChars": 666,
+      "fullTextChars": 6657,
+      "method": "llm",
+      "usage": {
+        "prompt_tokens": 2694,
+        "completion_tokens": 315,
+        "total_tokens": 3009
+      },
+      "facts": {
+        "form": "kapsle",
+        "role": "potence",
+        "dosage": "Stačí mi jedna kapsle na celou noc, beru ji před sexem.",
+        "ingredients": [
+          "kotvičník zemní",
+          "maca horská",
+          "guarana"
+        ],
+        "benefits": [
+          "Tvrdá a trvalá erekce",
+          "Silná sexuální touha",
+          "Vytrvalost a kontrola ejakulace",
+          "Zlepšuje kvalitu sexuálního života",
+          "Zpevňuje srdeční sval"
+        ],
+        "h1": "My Hero STAŇ SE OPRAVDOVÝM CHLAPEM! Aktivujte silnou potenci v jakémkoliv věku",
+        "application": "oral",
+        "packSize": null,
+        "courseDays": "4-12 týdnů",
+        "usageSteps": [],
+        "audience": "Muži v jakémkoliv věku",
+        "warnings": [
+          "Nemá kontraindikace a vedlejší účinky",
+          "Lze používat s alkoholem a léky",
+          "Lze používat v jakémkoliv věku"
+        ],
+        "categoryHint": "potenz-libido"
+      },
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: kapsle\naplikace: oral\nrole/indikace: potence\nkategorieHint: potenz-libido\nkura: 4-12 týdnů\ndavkovani: Stačí mi jedna kapsle na celou noc, beru ji před sexem.\nslozeni: kotvičník zemní; maca horská; guarana\nbenefity: Tvrdá a trvalá erekce; Silná sexuální touha; Vytrvalost a kontrola ejakulace; Zlepšuje kvalitu sexuálního života; Zpevňuje srdeční sval\nproKoho: Muži v jakémkoliv věku\nupozorneni: Nemá kontraindikace a vedlejší účinky; Lze používat v jakémkoliv věku\nnadpis: My Hero STAŇ SE OPRAVDOVÝM CHLAPEM! Aktivujte silnou potenci v jakémkoliv věku",
+      "timing": {
+        "pickMs": 118,
+        "fetchMs": 905,
+        "extractMs": 1354,
+        "totalMs": 2377
+      },
+      "error": null
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "saved": true,
+      "genMs": 19747,
+      "metrics": {
+        "promptTokens": 8438,
+        "completionTokens": 1273,
+        "totalTokens": 9711,
+        "requestedCompletionTokens": 16804,
+        "attempts": 7,
+        "retries": 0,
+        "durationMs": 19278
+      },
+      "displayTitle": "My Hero – kapsle na potenci",
+      "htmlLen": 2064,
+      "htmlPreview": "<h2>🦸‍♂️ My Hero – kapsle na potenci</h2>\n<p>My Hero jsou kapsle, které mají pomoci s mužskou potencí. Jsou určené pro muže, kteří chtějí podpořit svou sexuální aktivitu.</p>\n<p>Produkt cílí na obnovení mužské síly. Může pomoci s prevencí problémů s erekcí.</p>\n<p>Tyto kapsle dodávají tělu látky, které jsou důležité pro sexuální výkonnost v každém věku.</p>\n\n<h2>🎯 Kdy My Hero zkusit?</h2>\n<ul>\n    <li>Pokud chcete podpořit svou potenci.</li>\n    <li>Pro zlepšení celkové sexuální aktivity.</li>",
+      "hasSlozeni": true,
+      "hasNavod": true,
+      "hasFormHint": true
+    }
+  },
+  {
+    "ok": true,
+    "offerId": 19809,
+    "source": "cpa_tl",
+    "mode": "llm",
+    "elapsed_ms": 18102,
+    "landing": {
+      "status": "ok",
+      "langHint": "cs",
+      "sourceUrl": "http://grass.xcartpro.com/rtys2e1/",
+      "jsonChars": 461,
+      "fullTextChars": 2935,
+      "method": "llm",
+      "usage": {
+        "prompt_tokens": 1562,
+        "completion_tokens": 222,
+        "total_tokens": 1784
+      },
+      "facts": {
+        "form": "jiné",
+        "role": "sekání trávy a trávníku",
+        "dosage": null,
+        "ingredients": [],
+        "benefits": [
+          "Funguje bez benzínu, oleje nebo drátů",
+          "Lehký, přenosný a bezdrátový",
+          "Bezpečné a snadné použití",
+          "Výsuvná rukojeť až 94 cm",
+          "Profesionální výsledky bez námahy"
+        ],
+        "h1": "Akumulátorová sekačka na trávu",
+        "application": "other",
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [
+          "Zapněte jej a začněte!"
+        ],
+        "audience": "Pro každého zahradníka",
+        "warnings": [],
+        "categoryHint": "other"
+      },
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: jiné\naplikace: other\nrole/indikace: sekání trávy a trávníku\nkategorieHint: other\nbenefity: Funguje bez benzínu, oleje nebo drátů; Lehký, přenosný a bezdrátový; Bezpečné a snadné použití; Výsuvná rukojeť až 94 cm; Profesionální výsledky bez námahy\nnavod: 1. Zapněte jej a začněte!\nproKoho: Pro každého zahradníka\nnadpis: Akumulátorová sekačka na trávu",
+      "timing": {
+        "pickMs": 86,
+        "fetchMs": 818,
+        "extractMs": 1242,
+        "totalMs": 2146
+      },
+      "error": null
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "saved": true,
+      "genMs": 15956,
+      "metrics": {
+        "promptTokens": 7489,
+        "completionTokens": 1363,
+        "totalTokens": 8852,
+        "requestedCompletionTokens": 16804,
+        "attempts": 7,
+        "retries": 0,
+        "durationMs": 15444
+      },
+      "displayTitle": "Cordless Grass Trimmer – strunová sekačka",
+      "htmlLen": 2633,
+      "htmlPreview": "<h2>🌿 Co je strunová sekačka a k čemu slouží?</h2>\n<p>Tohle je akumulátorová strunová sekačka. Je to lehký a praktický nástroj na sekání trávy. Pomůže vám udržet trávník upravený. Také s ní snadno upravíte okraje.</p>\n<p>Funguje bez benzínu, oleje nebo kabelů. To znamená, že je šetrná k přírodě. A taky se s ní snáz pracuje. Nemusíte řešit, kde je zásuvka nebo jestli máte dost paliva.</p>\n<p>Je navržená tak, aby se s ní dobře manipulovalo. Má ergonomický tvar. A teleskopickou rukojeť si můžete n",
+      "hasSlozeni": true,
+      "hasNavod": true,
+      "hasFormHint": false
+    }
+  }
+]

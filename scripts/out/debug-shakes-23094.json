@@ -1,0 +1,30 @@
+{
+  "source": "shakes",
+  "offerId": 23094,
+  "categorySlug": "fungus",
+  "pipelineVersion": "v70-bg-full-locale",
+  "feedTitle": "Cordyceps Pulse",
+  "cleanedDescription": "Cordyceps Pulse — https://bgl1-cordycepspulse-neuropathy.othersh.com — Лэндинг 1(iframe) bgl1 cordycepspulse neuropathy othersh com Веб-сайты Email-рассылки (по согласованию с личным менеджером) Дорвей-трафик Контекстная реклама Контекстная реклама на бренд Паблики ВК, ОК и Мой мир Соц. сети приложения Мотивированный трафик Push-уведомления YouTube TikTok Popup / Clickunder myTarget, таргет ВК Facebook Instagram",
+  "factsKind": "unknown",
+  "displayTitle": "Cordyceps Pulse - средство против гъбички",
+  "maxAttempts": 3,
+  "attempts": [
+    {
+      "attempt": 1,
+      "mode": "pipeline",
+      "promptLen": 0,
+      "htmlLen": 2198,
+      "qaSeverity": "warn",
+      "qaErrors": [
+        "supplement-structure-missing"
+      ],
+      "htmlPreview": "<h2>🍄 Cordyceps Pulse: Помощ при гъбички</h2>\n\n<p>Cordyceps Pulse е създаден, за да подпомогне тялото в борбата с гъбични инфекции. Ако търсите начин да се справите с дискомфорта, който причиняват гъбичките, този продукт може да е подходящ за вас.</p>\n<p>Той е предназначен за хора, които искат да подкрепят естествените защитни сили на организма си. Цената му е 29 €.</p>\n\n<h2>✅ За кого е Cordyceps"
+    }
+  ],
+  "finalOrigin": "pipeline",
+  "estimatedTier": "ai",
+  "finalHtmlLen": 2198,
+  "qaErrorsFinal": [
+    "supplement-structure-missing"
+  ]
+}

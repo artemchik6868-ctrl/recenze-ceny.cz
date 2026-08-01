@@ -1,0 +1,76 @@
+name: Uptime probe
+
+on:
+  schedule:
+    # Every 10 minutes
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+jobs:
+  uptime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      SITE_BASE: ${{ vars.BG_SYNC_BASE || 'https://recenze-ceny.cz' }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Restore previous uptime state
+        uses: actions/cache/restore@v4
+        with:
+          path: .uptime-state
+          key: uptime-state-${{ github.repository }}-${{ github.run_id }}
+          restore-keys: |
+            uptime-state-${{ github.repository }}-
+
+      - name: Read previous status
+        id: state
+        run: |
+          mkdir -p .uptime-state
+          if [ -f .uptime-state/last ]; then
+            echo "previous=$(cat .uptime-state/last)" >> "$GITHUB_OUTPUT"
+          else
+            echo "previous=ok" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Probe site
+        id: probe
+        continue-on-error: true
+        run: node scripts/uptime-probe.mjs --base="${SITE_BASE}" --attempts=3
+
+      - name: Record success + recovery alert
+        if: steps.probe.outcome == 'success'
+        run: |
+          echo "ok" > .uptime-state/last
+          if [ "${{ steps.state.outputs.previous }}" = "fail" ]; then
+            node scripts/notify-telegram.mjs \
+              --ok \
+              --title="recenze-ceny.cz UP again" \
+              --body="Uptime probe recovered. Base: ${SITE_BASE}"
+          fi
+
+      - name: Record failure + down alert
+        if: steps.probe.outcome == 'failure'
+        run: |
+          echo "fail" > .uptime-state/last
+          if [ "${{ steps.state.outputs.previous }}" != "fail" ]; then
+            node scripts/notify-telegram.mjs \
+              --title="recenze-ceny.cz DOWN" \
+              --body="Uptime probe failed after retries (/ and /api/public/health). Base: ${SITE_BASE}"
+          else
+            echo "Already in fail state — skip repeat Telegram"
+          fi
+          exit 1
+
+      - name: Persist uptime state
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .uptime-state
+          key: uptime-state-${{ github.repository }}-${{ github.run_id }}

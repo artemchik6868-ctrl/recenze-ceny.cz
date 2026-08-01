@@ -1,0 +1,158 @@
+{
+  "generatedAt": "2026-07-29T16:52:45.071Z",
+  "requestedModel": "meta-llama/llama-3.3-70b-instruct:free",
+  "products": [
+    {
+      "id": 14345,
+      "source": "shakes",
+      "displayTitle": "Cordyceps Pulse - kapsle na klouby",
+      "categorySlug": "joint-care",
+      "formKind": "capsules",
+      "audience": "any",
+      "modelUsed": "meta-llama/llama-3.3-70b-instruct:free",
+      "slots": [
+        {
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 28
+        },
+        {
+          "gender": "f",
+          "rating": 3,
+          "daysAgo": 6
+        },
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 14
+        },
+        {
+          "gender": "f",
+          "rating": 4,
+          "daysAgo": 21
+        },
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 35
+        }
+      ],
+      "reviews": [],
+      "error": "LLM 404: {\"error\":{\"message\":\"This model is unavailable for free. The paid version is available now - use this slug instead: meta-llama/llama-3.3-70b-instruct\",\"code\":404},\"user_id\":\"user_3EpKtArdBUVgVO1urwcjtzKm23a\"}"
+    },
+    {
+      "id": 14405,
+      "source": "shakes",
+      "displayTitle": "Cordyceps Pulse – kapsle na prostatu",
+      "categorySlug": "prostate-health",
+      "formKind": "capsules",
+      "audience": "men",
+      "modelUsed": "meta-llama/llama-3.3-70b-instruct:free",
+      "slots": [
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 6
+        },
+        {
+          "gender": "m",
+          "rating": 3,
+          "daysAgo": 14
+        },
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 28
+        },
+        {
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 21
+        },
+        {
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 35
+        }
+      ],
+      "reviews": [],
+      "error": "LLM 404: {\"error\":{\"message\":\"This model is unavailable for free. The paid version is available now - use this slug instead: meta-llama/llama-3.3-70b-instruct\",\"code\":404},\"user_id\":\"user_3EpKtArdBUVgVO1urwcjtzKm23a\"}"
+    },
+    {
+      "id": 12905,
+      "source": "shakes",
+      "displayTitle": "ABslim – kapky na hubnutí",
+      "categorySlug": "weight-management",
+      "formKind": "capsules",
+      "audience": "any",
+      "modelUsed": "meta-llama/llama-3.3-70b-instruct:free",
+      "slots": [
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 6
+        },
+        {
+          "gender": "f",
+          "rating": 3,
+          "daysAgo": 28
+        },
+        {
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 14
+        },
+        {
+          "gender": "f",
+          "rating": 5,
+          "daysAgo": 21
+        },
+        {
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 35
+        }
+      ],
+      "reviews": [],
+      "error": "LLM 404: {\"error\":{\"message\":\"This model is unavailable for free. The paid version is available now - use this slug instead: meta-llama/llama-3.3-70b-instruct\",\"code\":404},\"user_id\":\"user_3EpKtArdBUVgVO1urwcjtzKm23a\"}"
+    },
+    {
+      "id": 15098,
+      "source": "shakes",
+      "displayTitle": "Promicil – krém proti plísním",
+      "categorySlug": "fungus",
+      "formKind": "capsules",
+      "audience": "any",
+      "modelUsed": "meta-llama/llama-3.3-70b-instruct:free",
+      "slots": [
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 21
+        },
+        {
+          "gender": "f",
+          "rating": 4,
+          "daysAgo": 14
+        },
+        {
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 35
+        },
+        {
+          "gender": "f",
+          "rating": 3,
+          "daysAgo": 28
+        },
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 6
+        }
+      ],
+      "reviews": [],
+      "error": "LLM 404: {\"error\":{\"message\":\"This model is unavailable for free. The paid version is available now - use this slug instead: meta-llama/llama-3.3-70b-instruct\",\"code\":404},\"user_id\":\"user_3EpKtArdBUVgVO1urwcjtzKm23a\"}"
+    }
+  ]
+}

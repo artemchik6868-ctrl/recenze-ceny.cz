@@ -1,0 +1,322 @@
+[
+  {
+    "ok": true,
+    "offerId": 14211,
+    "source": "shakes",
+    "mode": "llm",
+    "elapsed_ms": 29738,
+    "landing": {
+      "status": "injected_in_generate",
+      "note": "Landing facts loaded inside getOrGenerate (set extract_only=1 to inspect)"
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "saved": true,
+      "genMs": 29738,
+      "metrics": {
+        "promptTokens": 10031,
+        "completionTokens": 1328,
+        "totalTokens": 11359,
+        "requestedCompletionTokens": 16804,
+        "attempts": 7,
+        "retries": 0,
+        "durationMs": 26550
+      },
+      "displayTitle": "Cordyceps Pulse – kapsle na krevní tlak",
+      "htmlLen": 1957,
+      "htmlPreview": "<h2>💊 Cordyceps Pulse – kapsle na krevní tlak</h2>\n<p>Cordyceps Pulse jsou kapsle, které pomáhají s krevním tlakem. Jsou určené pro ty, kteří mají problémy s hypertenzí. Cílem je pomoci tělu udržet tlak v normě.</p>\n<p>Tento doplněk stravy je navržen tak, aby podporoval cévní systém. Může pomoci zlepšit pružnost cév a jejich celkový stav. Je to jedna z možností, jak podpořit zdraví srdce a cév.</p>\n\n<h2>✅ Pro koho je Cordyceps Pulse vhodný?</h2>\n<p>Cordyceps Pulse je určený pro dospělé, kteří ř",
+      "hasSlozeni": true,
+      "hasNavod": true,
+      "hasFormHint": true
+    }
+  },
+  {
+    "ok": true,
+    "offerId": 14771,
+    "source": "shakes",
+    "mode": "llm",
+    "elapsed_ms": 29804,
+    "landing": {
+      "status": "injected_in_generate",
+      "note": "Landing facts loaded inside getOrGenerate (set extract_only=1 to inspect)"
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "saved": true,
+      "genMs": 29804,
+      "metrics": {
+        "promptTokens": 9266,
+        "completionTokens": 1521,
+        "totalTokens": 10787,
+        "requestedCompletionTokens": 16804,
+        "attempts": 7,
+        "retries": 0,
+        "durationMs": 27118
+      },
+      "displayTitle": "Hondroine – kloubní gel",
+      "htmlLen": 2344,
+      "htmlPreview": "<h2>🌿 Hondroine – kloubní gel</h2>\n<p>Hondroine je kloubní gel, který se zaměřuje na problémy s klouby. Je určený pro ty, kteří hledají úlevu od nepohodlí spojeného s různými kloubními potížemi.</p>\n<p>Tento gel se nanáší přímo na kůži. Může pomoci při pocitech tuhosti nebo bolesti kloubů. Je to lokální řešení pro ty, kteří chtějí podpořit své klouby zvenčí.</p>\n\n<h2>🎯 Pro koho je Hondroine vhodný?</h2>\n<p>Hondroine je určený pro lidi, kteří se potýkají s kloubními problémy. Může se hodit, pok",
+      "hasSlozeni": true,
+      "hasNavod": true,
+      "hasFormHint": true
+    }
+  },
+  {
+    "ok": true,
+    "offerId": 15054,
+    "source": "shakes",
+    "mode": "llm",
+    "elapsed_ms": 21491,
+    "landing": {
+      "status": "injected_in_generate",
+      "note": "Landing facts loaded inside getOrGenerate (set extract_only=1 to inspect)"
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "saved": true,
+      "genMs": 21491,
+      "metrics": {
+        "promptTokens": 10583,
+        "completionTokens": 1160,
+        "totalTokens": 11743,
+        "requestedCompletionTokens": 17828,
+        "attempts": 8,
+        "retries": 0,
+        "durationMs": 15373
+      },
+      "displayTitle": "Eudalie – omlazující krém",
+      "htmlLen": 1560,
+      "htmlPreview": "<h2>✨ Eudalie – omlazující krém</h2>\n<p>Eudalie je krém, který pomáhá s omlazením pleti. Je určený pro ty, kteří chtějí řešit viditelné známky stárnutí. Krém se zaměřuje na vrásky a suchou pokožku.</p>\n<p>Může pomoci, aby pleť vypadala mladší a cítila se lépe. Cena je 690 Kč.</p>\n\n<h2>🎯 Pro koho je Eudalie vhodný?</h2>\n<ul>\n    <li>Pokud vás trápí vrásky a jemné linky.</li>\n    <li>Máte pocit, že vaše pleť ztrácí pružnost.</li>\n    <li>Vaše pokožka je suchá a potřebuje hydrataci.</li>\n    <li>C",
+      "hasSlozeni": true,
+      "hasNavod": true,
+      "hasFormHint": true
+    }
+  },
+  {
+    "ok": true,
+    "offerId": 16266,
+    "source": "shakes",
+    "mode": "llm",
+    "elapsed_ms": 39786,
+    "landing": {
+      "status": "injected_in_generate",
+      "note": "Landing facts loaded inside getOrGenerate (set extract_only=1 to inspect)"
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "saved": true,
+      "genMs": 39786,
+      "metrics": {
+        "promptTokens": 10159,
+        "completionTokens": 1560,
+        "totalTokens": 11719,
+        "requestedCompletionTokens": 16804,
+        "attempts": 7,
+        "retries": 1,
+        "durationMs": 23267
+      },
+      "displayTitle": "Cystolax – lék na cystitidu",
+      "htmlLen": 2432,
+      "htmlPreview": "<h2>💊 Cystolax: Pomoc při cystitidě</h2>\n<p>Cystolax je přípravek určený pro ty, kteří se potýkají s cystitidou. Může pomoci zmírnit nepříjemné pocity spojené se zánětem močových cest. Je to doplněk stravy, který cílí na podporu močového systému.</p>\n<p>Tento přípravek je navržen tak, aby pomohl tělu vypořádat se s příčinami cystitidy. Může být užitečný jak při akutních stavech, tak i jako prevence.</p>\n\n<h2>🎯 Indikace k použití</h2>\n<p>Cystolax je vhodný pro:</p>\n<ul>\n    <li>Ženy, které trpí",
+      "hasSlozeni": true,
+      "hasNavod": true,
+      "hasFormHint": false
+    }
+  },
+  {
+    "ok": true,
+    "offerId": 16376,
+    "source": "shakes",
+    "mode": "llm",
+    "elapsed_ms": 43449,
+    "landing": {
+      "status": "injected_in_generate",
+      "note": "Landing facts loaded inside getOrGenerate (set extract_only=1 to inspect)"
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "saved": true,
+      "genMs": 43449,
+      "metrics": {
+        "promptTokens": 9860,
+        "completionTokens": 1352,
+        "totalTokens": 11212,
+        "requestedCompletionTokens": 16804,
+        "attempts": 7,
+        "retries": 2,
+        "durationMs": 26359
+      },
+      "displayTitle": "Insuwell – prostředek proti cukrovce",
+      "htmlLen": 2105,
+      "htmlPreview": "<h2>💊 Insuwell – pomocník při cukrovce</h2>\n<p>Insuwell jsou kapsle určené pro lidi, kteří řeší problémy s hladinou cukru v krvi. Cukrovka je složité onemocnění. Tyto kapsle mohou pomoci stabilizovat hladinu cukru.</p>\n<p>Produkt je navržen tak, aby podporoval přirozenou tvorbu inzulinu v těle. Může také chránit před vysokým obsahem cukru. Cena je 890 Kč.</p>\n\n<h2>✅ Indikace k použití</h2>\n<p>Insuwell je vhodný pro ty, kteří chtějí podpořit své tělo v boji proti cukrovce. Může pomoci v těchto s",
+      "hasSlozeni": true,
+      "hasNavod": true,
+      "hasFormHint": true
+    }
+  },
+  {
+    "ok": true,
+    "offerId": 16402,
+    "source": "shakes",
+    "mode": "llm",
+    "elapsed_ms": 32181,
+    "landing": {
+      "status": "injected_in_generate",
+      "note": "Landing facts loaded inside getOrGenerate (set extract_only=1 to inspect)"
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "saved": true,
+      "genMs": 32181,
+      "metrics": {
+        "promptTokens": 10186,
+        "completionTokens": 1229,
+        "totalTokens": 11415,
+        "requestedCompletionTokens": 17828,
+        "attempts": 8,
+        "retries": 0,
+        "durationMs": 19490
+      },
+      "displayTitle": "Benaga Chaga – prostředek na potenci",
+      "htmlLen": 1978,
+      "htmlPreview": "<h2>🍄 Benaga Chaga – co to je a k čemu slouží?</h2>\n<p>Benaga Chaga je doplněk stravy, který se zaměřuje na podporu mužské potence. Je určený pro ty, kteří chtějí přirozeně podpořit svou vitalitu a sexuální funkce.</p>\n<p>Tento produkt může pomoci zlepšit celkovou pohodu a přispět k lepšímu prožitku v intimním životě. Není to lék, ale spíše podpora pro tělo.</p>\n\n<h2>🎯 Indikace k použití</h2>\n<p>Benaga Chaga je vhodný pro muže, kteří:</p>\n<ul>\n    <li>Cítí úbytek energie a vitality.</li>\n    <",
+      "hasSlozeni": true,
+      "hasNavod": true,
+      "hasFormHint": false
+    }
+  },
+  {
+    "ok": true,
+    "offerId": 17156,
+    "source": "shakes",
+    "mode": "llm",
+    "elapsed_ms": 28577,
+    "landing": {
+      "status": "injected_in_generate",
+      "note": "Landing facts loaded inside getOrGenerate (set extract_only=1 to inspect)"
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "saved": true,
+      "genMs": 28577,
+      "metrics": {
+        "promptTokens": 10052,
+        "completionTokens": 1271,
+        "totalTokens": 11323,
+        "requestedCompletionTokens": 17828,
+        "attempts": 8,
+        "retries": 0,
+        "durationMs": 15905
+      },
+      "displayTitle": "Pulsactive - lék na hypertenzi",
+      "htmlLen": 1942,
+      "htmlPreview": "<h2>💊 Pulsactive – podpora pro krevní tlak</h2>\n<p>Pulsactive je doplněk stravy, který se zaměřuje na podporu normálního krevního tlaku. Je určený pro ty, kteří hledají přirozenou cestu, jak pomoci svému tělu udržet tlak v rovnováze.</p>\n<p>Může být užitečný pro lidi, kteří cítí, že jejich krevní tlak kolísá, nebo pro ty, kteří chtějí preventivně podpořit svůj kardiovaskulární systém.</p>\n\n<h2>✅ Kdy Pulsactive zvážit?</h2>\n<p>Pulsactive se hodí, pokud chcete podpořit svůj krevní tlak. Může pomo",
+      "hasSlozeni": true,
+      "hasNavod": true,
+      "hasFormHint": false
+    }
+  },
+  {
+    "ok": true,
+    "offerId": 17350,
+    "source": "shakes",
+    "mode": "llm",
+    "elapsed_ms": 40941,
+    "landing": {
+      "status": "injected_in_generate",
+      "note": "Landing facts loaded inside getOrGenerate (set extract_only=1 to inspect)"
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "saved": true,
+      "genMs": 40941,
+      "metrics": {
+        "promptTokens": 10231,
+        "completionTokens": 1355,
+        "totalTokens": 11586,
+        "requestedCompletionTokens": 17828,
+        "attempts": 8,
+        "retries": 1,
+        "durationMs": 21065
+      },
+      "displayTitle": "Neoflorax – lék proti parazitům",
+      "htmlLen": 2080,
+      "htmlPreview": "<h2>🌿 Co je Neoflorax a k čemu slouží?</h2>\n<p>Neoflorax jsou kapky, které pomáhají tělu bojovat proti parazitům. Jsou určené pro ty, kteří hledají přirozenou cestu, jak se zbavit nežádoucích hostů v organismu.</p>\n<p>Produkt je navržen tak, aby podporoval očistu těla. Může pomoci zlepšit celkovou pohodu, pokud je vaše tělo zatíženo parazity.</p>\n\n<h2>🎯 Indikace k použití</h2>\n<p>Neoflorax je vhodný pro lidi, kteří:</p>\n<ul>\n    <li>Cítí únavu bez zjevné příčiny.</li>\n    <li>Mají problémy s t",
+      "hasSlozeni": true,
+      "hasNavod": true,
+      "hasFormHint": true
+    }
+  },
+  {
+    "ok": true,
+    "offerId": 17620,
+    "source": "shakes",
+    "mode": "llm",
+    "elapsed_ms": 69833,
+    "landing": {
+      "status": "injected_in_generate",
+      "note": "Landing facts loaded inside getOrGenerate (set extract_only=1 to inspect)"
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "saved": true,
+      "genMs": 69833,
+      "metrics": {
+        "promptTokens": 9062,
+        "completionTokens": 1540,
+        "totalTokens": 10602,
+        "requestedCompletionTokens": 16804,
+        "attempts": 7,
+        "retries": 3,
+        "durationMs": 31202
+      },
+      "displayTitle": "Balancio – kapsle na kontrolu hmotnosti",
+      "htmlLen": 2432,
+      "htmlPreview": "<h2>🌿 Balancio – kapky na kontrolu hmotnosti</h2>\n<p>Balancio jsou kapky, které vám mohou pomoci s kontrolou hmotnosti. Jsou určené pro ty, kdo hledají podporu při hubnutí.</p>\n<p>Cílem je pomoci tělu využít tukové zásoby jako zdroj energie. To může přispět k lepšímu pocitu a snížení váhy.</p>\n<p>Kapky jsou vhodné jako doplněk k vašemu běžnému životnímu stylu, pokud se snažíte o změnu.</p>\n\n<h2>🎯 Pro koho je Balancio vhodné?</h2>\n<p>Tyto kapky jsou pro vás, pokud:</p>\n<ul>\n    <li>Chcete podpo",
+      "hasSlozeni": true,
+      "hasNavod": true,
+      "hasFormHint": true
+    }
+  },
+  {
+    "ok": true,
+    "offerId": 13905,
+    "source": "shakes",
+    "mode": "llm",
+    "elapsed_ms": 18754,
+    "landing": {
+      "status": "injected_in_generate",
+      "note": "Landing facts loaded inside getOrGenerate (set extract_only=1 to inspect)"
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "saved": true,
+      "genMs": 18754,
+      "metrics": {
+        "promptTokens": 9997,
+        "completionTokens": 1382,
+        "totalTokens": 11379,
+        "requestedCompletionTokens": 16804,
+        "attempts": 7,
+        "retries": 0,
+        "durationMs": 15569
+      },
+      "displayTitle": "Herzena – lék na hypertenzi",
+      "htmlLen": 2197,
+      "htmlPreview": "<h2>💊 Herzena – kapsle na hypertenzi</h2>\n<p>Herzena jsou kapsle, které pomáhají lidem s vysokým krevním tlakem. Jsou určené pro ty, kteří chtějí podpořit normální funkci svého oběhového systému. Cílem je pomoci udržet tlak v rozumných mezích.</p>\n<p>Tento doplněk stravy je vhodný pro dospělé. Může být užitečný, pokud se potýkáte s hypertenzí a hledáte něco, co by mohlo přispět k lepšímu pocitu.</p>\n\n<h2>✅ Indikace k použití</h2>\n<p>Herzena se používá hlavně při problémech s vysokým krevním tla",
+      "hasSlozeni": true,
+      "hasNavod": true,
+      "hasFormHint": true
+    }
+  }
+]

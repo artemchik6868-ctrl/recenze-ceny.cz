@@ -1,0 +1,125 @@
+{
+  "at": "2026-07-26T14:29:51.691Z",
+  "results": [
+    {
+      "source": "m1_top",
+      "offerId": 5641,
+      "slug": "uro-m5641",
+      "before": {
+        "status": "ok",
+        "method": "llm",
+        "sourceUrl": "https://luckysalesonline.com/page/ffc73dbb32380be532766e0833281fcd238b3943/",
+        "role": "prostatitida",
+        "categoryHint": "proctology",
+        "shelf": "hemorrhoids"
+      },
+      "after": {
+        "status": "ok",
+        "method": "llm",
+        "sourceUrl": "https://luckysalesonline.com/page/ffc73dbb32380be532766e0833281fcd238b3943/",
+        "role": "prostatitida",
+        "categoryHint": "prostate-health",
+        "shelf": "prostate-health",
+        "error": null
+      },
+      "ok": true,
+      "ms": 4869
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 23680,
+      "slug": "prostate-23680",
+      "before": {
+        "status": "ok",
+        "method": "llm",
+        "sourceUrl": "http://prostsupport.xcartpro.com/r2bgtd/",
+        "role": "prostatitida, potence",
+        "categoryHint": "proctology",
+        "shelf": "hemorrhoids"
+      },
+      "after": {
+        "status": "ok",
+        "method": "llm",
+        "sourceUrl": "http://prostsupport.xcartpro.com/r2bgtd/",
+        "role": "podpora prostaty",
+        "categoryHint": "prostate-health",
+        "shelf": "prostate-health",
+        "error": null
+      },
+      "ok": true,
+      "ms": 2673
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 23419,
+      "slug": "uro-23419",
+      "before": {
+        "status": "ok",
+        "method": "llm",
+        "sourceUrl": "http://uroup.xcartpro.com/r3jkla/",
+        "role": "prostatitida",
+        "categoryHint": "proctology",
+        "shelf": "hemorrhoids"
+      },
+      "after": {
+        "status": "ok",
+        "method": "llm",
+        "sourceUrl": "http://uroup.xcartpro.com/r3jkla/",
+        "role": "prostatitida, zdraví prostaty",
+        "categoryHint": "prostate-health",
+        "shelf": "prostate-health",
+        "error": null
+      },
+      "ok": true,
+      "ms": 4234
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 21110,
+      "slug": "sanoprost-21110",
+      "before": {
+        "status": "ok",
+        "method": "llm",
+        "sourceUrl": "http://sanoprost.xcartpro.com/r1czfr/",
+        "role": "prostatitida",
+        "categoryHint": "proctology",
+        "shelf": "hemorrhoids"
+      },
+      "after": {
+        "status": "ok",
+        "method": "llm",
+        "sourceUrl": "http://sanoprost.xcartpro.com/r1czfr/",
+        "role": "prostatitida",
+        "categoryHint": "prostate-health",
+        "shelf": "prostate-health",
+        "error": null
+      },
+      "ok": true,
+      "ms": 2657
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 13070,
+      "slug": "retoxin-13070",
+      "before": {
+        "status": "ok",
+        "method": "llm",
+        "sourceUrl": "http://toxin.xcartpro.com/r1/",
+        "role": "proti střevním cizopasníkům a toxickým látkám",
+        "categoryHint": "proctology",
+        "shelf": "hemorrhoids"
+      },
+      "after": {
+        "status": "ok",
+        "method": "llm",
+        "sourceUrl": "http://toxin.xcartpro.com/r1/",
+        "role": "proti parazitům a detoxikace",
+        "categoryHint": "parasites",
+        "shelf": "parasites",
+        "error": null
+      },
+      "ok": true,
+      "ms": 4097
+    }
+  ]
+}

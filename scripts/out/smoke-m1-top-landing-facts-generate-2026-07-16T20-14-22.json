@@ -1,0 +1,367 @@
+[
+  {
+    "offerId": 6066,
+    "ok": true,
+    "url": "https://recenze-ceny.cz/weight-management/liposivin-m6066",
+    "category": "weight-management",
+    "slug": "liposivin-m6066",
+    "elapsed_ms": 29821,
+    "landing": {
+      "status": "ok",
+      "langHint": "cs",
+      "sourceUrl": "https://saleegood.com/page/457c930859556e75ea73bab50221bc8d81e515f5/",
+      "jsonChars": 1177,
+      "fullTextChars": 28949,
+      "method": "llm",
+      "usage": {
+        "prompt_tokens": 9129,
+        "completion_tokens": 484,
+        "total_tokens": 9613
+      },
+      "facts": {
+        "form": "kapky",
+        "role": "hubnutí",
+        "dosage": "Rozpusťte 20 kapek v cca 100 ml vody a vypijte před jídlem, 1krát denně.",
+        "ingredients": [],
+        "benefits": [
+          "Postupné a bezpečné hubnutí minimálním tempem 15 kg za 30 dní",
+          "Snížení viscerálního tuku o 87 % a boj proti abdominální obezitě",
+          "98,9% čištění toxinů z těla",
+          "Kardiovaskulární zdatnost a snížení rizika hypertenze, ischemické choroby srdeční, mrtvice a infark…",
+          "Kontrola hladiny cukru v krvi a až o 84 % nižší riziko vzniku diabetu II. typu"
+        ],
+        "h1": "Liposivin MÁTE ZVLÁŠTNÍ NABÍDKU! Řekneme vám vše o tomto produktu a nabídneme nejlepší podmínky!",
+        "application": "oral",
+        "packSize": null,
+        "courseDays": "30 dní",
+        "usageSteps": [
+          "Rozpusťte 20 kapek v cca 100 ml vody.",
+          "Vypijte před jídlem.",
+          "Užívejte 1krát denně."
+        ],
+        "audience": "Pro osoby trpící nadváhou, které chtějí zhubnout bez diet a cvičení.",
+        "warnings": [
+          "Informace na webových stránkách jsou pouze pro informační účely a nejsou určeny jako náhrada za rad…",
+          "Před použitím jakéhokoli doplňkového dietního produktu byste se měli vždy poradit s lékařem.",
+          "Výsledky se mohou lišit v závislosti na zdravotním stavu, pohlaví, věku a životním stylu."
+        ],
+        "categoryHint": "weight-management"
+      },
+      "heuristicFacts": {
+        "form": "sprej",
+        "role": "zrak",
+        "dosage": "20 kapek v cca 100 ml vody a vypít před jídlem",
+        "ingredients": [],
+        "benefits": [],
+        "h1": "\"WOW! Kila letí dolů jako blázen!\"",
+        "application": null,
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [],
+        "audience": null,
+        "warnings": [],
+        "categoryHint": null
+      },
+      "timing": {
+        "pickMs": 284,
+        "fetchMs": 1010,
+        "extractMs": 2685,
+        "totalMs": 3987
+      },
+      "error": null,
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: kapky\naplikace: oral\nrole/indikace: hubnutí\nkategorieHint: weight-management\nkura: 30 dní\ndavkovani: Rozpusťte 20 kapek v cca 100 ml vody a vypijte před jídlem, 1krát denně.\nbenefity: Postupné a bezpečné hubnutí minimálním tempem 15 kg za 30 dní; Snížení viscerálního tuku o 87 % a boj proti abdominální obezitě; 98,9% čištění toxinů z těla; Kardiovaskulární zdatnost a snížení rizika hypertenze, ischemické choroby srdeční, mrtvice a infark…; Kontrola hladiny cukru v krvi a až o 84 % nižší riziko vzniku diabetu II. typu\nnavod: 1. Rozpusťte 20 kapek v cca 100 ml vody. | 2. Vypijte před jídlem. | 3. Užívejte 1krát denně.\nproKoho: Pro osoby trpící nadváhou, které chtějí zhubnout bez diet a cvičení.\nupozorneni: Informace na webových stránkách jsou pouze pro informační účely a nejsou určeny jako náhrada za rad…; Výsledky se mohou lišit v závislosti na zdravotním stavu, pohlaví, věku a životním stylu.\nnadpis: Liposivin MÁTE ZVLÁŠTNÍ NABÍDKU! Řekneme vám vše o tomto produktu a nabídneme nejlepší podmínky!"
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "genMs": 25272,
+      "tokens": 10502,
+      "displayTitle": "Liposivin – kapky na hubnutí",
+      "htmlLen": 2051,
+      "hasSlozeni": true,
+      "hasFormHint": true,
+      "htmlPreview": "<h2>Liposivin – kapky na hubnutí</h2>\n<p>Liposivin jsou kapky, které pomáhají s hubnutím. Jsou určené pro ty, kdo chtějí snížit svou váhu.</p>\n<p>Tyto kapky mohou pomoci s rozkladem tuků a zrychlením metabolismu. Jsou vhodné pro lidi, kteří hledají podporu při snaze zhubnout.</p>\n\n<h2>🎯 K čemu Liposivin slouží?</h2>\n<p>Liposivin je určený pro lidi, kteří se potýkají s nadváhou. Může pomoci těm, k"
+    }
+  },
+  {
+    "offerId": 5958,
+    "ok": true,
+    "url": "https://recenze-ceny.cz/accessories/magic-m5958",
+    "category": "accessories",
+    "slug": "magic-m5958",
+    "elapsed_ms": 29260,
+    "landing": {
+      "status": "ok",
+      "langHint": "cs",
+      "sourceUrl": "https://magsh.site/page/87b4c1623ff0d80243a6d359103b30f8047f6cef/",
+      "jsonChars": 664,
+      "fullTextChars": 12203,
+      "method": "llm",
+      "usage": {
+        "prompt_tokens": 3474,
+        "completion_tokens": 293,
+        "total_tokens": 3767
+      },
+      "facts": {
+        "form": "jiné",
+        "role": null,
+        "dosage": null,
+        "ingredients": [
+          "100% fibră de poliester"
+        ],
+        "benefits": [
+          "Strălucește în întuneric",
+          "Foarte moale și confortabilă",
+          "Se poate spăla la mașină",
+          "Stimulează ideile interesante ale copiilor",
+          "Inofensivă pentru corpul uman"
+        ],
+        "h1": "Pătură Magică ce Strălucește în Întuneric",
+        "application": "other",
+        "packSize": "150 x 130 cm",
+        "courseDays": null,
+        "usageSteps": [
+          "Expuneți pătura la o sursă de lumină puternică sau la lumina soarelui pentru a o încărca.",
+          "Spălați la mașină în apă rece.",
+          "Uscați la temperatură scăzută."
+        ],
+        "audience": "Copii, adulți, pentru decorarea casei, camping sau călătorii.",
+        "warnings": [],
+        "categoryHint": "accessories"
+      },
+      "heuristicFacts": {
+        "form": "sprej",
+        "role": null,
+        "dosage": null,
+        "ingredients": [],
+        "benefits": [],
+        "h1": "Pătură Magică ce Strălucește în Întuneric",
+        "application": null,
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [],
+        "audience": null,
+        "warnings": [],
+        "categoryHint": null
+      },
+      "timing": {
+        "pickMs": 163,
+        "fetchMs": 1093,
+        "extractMs": 5174,
+        "totalMs": 6434
+      },
+      "error": null,
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: jiné\naplikace: other\nkategorieHint: accessories\nbaleni: 150 x 130 cm\nslozeni: 100% fibră de poliester\nbenefity: Strălucește în întuneric; Foarte moale și confortabilă; Se poate spăla la mașină; Stimulează ideile interesante ale copiilor; Inofensivă pentru corpul uman\nnavod: 1. Expuneți pătura la o sursă de lumină puternică sau la lumina soarelui pentru a o încărca. | 2. Spălați la mașină în apă rece. | 3. Uscați la temperatură scăzută.\nproKoho: Copii, adulți, pentru decorarea casei, camping sau călătorii.\nnadpis: Pătură Magică ce Strălucește în Întuneric"
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "genMs": 22295,
+      "tokens": 9068,
+      "displayTitle": "Magic Glow – deka svítící ve tmě",
+      "htmlLen": 2436,
+      "hasSlozeni": false,
+      "hasFormHint": false,
+      "htmlPreview": "<h2>✨ Co je Magic Glow – deka svítící ve tmě?</h2>\n<p>Magic Glow je deka, která umí svítit ve tmě. Přes den nasaje světlo a v noci ho pak vydává. Je to takový malý trik, který může dětem pomoct se nebát tmy. Ale i dospělí si ji můžou užít.</p>\n<p>Deka je vyrobená ze 100% polyesterového vlákna. To znamená, že je příjemná na dotek a taky se snadno udržuje. Rozměry deky jsou 150 x 130 cm, takže se po"
+    }
+  },
+  {
+    "offerId": 5941,
+    "ok": true,
+    "url": "https://recenze-ceny.cz/weight-management/nano-m5941",
+    "category": "weight-management",
+    "slug": "nano-m5941",
+    "elapsed_ms": 23060,
+    "landing": {
+      "status": "ok",
+      "langHint": "cs",
+      "sourceUrl": "https://magsh.site/page/8f0d11028956849b0170a42ffcb12e82aa74c0fd/",
+      "jsonChars": 729,
+      "fullTextChars": 15509,
+      "method": "llm",
+      "usage": {
+        "prompt_tokens": 4748,
+        "completion_tokens": 319,
+        "total_tokens": 5067
+      },
+      "facts": {
+        "form": "jiné",
+        "role": "hubnutí",
+        "dosage": "Igyon egy 1 koktélt naponta kétszer.",
+        "ingredients": [],
+        "benefits": [
+          "Zvýšení počtu ketonů a pomoc při spalování tuků",
+          "Snížení potřeby produkce inzulínu",
+          "Mírnění pocitu hladu",
+          "Zastavení přeměny sacharidů na cukr",
+          "Rychlé a nepřetržité hubnutí"
+        ],
+        "h1": "EGY FOGYASZTÓ MÓDSZER, AMIT MÉG SOHA NEM PRÓBÁLTÁL",
+        "application": "oral",
+        "packSize": null,
+        "courseDays": "30 dní",
+        "usageSteps": [],
+        "audience": null,
+        "warnings": [
+          "Nano Slim neobsahuje syntetické, psychotropní ani hormonální látky.",
+          "Nano Slim je bez testování na zvířatech a neobsahuje složky živočišného původu, je vhodný pro veget…",
+          "Pokud přijímáte více sacharidů než tuků, účinek na hubnutí se sníží."
+        ],
+        "categoryHint": "weight-management"
+      },
+      "heuristicFacts": {
+        "form": "sprej",
+        "role": "hubnuti",
+        "dosage": null,
+        "ingredients": [],
+        "benefits": [],
+        "h1": "Nano Slim",
+        "application": null,
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [],
+        "audience": null,
+        "warnings": [],
+        "categoryHint": null
+      },
+      "timing": {
+        "pickMs": 166,
+        "fetchMs": 903,
+        "extractMs": 2076,
+        "totalMs": 3149
+      },
+      "error": null,
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: jiné\naplikace: oral\nrole/indikace: hubnutí\nkategorieHint: weight-management\nkura: 30 dní\ndavkovani: Igyon egy 1 koktélt naponta kétszer.\nbenefity: Zvýšení počtu ketonů a pomoc při spalování tuků; Snížení potřeby produkce inzulínu; Mírnění pocitu hladu; Zastavení přeměny sacharidů na cukr; Rychlé a nepřetržité hubnutí\nupozorneni: Nano Slim neobsahuje syntetické, psychotropní ani hormonální látky.; Nano Slim je bez testování na zvířatech a neobsahuje složky živočišného původu, je vhodný pro veget…; Pokud přijímáte více sacharidů než tuků, účinek na hubnutí se sníží.\nnadpis: EGY FOGYASZTÓ MÓDSZER, AMIT MÉG SOHA NEM PRÓBÁLTÁL"
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "genMs": 19264,
+      "tokens": 9828,
+      "displayTitle": "Nano Slim – doplněk na hubnutí",
+      "htmlLen": 1875,
+      "hasSlozeni": true,
+      "hasFormHint": true,
+      "htmlPreview": "<h2>💊 Nano Slim – doplněk na hubnutí</h2>\n<p>Nano Slim je doplněk stravy, který má pomoci s hubnutím. Je určený pro ty, kteří chtějí podpořit svůj metabolismus a snížit chuť k jídlu.</p>\n<p>Může pomoci tělu lépe spalovat tuky a dodat energii pro aktivnější životní styl. Nejde o zázračné řešení, ale o podporu při snaze zhubnout.</p>\n\n<h2>🎯 K čemu je Nano Slim?</h2>\n<ul>\n    <li>Pokud chcete podpo"
+    }
+  },
+  {
+    "offerId": 5860,
+    "ok": true,
+    "url": "https://recenze-ceny.cz/joint-care/artizynt-m5860",
+    "category": "joint-care",
+    "slug": "artizynt-m5860",
+    "elapsed_ms": 47721,
+    "landing": {
+      "status": "ok",
+      "langHint": "cs",
+      "sourceUrl": "https://promoshopmedias.com/page/1171cb8f33cb2fb5f27b2885fa80eeaba35afa1f/",
+      "jsonChars": 672,
+      "fullTextChars": 13090,
+      "method": "llm",
+      "usage": {
+        "prompt_tokens": 3321,
+        "completion_tokens": 300,
+        "total_tokens": 3621
+      },
+      "facts": {
+        "form": "gel",
+        "role": "bolesti kloubů",
+        "dosage": "Používat 2-3 krát denně, aplikovat na bolavé místo. Aplikace 2x denně.",
+        "ingredients": [
+          "Extrakt ze semen jalovce",
+          "Přírodní kolagen",
+          "Extrakt z borové kůry",
+          "Pryskyřice indického kadidla"
+        ],
+        "benefits": [
+          "Ulevuje od otoků, zánětů a zarudnutí",
+          "Regeneruje opotřebovanou chrupavkovou tkáň",
+          "Obnovuje pohyblivost kloubů za 7-9 dní",
+          "Rychle se vstřebává a je úsporný na použití",
+          "Proniká rychle k zdroji bolesti a eliminuje ji během několika minut"
+        ],
+        "h1": "ArtiZynt - Gel contro i dolori articolari",
+        "application": "topical",
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [],
+        "audience": null,
+        "warnings": [],
+        "categoryHint": "joint-care"
+      },
+      "heuristicFacts": {
+        "form": "gel",
+        "role": "zrak",
+        "dosage": "2-3 volte al giorno, applicando sulla zona che fa male",
+        "ingredients": [],
+        "benefits": [],
+        "h1": "ArtiZynt - Gel contro i dolori articolari.",
+        "application": null,
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [],
+        "audience": null,
+        "warnings": [],
+        "categoryHint": null
+      },
+      "timing": {
+        "pickMs": 170,
+        "fetchMs": 1033,
+        "extractMs": 1889,
+        "totalMs": 3094
+      },
+      "error": null,
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: gel\naplikace: topical\nrole/indikace: bolesti kloubů\nkategorieHint: joint-care\ndavkovani: Používat 2-3 krát denně, aplikovat na bolavé místo. Aplikace 2x denně.\nslozeni: Extrakt ze semen jalovce; Přírodní kolagen; Extrakt z borové kůry; Pryskyřice indického kadidla\nbenefity: Ulevuje od otoků, zánětů a zarudnutí; Regeneruje opotřebovanou chrupavkovou tkáň; Obnovuje pohyblivost kloubů za 7-9 dní; Rychle se vstřebává a je úsporný na použití; Proniká rychle k zdroji bolesti a eliminuje ji během několika minut\nnadpis: ArtiZynt - Gel contro i dolori articolari"
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "genMs": 44079,
+      "tokens": 10026,
+      "displayTitle": "ArtiZynt – gel na klouby",
+      "htmlLen": 1754,
+      "hasSlozeni": true,
+      "hasFormHint": true,
+      "htmlPreview": "<h2>🌿 ArtiZynt – gel na klouby</h2>\n<p>ArtiZynt je gel, který se používá na klouby. Je určený pro ty, kteří hledají úlevu od bolesti kloubů. Může pomoci zastavit ničení kloubů a podpořit obnovu poškozených tkání.</p>\n<p>Tento gel se aplikuje přímo na kůži. Není to doplněk stravy, který by se polykal.</p>\n\n<h2>🎯 K čemu ArtiZynt slouží?</h2>\n<ul>\n    <li>Pro lidi s bolestmi kloubů.</li>\n    <li>Mů"
+    }
+  },
+  {
+    "offerId": 5845,
+    "ok": true,
+    "url": "https://recenze-ceny.cz/potenz-libido/menstill-m5845",
+    "category": "potenz-libido",
+    "slug": "menstill-m5845",
+    "elapsed_ms": 20341,
+    "landing": {
+      "status": "fetch_error",
+      "langHint": "cs",
+      "sourceUrl": "https://apgo.online/page/fd54d407630f3183acc0c9719639fcc02cdacb51/",
+      "jsonChars": 0,
+      "fullTextChars": 0,
+      "method": "llm",
+      "usage": null,
+      "facts": null,
+      "heuristicFacts": null,
+      "timing": {
+        "pickMs": 173,
+        "fetchMs": 8050,
+        "extractMs": 0,
+        "totalMs": 8223
+      },
+      "error": "Failed to parse LLM JSON: ```json\n{\n  \"form\": \"tablety\",\n  \"application\": \"oral\",\n  \"role\": \"potence\",\n  \"categoryHint\": \"potenz-libido\",\n  \"packSize\": null,\n  \"courseDays\": \"30 dní\",\n  \"dosage\": null,\n  \"ingredients\": [\n    \"",
+      "promptBlock": null
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "genMs": 11528,
+      "tokens": 9561,
+      "displayTitle": "Menstill Pro – tablety pro zvýšení potence",
+      "htmlLen": 2261,
+      "hasSlozeni": true,
+      "hasFormHint": false,
+      "htmlPreview": "<h2>🍆 Menstill Pro – tablety pro zvýšení potence</h2>\n<p>Menstill Pro jsou tablety, které mohou pomoci s potencí. Jsou určené pro muže, kteří chtějí zlepšit svůj sexuální život. Může se hodit, pokud máte pocit, že vaše erekce není tak pevná, jak byste si přáli, nebo pokud chcete prodloužit sexuální výdrž.</p>\n<p>Tyto tablety jsou navrženy tak, aby podpořily krevní oběh v oblasti penisu. To je klí"
+    }
+  }
+]

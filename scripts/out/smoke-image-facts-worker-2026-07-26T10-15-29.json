@@ -1,0 +1,127 @@
+[
+  {
+    "ok": true,
+    "mode": "extract",
+    "source": "shakes",
+    "offerId": 12197,
+    "force": false,
+    "elapsed_ms": 152,
+    "status": "ok",
+    "method": "free",
+    "imageUrl": "https://shakes.pro/pics/offers/12197_promo.jpg",
+    "imageHash": "9d3g3m",
+    "jsonChars": 222,
+    "llmAttempts": 1,
+    "timing": {
+      "preflightMs": 0,
+      "llmMs": 0,
+      "totalMs": 152
+    },
+    "usage": null,
+    "facts": {
+      "packaging": "tuba",
+      "application": "topical",
+      "productType": "lokální přípravek",
+      "releaseForm": "gel",
+      "detectedText": "Proctonic",
+      "primaryColor": "modrá",
+      "briefDescription": "Proctonic je lokální gel s chladivým efektem v tubě."
+    },
+    "promptBlock": "Fakta z produktového obrázku (vision, stručná):\ntyp: lokální přípravek\naplikace: topical\nforma: gel\nobal: tuba\nbarva: modrá\ntextNaObalu: Proctonic\npopis: Proctonic je lokální gel s chladivým efektem v tubě.",
+    "error": null,
+    "wroteDb": false
+  },
+  {
+    "ok": true,
+    "mode": "extract",
+    "source": "kma",
+    "offerId": 7306,
+    "force": false,
+    "elapsed_ms": 151,
+    "status": "ok",
+    "method": "free",
+    "imageUrl": "https://kma.biz/uploads/store/6bb24468956384c482a8b5a901fb6383/178c08ebc538ec302b92ad3233bf091049b0eb50.jpg",
+    "imageHash": "12cecu3",
+    "jsonChars": 255,
+    "llmAttempts": 1,
+    "timing": {
+      "preflightMs": 0,
+      "llmMs": 0,
+      "totalMs": 151
+    },
+    "usage": null,
+    "facts": {
+      "packaging": "tuba",
+      "application": "topical",
+      "productType": "lokální přípravek",
+      "releaseForm": "gel",
+      "detectedText": "HondroFrost ICE COLD GEL",
+      "briefDescription": "Modrá tuba a modrá krabička s bílým textem \"HondroFrost\" a zeleným nápisem \"ICE COLD GEL\""
+    },
+    "promptBlock": "Fakta z produktového obrázku (vision, stručná):\ntyp: lokální přípravek\naplikace: topical\nforma: gel\nobal: tuba\ntextNaObalu: HondroFrost ICE COLD GEL\npopis: Modrá tuba a modrá krabička s bílým textem \"HondroFrost\" a zeleným nápisem \"ICE COLD GEL\"",
+    "error": null,
+    "wroteDb": false
+  },
+  {
+    "ok": true,
+    "mode": "extract",
+    "source": "cpa_tl",
+    "offerId": 23680,
+    "force": false,
+    "elapsed_ms": 246,
+    "status": "ok",
+    "method": "free",
+    "imageUrl": "https://cpa.tl/media/offers/thumbs/big/IMG_7121_2.PNG",
+    "imageHash": "pn0822",
+    "jsonChars": 369,
+    "llmAttempts": 1,
+    "timing": {
+      "preflightMs": 0,
+      "llmMs": 0,
+      "totalMs": 246
+    },
+    "usage": null,
+    "facts": {
+      "packaging": "dóza",
+      "application": "oral",
+      "productType": "doplněk stravy",
+      "releaseForm": "kapsle",
+      "detectedText": "PROSTATE SUPPORT FOR MEN Support for men's vitality - Lipidum meyeni For the health of the male urinary tract and prostate - Urtica dioica DIETARY SUPPLEMENT",
+      "briefDescription": "Bílá plastová dóza s modro-zeleným obalem a nápisem Prostate Support for men."
+    },
+    "promptBlock": "Fakta z produktového obrázku (vision, stručná):\ntyp: doplněk stravy\naplikace: oral\nforma: kapsle\nobal: dóza\ntextNaObalu: PROSTATE SUPPORT FOR MEN Support for men's vitality - Lipidum meyeni For the health of the male urinary tract and prostate - Urtica dioica DIETARY SUPPLEMENT\npopis: Bílá plastová dóza s modro-zeleným obalem a nápisem Prostate Support for men.",
+    "error": null,
+    "wroteDb": false
+  },
+  {
+    "ok": true,
+    "mode": "extract",
+    "source": "m1_top",
+    "offerId": 3639,
+    "force": false,
+    "elapsed_ms": 205,
+    "status": "ok",
+    "method": "free",
+    "imageUrl": "https://m1.top/uploads/offers/offer_img300x300/20210830121715638.jpg",
+    "imageHash": "12zz24v",
+    "jsonChars": 248,
+    "llmAttempts": 1,
+    "timing": {
+      "preflightMs": 0,
+      "llmMs": 0,
+      "totalMs": 205
+    },
+    "usage": null,
+    "facts": {
+      "packaging": "lahvička",
+      "application": "topical",
+      "productType": "lokální přípravek",
+      "releaseForm": "gel",
+      "detectedText": "FLEXOSAMINE",
+      "briefDescription": "Bílá pumpovací lahvička s červeným a zeleným balením, na ní nápis FLEXOSAMINE a obrázek kloubu."
+    },
+    "promptBlock": "Fakta z produktového obrázku (vision, stručná):\ntyp: lokální přípravek\naplikace: topical\nforma: gel\nobal: lahvička\ntextNaObalu: FLEXOSAMINE\npopis: Bílá pumpovací lahvička s červeným a zeleným balením, na ní nápis FLEXOSAMINE a obrázek kloubu.",
+    "error": null,
+    "wroteDb": false
+  }
+]

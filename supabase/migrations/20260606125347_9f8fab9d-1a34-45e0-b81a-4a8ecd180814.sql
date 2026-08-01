@@ -1,0 +1,1 @@
+UPDATE public.product_content SET source_hash = 'force-regen-v22' WHERE source_hash <> 'force-regen-v22';

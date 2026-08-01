@@ -1,0 +1,107 @@
+{
+  "source": "shakes",
+  "writeDb": true,
+  "totalTokens": 2002,
+  "estUsdPaid": 0,
+  "results": [
+    {
+      "source": "shakes",
+      "offerId": 12197,
+      "status": "ok",
+      "method": "free",
+      "imageUrl": "https://shakes.pro/pics/offers/12197_promo.jpg",
+      "imageHash": "9d3g3m",
+      "jsonChars": 203,
+      "llmAttempts": 1,
+      "timing": {
+        "preflightMs": 658,
+        "llmMs": 3610,
+        "totalMs": 6116
+      },
+      "usage": {
+        "prompt_tokens": 569,
+        "completion_tokens": 89,
+        "total_tokens": 658
+      },
+      "estUsdPaid": 0,
+      "hasContent": true,
+      "facts": {
+        "productType": "BAD",
+        "releaseForm": "krém",
+        "packaging": "tuba",
+        "primaryColor": "modrý a růžový",
+        "detectedText": "Proctonic",
+        "briefDescription": "Tuba a krabička s krémem Proctonic s modrou a růžovou barvou."
+      },
+      "promptBlock": "Fakta z produktového obrázku (vision, stručná):\ntyp: BAD\nforma: krém\nobal: tuba\nbarva: modrý a růžový\ntextNaObalu: Proctonic\npopis: Tuba a krabička s krémem Proctonic s modrou a růžovou barvou.",
+      "error": null,
+      "wroteDb": true
+    },
+    {
+      "source": "shakes",
+      "offerId": 12619,
+      "status": "ok",
+      "method": "free",
+      "imageUrl": "https://shakes.pro/pics/offers/12619_promo.jpg",
+      "imageHash": "eefz2b",
+      "jsonChars": 240,
+      "llmAttempts": 1,
+      "timing": {
+        "preflightMs": 289,
+        "llmMs": 3249,
+        "totalMs": 4931
+      },
+      "usage": {
+        "prompt_tokens": 576,
+        "completion_tokens": 105,
+        "total_tokens": 681
+      },
+      "estUsdPaid": 0,
+      "hasContent": true,
+      "facts": {
+        "productType": "doplněk stravy",
+        "releaseForm": "gel",
+        "packaging": "tuba",
+        "primaryColor": "modrý",
+        "detectedText": "Hondrofrost ICE COLD GEL",
+        "briefDescription": "Modrý tuba s bílou doplňkou a logoem, na ní je napsáno 'Hondrofrost ICE COLD GEL'."
+      },
+      "promptBlock": "Fakta z produktového obrázku (vision, stručná):\ntyp: doplněk stravy\nforma: gel\nobal: tuba\nbarva: modrý\ntextNaObalu: Hondrofrost ICE COLD GEL\npopis: Modrý tuba s bílou doplňkou a logoem, na ní je napsáno 'Hondrofrost ICE COLD GEL'.",
+      "error": null,
+      "wroteDb": true
+    },
+    {
+      "source": "shakes",
+      "offerId": 11937,
+      "status": "ok",
+      "method": "free",
+      "imageUrl": "https://shakes.pro/pics/offers/11937_promo.jpg",
+      "imageHash": "yoea8z",
+      "jsonChars": 247,
+      "llmAttempts": 1,
+      "timing": {
+        "preflightMs": 248,
+        "llmMs": 3819,
+        "totalMs": 5386
+      },
+      "usage": {
+        "prompt_tokens": 569,
+        "completion_tokens": 94,
+        "total_tokens": 663
+      },
+      "estUsdPaid": 0,
+      "hasContent": true,
+      "facts": {
+        "productType": "doplněk stravy",
+        "releaseForm": null,
+        "packaging": "krabička",
+        "primaryColor": "červený",
+        "detectedText": "Redusizer Effective Weight Loss Complex",
+        "briefDescription": "Předpis z boční strany s textem a ikonami, doplněk stravy v krabičce."
+      },
+      "promptBlock": "Fakta z produktového obrázku (vision, stručná):\ntyp: doplněk stravy\nobal: krabička\nbarva: červený\ntextNaObalu: Redusizer Effective Weight Loss Complex\npopis: Předpis z boční strany s textem a ikonami, doplněk stravy v krabičce.",
+      "error": null,
+      "wroteDb": true
+    }
+  ]
+}

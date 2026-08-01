@@ -1,0 +1,39 @@
+{
+  "at": "2026-07-26T14:40:37.756Z",
+  "auditHits": [
+    {
+      "offerId": 17510,
+      "sourceUrl": "https://cz2-cordycepspulse.visionhsh.com",
+      "hint": "vision-eye-care",
+      "role": "obnova zraku",
+      "eyewear": false,
+      "landingShelf": "vision-eye-care",
+      "resolved": "vision-eye-care"
+    },
+    {
+      "offerId": 22140,
+      "sourceUrl": "https://czl3-benagachaga.visionhsh.com",
+      "hint": "vision-eye-care",
+      "role": "zlepšení zraku",
+      "eyewear": false,
+      "landingShelf": "vision-eye-care",
+      "resolved": "vision-eye-care"
+    }
+  ],
+  "results": [
+    {
+      "key": "shakes:17510",
+      "shelf": "vision-eye-care",
+      "ok": true,
+      "display_title": "Cordyceps Pulse – kapsle pro podporu zraku",
+      "htmlLen": 3182
+    },
+    {
+      "key": "shakes:22140",
+      "shelf": "vision-eye-care",
+      "ok": true,
+      "display_title": "Benaga Chaga – podpora zraku",
+      "htmlLen": 3197
+    }
+  ]
+}

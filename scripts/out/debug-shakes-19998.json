@@ -1,0 +1,55 @@
+{
+  "source": "shakes",
+  "offerId": 19998,
+  "categorySlug": "nervous-system",
+  "pipelineVersion": "v70-hu-full-locale",
+  "feedTitle": "Benaga Chaga - stress",
+  "cleanedDescription": "Benaga Chaga - stress — https://hul1-benagachaga-stress.othersh.com — Лэндинг 1(iframe) hul1 benagachaga stress othersh com Веб-сайты Email-рассылки (по согласованию с личным менеджером) Дорвей-трафик Контекстная реклама Контекстная реклама на бренд Паблики ВК, ОК и Мой мир Соц. сети приложения Мотивированный трафик Push-уведомления YouTube TikTok Popup / Clickunder myTarget, таргет ВК Facebook Instagram",
+  "factsKind": "unknown",
+  "displayTitle": "Benaga Chaga – stresszoldó",
+  "maxAttempts": 3,
+  "attempts": [
+    {
+      "attempt": 1,
+      "mode": "pipeline",
+      "promptLen": 0,
+      "htmlLen": 2032,
+      "qaSeverity": "critical",
+      "qaErrors": [
+        "garbled-display-title"
+      ],
+      "htmlPreview": "<h2>🍄 Benaga Chaga – stresszoldó</h2>\n<p>A Benaga Chaga egy étrend-kiegészítő. Segít, ha stresszes időszakot élsz át.</p>\n<p>A chaga gomba kivonatot tartalmazza. Ez az összetevő régóta ismert a népi gyógyászatban.</p>\n<p>Ha a mindennapi feszültség terhel, ez a termék segíthet a kiegyensúlyozottabb állapot elérésében. Az ára 8900 Ft.</p>\n\n<h2>🧘‍♀️ Mikor érdemes használni?</h2>\n<ul>\n    <li>Ha gya"
+    },
+    {
+      "attempt": 2,
+      "mode": "pipeline",
+      "promptLen": 0,
+      "htmlLen": 1746,
+      "qaSeverity": "critical",
+      "qaErrors": [
+        "garbled-display-title",
+        "supplement-structure-missing"
+      ],
+      "htmlPreview": "<h2>🍄 Benaga Chaga – stresszoldó</h2>\n<p>A Benaga Chaga egy étrend-kiegészítő. Segíthet, ha stresszes időszakot élsz át.</p>\n<p>Ez a termék azoknak készült, akik természetes módon szeretnék támogatni a szervezetüket a mindennapi feszültség ellen.</p>\n\n<h2>🎯 Mire ajánljuk?</h2>\n<ul>\n    <li>Ha sok a munka, és nehezen kapcsolódsz ki.</li>\n    <li>Ha feszült vagy, és ez kihat a hangulatodra.</li>\n "
+    },
+    {
+      "attempt": 3,
+      "mode": "pipeline",
+      "promptLen": 0,
+      "htmlLen": 2181,
+      "qaSeverity": "critical",
+      "qaErrors": [
+        "garbled-display-title",
+        "supplement-structure-missing"
+      ],
+      "htmlPreview": "<h2>🍄 Benaga Chaga – stresszoldó</h2>\n<p>A Benaga Chaga egy étrend-kiegészítő. Segít, ha stresszes időszakon mész keresztül. A chaga gomba kivonatát tartalmazza, ami régóta ismert a népi gyógyászatban.</p>\n<p>Ez a termék azoknak szól, akik természetes módon szeretnék támogatni a szervezetüket a mindennapi feszültség kezelésében. Segít megőrizni a nyugalmat, ha sok a teendő.</p>\n\n<h2>🎯 Mikor érde"
+    }
+  ],
+  "finalOrigin": "pipeline",
+  "estimatedTier": "failed",
+  "finalHtmlLen": 2181,
+  "qaErrorsFinal": [
+    "garbled-display-title",
+    "supplement-structure-missing"
+  ]
+}

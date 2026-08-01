@@ -1,0 +1,147 @@
+{
+  "summary": {
+    "generated_at": "2026-07-22T11:57:35.610Z",
+    "source_filter": "shakes",
+    "scanned": 161,
+    "flagged": 6,
+    "flag_counts": {
+      "SHELF_MISMATCH": 4,
+      "DESCRIPTOR_VS_ROLE": 2,
+      "MISSING_TITLE": 2
+    },
+    "by_source": {
+      "shakes": 6
+    },
+    "top_shelf_pairs": [
+      {
+        "pair": "nervous-system→digestive",
+        "count": 2
+      },
+      {
+        "pair": "nervous-system→diabetes-care",
+        "count": 2
+      }
+    ],
+    "template_suspect": 0,
+    "descriptor_vs_role": 2,
+    "shelf_mismatch": 4
+  },
+  "rows": [
+    {
+      "key": "shakes:19410",
+      "source": "shakes",
+      "offer_id": 19410,
+      "slug": "benaga-s19410",
+      "feed_title": "Benaga Chaga",
+      "display_title": "Benaga Chaga – kapsle proti neuropatii",
+      "descriptor": "kapsle proti neuropatii",
+      "expected_role": "doplněk stravy na podporu trávení",
+      "expected_descriptor": "doplněk stravy na podporu trávení",
+      "site_shelf": "nervous-system",
+      "expected_shelf": "digestive",
+      "intent_slug": "digestive",
+      "form_site": "capsules",
+      "form_expected": null,
+      "flags": [
+        "SHELF_MISMATCH",
+        "DESCRIPTOR_VS_ROLE"
+      ]
+    },
+    {
+      "key": "shakes:19414",
+      "source": "shakes",
+      "offer_id": 19414,
+      "slug": "cordyceps-s19414",
+      "feed_title": "Cordyceps Pulse",
+      "display_title": "Cordyceps Pulse - kapsle proti neuropatii",
+      "descriptor": "kapsle proti neuropatii",
+      "expected_role": "doplněk stravy na podporu trávení",
+      "expected_descriptor": "doplněk stravy na podporu trávení",
+      "site_shelf": "nervous-system",
+      "expected_shelf": "digestive",
+      "intent_slug": "digestive",
+      "form_site": "capsules",
+      "form_expected": null,
+      "flags": [
+        "SHELF_MISMATCH",
+        "DESCRIPTOR_VS_ROLE"
+      ]
+    },
+    {
+      "key": "shakes:20282",
+      "source": "shakes",
+      "offer_id": 20282,
+      "slug": "shivital-s20282",
+      "feed_title": "Shivital",
+      "display_title": "Shivital",
+      "descriptor": "",
+      "expected_role": "kapsle proti neuropatii",
+      "expected_descriptor": "kapsle proti neuropatii",
+      "site_shelf": "nervous-system",
+      "expected_shelf": "nervous-system",
+      "intent_slug": "nervous-system",
+      "form_site": null,
+      "form_expected": "capsules",
+      "flags": [
+        "MISSING_TITLE"
+      ]
+    },
+    {
+      "key": "shakes:23260",
+      "source": "shakes",
+      "offer_id": 23260,
+      "slug": "insuvit-s23260",
+      "feed_title": "Insuvit",
+      "display_title": "Insuvit – kapsle proti neuropatii",
+      "descriptor": "kapsle proti neuropatii",
+      "expected_role": "kapsle proti neuropatii",
+      "expected_descriptor": "kapsle proti neuropatii",
+      "site_shelf": "nervous-system",
+      "expected_shelf": "diabetes-care",
+      "intent_slug": "diabetes-care",
+      "form_site": "capsules",
+      "form_expected": "capsules",
+      "flags": [
+        "SHELF_MISMATCH"
+      ]
+    },
+    {
+      "key": "shakes:23250",
+      "source": "shakes",
+      "offer_id": 23250,
+      "slug": "insuvit-s23250",
+      "feed_title": "Insuvit",
+      "display_title": "Insuvit – kapsle proti neuropatii",
+      "descriptor": "kapsle proti neuropatii",
+      "expected_role": "kapsle proti neuropatii",
+      "expected_descriptor": "kapsle proti neuropatii",
+      "site_shelf": "nervous-system",
+      "expected_shelf": "diabetes-care",
+      "intent_slug": "diabetes-care",
+      "form_site": "capsules",
+      "form_expected": "capsules",
+      "flags": [
+        "SHELF_MISMATCH"
+      ]
+    },
+    {
+      "key": "shakes:23682",
+      "source": "shakes",
+      "offer_id": 23682,
+      "slug": "shivital-s23682",
+      "feed_title": "Shivital",
+      "display_title": "Shivital",
+      "descriptor": "",
+      "expected_role": "kapsle proti neuropatii",
+      "expected_descriptor": "kapsle proti neuropatii",
+      "site_shelf": "nervous-system",
+      "expected_shelf": "nervous-system",
+      "intent_slug": "nervous-system",
+      "form_site": null,
+      "form_expected": "capsules",
+      "flags": [
+        "MISSING_TITLE"
+      ]
+    }
+  ]
+}

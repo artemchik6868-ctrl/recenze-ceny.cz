@@ -1,0 +1,78 @@
+{
+  "source": "adcombo",
+  "writeDb": true,
+  "totalTokens": 5544,
+  "estUsdPaid": 0,
+  "results": [
+    {
+      "source": "adcombo",
+      "offerId": 40762,
+      "status": "ok",
+      "method": "free",
+      "model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+      "generationId": "gen-1785270690-rsw1luG9519fMAkHvvQm",
+      "imageUrl": "https://my.adcombo.com/offer_preview/40762/orosteel_tube.png",
+      "imageHash": "u728yy",
+      "jsonChars": 381,
+      "llmAttempts": 1,
+      "timing": {
+        "preflightMs": 912,
+        "llmMs": 20813,
+        "totalMs": 27555
+      },
+      "usage": {
+        "prompt_tokens": 1477,
+        "completion_tokens": 1271,
+        "total_tokens": 2748
+      },
+      "estUsdPaid": 0,
+      "hasContent": true,
+      "facts": {
+        "productType": "lokální přípravek",
+        "application": "topical",
+        "releaseForm": "balzám",
+        "packaging": "tuba",
+        "detectedText": "ŽIVOT V POHYBU, Orosteel, CHLADNÍ BALZÁM, Menthol, Eukalyptový olej, Olej z imbiru, Olej z rozmarýnu, Konopný olej, 50 ml e 1.69 fl. oz.",
+        "briefDescription": "Modrá a bílá tuba s nápisem 'ŽIVOT V POHYBU', logem, názvem 'Orosteel CHLADNÍ BALZÁM' a seznamem složek."
+      },
+      "promptBlock": "Fakta z produktového obrázku (PRIORITNÍ — forma/aplikace podle balení):\ntyp: lokální přípravek\naplikace: topical\nforma: balzám\nobal: tuba\ntextNaObalu: ŽIVOT V POHYBU, Orosteel, CHLADNÍ BALZÁM, Menthol, Eukalyptový olej, Olej z imbiru, Olej z rozmarýnu, Konopný olej, 50 ml e 1.69 fl. oz.\npopis: Modrá a bílá tuba s nápisem 'ŽIVOT V POHYBU', logem, názvem 'Orosteel CHLADNÍ BALZÁM' a seznamem složek.",
+      "error": null,
+      "wroteDb": true
+    },
+    {
+      "source": "adcombo",
+      "offerId": 40761,
+      "status": "ok",
+      "method": "free",
+      "model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+      "generationId": "gen-1785270715-GHIO3hxKcWzwyiZfK7ko",
+      "imageUrl": "https://my.adcombo.com/offer_preview/40761/orosteel_tube.png",
+      "imageHash": "164h489",
+      "jsonChars": 376,
+      "llmAttempts": 1,
+      "timing": {
+        "preflightMs": 304,
+        "llmMs": 6401,
+        "totalMs": 10975
+      },
+      "usage": {
+        "prompt_tokens": 1477,
+        "completion_tokens": 1319,
+        "total_tokens": 2796
+      },
+      "estUsdPaid": 0,
+      "hasContent": true,
+      "facts": {
+        "productType": "lokální přípravek",
+        "application": "topical",
+        "releaseForm": "balzám",
+        "packaging": "tuba",
+        "detectedText": "ŽIVOT V POHYBU; Orosteel; CHLADNÍ BALZÁM; Menthol; Eukalyptový olej; Olej z imbiru; Olej z rozmarýnu; Konopný olej; 50 ml e 1,69 fl. oz.",
+        "briefDescription": "Modrá a bílá tuba zobrazující 'LIFE IN MOTION', logo, název 'Orosteel FREEZE BALM' a seznam složek."
+      },
+      "promptBlock": "Fakta z produktového obrázku (PRIORITNÍ — forma/aplikace podle balení):\ntyp: lokální přípravek\naplikace: topical\nforma: balzám\nobal: tuba\ntextNaObalu: ŽIVOT V POHYBU; Orosteel; CHLADNÍ BALZÁM; Menthol; Eukalyptový olej; Olej z imbiru; Olej z rozmarýnu; Konopný olej; 50 ml e 1,69 fl. oz.\npopis: Modrá a bílá tuba zobrazující 'LIFE IN MOTION', logo, název 'Orosteel FREEZE BALM' a seznam složek.",
+      "error": null,
+      "wroteDb": true
+    }
+  ]
+}

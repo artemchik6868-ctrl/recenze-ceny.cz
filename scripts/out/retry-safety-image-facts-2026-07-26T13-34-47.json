@@ -1,0 +1,167 @@
+{
+  "processed": 20,
+  "okCount": 20,
+  "failCount": 0,
+  "results": [
+    {
+      "source": "cpagetti",
+      "offerId": 11339,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1218
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 12779,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1199
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 13009,
+      "status": "ok",
+      "method": "paid",
+      "error": null,
+      "tokens": 1190
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 11373,
+      "status": "ok",
+      "method": "paid",
+      "error": null,
+      "tokens": 1211
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 16279,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 2013
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 10745,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1201
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 11319,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1196
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 13031,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1459
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17027,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1826
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17055,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1227
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 11505,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1223
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17069,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1232
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 15497,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1190
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 13801,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1235
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 13969,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1206
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17097,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1236
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17093,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1238
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17099,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1231
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17105,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1669
+    },
+    {
+      "source": "adcombo",
+      "offerId": 39225,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 3664
+    }
+  ]
+}

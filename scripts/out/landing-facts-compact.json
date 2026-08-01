@@ -1,0 +1,91 @@
+[
+  {
+    "offerId": 5911,
+    "title": "Removio gel",
+    "fullTextChars": 5977,
+    "jsonChars": 497,
+    "compression": "5977 -> 497 chars (8%)",
+    "facts": {
+      "offerId": 5911,
+      "sourceUrl": "https://cza-removiogel.papilsh.com",
+      "langHint": "cs",
+      "form": "gel",
+      "role": "papilomy",
+      "dosage": null,
+      "ingredients": [
+        "zazvorovy olej",
+        "vytazek z kostivalu",
+        "vytazek z medunky",
+        "tokoferol",
+        "olej z vonatky citronove",
+        "olej z cajovniku",
+        "skorice",
+        "niacinamid"
+      ],
+      "benefits": [
+        "potlacuje aktivitu virovych bunek",
+        "bezbolestne odstranovani utvaru",
+        "obnovuje poskozene casti kuze",
+        "nici puvodce behem 48 hodin",
+        "blokuje aktivitu viru + imunitni obrana"
+      ],
+      "h1": "Removio",
+      "notes": null
+    }
+  },
+  {
+    "offerId": 22128,
+    "title": "Benaga Chaga",
+    "fullTextChars": 7769,
+    "jsonChars": 330,
+    "compression": "7769 -> 330 chars (4%)",
+    "facts": {
+      "offerId": 22128,
+      "sourceUrl": "https://cz3-benagachaga.visionhsh.com",
+      "langHint": "cs",
+      "form": null,
+      "role": "zrak",
+      "dosage": null,
+      "ingredients": [],
+      "benefits": [
+        "obnova funkce ocnich svalu",
+        "zlepseni stavu cocky",
+        "ucinek srovnatelny s laserovou korekci"
+      ],
+      "h1": "Příběh pilota, který porazil krátkozrakost a splnil svůj sen.",
+      "notes": null
+    }
+  },
+  {
+    "offerId": 12649,
+    "title": "W-Loss",
+    "fullTextChars": 10500,
+    "jsonChars": 485,
+    "compression": "10500 -> 485 chars (5%)",
+    "facts": {
+      "offerId": 12649,
+      "sourceUrl": "https://euit2-wloss.wlossh.com",
+      "langHint": "it",
+      "form": "kapky",
+      "role": "hubnuti",
+      "dosage": "20 gocce di W-loss riduce questo arco di tempo a 40-50 minuti , durante i quali il corpo",
+      "ingredients": [
+        "ananas",
+        "kumquat",
+        "papaya",
+        "maracuja",
+        "te verde",
+        "vitamina b6"
+      ],
+      "benefits": [
+        "minimizza assunzione carboidrati",
+        "riduce glucosio nel sangue",
+        "avvia combustione grassi",
+        "20 gocce accelerano chetosi",
+        "blocca assorbimento carboidrati"
+      ],
+      "h1": "W-loss",
+      "notes": null
+    }
+  }
+]

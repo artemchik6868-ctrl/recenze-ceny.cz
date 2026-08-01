@@ -1,0 +1,43 @@
+{
+  "source": "cpagetti",
+  "writeDb": true,
+  "totalTokens": 1398,
+  "estUsdPaid": 0,
+  "results": [
+    {
+      "source": "cpagetti",
+      "offerId": 13969,
+      "status": "ok",
+      "method": "free",
+      "model": "nvidia/nemotron-nano-12b-v2-vl:free",
+      "generationId": "gen-1785415821-HHjO8R6UsCEYU6QnoiEb",
+      "imageUrl": "https://s.cpagetti.com/img/sci/small/Offer/4d8bb9d41ea7546aca669becb08da010.png",
+      "imageHash": "12fimq6",
+      "jsonChars": 186,
+      "llmAttempts": 1,
+      "timing": {
+        "preflightMs": 904,
+        "llmMs": 6373,
+        "totalMs": 54880
+      },
+      "usage": {
+        "prompt_tokens": 1327,
+        "completion_tokens": 71,
+        "total_tokens": 1398
+      },
+      "estUsdPaid": 0,
+      "hasContent": true,
+      "facts": {
+        "productType": "lokální přípravek",
+        "application": "topical",
+        "releaseForm": "gel",
+        "packaging": "tuba",
+        "detectedText": "Insuwell",
+        "briefDescription": "Tuba s gelovou látkou pro topické užití."
+      },
+      "promptBlock": "Fakta z produktového obrázku (PRIORITNÍ — forma/aplikace podle balení):\ntyp: lokální přípravek\naplikace: topical\nforma: gel\nobal: tuba\ntextNaObalu: Insuwell\npopis: Tuba s gelovou látkou pro topické užití.",
+      "error": null,
+      "wroteDb": true
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+/**
+ * AT Supabase bootstrap: guard against DE project, migrate schema.
+ * Usage: node scripts/setup-cz-supabase.mjs
+ */
+import { spawnSync } from "node:child_process";
+import { readFileSync } from "node:fs";
+import { resolve, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const DE_PROJECT_REF = "ahxnadphhxckoknooyis";
+
+function loadEnv() {
+  const env = {};
+  for (const line of readFileSync(resolve(root, ".env"), "utf8").split(/\r?\n/)) {
+    const m = line.match(/^([^#=]+)=(.*)$/);
+    if (m) env[m[1].trim()] = m[2].trim().replace(/^"|"$/g, "");
+  }
+  return env;
+}
+
+const env = loadEnv();
+const projectRef = env.VITE_SUPABASE_PROJECT_ID || env.SUPABASE_PROJECT_ID;
+
+if (!projectRef) {
+  console.error("Missing VITE_SUPABASE_PROJECT_ID in .env");
+  process.exit(1);
+}
+
+if (projectRef === DE_PROJECT_REF) {
+  console.error(`
+AT Supabase setup blocked: .env still points to DE project (${DE_PROJECT_REF}).
+Create a new Supabase project (recenze-ceny-at), update .env, then re-run:
+  npm run setup:supabase
+`);
+  process.exit(1);
+}
+
+console.log(`setup-at-supabase: migrating project ${projectRef}...`);
+const migrate = spawnSync("npm", ["run", "db:migrate"], { cwd: root, stdio: "inherit", shell: true });
+if (migrate.status !== 0) process.exit(migrate.status ?? 1);
+
+console.log("setup-at-supabase: OK — schema migrated (product images are partner hotlinks; no Storage watermark step)");

@@ -1,0 +1,1 @@
+DELETE FROM public.product_content WHERE (source='cpagetti' AND offer_id IN (16555,16567)) OR (source='kma' AND offer_id IN (10785,11786,10890,11511));

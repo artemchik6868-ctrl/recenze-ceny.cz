@@ -1,0 +1,141 @@
+{
+  "ok": true,
+  "base": "https://recenze-ceny.cz",
+  "offer_id": 990001,
+  "source": "shakes",
+  "pdp_slug_hint": "/{shelf}/workertest-pulse-kapsle-s990001",
+  "skipCleanup": true,
+  "steps": [
+    {
+      "name": "landing-facts",
+      "ok": true,
+      "hook": {
+        "path": "/api/public/hooks/landing-facts-drain",
+        "status": 200,
+        "elapsed_ms": 1884,
+        "body": {
+          "source": "shakes",
+          "ok": true,
+          "elapsed_ms": 985,
+          "processed": 1,
+          "okCount": 0,
+          "failed": 1,
+          "remaining": 0,
+          "timedOut": false,
+          "items": [
+            {
+              "offerId": 990001,
+              "status": "fetch_error",
+              "elapsed_ms": 440,
+              "error": "all 1 landing candidate(s) failed (last: https://cz-workertest-pipeline.example.cz/offer-990001: HTTP 530)"
+            }
+          ]
+        }
+      },
+      "db": {
+        "status": "fetch_error",
+        "error": "all 1 landing candidate(s) failed (last: https://cz-workertest-pipeline.example.cz/offer-990001: HTTP 530)",
+        "updated_at": "2026-08-01T17:43:40.064+00:00",
+        "source_url": "https://cz-workertest-pipeline.example.cz/offer-990001"
+      }
+    },
+    {
+      "name": "image-facts",
+      "ok": true,
+      "hook": {
+        "path": "/api/public/hooks/smoke-image-facts",
+        "status": 200,
+        "elapsed_ms": 8794,
+        "body": {
+          "ok": true,
+          "mode": "extract",
+          "source": "shakes",
+          "offerId": 990001,
+          "force": false,
+          "elapsed_ms": 8680,
+          "status": "ok",
+          "method": "free",
+          "model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+          "generationId": "gen-1785606224-B9GFRU642yu3M2F2ce5e",
+          "imageUrl": "https://shakes.pro/pics/offers/24082_promo.jpg",
+          "imageHash": "1qfv4bm",
+          "jsonChars": 281,
+          "llmAttempts": 1,
+          "timing": {
+            "preflightMs": 483,
+            "llmMs": 4820,
+            "totalMs": 8680
+          },
+          "usage": {
+            "prompt_tokens": 1352,
+            "completion_tokens": 683,
+            "total_tokens": 2035
+          },
+          "facts": {
+            "productType": "doplněk stravy",
+            "application": "oral",
+            "releaseForm": "kapsle",
+            "packaging": "lahvička",
+            "detectedText": "CORDYCEPS PULSE 100% PŘÍRODNÍ 20 CAPSULES",
+            "briefDescription": "Bílá lahvička s modrým popisem a modrý box, na obou viditelný text 'CORDYCEPS PULSE' a '20 CAPSULES'."
+          },
+          "promptBlock": "Fakta z produktového obrázku (PRIORITNÍ — forma/aplikace podle balení):\ntyp: doplněk stravy\naplikace: oral\nforma: kapsle\nobal: lahvička\ntextNaObalu: CORDYCEPS PULSE 100% PŘÍRODNÍ 20 CAPSULES\npopis: Bílá lahvička s modrým popisem a modrý box, na obou viditelný text 'CORDYCEPS PULSE' a '20 CAPSULES'.",
+          "error": null,
+          "wroteDb": true
+        }
+      },
+      "db": {
+        "status": "ok",
+        "method": "free",
+        "error": null,
+        "updated_at": "2026-08-01T17:43:49.182+00:00"
+      }
+    },
+    {
+      "name": "content-drain",
+      "ok": true,
+      "hook": {
+        "path": "/api/public/hooks/content-drain",
+        "status": 200,
+        "elapsed_ms": 36529,
+        "body": {
+          "ok": true,
+          "elapsed_ms": 36412,
+          "totalGenerated": 1,
+          "totalFailed": 0,
+          "totalMissing": 0,
+          "sources": {
+            "shakes": {
+              "content": {
+                "rounds": [
+                  {
+                    "checked": 1,
+                    "generated": 1,
+                    "failed": 0,
+                    "lockedSkipped": 0,
+                    "cooldownSkipped": 0,
+                    "factsPendingSkipped": 0,
+                    "cachedAfterFailure": 0
+                  }
+                ],
+                "totalGenerated": 1,
+                "totalFailed": 0
+              },
+              "timedOut": false,
+              "missingRemaining": 0
+            }
+          }
+        }
+      },
+      "db": {
+        "complete": true,
+        "title": "WorkerTest Pulse – kapsle",
+        "html_len": 4897,
+        "faq_len": 5,
+        "generated_at": "2026-08-01T17:44:19.445+00:00",
+        "failure": null
+      }
+    }
+  ],
+  "finished_at": "2026-08-01T17:44:27.834Z"
+}

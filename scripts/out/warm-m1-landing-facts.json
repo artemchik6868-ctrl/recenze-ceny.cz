@@ -1,0 +1,296 @@
+{
+  "synced": {
+    "fetched": 840,
+    "ua": 24,
+    "upserted": 24,
+    "deactivated": 0
+  },
+  "drainRounds": [
+    {
+      "ok": true,
+      "elapsed_ms": 54896,
+      "processed": 8,
+      "okCount": 4,
+      "failed": 4,
+      "remaining": 11,
+      "timedOut": false,
+      "items": [
+        {
+          "offerId": 5486,
+          "status": "fetch_error",
+          "elapsed_ms": 7271,
+          "error": "Failed to parse LLM JSON: ```json\n{\n  \"form\": \"gel\",\n  \"application\": \"topical\",\n  \"role\": \"bolesti kloubů, artritida, osteoartróza\",\n  \"categoryHint\": \"joint-care\",\n  \"packSize\": null,\n  \"courseDays\": null,\n  \"dosage\": \"Nanes"
+        },
+        {
+          "offerId": 3261,
+          "status": "fetch_error",
+          "elapsed_ms": 10496,
+          "error": "This operation was aborted"
+        },
+        {
+          "offerId": 3639,
+          "status": "ok",
+          "elapsed_ms": 7075
+        },
+        {
+          "offerId": 3896,
+          "status": "fetch_error",
+          "elapsed_ms": 10498,
+          "error": "This operation was aborted"
+        },
+        {
+          "offerId": 6153,
+          "status": "ok",
+          "elapsed_ms": 2190
+        },
+        {
+          "offerId": 4823,
+          "status": "fetch_error",
+          "elapsed_ms": 3457,
+          "error": "fetch failed"
+        },
+        {
+          "offerId": 5860,
+          "status": "ok",
+          "elapsed_ms": 3217
+        },
+        {
+          "offerId": 5725,
+          "status": "ok",
+          "elapsed_ms": 10159
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "elapsed_ms": 32158,
+      "processed": 8,
+      "okCount": 8,
+      "failed": 0,
+      "remaining": 3,
+      "timedOut": false,
+      "items": [
+        {
+          "offerId": 6075,
+          "status": "ok",
+          "elapsed_ms": 4872
+        },
+        {
+          "offerId": 5941,
+          "status": "ok",
+          "elapsed_ms": 3706
+        },
+        {
+          "offerId": 5641,
+          "status": "ok",
+          "elapsed_ms": 3874
+        },
+        {
+          "offerId": 5567,
+          "status": "ok",
+          "elapsed_ms": 2859
+        },
+        {
+          "offerId": 5845,
+          "status": "ok",
+          "elapsed_ms": 7169
+        },
+        {
+          "offerId": 5482,
+          "status": "ok",
+          "elapsed_ms": 3942
+        },
+        {
+          "offerId": 5092,
+          "status": "ok",
+          "elapsed_ms": 2730
+        },
+        {
+          "offerId": 6151,
+          "status": "ok",
+          "elapsed_ms": 2621
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "elapsed_ms": 13263,
+      "processed": 3,
+      "okCount": 3,
+      "failed": 0,
+      "remaining": 0,
+      "timedOut": false,
+      "items": [
+        {
+          "offerId": 6066,
+          "status": "ok",
+          "elapsed_ms": 3854
+        },
+        {
+          "offerId": 5958,
+          "status": "ok",
+          "elapsed_ms": 5581
+        },
+        {
+          "offerId": 5149,
+          "status": "ok",
+          "elapsed_ms": 3437
+        }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "offerId": 5486,
+      "ok": true,
+      "status": "generated",
+      "url": "https://recenze-ceny.cz/joint-care/artizynt-m5486",
+      "title": "ArtiZynt – gel na klouby",
+      "ms": 25824
+    },
+    {
+      "offerId": 3261,
+      "ok": true,
+      "status": "generated",
+      "url": "https://recenze-ceny.cz/weight-management/idealfit-m3261",
+      "title": "IdealFit – kapky na hubnutí",
+      "ms": 18608
+    },
+    {
+      "offerId": 3639,
+      "ok": true,
+      "status": "generated",
+      "url": "https://recenze-ceny.cz/joint-care/flexosamine-m3639",
+      "title": "Flexosamine – gel na klouby",
+      "ms": 21388
+    },
+    {
+      "offerId": 3896,
+      "ok": true,
+      "status": "generated",
+      "url": "https://recenze-ceny.cz/anti-aging/elesse-m3896",
+      "title": "Elesse – anti-aging krém",
+      "ms": 22177
+    },
+    {
+      "offerId": 6153,
+      "ok": true,
+      "status": "generated",
+      "url": "https://recenze-ceny.cz/accessories/dial-m6153",
+      "title": "Dial Vision – nastavitelné brýle",
+      "ms": 19350
+    },
+    {
+      "offerId": 4823,
+      "ok": true,
+      "status": "generated",
+      "url": "https://recenze-ceny.cz/blood-pressure/cardiotensive-m4823",
+      "title": "Cardiotensive – tablety na hypertenzi",
+      "ms": 35948
+    },
+    {
+      "offerId": 5860,
+      "ok": true,
+      "status": "generated",
+      "url": "https://recenze-ceny.cz/joint-care/artizynt-m5860",
+      "title": "ArtiZynt – gel na klouby",
+      "ms": 33213
+    },
+    {
+      "offerId": 5725,
+      "ok": true,
+      "status": "generated",
+      "url": "https://recenze-ceny.cz/hemorrhoids/cystiolla-m5725",
+      "title": "Cystiolla – kapsle na cystitidu",
+      "ms": 24907
+    },
+    {
+      "offerId": 6075,
+      "ok": true,
+      "status": "generated",
+      "url": "https://recenze-ceny.cz/potenz-libido/erexblue-m6075",
+      "title": "ErexBlue Max – kapky na potenci",
+      "ms": 19547
+    },
+    {
+      "offerId": 5941,
+      "ok": true,
+      "status": "generated",
+      "url": "https://recenze-ceny.cz/weight-management/nano-m5941",
+      "title": "Nano Slim – doplněk na hubnutí",
+      "ms": 33280
+    },
+    {
+      "offerId": 5641,
+      "ok": true,
+      "status": "generated",
+      "url": "https://recenze-ceny.cz/hemorrhoids/uro-m5641",
+      "title": "Uro UP Forte – tablety proti prostatitidě",
+      "ms": 36846
+    },
+    {
+      "offerId": 5567,
+      "ok": true,
+      "status": "generated",
+      "url": "https://recenze-ceny.cz/joint-care/artizynt-m5567",
+      "title": "ArtiZynt – kapsle na bolest kloubů",
+      "ms": 20905
+    },
+    {
+      "offerId": 5845,
+      "ok": true,
+      "status": "generated",
+      "url": "https://recenze-ceny.cz/potenz-libido/menstill-m5845",
+      "title": "Menstill Pro – tablety na potenci",
+      "ms": 17792
+    },
+    {
+      "offerId": 5482,
+      "ok": true,
+      "status": "generated",
+      "url": "https://recenze-ceny.cz/joint-care/artizynt-m5482",
+      "title": "ArtiZynt – kapsle na bolest kloubů",
+      "ms": 20898
+    },
+    {
+      "offerId": 5092,
+      "ok": true,
+      "status": "generated",
+      "url": "https://recenze-ceny.cz/joint-care/flexosamine-m5092",
+      "title": "Flexosamine – gel proti bolestem kloubů",
+      "ms": 34113
+    },
+    {
+      "offerId": 6151,
+      "ok": true,
+      "status": "generated",
+      "url": "https://recenze-ceny.cz/hemorrhoids/proctowell-m6151",
+      "title": "Proctowell – krém na hemoroidy",
+      "ms": 26508
+    },
+    {
+      "offerId": 6066,
+      "ok": true,
+      "status": "generated",
+      "url": "https://recenze-ceny.cz/weight-management/liposivin-m6066",
+      "title": "Liposivin – kapky na hubnutí",
+      "ms": 32875
+    },
+    {
+      "offerId": 5958,
+      "ok": true,
+      "status": "generated",
+      "url": "https://recenze-ceny.cz/accessories/magic-m5958",
+      "title": "Magic Glow - svítící deka ve tmě",
+      "ms": 18010
+    },
+    {
+      "offerId": 5149,
+      "ok": true,
+      "status": "generated",
+      "url": "https://recenze-ceny.cz/potenz-libido/formelan-m5149",
+      "title": "Formelan – gel na potenci",
+      "ms": 11148
+    }
+  ]
+}

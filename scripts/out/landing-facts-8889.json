@@ -1,0 +1,18 @@
+{
+  "offerId": 8889,
+  "title": "Hondrofrost",
+  "landingType": "Фрейм",
+  "landingTitle": "Лэндинг 1 (iframe)",
+  "sourceUrl": "https://cz1.hondrofrostsale.com",
+  "finalUrl": "https://cz1.hondrofrostsale.com/?c=de",
+  "httpStatus": 200,
+  "sourceKind": "checkout",
+  "pageTitle": "Překontrolovat",
+  "h1": null,
+  "ctaText": "Dostávat",
+  "formHints": [],
+  "bullets": [],
+  "textSample": "Překontrolovat DOSTAT \"Hondrofrost\" za zvýhodněná cena Vaše země: Tvé jméno: Telefon: Dostávat",
+  "charCount": 94,
+  "htmlBytes": 1415
+}

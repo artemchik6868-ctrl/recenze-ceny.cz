@@ -1,0 +1,32 @@
+{
+  "source": "cpagetti",
+  "writeDb": true,
+  "totalTokens": 0,
+  "estUsdPaid": 0,
+  "results": [
+    {
+      "source": "cpagetti",
+      "offerId": 15497,
+      "status": "fetch_error",
+      "method": "none",
+      "model": null,
+      "generationId": null,
+      "imageUrl": "https://s.cpagetti.com/img/sci/small/Offer/0532a5022f69835fb560b9b097433ab8.png",
+      "imageHash": "nwfm5u",
+      "jsonChars": 0,
+      "llmAttempts": 0,
+      "timing": {
+        "preflightMs": 540,
+        "llmMs": 0,
+        "totalMs": 1603
+      },
+      "usage": null,
+      "estUsdPaid": 0,
+      "hasContent": false,
+      "facts": null,
+      "promptBlock": null,
+      "error": "budget:max_llm_per_day",
+      "wroteDb": true
+    }
+  ]
+}

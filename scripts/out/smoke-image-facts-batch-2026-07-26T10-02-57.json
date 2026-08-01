@@ -1,0 +1,333 @@
+{
+  "ok": 12,
+  "total": 12,
+  "paidCalls": 0,
+  "totalTokens": 20071,
+  "estUsdPaid": 0,
+  "results": [
+    {
+      "source": "shakes",
+      "offerId": 14771,
+      "expectHint": "Hondroine gel topical",
+      "status": "ok",
+      "method": "free",
+      "facts": {
+        "productType": "lokální přípravek",
+        "application": "topical",
+        "releaseForm": "gel",
+        "packaging": "tuba",
+        "primaryColor": "yellow",
+        "detectedText": "Hondroine",
+        "briefDescription": "Krabička a žlutá tuba s nápisem Hondroine a ICE COLD GEL."
+      },
+      "error": null,
+      "timing": {
+        "preflightMs": 637,
+        "llmMs": 4702,
+        "totalMs": 10075
+      },
+      "usage": {
+        "prompt_tokens": 1139,
+        "completion_tokens": 710,
+        "total_tokens": 1849
+      }
+    },
+    {
+      "source": "shakes",
+      "offerId": 12905,
+      "expectHint": "ABSlim drops oral",
+      "status": "ok",
+      "method": "free",
+      "facts": {
+        "productType": "doplněk stravy",
+        "application": "oral",
+        "releaseForm": "kapky",
+        "packaging": "lahvička",
+        "primaryColor": "bílá a zelená",
+        "detectedText": "ABSlim food supplement",
+        "briefDescription": "Bílá lahvička a krabička s zeleným motivem zipu."
+      },
+      "error": null,
+      "timing": {
+        "preflightMs": 294,
+        "llmMs": 11691,
+        "totalMs": 13634
+      },
+      "usage": {
+        "prompt_tokens": 1141,
+        "completion_tokens": 96,
+        "total_tokens": 1237
+      }
+    },
+    {
+      "source": "shakes",
+      "offerId": 14211,
+      "expectHint": "Cordyceps capsules oral",
+      "status": "ok",
+      "method": "free",
+      "facts": {
+        "productType": "doplněk stravy",
+        "application": "oral",
+        "releaseForm": "kapsle",
+        "packaging": "dóza",
+        "primaryColor": "bílá",
+        "detectedText": "CORDYCEPS PULSE, FOOD SUPPLEMENT, CORDYCEPS mushroom extract, 100% natural, 20 CAPSULES",
+        "briefDescription": "Bílá dóza s modro-fialným obalem a obrázkem huby."
+      },
+      "error": null,
+      "timing": {
+        "preflightMs": 279,
+        "llmMs": 14400,
+        "totalMs": 17964
+      },
+      "usage": {
+        "prompt_tokens": 1143,
+        "completion_tokens": 123,
+        "total_tokens": 1266
+      }
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 19175,
+      "expectHint": "Hondrofrost gel topical",
+      "status": "ok",
+      "method": "free",
+      "facts": {
+        "productType": "lokální přípravek",
+        "application": "topical",
+        "releaseForm": "gel",
+        "packaging": "tuba",
+        "primaryColor": "modrá",
+        "detectedText": "HondroFrost ICE COLD GEL ENERGY OF EXTRACTS & OILS Glucosamine & Chondroitin e 50ml",
+        "briefDescription": "Modrá tuba a krabička s ICE COLD GEL, 50 ml."
+      },
+      "error": null,
+      "timing": {
+        "preflightMs": 1027,
+        "llmMs": 7567,
+        "totalMs": 9845
+      },
+      "usage": {
+        "prompt_tokens": 1349,
+        "completion_tokens": 671,
+        "total_tokens": 2020
+      }
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 21180,
+      "expectHint": "ArtiZynt capsules oral",
+      "status": "ok",
+      "method": "free",
+      "facts": {
+        "productType": "doplněk stravy",
+        "application": "oral",
+        "releaseForm": "kapsle",
+        "packaging": "blistr",
+        "primaryColor": "red",
+        "detectedText": "ARTIZYNT COMPREHENSIVE REBUILDING FORMULA Instant Active Pills Flexibility Support FOOD SUPPLEMENT 30 CAPSULES",
+        "briefDescription": "Red and white box with a blister pack of six white capsules, showing the brand name ARTIZYNT and description COMPREHENSIVE REBUILDING FORMULA"
+      },
+      "error": null,
+      "timing": {
+        "preflightMs": 445,
+        "llmMs": 9518,
+        "totalMs": 11172
+      },
+      "usage": {
+        "prompt_tokens": 1341,
+        "completion_tokens": 841,
+        "total_tokens": 2182
+      }
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 2685,
+      "expectHint": "Dial Vision glasses other",
+      "status": "ok",
+      "method": "free",
+      "facts": {
+        "productType": "zdravotnický prostředek",
+        "application": "other",
+        "releaseForm": "zařízení",
+        "packaging": "jiné",
+        "primaryColor": "černá",
+        "detectedText": "Dial Vision",
+        "briefDescription": "Černé brýle pro korekci vidění."
+      },
+      "error": null,
+      "timing": {
+        "preflightMs": 348,
+        "llmMs": 15626,
+        "totalMs": 17188
+      },
+      "usage": {
+        "prompt_tokens": 1143,
+        "completion_tokens": 86,
+        "total_tokens": 1229
+      }
+    },
+    {
+      "source": "m1_top",
+      "offerId": 5486,
+      "expectHint": "ArtiZynt gel topical",
+      "status": "ok",
+      "method": "free",
+      "facts": {
+        "productType": "lokální přípravek",
+        "application": "topical",
+        "releaseForm": "gel",
+        "packaging": "tuba",
+        "primaryColor": "white",
+        "detectedText": "ARTIZYNT",
+        "briefDescription": "Bílá tuba s červenou a žlutou poplatkou, na ní obrázek běžícího člověka a text 'COMPREHENSIVE REBUILDING FORMULA'."
+      },
+      "error": null,
+      "timing": {
+        "preflightMs": 564,
+        "llmMs": 2995,
+        "totalMs": 4794
+      },
+      "usage": {
+        "prompt_tokens": 1126,
+        "completion_tokens": 118,
+        "total_tokens": 1244
+      }
+    },
+    {
+      "source": "m1_top",
+      "offerId": 3261,
+      "expectHint": "IdealFit drops oral",
+      "status": "ok",
+      "method": "free",
+      "facts": {
+        "productType": "doplněk stravy",
+        "application": "oral",
+        "releaseForm": "kapky",
+        "packaging": "lahvička",
+        "primaryColor": "zelená",
+        "detectedText": "IDEALfit pro snižování boku a tvaru těla 100% Biologický komplex",
+        "briefDescription": "Zelená krabička a hnědá lahvička s modrou bobulí, měřicí páska kolem boků."
+      },
+      "error": null,
+      "timing": {
+        "preflightMs": 130,
+        "llmMs": 11022,
+        "totalMs": 12388
+      },
+      "usage": {
+        "prompt_tokens": 1145,
+        "completion_tokens": 1116,
+        "total_tokens": 2261
+      }
+    },
+    {
+      "source": "m1_top",
+      "offerId": 3896,
+      "expectHint": "Elesse cream topical/cosmetic",
+      "status": "ok",
+      "method": "free",
+      "facts": {
+        "productType": "kosmetika",
+        "application": "topical",
+        "releaseForm": "krém",
+        "packaging": "dóza",
+        "primaryColor": "bílá",
+        "detectedText": "ELESSE CREAM APPLE STEM CELLS Anti - aging cream",
+        "briefDescription": "Bílá dóza s textem ELESSE CREAM APPLE STEM CELLS Anti - aging cream."
+      },
+      "error": null,
+      "timing": {
+        "preflightMs": 151,
+        "llmMs": 6524,
+        "totalMs": 10279
+      },
+      "usage": {
+        "prompt_tokens": 1149,
+        "completion_tokens": 100,
+        "total_tokens": 1249
+      }
+    },
+    {
+      "source": "kma",
+      "offerId": 9021,
+      "expectHint": "Removio gel topical",
+      "status": "ok",
+      "method": "free",
+      "facts": {
+        "productType": "lokální přípravek",
+        "application": "topical",
+        "releaseForm": "gel",
+        "packaging": "tuba",
+        "primaryColor": "bílá",
+        "detectedText": "REMOVIO skin restoring gel 10 ml",
+        "briefDescription": "Bílá tuba s modrými prvky a nápisem REMOVIO skin restoring gel."
+      },
+      "error": null,
+      "timing": {
+        "preflightMs": 931,
+        "llmMs": 4744,
+        "totalMs": 6861
+      },
+      "usage": {
+        "prompt_tokens": 1148,
+        "completion_tokens": 101,
+        "total_tokens": 1249
+      }
+    },
+    {
+      "source": "kma",
+      "offerId": 9215,
+      "expectHint": "Hairstim spray topical",
+      "status": "ok",
+      "method": "free",
+      "facts": {
+        "productType": "lokální přípravek",
+        "application": "topical",
+        "releaseForm": "sprej",
+        "packaging": "sprejová nádoba",
+        "primaryColor": "modrý",
+        "detectedText": "HAIRSTIM Hair Regrowth Treatment 15 ml For external use only. Apply directly on the scalp in the hair loss area.",
+        "briefDescription": "Modrý sprej s bílou šňůrou, 15 ml, pro zkušené použití na kůži."
+      },
+      "error": null,
+      "timing": {
+        "preflightMs": 211,
+        "llmMs": 4085,
+        "totalMs": 8050
+      },
+      "usage": {
+        "prompt_tokens": 2157,
+        "completion_tokens": 129,
+        "total_tokens": 2286
+      }
+    },
+    {
+      "source": "kma",
+      "offerId": 9010,
+      "expectHint": "Fortolex cream topical",
+      "status": "ok",
+      "method": "free",
+      "facts": {
+        "productType": "lokální přípravek",
+        "application": "topical",
+        "releaseForm": "krém",
+        "packaging": "tuba",
+        "primaryColor": "bílá",
+        "detectedText": "Fortolex Foot care herbal cream Comarum palustre root Troxerutin Glucosamine Salvia hispanica seed 20 ml",
+        "briefDescription": "Bílá tuba s modrým a fialovým designem a nápisem 'Fortolex Foot care herbal cream'"
+      },
+      "error": null,
+      "timing": {
+        "preflightMs": 289,
+        "llmMs": 9132,
+        "totalMs": 10624
+      },
+      "usage": {
+        "prompt_tokens": 1274,
+        "completion_tokens": 725,
+        "total_tokens": 1999
+      }
+    }
+  ]
+}

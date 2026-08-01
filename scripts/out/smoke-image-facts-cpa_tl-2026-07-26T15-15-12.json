@@ -1,0 +1,43 @@
+{
+  "source": "cpa_tl",
+  "writeDb": true,
+  "totalTokens": 2945,
+  "estUsdPaid": 0,
+  "results": [
+    {
+      "source": "cpa_tl",
+      "offerId": 13320,
+      "status": "ok",
+      "method": "free",
+      "model": "nvidia/nemotron-nano-12b-v2-vl:free",
+      "generationId": "gen-1785078900-q4crASPwP5HrfRsyyxT9",
+      "imageUrl": "https://cpa.tl/media/offers/thumbs/big/%D0%9D%D0%BE%D0%B2%D1%8B%D0%B9_%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82_37_VLpQuLz.png",
+      "imageHash": "2xmo3a",
+      "jsonChars": 188,
+      "llmAttempts": 1,
+      "timing": {
+        "preflightMs": 1194,
+        "llmMs": 11466,
+        "totalMs": 14769
+      },
+      "usage": {
+        "prompt_tokens": 2868,
+        "completion_tokens": 77,
+        "total_tokens": 2945
+      },
+      "estUsdPaid": 0,
+      "hasContent": true,
+      "facts": {
+        "productType": "oblečení",
+        "application": "other",
+        "releaseForm": null,
+        "packaging": null,
+        "detectedText": null,
+        "briefDescription": "blýšící bílý stříbrný oblečení s velkou bílou květinou na boku"
+      },
+      "promptBlock": "Fakta z produktového obrázku (PRIORITNÍ — forma/aplikace podle balení):\ntyp: oblečení\naplikace: other\npopis: blýšící bílý stříbrný oblečení s velkou bílou květinou na boku",
+      "error": null,
+      "wroteDb": true
+    }
+  ]
+}

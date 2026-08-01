@@ -1,0 +1,32 @@
+{
+  "source": "cpa_tl",
+  "writeDb": true,
+  "totalTokens": 0,
+  "estUsdPaid": 0,
+  "results": [
+    {
+      "source": "cpa_tl",
+      "offerId": 13320,
+      "status": "fetch_error",
+      "method": "none",
+      "model": null,
+      "generationId": null,
+      "imageUrl": "https://cpa.tl/media/offers/thumbs/big/%D0%9D%D0%BE%D0%B2%D1%8B%D0%B9_%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82_37_VLpQuLz.png",
+      "imageHash": "2xmo3a",
+      "jsonChars": 0,
+      "llmAttempts": 0,
+      "timing": {
+        "preflightMs": 979,
+        "llmMs": 0,
+        "totalMs": 2172
+      },
+      "usage": null,
+      "estUsdPaid": 0,
+      "hasContent": false,
+      "facts": null,
+      "promptBlock": null,
+      "error": "budget:max_llm_per_day",
+      "wroteDb": true
+    }
+  ]
+}

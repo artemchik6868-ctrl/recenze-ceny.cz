@@ -1,0 +1,43 @@
+{
+  "source": "shakes",
+  "writeDb": true,
+  "totalTokens": 1462,
+  "estUsdPaid": 0,
+  "results": [
+    {
+      "source": "shakes",
+      "offerId": 13905,
+      "status": "ok",
+      "method": "free",
+      "model": "google/gemma-4-26b-a4b-it:free",
+      "generationId": "gen-1785415481-mOJp2rI5sTbdFHhu3Vf3",
+      "imageUrl": "https://shakes.pro/pics/offers/13905_promo.jpg",
+      "imageHash": "zwhr0g",
+      "jsonChars": 377,
+      "llmAttempts": 1,
+      "timing": {
+        "preflightMs": 564,
+        "llmMs": 11824,
+        "totalMs": 14672
+      },
+      "usage": {
+        "prompt_tokens": 1344,
+        "completion_tokens": 118,
+        "total_tokens": 1462
+      },
+      "estUsdPaid": 0,
+      "hasContent": true,
+      "facts": {
+        "productType": "doplněk stravy",
+        "application": "oral",
+        "releaseForm": "kapsle",
+        "packaging": "dóza",
+        "detectedText": "Herzena, food supplement, contributes to the normal functioning of the cardiovascular system, hawthorn leaf extract, hawthorn seed extract, garlic mushroom fruit body extract, natural extracts",
+        "briefDescription": "Bílá dóza s růžovo-černým obalem a textem Herzena."
+      },
+      "promptBlock": "Fakta z produktového obrázku (PRIORITNÍ — forma/aplikace podle balení):\ntyp: doplněk stravy\naplikace: oral\nforma: kapsle\nobal: dóza\ntextNaObalu: Herzena, food supplement, contributes to the normal functioning of the cardiovascular system, hawthorn leaf extract, hawthorn seed extract, garlic mushroom fruit body extract, natural extracts\npopis: Bílá dóza s růžovo-černým obalem a textem Herzena.",
+      "error": null,
+      "wroteDb": true
+    }
+  ]
+}

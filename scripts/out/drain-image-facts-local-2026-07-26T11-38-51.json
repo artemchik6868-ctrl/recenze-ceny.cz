@@ -1,0 +1,17 @@
+{
+  "startedCandidates": 322,
+  "processed": 1,
+  "okCount": 1,
+  "failCount": 0,
+  "maxLlmPerDay": "500",
+  "results": [
+    {
+      "source": "shakes",
+      "offerId": 13133,
+      "status": "ok",
+      "method": "free",
+      "error": null,
+      "tokens": 1795
+    }
+  ]
+}

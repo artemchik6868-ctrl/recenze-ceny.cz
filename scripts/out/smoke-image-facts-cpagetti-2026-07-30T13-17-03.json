@@ -1,0 +1,32 @@
+{
+  "source": "cpagetti",
+  "writeDb": true,
+  "totalTokens": 0,
+  "estUsdPaid": 0,
+  "results": [
+    {
+      "source": "cpagetti",
+      "offerId": 13969,
+      "status": "thin",
+      "method": "none",
+      "model": null,
+      "generationId": null,
+      "imageUrl": "https://s.cpagetti.com/img/sci/small/Offer/4d8bb9d41ea7546aca669becb08da010.png",
+      "imageHash": "12fimq6",
+      "jsonChars": 0,
+      "llmAttempts": 1,
+      "timing": {
+        "preflightMs": 580,
+        "llmMs": 0,
+        "totalMs": 3424
+      },
+      "usage": null,
+      "estUsdPaid": 0,
+      "hasContent": false,
+      "facts": null,
+      "promptBlock": null,
+      "error": "AI gateway 400: {\"error\":{\"message\":\"openrouter/force-paid-fallback-not-a-real-model is not a valid model ID\",\"code\":400},\"user_id\":\"user_3EpKtArdBUVgVO1urwcjtzKm23a\"}",
+      "wroteDb": true
+    }
+  ]
+}

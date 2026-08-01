@@ -1,0 +1,1 @@
+ALTER TABLE public.product_content ADD COLUMN IF NOT EXISTS form_kind text;

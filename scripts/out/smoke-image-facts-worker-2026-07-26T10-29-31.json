@@ -1,0 +1,260 @@
+[
+  {
+    "ok": true,
+    "mode": "extract",
+    "source": "shakes",
+    "offerId": 14345,
+    "force": false,
+    "elapsed_ms": 9023,
+    "status": "ok",
+    "method": "free",
+    "imageUrl": "https://shakes.pro/pics/offers/14345_promo.jpg",
+    "imageHash": "lhq3c9",
+    "jsonChars": 334,
+    "llmAttempts": 1,
+    "timing": {
+      "preflightMs": 297,
+      "llmMs": 8014,
+      "totalMs": 9023
+    },
+    "usage": {
+      "prompt_tokens": 1133,
+      "completion_tokens": 870,
+      "total_tokens": 2003
+    },
+    "facts": {
+      "productType": "doplněk stravy",
+      "application": "oral",
+      "releaseForm": "kapsle",
+      "packaging": "lahvička",
+      "detectedText": "CORDYCEPS PULSE 100% 20 CAPSULES",
+      "briefDescription": "Bílá plastová lahvička s černým víčkem vedle modré a bílé krabičky, na obou baleních viditelný nápis CORDYCEPS PULSE a obrázek žlutých houbovitých plodů, 20 kapsul"
+    },
+    "promptBlock": "Fakta z produktového obrázku (vision, stručná):\ntyp: doplněk stravy\naplikace: oral\nforma: kapsle\nobal: lahvička\ntextNaObalu: CORDYCEPS PULSE 100% 20 CAPSULES\npopis: Bílá plastová lahvička s černým víčkem vedle modré a bílé krabičky, na obou baleních viditelný nápis CORDYCEPS PULSE a obrázek žlutých houbovitých plodů, 20 kapsul",
+    "error": null,
+    "wroteDb": true
+  },
+  {
+    "ok": true,
+    "mode": "extract",
+    "source": "shakes",
+    "offerId": 14411,
+    "force": false,
+    "elapsed_ms": 4424,
+    "status": "ok",
+    "method": "free",
+    "imageUrl": "https://shakes.pro/pics/offers/14411_promo.jpg",
+    "imageHash": "7vqpzj",
+    "jsonChars": 272,
+    "llmAttempts": 1,
+    "timing": {
+      "preflightMs": 290,
+      "llmMs": 3456,
+      "totalMs": 4424
+    },
+    "usage": {
+      "prompt_tokens": 1113,
+      "completion_tokens": 120,
+      "total_tokens": 1233
+    },
+    "facts": {
+      "productType": "doplněk stravy",
+      "application": "oral",
+      "releaseForm": "kapsle",
+      "packaging": "krabička",
+      "detectedText": "CORDYCEPS PULSE 100% 20 KAPSULEK",
+      "briefDescription": "Bílá sklenice s červeným a modrým logo a obrázkem přirozených kapsulek, krabička s podobným designem."
+    },
+    "promptBlock": "Fakta z produktového obrázku (vision, stručná):\ntyp: doplněk stravy\naplikace: oral\nforma: kapsle\nobal: krabička\ntextNaObalu: CORDYCEPS PULSE 100% 20 KAPSULEK\npopis: Bílá sklenice s červeným a modrým logo a obrázkem přirozených kapsulek, krabička s podobným designem.",
+    "error": null,
+    "wroteDb": true
+  },
+  {
+    "ok": true,
+    "mode": "extract",
+    "source": "cpa_tl",
+    "offerId": 23351,
+    "force": false,
+    "elapsed_ms": 9740,
+    "status": "ok",
+    "method": "free",
+    "imageUrl": "https://cpa.tl/media/offers/thumbs/big/xws_pack_ht3.png.pagespeed.ic.__KfyoCjdQ.png",
+    "imageHash": "10ivlkk",
+    "jsonChars": 256,
+    "llmAttempts": 1,
+    "timing": {
+      "preflightMs": 132,
+      "llmMs": 6833,
+      "totalMs": 9740
+    },
+    "usage": {
+      "prompt_tokens": 1144,
+      "completion_tokens": 96,
+      "total_tokens": 1240
+    },
+    "facts": {
+      "productType": "doplněk stravy",
+      "application": "oral",
+      "releaseForm": "kapsle",
+      "packaging": "lahvička",
+      "detectedText": "Pharmate My CARDIO DIETARY SUPPLEMENT Supports HEART HEALTH",
+      "briefDescription": "Hnědá lahvička s bílo-červeným obalem s nápisem My Cardio."
+    },
+    "promptBlock": "Fakta z produktového obrázku (vision, stručná):\ntyp: doplněk stravy\naplikace: oral\nforma: kapsle\nobal: lahvička\ntextNaObalu: Pharmate My CARDIO DIETARY SUPPLEMENT Supports HEART HEALTH\npopis: Hnědá lahvička s bílo-červeným obalem s nápisem My Cardio.",
+    "error": null,
+    "wroteDb": true
+  },
+  {
+    "ok": true,
+    "mode": "extract",
+    "source": "m1_top",
+    "offerId": 6819,
+    "force": false,
+    "elapsed_ms": 27176,
+    "status": "ok",
+    "method": "free",
+    "imageUrl": "https://m1.top/uploads/offers/offer_img300x300/20260331174449666.jpg",
+    "imageHash": "5cnnib",
+    "jsonChars": 290,
+    "llmAttempts": 1,
+    "timing": {
+      "preflightMs": 139,
+      "llmMs": 11984,
+      "totalMs": 27176
+    },
+    "usage": {
+      "prompt_tokens": 1138,
+      "completion_tokens": 105,
+      "total_tokens": 1243
+    },
+    "facts": {
+      "productType": "lokální přípravek",
+      "application": "topical",
+      "releaseForm": "krém",
+      "packaging": "tuba",
+      "detectedText": "ARTHROVIA Nano-Infused Joint Relief Cream Soothe, Restore, Move For Healthy Joints & Active Living 50 ML",
+      "briefDescription": "Modrá tuba s textem ARTHROVIA a obrázkem nohou."
+    },
+    "promptBlock": "Fakta z produktového obrázku (vision, stručná):\ntyp: lokální přípravek\naplikace: topical\nforma: krém\nobal: tuba\ntextNaObalu: ARTHROVIA Nano-Infused Joint Relief Cream Soothe, Restore, Move For Healthy Joints & Active Living 50 ML\npopis: Modrá tuba s textem ARTHROVIA a obrázkem nohou.",
+    "error": null,
+    "wroteDb": true
+  },
+  {
+    "ok": true,
+    "mode": "extract",
+    "source": "kma",
+    "offerId": 9572,
+    "force": false,
+    "elapsed_ms": 16834,
+    "status": "ok",
+    "method": "free",
+    "imageUrl": "https://kma.biz/uploads/store/6bb24468956384c482a8b5a901fb6383/819a85cd0695767a2878a3b1b8d509a3be669d02.png",
+    "imageHash": "hbmc6p",
+    "jsonChars": 305,
+    "llmAttempts": 1,
+    "timing": {
+      "preflightMs": 156,
+      "llmMs": 16001,
+      "totalMs": 16834
+    },
+    "usage": {
+      "prompt_tokens": 1142,
+      "completion_tokens": 112,
+      "total_tokens": 1254
+    },
+    "facts": {
+      "productType": "doplněk stravy",
+      "application": "oral",
+      "releaseForm": null,
+      "packaging": "krabička",
+      "detectedText": "ALPHA BEAST, INCREASED SEXUAL CONFIDENCE, BIGGER & LONG-LASTING ERECTIONS SURGE IN SEX DRIVE & ENERGY, DIETARY SUPLEMENT",
+      "briefDescription": "Černá krabička s červeným textem a siluetou šelmy."
+    },
+    "promptBlock": "Fakta z produktového obrázku (vision, stručná):\ntyp: doplněk stravy\naplikace: oral\nobal: krabička\ntextNaObalu: ALPHA BEAST, INCREASED SEXUAL CONFIDENCE, BIGGER & LONG-LASTING ERECTIONS SURGE IN SEX DRIVE & ENERGY, DIETARY SUPLEMENT\npopis: Černá krabička s červeným textem a siluetou šelmy.",
+    "error": "preflight:http_502;recovered:url_only",
+    "wroteDb": true
+  },
+  {
+    "ok": false,
+    "mode": "extract",
+    "source": "adcombo",
+    "offerId": 40599,
+    "force": false,
+    "elapsed_ms": 2122,
+    "status": "fetch_error",
+    "method": "none",
+    "imageUrl": "https://my.adcombo.com/offer_preview/40599/CardioViva_jar.png",
+    "imageHash": "111jssw",
+    "jsonChars": 0,
+    "llmAttempts": 2,
+    "timing": {
+      "preflightMs": 43,
+      "llmMs": 0,
+      "totalMs": 2122
+    },
+    "usage": null,
+    "facts": null,
+    "promptBlock": null,
+    "error": "preflight:http_403;url_only:AI gateway 400: {\"error\":{\"message\":\"Received 403 status code when fetching image from URL: https://my.adcombo.com/offer_preview/40599/CardioViva_jar.png\",\"code\":400,\"metadata\":{\"provider_name\":\"Google AI Studio\",\"previous_errors\":[{\"code\":400,\"message\":\"Received 403 status code when fetching image from URL: https:",
+    "wroteDb": true
+  },
+  {
+    "ok": false,
+    "mode": "extract",
+    "source": "cpagetti",
+    "offerId": 6318,
+    "force": false,
+    "elapsed_ms": 4945,
+    "status": "fetch_error",
+    "method": "none",
+    "imageUrl": "https://s.cpagetti.com/img/sci/small/Offer/3287a23af4144a36536ee9392a0fbce1.png",
+    "imageHash": "1kqbpsx",
+    "jsonChars": 0,
+    "llmAttempts": 2,
+    "timing": {
+      "preflightMs": 348,
+      "llmMs": 0,
+      "totalMs": 4945
+    },
+    "usage": null,
+    "facts": null,
+    "promptBlock": null,
+    "error": "preflight:http_404;url_only:AI gateway 400: {\"error\":{\"message\":\"Received 404 status code when fetching image from URL: https://s.cpagetti.com/img/sci/small/Offer/3287a23af4144a36536ee9392a0fbce1.png\",\"code\":400,\"metadata\":{\"provider_name\":\"Google AI Studio\",\"previous_errors\":[{\"code\":400,\"message\":\"Received 404 status code when fetching imag",
+    "wroteDb": true
+  },
+  {
+    "ok": true,
+    "mode": "extract",
+    "source": "cpa_tl",
+    "offerId": 19495,
+    "force": false,
+    "elapsed_ms": 17276,
+    "status": "ok",
+    "method": "free",
+    "imageUrl": "https://cpa.tl/media/offers/thumbs/big/pack2.png",
+    "imageHash": "ohbgr9",
+    "jsonChars": 291,
+    "llmAttempts": 1,
+    "timing": {
+      "preflightMs": 117,
+      "llmMs": 15369,
+      "totalMs": 17276
+    },
+    "usage": {
+      "prompt_tokens": 1138,
+      "completion_tokens": 96,
+      "total_tokens": 1234
+    },
+    "facts": {
+      "productType": "doplněk stravy",
+      "application": "oral",
+      "releaseForm": "prášek",
+      "packaging": "dóza",
+      "detectedText": "ZERO SUGAR Nano Slim Future Flavored FOOD SUPPLEMENT with sweetener Weight Loss Supplement Co-Created with AI",
+      "briefDescription": "Modrá dóza s nápisem Nano Slim Future Flavored."
+    },
+    "promptBlock": "Fakta z produktového obrázku (vision, stručná):\ntyp: doplněk stravy\naplikace: oral\nforma: prášek\nobal: dóza\ntextNaObalu: ZERO SUGAR Nano Slim Future Flavored FOOD SUPPLEMENT with sweetener Weight Loss Supplement Co-Created with AI\npopis: Modrá dóza s nápisem Nano Slim Future Flavored.",
+    "error": null,
+    "wroteDb": true
+  }
+]

@@ -1,0 +1,34 @@
+{
+  "results": [
+    {
+      "offerId": 21417,
+      "ok": true,
+      "status": "generated",
+      "error": null,
+      "displayTitle": "Glikotril – kapsle na cukrovku",
+      "htmlLen": 2624,
+      "hasSlozeni": true,
+      "elapsed_ms": 26785
+    },
+    {
+      "offerId": 21743,
+      "ok": true,
+      "status": "generated",
+      "error": null,
+      "displayTitle": "ArtiZynt – kapsle při bolesti kloubů",
+      "htmlLen": 1871,
+      "hasSlozeni": true,
+      "elapsed_ms": 31128
+    },
+    {
+      "offerId": 22853,
+      "ok": true,
+      "status": "generated",
+      "error": null,
+      "displayTitle": "Mystery Box – tajný box",
+      "htmlLen": 2107,
+      "hasSlozeni": false,
+      "elapsed_ms": 33790
+    }
+  ]
+}

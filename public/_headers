@@ -1,0 +1,15 @@
+/assets/*
+  cache-control: public, max-age=31536000, immutable
+
+/fonts/*
+  cache-control: public, max-age=31536000, immutable
+  Link: </fonts/Newsreader-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin=anonymous, </fonts/Newsreader-latin-ext.woff2>; rel=preload; as=font; type=font/woff2; crossorigin=anonymous, </fonts/Manrope-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin=anonymous, </fonts/Manrope-latin-ext.woff2>; rel=preload; as=font; type=font/woff2; crossorigin=anonymous
+
+/reviews/*
+  cache-control: public, max-age=31536000, immutable
+
+/*.webp
+  cache-control: public, max-age=31536000, immutable
+
+/*.avif
+  cache-control: public, max-age=31536000, immutable

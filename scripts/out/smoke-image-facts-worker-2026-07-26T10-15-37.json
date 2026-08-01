@@ -1,0 +1,57 @@
+[
+  {
+    "ok": false,
+    "mode": "extract",
+    "source": "cpagetti",
+    "offerId": 1001,
+    "force": false,
+    "elapsed_ms": 80,
+    "status": "no_image",
+    "method": "none",
+    "imageUrl": "",
+    "imageHash": "",
+    "jsonChars": 0,
+    "llmAttempts": 0,
+    "timing": {
+      "preflightMs": 0,
+      "llmMs": 0,
+      "totalMs": 80
+    },
+    "usage": null,
+    "facts": null,
+    "promptBlock": null,
+    "error": "offer_not_found",
+    "wroteDb": false
+  },
+  {
+    "ok": true,
+    "mode": "extract",
+    "source": "adcombo",
+    "offerId": 40695,
+    "force": false,
+    "elapsed_ms": 176,
+    "status": "ok",
+    "method": "free",
+    "imageUrl": "https://my.adcombo.com/offer_preview/40695/auri_revinelle_tube.png",
+    "imageHash": "1pui2ks",
+    "jsonChars": 286,
+    "llmAttempts": 1,
+    "timing": {
+      "preflightMs": 0,
+      "llmMs": 0,
+      "totalMs": 176
+    },
+    "usage": null,
+    "facts": {
+      "packaging": "tuba",
+      "application": "topical",
+      "productType": "kosmetika",
+      "releaseForm": "krém",
+      "detectedText": "rv AURI revinelle ROSE WATER ARGAN OIL REVITALISING FACE CREAM 30 mL / 1 fl.oz.",
+      "briefDescription": "Bílá plastová tuba s hnědým a černým štítkem, 30 mL Revitalising Face Cream."
+    },
+    "promptBlock": "Fakta z produktového obrázku (vision, stručná):\ntyp: kosmetika\naplikace: topical\nforma: krém\nobal: tuba\ntextNaObalu: rv AURI revinelle ROSE WATER ARGAN OIL REVITALISING FACE CREAM 30 mL / 1 fl.oz.\npopis: Bílá plastová tuba s hnědým a černým štítkem, 30 mL Revitalising Face Cream.",
+    "error": null,
+    "wroteDb": false
+  }
+]

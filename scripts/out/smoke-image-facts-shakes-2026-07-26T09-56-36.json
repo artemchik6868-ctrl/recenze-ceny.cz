@@ -1,0 +1,98 @@
+{
+  "source": "shakes",
+  "writeDb": true,
+  "totalTokens": 3874,
+  "estUsdPaid": 0,
+  "results": [
+    {
+      "source": "shakes",
+      "offerId": 12197,
+      "status": "ok",
+      "method": "free",
+      "imageUrl": "https://shakes.pro/pics/offers/12197_promo.jpg",
+      "imageHash": "9d3g3m",
+      "jsonChars": 234,
+      "llmAttempts": 1,
+      "timing": {
+        "preflightMs": 858,
+        "llmMs": 6323,
+        "totalMs": 12786
+      },
+      "usage": {
+        "prompt_tokens": 1346,
+        "completion_tokens": 98,
+        "total_tokens": 1444
+      },
+      "estUsdPaid": 0,
+      "hasContent": true,
+      "facts": {
+        "productType": "lokální přípravek",
+        "application": "topical",
+        "releaseForm": "krém",
+        "packaging": "tuba",
+        "primaryColor": "modrá a růžová",
+        "detectedText": "Proctonic COOLING EFFECT",
+        "briefDescription": "Léčivý krém s efektem ochlazení v tubě."
+      },
+      "promptBlock": "Fakta z produktového obrázku (vision, stručná):\ntyp: lokální přípravek\naplikace: topical\nforma: krém\nobal: tuba\nbarva: modrá a růžová\ntextNaObalu: Proctonic COOLING EFFECT\npopis: Léčivý krém s efektem ochlazení v tubě.",
+      "error": null,
+      "wroteDb": true
+    },
+    {
+      "source": "shakes",
+      "offerId": 12619,
+      "status": "thin",
+      "method": "none",
+      "imageUrl": "https://shakes.pro/pics/offers/12619_promo.jpg",
+      "imageHash": "eefz2b",
+      "jsonChars": 0,
+      "llmAttempts": 1,
+      "timing": {
+        "preflightMs": 298,
+        "llmMs": 0,
+        "totalMs": 5372
+      },
+      "usage": null,
+      "estUsdPaid": 0,
+      "hasContent": false,
+      "facts": null,
+      "promptBlock": null,
+      "error": "Failed to parse LLM JSON: User Safety: safe",
+      "wroteDb": true
+    },
+    {
+      "source": "shakes",
+      "offerId": 11937,
+      "status": "ok",
+      "method": "free",
+      "imageUrl": "https://shakes.pro/pics/offers/11937_promo.jpg",
+      "imageHash": "yoea8z",
+      "jsonChars": 274,
+      "llmAttempts": 1,
+      "timing": {
+        "preflightMs": 249,
+        "llmMs": 7290,
+        "totalMs": 8815
+      },
+      "usage": {
+        "prompt_tokens": 1347,
+        "completion_tokens": 1083,
+        "total_tokens": 2430
+      },
+      "estUsdPaid": 0,
+      "hasContent": true,
+      "facts": {
+        "productType": "doplněk stravy",
+        "application": "oral",
+        "releaseForm": "kapky",
+        "packaging": "lahvička",
+        "primaryColor": "růžová",
+        "detectedText": "REDUSIZER Effective Weight Loss Complex",
+        "briefDescription": "Redusizer je doplněk stravy ve formě kapkách, určený pro podporu hubnutí."
+      },
+      "promptBlock": "Fakta z produktového obrázku (vision, stručná):\ntyp: doplněk stravy\naplikace: oral\nforma: kapky\nobal: lahvička\nbarva: růžová\ntextNaObalu: REDUSIZER Effective Weight Loss Complex\npopis: Redusizer je doplněk stravy ve formě kapkách, určený pro podporu hubnutí.",
+      "error": null,
+      "wroteDb": true
+    }
+  ]
+}

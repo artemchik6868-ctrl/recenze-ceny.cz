@@ -1,0 +1,21 @@
+# Recenze Ceny
+
+> Katalog ověřených přírodních zdravotních produktů s expresním kurýrním doručením po celé České republice. Platba na dobírku, originální produkt od výrobce.
+
+## Pages
+
+- [Domů](/): Přehled katalogu, bestsellery, jak objednat.
+- [Kategorie](/category): Všechny kategorie přírodních zdravotních produktů.
+- [Katalog produktů](/product): Kompletní seznam produktů.
+- [O nás](/about): Kdo jsme a proč nám můžete důvěřovat.
+- [Lékařský expert](/medical-expert): Informace o odborném ověření obsahu.
+- [Doručení](/delivery): Podmínky expresního kurýrního doručení.
+- [Platba](/payment): Platba na dobírku při převzetí.
+- [Vrácení](/returns): Podmínky vrácení (14 dní).
+- [Často kladené otázky](/faq): Odpovědi na nejčastější dotazy.
+- [Kontakt](/contact): Kontaktujte nás.
+
+## Optional
+
+- [Zásady ochrany osobních údajů](/privacy)
+- [Obchodní podmínky](/terms)

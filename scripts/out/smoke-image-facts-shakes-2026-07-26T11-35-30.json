@@ -1,0 +1,118 @@
+{
+  "source": "shakes",
+  "writeDb": true,
+  "totalTokens": 0,
+  "estUsdPaid": 0,
+  "results": [
+    {
+      "source": "shakes",
+      "offerId": 14467,
+      "status": "fetch_error",
+      "method": "none",
+      "imageUrl": "https://shakes.pro/pics/offers/14467_promo.jpg",
+      "imageHash": "1u6yzn2",
+      "jsonChars": 0,
+      "llmAttempts": 0,
+      "timing": {
+        "preflightMs": 595,
+        "llmMs": 0,
+        "totalMs": 1784
+      },
+      "usage": null,
+      "estUsdPaid": 0,
+      "hasContent": false,
+      "facts": null,
+      "promptBlock": null,
+      "error": "budget:max_llm_per_day",
+      "wroteDb": true
+    },
+    {
+      "source": "shakes",
+      "offerId": 14491,
+      "status": "fetch_error",
+      "method": "none",
+      "imageUrl": "https://shakes.pro/pics/offers/14491_promo.jpg",
+      "imageHash": "bnzmkn",
+      "jsonChars": 0,
+      "llmAttempts": 0,
+      "timing": {
+        "preflightMs": 285,
+        "llmMs": 0,
+        "totalMs": 983
+      },
+      "usage": null,
+      "estUsdPaid": 0,
+      "hasContent": false,
+      "facts": null,
+      "promptBlock": null,
+      "error": "budget:max_llm_per_day",
+      "wroteDb": true
+    },
+    {
+      "source": "shakes",
+      "offerId": 14703,
+      "status": "fetch_error",
+      "method": "none",
+      "imageUrl": "https://shakes.pro/pics/offers/14703_promo.jpg",
+      "imageHash": "15inu9b",
+      "jsonChars": 0,
+      "llmAttempts": 0,
+      "timing": {
+        "preflightMs": 284,
+        "llmMs": 0,
+        "totalMs": 918
+      },
+      "usage": null,
+      "estUsdPaid": 0,
+      "hasContent": false,
+      "facts": null,
+      "promptBlock": null,
+      "error": "budget:max_llm_per_day",
+      "wroteDb": true
+    },
+    {
+      "source": "shakes",
+      "offerId": 14713,
+      "status": "fetch_error",
+      "method": "none",
+      "imageUrl": "https://shakes.pro/pics/offers/14713_promo.jpg",
+      "imageHash": "1gd21hq",
+      "jsonChars": 0,
+      "llmAttempts": 0,
+      "timing": {
+        "preflightMs": 284,
+        "llmMs": 0,
+        "totalMs": 979
+      },
+      "usage": null,
+      "estUsdPaid": 0,
+      "hasContent": false,
+      "facts": null,
+      "promptBlock": null,
+      "error": "budget:max_llm_per_day",
+      "wroteDb": true
+    },
+    {
+      "source": "shakes",
+      "offerId": 15005,
+      "status": "fetch_error",
+      "method": "none",
+      "imageUrl": "https://shakes.pro/pics/offers/15005_promo.jpg",
+      "imageHash": "1nhvij3",
+      "jsonChars": 0,
+      "llmAttempts": 0,
+      "timing": {
+        "preflightMs": 272,
+        "llmMs": 0,
+        "totalMs": 953
+      },
+      "usage": null,
+      "estUsdPaid": 0,
+      "hasContent": false,
+      "facts": null,
+      "promptBlock": null,
+      "error": "budget:max_llm_per_day",
+      "wroteDb": true
+    }
+  ]
+}

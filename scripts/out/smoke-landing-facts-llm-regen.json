@@ -1,0 +1,292 @@
+[
+  {
+    "offerId": 8889,
+    "title": "Hondrofrost",
+    "url": "https://recenze-ceny.cz/product/hondrofrost-s8889",
+    "elapsed_ms": 19567,
+    "landing": {
+      "status": "ok",
+      "sourceUrl": "https://cz2.hondrofrostsale.com",
+      "jsonChars": 331,
+      "usage": {
+        "prompt_tokens": 1832,
+        "completion_tokens": 167,
+        "total_tokens": 1999
+      },
+      "timing": {
+        "pickMs": 344,
+        "fetchMs": 673,
+        "extractMs": 1341,
+        "totalMs": 2362
+      },
+      "facts": {
+        "form": "gel",
+        "role": "klouby",
+        "dosage": null,
+        "ingredients": [
+          "Glukosamin",
+          "Chondroitin",
+          "Arnika",
+          "Mentol"
+        ],
+        "benefits": [],
+        "h1": "Když vám klouby neumožňují žít život naplno, nezbývá než doufat v zázrak",
+        "application": "topical",
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [],
+        "audience": null,
+        "warnings": [],
+        "categoryHint": "joint-care"
+      },
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: gel\naplikace: topical\nrole/indikace: klouby\nkategorieHint: joint-care\nslozeni: Glukosamin; Chondroitin; Arnika; Mentol\nnadpis: Když vám klouby neumožňují žít život naplno, nezbývá než doufat v zázrak",
+      "error": null
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "genMs": 16537,
+      "tokens": 10975,
+      "displayTitle": "Hondrofrost – kloubní gel",
+      "htmlLen": 1881,
+      "hasSlozeni": true,
+      "hasNavod": true,
+      "hasFormHint": true,
+      "htmlPreview": "<h2>✨ Hondrofrost – kloubní gel</h2>\n<p>Hondrofrost je kloubní gel, který se zaměřuje na nepohodlí v kloubech. Je určený pro ty, kteří hledají úlevu od běžných potíží s klouby. Může pomoci, když vás klouby omezují v každodenních činnostech.</p>\n<p>Tento gel se aplikuje přímo na kůži. Díky tomu působí tam, kde je potřeba. Nejde o doplněk stravy, který se polyká.</p>\n\n<h2>🎯 Kdy se může Hondrofrost hodit?</h2>\n<p>Hondrofrost je vhodný, pokud:</p>\n<"
+    }
+  },
+  {
+    "offerId": 13133,
+    "title": "ABSlim 690 CZK",
+    "url": "https://recenze-ceny.cz/product/abslim-s13133",
+    "elapsed_ms": 17929,
+    "landing": {
+      "status": "ok",
+      "sourceUrl": "https://czl2-abslim.wlossh.com",
+      "jsonChars": 606,
+      "usage": {
+        "prompt_tokens": 1886,
+        "completion_tokens": 266,
+        "total_tokens": 2152
+      },
+      "timing": {
+        "pickMs": 123,
+        "fetchMs": 569,
+        "extractMs": 3372,
+        "totalMs": 4066
+      },
+      "facts": {
+        "form": null,
+        "role": "hubnutí",
+        "dosage": "Stačí brát ABSlim denně a shodíte až 10–15 kg nadváhy za měsíc!",
+        "ingredients": [],
+        "benefits": [
+          "Získávání energie z tuků, a nikoli z glukózy",
+          "Aktivní přeměna tuků na energii",
+          "Spalování těžko přístupného tuku při zachování svalové hmoty",
+          "Urychluje metabolismus, snižuje chuť k jídlu a přímo útočí na tukové zásoby",
+          "Obohacuje tělo o nezbytné prvky, potlačuje hlad, odstraňuje únavu a úzkost"
+        ],
+        "h1": "ABSlim revoluční ABSlim!",
+        "application": "oral",
+        "packSize": null,
+        "courseDays": "30 dní",
+        "usageSteps": [],
+        "audience": null,
+        "warnings": [],
+        "categoryHint": "weight-management"
+      },
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\naplikace: oral\nrole/indikace: hubnutí\nkategorieHint: weight-management\nkura: 30 dní\ndavkovani: Stačí brát ABSlim denně a shodíte až 10–15 kg nadváhy za měsíc!\nbenefity: Získávání energie z tuků, a nikoli z glukózy; Aktivní přeměna tuků na energii; Spalování těžko přístupného tuku při zachování svalové hmoty; Urychluje metabolismus, snižuje chuť k jídlu a přímo útočí na tukové zásoby; Obohacuje tělo o nezbytné prvky, potlačuje hlad, odstraňuje únavu a úzkost\nnadpis: ABSlim revoluční ABSlim!",
+      "error": null
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "genMs": 13863,
+      "tokens": 11516,
+      "displayTitle": "ABSlim – kapky na hubnutí",
+      "htmlLen": 1876,
+      "hasSlozeni": true,
+      "hasNavod": true,
+      "hasFormHint": true,
+      "htmlPreview": "<h2>💧 ABSlim – kapky na kontrolu hmotnosti</h2>\n<p>ABSlim jsou kapky, které pomáhají s kontrolou tělesné hmotnosti. Jsou určené pro ty, kdo hledají podporu při snaze zhubnout.</p>\n<p>Cílem je pomoct tělu zpracovávat tuky efektivněji. Může to být užitečné, pokud se snažíte snížit váhu.</p>\n<p>Produkt stojí 690 Kč.</p>\n\n<h2>🎯 Pro koho je ABSlim určen?</h2>\n<p>Tyto kapky jsou vhodné, pokud:</p>\n<ul>\n    <li>Chcete podpořit přeměnu tuků na energii."
+    }
+  },
+  {
+    "offerId": 13141,
+    "title": "W-Loss 690 CZK",
+    "url": "https://recenze-ceny.cz/product/w-loss-s13141",
+    "elapsed_ms": 11810,
+    "landing": {
+      "status": "ok",
+      "sourceUrl": "https://czl2-wloss.wlossh.com",
+      "jsonChars": 443,
+      "usage": {
+        "prompt_tokens": 1852,
+        "completion_tokens": 202,
+        "total_tokens": 2054
+      },
+      "timing": {
+        "pickMs": 125,
+        "fetchMs": 600,
+        "extractMs": 999,
+        "totalMs": 1726
+      },
+      "facts": {
+        "form": "kapsle",
+        "role": "hubnutí",
+        "dosage": "jen jedna kapsle W-Loss",
+        "ingredients": [
+          "maliny"
+        ],
+        "benefits": [
+          "Spaluje přebytečný tuk",
+          "Snižuje chuť k jídlu",
+          "Nabíjí energií",
+          "Snížení a kontrola hmotnosti",
+          "Normalizace úrovně cholesterolu"
+        ],
+        "h1": "W-Loss Prokázaná účinnost Přírodní složení Doporučen dietology",
+        "application": "oral",
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [],
+        "audience": null,
+        "warnings": [],
+        "categoryHint": "weight-management"
+      },
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: kapsle\naplikace: oral\nrole/indikace: hubnutí\nkategorieHint: weight-management\ndavkovani: jen jedna kapsle W-Loss\nslozeni: maliny\nbenefity: Spaluje přebytečný tuk; Snižuje chuť k jídlu; Nabíjí energií; Snížení a kontrola hmotnosti; Normalizace úrovně cholesterolu\nnadpis: W-Loss Prokázaná účinnost Přírodní složení Doporučen dietology",
+      "error": null
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "genMs": 10084,
+      "tokens": 11203,
+      "displayTitle": "W-Loss – kapky na kontrolu hmotnosti",
+      "htmlLen": 1637,
+      "hasSlozeni": true,
+      "hasNavod": true,
+      "hasFormHint": true,
+      "htmlPreview": "<h2>💧 W-Loss – kapky na kontrolu hmotnosti</h2>\n<p>W-Loss jsou kapky, které pomáhají s kontrolou tělesné hmotnosti. Jsou určené pro ty, kdo chtějí podpořit své úsilí při snižování váhy.</p>\n<p>Tyto kapky mohou pomoci snížit chuť k jídlu a dodat energii. To může být užitečné, když se snažíte jíst méně a cítit se lépe.</p>\n\n<h2>🎯 K čemu se W-Loss používá?</h2>\n<p>W-Loss se hodí, pokud:</p>\n<ul>\n<li>Chcete podpořit spalování přebytečného tuku.</li"
+    }
+  },
+  {
+    "offerId": 13521,
+    "title": "Pulsero",
+    "url": "https://recenze-ceny.cz/product/pulsero-s13521",
+    "elapsed_ms": 23204,
+    "landing": {
+      "status": "ok",
+      "sourceUrl": "https://cz2-pulsero.potencsh.com",
+      "jsonChars": 500,
+      "usage": {
+        "prompt_tokens": 1845,
+        "completion_tokens": 247,
+        "total_tokens": 2092
+      },
+      "timing": {
+        "pickMs": 131,
+        "fetchMs": 810,
+        "extractMs": 1295,
+        "totalMs": 2238
+      },
+      "facts": {
+        "form": "kapsle",
+        "role": "potence",
+        "dosage": "1-2 krát denně 1 kapslí",
+        "ingredients": [],
+        "benefits": [
+          "Stabilní a dlouhá erekce",
+          "Živý a bouřlivý sex až 3 hod.",
+          "Maximální uspokojení ze sexu",
+          "Okamžitý účinek",
+          "Posílení erekce"
+        ],
+        "h1": "Pulsero Pusť na svobodu své divoké zvíře!",
+        "application": "oral",
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [
+          "1-2 krát denně 1 kapslí",
+          "Opakujte každý den během kúry",
+          "Užívejte si silné erekce a orgasmy"
+        ],
+        "audience": null,
+        "warnings": [],
+        "categoryHint": "potenz-libido"
+      },
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: kapsle\naplikace: oral\nrole/indikace: potence\nkategorieHint: potenz-libido\ndavkovani: 1-2 krát denně 1 kapslí\nbenefity: Stabilní a dlouhá erekce; Živý a bouřlivý sex až 3 hod.; Maximální uspokojení ze sexu; Okamžitý účinek; Posílení erekce\nnavod: 1. 1-2 krát denně 1 kapslí | 2. Opakujte každý den během kúry | 3. Užívejte si silné erekce a orgasmy\nnadpis: Pulsero Pusť na svobodu své divoké zvíře!",
+      "error": null
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "genMs": 20966,
+      "tokens": 11816,
+      "displayTitle": "Pulsero – kapsle na potenci",
+      "htmlLen": 1942,
+      "hasSlozeni": true,
+      "hasNavod": true,
+      "hasFormHint": true,
+      "htmlPreview": "<h2>💊 Pulsero – kapsle na potenci</h2>\n<p>Pulsero jsou kapsle, které mají pomoci s mužskou potencí. Jsou určené pro muže, kteří chtějí zlepšit svůj sexuální život. Měly by podpořit silnější erekci a celkovou výdrž.</p>\n<p>Tento doplněk stravy je navržen tak, aby pomohl dosáhnout stabilní a dlouhotrvající erekce. Může přispět k intenzivnějším zážitkům v posteli.</p>\n\n<h2>🎯 K čemu Pulsero pomáhá?</h2>\n<p>Pulsero je vhodné, pokud:</p>\n<ul>\n    <li"
+    }
+  },
+  {
+    "offerId": 13763,
+    "title": "Insuvit",
+    "url": "https://recenze-ceny.cz/product/insuvit-s13763",
+    "elapsed_ms": 15384,
+    "landing": {
+      "status": "ok",
+      "sourceUrl": "https://cz2.insuvit.diabetsh.com",
+      "jsonChars": 416,
+      "usage": {
+        "prompt_tokens": 1860,
+        "completion_tokens": 188,
+        "total_tokens": 2048
+      },
+      "timing": {
+        "pickMs": 124,
+        "fetchMs": 643,
+        "extractMs": 950,
+        "totalMs": 1718
+      },
+      "facts": {
+        "form": "kapsle",
+        "role": "diabetes",
+        "dosage": "1 krát denně",
+        "ingredients": [],
+        "benefits": [
+          "Stabilizuje hladinu cukru",
+          "Normalizuje tvorbu inzulinu",
+          "Chrání před vysokým obsahem cukru",
+          "Obnovuje fungování jater a pankreasu",
+          "Normalizuje obměnu sacharidů"
+        ],
+        "h1": "Insuvit – dvojitá rána cukrovce",
+        "application": "oral",
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [],
+        "audience": null,
+        "warnings": [],
+        "categoryHint": "other"
+      },
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: kapsle\naplikace: oral\nrole/indikace: diabetes\nkategorieHint: other\ndavkovani: 1 krát denně\nbenefity: Stabilizuje hladinu cukru; Normalizuje tvorbu inzulinu; Chrání před vysokým obsahem cukru; Obnovuje fungování jater a pankreasu; Normalizuje obměnu sacharidů\nnadpis: Insuvit – dvojitá rána cukrovce",
+      "error": null
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "genMs": 13038,
+      "tokens": 11875,
+      "displayTitle": "Insuvit – kapsle na cukrovku",
+      "htmlLen": 2422,
+      "hasSlozeni": true,
+      "hasNavod": true,
+      "hasFormHint": true,
+      "htmlPreview": "<h2>💊 Insuvit – kapsle na cukrovku</h2>\n<p>Insuvit jsou kapsle, které pomáhají stabilizovat hladinu cukru v krvi. Jsou určené pro lidi, kteří chtějí podpořit normální funkci svého těla v souvislosti s cukrovkou. Tento doplněk stravy se zaměřuje na podporu přirozené tvorby inzulínu a ochranu před výkyvy cukru.</p>\n<p>Insuvit může být dobrou volbou pro ty, kteří hledají přirozenou cestu, jak podpořit svůj metabolismus sacharidů. Pomáhá také s obno"
+    }
+  }
+]

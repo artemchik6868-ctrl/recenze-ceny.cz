@@ -1,0 +1,45 @@
+{
+  "at": "2026-07-26T14:32:09.673Z",
+  "results": [
+    {
+      "key": "m1_top:5641",
+      "slug": "uro-m5641",
+      "shelf": "prostate-health",
+      "ok": true,
+      "display_title": "Uro UP Forte – tablety na prostatu",
+      "htmlLen": 2880
+    },
+    {
+      "key": "cpa_tl:23680",
+      "slug": "prostate-23680",
+      "shelf": "prostate-health",
+      "ok": true,
+      "display_title": "Prostate Support – kapsle pro zdravou prostatu",
+      "htmlLen": 3221
+    },
+    {
+      "key": "cpa_tl:23419",
+      "slug": "uro-23419",
+      "shelf": "prostate-health",
+      "ok": true,
+      "display_title": "Uro Up Forte – tablety na prostatu",
+      "htmlLen": 3422
+    },
+    {
+      "key": "cpa_tl:21110",
+      "slug": "sanoprost-21110",
+      "shelf": "prostate-health",
+      "ok": true,
+      "display_title": "SanoProst – tablety na prostatu",
+      "htmlLen": 4377
+    },
+    {
+      "key": "cpa_tl:13070",
+      "slug": "retoxin-13070",
+      "shelf": "parasites",
+      "ok": true,
+      "display_title": "Retoxin – kapsle proti parazitům",
+      "htmlLen": 3546
+    }
+  ]
+}

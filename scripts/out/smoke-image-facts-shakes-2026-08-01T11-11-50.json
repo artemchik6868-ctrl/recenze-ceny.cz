@@ -1,0 +1,43 @@
+{
+  "source": "shakes",
+  "writeDb": true,
+  "totalTokens": 1414,
+  "estUsdPaid": 0.000679,
+  "results": [
+    {
+      "source": "shakes",
+      "offerId": 24082,
+      "status": "ok",
+      "method": "paid",
+      "model": "google/gemini-2.5-flash",
+      "generationId": "gen-1785582708-kFToXGF2X6rMZEL3BTFg",
+      "imageUrl": "https://shakes.pro/pics/offers/24082_promo.jpg",
+      "imageHash": "1qfv4bm",
+      "jsonChars": 263,
+      "llmAttempts": 2,
+      "timing": {
+        "preflightMs": 899,
+        "llmMs": 1705,
+        "totalMs": 9883
+      },
+      "usage": {
+        "prompt_tokens": 1298,
+        "completion_tokens": 116,
+        "total_tokens": 1414
+      },
+      "estUsdPaid": 0.000679,
+      "hasContent": true,
+      "facts": {
+        "productType": "doplněk stravy",
+        "application": "oral",
+        "releaseForm": "kapsle",
+        "packaging": "dóza",
+        "detectedText": "CORDYCEPS PULSE CORDYCEPS MUSHROOM EXTRACT 100% NATURAL 30 CAPSULES",
+        "briefDescription": "Bílá dóza s fialovou etiketou a krabička s fialovým designem."
+      },
+      "promptBlock": "Fakta z produktového obrázku (PRIORITNÍ — forma/aplikace podle balení):\ntyp: doplněk stravy\naplikace: oral\nforma: kapsle\nobal: dóza\ntextNaObalu: CORDYCEPS PULSE CORDYCEPS MUSHROOM EXTRACT 100% NATURAL 30 CAPSULES\npopis: Bílá dóza s fialovou etiketou a krabička s fialovým designem.",
+      "error": null,
+      "wroteDb": true
+    }
+  ]
+}

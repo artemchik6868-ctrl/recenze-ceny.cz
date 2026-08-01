@@ -1,0 +1,30 @@
+{
+  "diagnosedAt": "2026-07-10T12:45:00+03:00",
+  "rootCause": "QA/pipeline — not Worker cron",
+  "findings": {
+    "cordyceps_23094": {
+      "landing": "bgl1-cordycepspulse-neuropathy.othersh.com",
+      "catalogShelf": "nervous-system",
+      "failureMode": "Step 3 LLM picked fungus (brand Cordyceps = mushroom); Step 2 produced anti-fungus title/body despite neuropathy landing",
+      "debugQa": "supplement-structure-missing (soft only)",
+      "fix": "step3 category anchor from landing + step2 descriptor reconcile for nervous-system/neuropathy"
+    },
+    "benaga_23102": {
+      "landing": "bgl1-benagachaga-neuropathy.othersh.com",
+      "catalogShelf": "nervous-system",
+      "failureMode": "Intermittent QA hard failures on Worker (non-deterministic LLM); succeeded with soft niche-must-mention-missing",
+      "debugQa": "niche-must-mention-missing (soft only)"
+    }
+  },
+  "fixesApplied": [
+    "resolvePipelineCategoryAnchor + step3 override in ai-content.server.ts",
+    "buildPipelineFormHint nervous-system descriptors when formKind unknown",
+    "step2 title reconcile when expectedDescriptorBg conflicts with fungus/smoking etc.",
+    "STEP2_EXAMPLES for Cordyceps/Benaga neuropathy and anti-stress",
+    "shakes-landing-tokens priority-3 explicit neuropathy.othersh rule"
+  ],
+  "debugArtifacts": [
+    "scripts/out/debug-shakes-23094.json",
+    "scripts/out/debug-shakes-23102.json"
+  ]
+}

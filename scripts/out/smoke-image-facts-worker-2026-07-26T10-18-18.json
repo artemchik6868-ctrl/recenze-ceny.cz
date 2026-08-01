@@ -1,0 +1,72 @@
+[
+  {
+    "ok": true,
+    "mode": "extract",
+    "source": "m1_top",
+    "offerId": 3639,
+    "force": true,
+    "elapsed_ms": 6375,
+    "status": "ok",
+    "method": "paid",
+    "imageUrl": "https://m1.top/uploads/offers/offer_img300x300/20210830121715638.jpg",
+    "imageHash": "12zz24v",
+    "jsonChars": 299,
+    "llmAttempts": 2,
+    "timing": {
+      "preflightMs": 122,
+      "llmMs": 1899,
+      "totalMs": 6375
+    },
+    "usage": {
+      "prompt_tokens": 1099,
+      "completion_tokens": 134,
+      "total_tokens": 1233
+    },
+    "facts": {
+      "productType": "lokální přípravek",
+      "application": "topical",
+      "releaseForm": "krém",
+      "packaging": "lahvička",
+      "detectedText": "100% NATURAL FLEXOSAMINE 24h Immediate Relief Long Lasting Repair 50 ml",
+      "briefDescription": "Bílá lahvička s dávkovačem a zeleným víčkem, s nápisem FLEXOSAMINE a obrázkem kloubu."
+    },
+    "promptBlock": "Fakta z produktového obrázku (vision, stručná):\ntyp: lokální přípravek\naplikace: topical\nforma: krém\nobal: lahvička\ntextNaObalu: 100% NATURAL FLEXOSAMINE 24h Immediate Relief Long Lasting Repair 50 ml\npopis: Bílá lahvička s dávkovačem a zeleným víčkem, s nápisem FLEXOSAMINE a obrázkem kloubu.",
+    "error": null,
+    "wroteDb": true
+  },
+  {
+    "ok": true,
+    "mode": "extract",
+    "source": "shakes",
+    "offerId": 12889,
+    "force": true,
+    "elapsed_ms": 6772,
+    "status": "ok",
+    "method": "paid",
+    "imageUrl": "https://shakes.pro/pics/offers/12889_promo.jpg",
+    "imageHash": "kz3cys",
+    "jsonChars": 296,
+    "llmAttempts": 2,
+    "timing": {
+      "preflightMs": 6,
+      "llmMs": 2056,
+      "totalMs": 6772
+    },
+    "usage": {
+      "prompt_tokens": 1089,
+      "completion_tokens": 114,
+      "total_tokens": 1203
+    },
+    "facts": {
+      "productType": "doplněk stravy",
+      "application": "oral",
+      "releaseForm": "kapky",
+      "packaging": "lahvička",
+      "detectedText": "ABslim food supplement PROMOTES WEIGHT CONTROL & FAT METABOLISM VOLUME 30 ml",
+      "briefDescription": "Hnědá lahvička s kapátkem a bílo-zelená krabička s nápisem ABslim food supplement."
+    },
+    "promptBlock": "Fakta z produktového obrázku (vision, stručná):\ntyp: doplněk stravy\naplikace: oral\nforma: kapky\nobal: lahvička\ntextNaObalu: ABslim food supplement PROMOTES WEIGHT CONTROL & FAT METABOLISM VOLUME 30 ml\npopis: Hnědá lahvička s kapátkem a bílo-zelená krabička s nápisem ABslim food supplement.",
+    "error": null,
+    "wroteDb": true
+  }
+]

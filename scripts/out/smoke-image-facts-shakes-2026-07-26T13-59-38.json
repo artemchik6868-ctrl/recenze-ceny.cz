@@ -1,0 +1,41 @@
+{
+  "source": "shakes",
+  "writeDb": true,
+  "totalTokens": 1195,
+  "estUsdPaid": 0,
+  "results": [
+    {
+      "source": "shakes",
+      "offerId": 21838,
+      "status": "ok",
+      "method": "free",
+      "imageUrl": "https://shakes.pro/pics/offers/21838_promo.jpg",
+      "imageHash": "sy2df2",
+      "jsonChars": 202,
+      "llmAttempts": 1,
+      "timing": {
+        "preflightMs": 626,
+        "llmMs": 3404,
+        "totalMs": 5849
+      },
+      "usage": {
+        "prompt_tokens": 1110,
+        "completion_tokens": 85,
+        "total_tokens": 1195
+      },
+      "estUsdPaid": 0,
+      "hasContent": true,
+      "facts": {
+        "productType": "lokální přípravek",
+        "application": "topical",
+        "releaseForm": "gel",
+        "packaging": "tuba",
+        "detectedText": "Herzena",
+        "briefDescription": "Bílá tuba s červenou a zelenou etiketu s textem 'Herzena'"
+      },
+      "promptBlock": "Fakta z produktového obrázku (PRIORITNÍ — forma/aplikace podle balení):\ntyp: lokální přípravek\naplikace: topical\nforma: gel\nobal: tuba\ntextNaObalu: Herzena\npopis: Bílá tuba s červenou a zelenou etiketu s textem 'Herzena'",
+      "error": null,
+      "wroteDb": true
+    }
+  ]
+}

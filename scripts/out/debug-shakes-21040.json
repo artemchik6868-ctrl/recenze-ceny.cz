@@ -1,0 +1,26 @@
+{
+  "source": "shakes",
+  "offerId": 21040,
+  "categorySlug": "nervous-system",
+  "pipelineVersion": "v75-hu-expert-opinion-male-voice",
+  "feedTitle": "Reishield - memory",
+  "cleanedDescription": "Reishield - memory — https://hu1-reishield-memory.othersh.com — Лэндинг 1(iframe) hu1 reishield memory othersh com Веб-сайты Email-рассылки (по согласованию с личным менеджером) Дорвей-трафик Контекстная реклама Контекстная реклама на бренд Паблики ВК, ОК и Мой мир Соц. сети приложения Мотивированный трафик Push-уведомления YouTube TikTok Popup / Clickunder myTarget, таргет ВК Facebook Instagram",
+  "factsKind": "unknown",
+  "displayTitle": "Reishield – memória javító",
+  "maxAttempts": 2,
+  "attempts": [
+    {
+      "attempt": 1,
+      "mode": "pipeline",
+      "promptLen": 0,
+      "htmlLen": 2171,
+      "qaSeverity": "ok",
+      "qaErrors": [],
+      "htmlPreview": "<h2>🧠 Reishield – memória javító</h2>\n\n<p>A Reishield egy étrend-kiegészítő, ami segíthet a memória és a kognitív funkciók támogatásában. Akkor lehet hasznos, ha úgy érzi, a feledékenység vagy a koncentráció hiánya zavarja a mindennapokban.</p>\n<p>Ez a termék azoknak készült, akik szeretnék támogatni agyi teljesítményüket, és frissen tartani elméjüket.</p>\n\n<h2>🎯 Mikor érdemes használni a Reishi"
+    }
+  ],
+  "finalOrigin": "pipeline",
+  "estimatedTier": "ai",
+  "finalHtmlLen": 2171,
+  "qaErrorsFinal": []
+}

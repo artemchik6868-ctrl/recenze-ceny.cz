@@ -1,0 +1,43 @@
+{
+  "source": "cpagetti",
+  "writeDb": true,
+  "totalTokens": 1847,
+  "estUsdPaid": 0,
+  "results": [
+    {
+      "source": "cpagetti",
+      "offerId": 15497,
+      "status": "ok",
+      "method": "free",
+      "model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+      "generationId": "gen-1785075208-zSTUR5O99NR6gy2VTaMg",
+      "imageUrl": "https://s.cpagetti.com/img/sci/small/Offer/0532a5022f69835fb560b9b097433ab8.png",
+      "imageHash": "nwfm5u",
+      "jsonChars": 296,
+      "llmAttempts": 1,
+      "timing": {
+        "preflightMs": 725,
+        "llmMs": 6710,
+        "totalMs": 9214
+      },
+      "usage": {
+        "prompt_tokens": 1132,
+        "completion_tokens": 715,
+        "total_tokens": 1847
+      },
+      "estUsdPaid": 0,
+      "hasContent": true,
+      "facts": {
+        "productType": "doplněk stravy",
+        "application": "oral",
+        "releaseForm": "kapsle",
+        "packaging": "lahvička",
+        "detectedText": "Uro UP FORTE, 20 kapsul",
+        "briefDescription": "Bílá plastová lahvička se modrou etiketou a bílým uzávěrem, na ní nápis \"Uro UP FORTE\" a ilustrace močového měčína, obsah 20 kapsul."
+      },
+      "promptBlock": "Fakta z produktového obrázku (PRIORITNÍ — forma/aplikace podle balení):\ntyp: doplněk stravy\naplikace: oral\nforma: kapsle\nobal: lahvička\ntextNaObalu: Uro UP FORTE, 20 kapsul\npopis: Bílá plastová lahvička se modrou etiketou a bílým uzávěrem, na ní nápis \"Uro UP FORTE\" a ilustrace močového měčína, obsah 20 kapsul.",
+      "error": null,
+      "wroteDb": true
+    }
+  ]
+}

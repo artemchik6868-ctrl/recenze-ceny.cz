@@ -1,0 +1,278 @@
+{
+  "generatedAt": "2026-07-29T16:53:43.620Z",
+  "requestedModel": "openai/gpt-oss-20b:free",
+  "products": [
+    {
+      "id": 14345,
+      "source": "shakes",
+      "displayTitle": "Cordyceps Pulse - kapsle na klouby",
+      "categorySlug": "joint-care",
+      "formKind": "capsules",
+      "audience": "any",
+      "modelUsed": "openai/gpt-oss-20b:free",
+      "slots": [
+        {
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 28
+        },
+        {
+          "gender": "f",
+          "rating": 3,
+          "daysAgo": 6
+        },
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 14
+        },
+        {
+          "gender": "f",
+          "rating": 4,
+          "daysAgo": 21
+        },
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 35
+        }
+      ],
+      "reviews": [
+        {
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 28,
+          "text": "Objednal jsem Cordyceps Pulse a už po čtyřech týdnech jsem si všiml, že se mi klouby cítí méně zatíženy. Kapsle mají lehkou, ale trochu výraznou chuť, což mi na začátku rušilo. Přesto se zdá, že přírodní podpora pomáhá pohodlí během týdne a týdne."
+        },
+        {
+          "gender": "f",
+          "rating": 3,
+          "daysAgo": 6,
+          "text": "Po šesti dnech užívání jsem zaznamenala, že bolest v kolenou mírně klesla, ale stále pociťuji drobné napětí. Navíc je balení malé a rychle vyprší, což je trochu nepohodlné. Přesto mi dodává pocit, že mám podporu pro pohodlí, kterou potřebuji."
+        },
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 14,
+          "text": "Po dvou týdnech užívání jsem pocítil výrazné zlepšení mobility. Kapsle mi dodávají pocit pohodlí s postupným efektem po týdnech. Doporučuji všem, kdo potřebují podporu kloubů."
+        },
+        {
+          "gender": "f",
+          "rating": 4,
+          "daysAgo": 21,
+          "text": "Po třech týdnech jsem si všimla, že klouby jsou méně bolestivé a cítím se lépe. Jediná malá výhrada je, že kapsle se na skladování lehce přehřívají, což je nepatrné nepříjemné. Přesto je výsledek pozitivní a pomáhá mi udržet pohodlí."
+        },
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 35,
+          "text": "Po pěti týdnech jsem si všiml, že se mi klouby cítí mnohem méně omezené. Kapsle působí příjemně a podporují pohodlí postupným efektem. Určitě doporučuji uživateli, kteří chtějí dlouhodobé podpoření."
+        }
+      ]
+    },
+    {
+      "id": 14405,
+      "source": "shakes",
+      "displayTitle": "Cordyceps Pulse – kapsle na prostatu",
+      "categorySlug": "prostate-health",
+      "formKind": "capsules",
+      "audience": "men",
+      "modelUsed": "openai/gpt-oss-20b:free",
+      "slots": [
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 6
+        },
+        {
+          "gender": "m",
+          "rating": 3,
+          "daysAgo": 14
+        },
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 28
+        },
+        {
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 21
+        },
+        {
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 35
+        }
+      ],
+      "reviews": [
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 6,
+          "text": "Mám 58 let a už šest dní užívám kapsle Cordyceps Pulse. Po první dávce jsem pozoroval, že večer se mi nepřestává zvedat na toaletu. Víkendové výlety s manželkou se vracely bez neklidu, což mi opravdu udělalo radost."
+        },
+        {
+          "gender": "m",
+          "rating": 3,
+          "daysAgo": 14,
+          "text": "Po dvoutýdenním působení bydlím v nejisté náladě. Kapsle mi pomohly, když jsem měl méně časté potřeby vyprázdňovat, ale stále se mi občas zvedá na nočních kontrol. Očekával jsem rychlejší zlepšení, ale alespoň se situace zlepšila."
+        },
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 28,
+          "text": "Přibližně měsíc užívám Cordyceps Pulse a jsem opravdu spokojený. Všiml jsem si, že moji partnery již nebudu muset přerušovat ve středě noci. Kapsle jsou jednoduché na užívání a dávka je dostatečná."
+        },
+        {
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 21,
+          "text": "Po dvaceti jedenácti dnech jsem pocítil zlepšení v pohodlí. Jediný malý problém je, že kapsle jsou trochu těžké na okamžité nasáknutí, což mi zkraťovalo večerní dobu. Přesto se doporučuji, protože výhody převyšují nedostatky."
+        },
+        {
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 35,
+          "text": "Po pěti týdnech užívání jsem si všiml, že potřeba vstát na toaletu se snížila. Můj spánek se zlepšil, i když kapsle někdy trochu ovlivňují chuť na jídlo. Celkově ale hodnotím pozitivně, protože podpora komfortu je pro mě důležitá."
+        }
+      ]
+    },
+    {
+      "id": 12905,
+      "source": "shakes",
+      "displayTitle": "ABslim – kapky na hubnutí",
+      "categorySlug": "weight-management",
+      "formKind": "capsules",
+      "audience": "any",
+      "modelUsed": "openai/gpt-oss-20b:free",
+      "slots": [
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 6
+        },
+        {
+          "gender": "f",
+          "rating": 3,
+          "daysAgo": 28
+        },
+        {
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 14
+        },
+        {
+          "gender": "f",
+          "rating": 5,
+          "daysAgo": 21
+        },
+        {
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 35
+        }
+      ],
+      "reviews": [
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 6,
+          "text": "Jsem spokojený, už po šesti dnech používání se mi zlepšil metabolismus a cítím se lehčí. Každé ráno po kapslích se mi podařilo snížit chuť na sladké a jsem otevřený přidat i lehké kardio. Doporučuji, protože výsledky nejsou náhlé, ale postupné."
+        },
+        {
+          "gender": "f",
+          "rating": 3,
+          "daysAgo": 28,
+          "text": "Už jsem to užila měsíc, ale ne vidím výrazné změny. Kapsle mi pomáhají s pocitem sytosti, ale navíc jsem si všimla lehké nevolnosti po jídelu. Doufám, že se efektivita zlepší, pokud budu kombinovat s dietou."
+        },
+        {
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 14,
+          "text": "Po dvou týdnech už mám pocit, že se mi zvyšuje energie, ale občas se mi zvedla mírná únava po večerních jídlech. Kapsle jsou snadno použitelné, ale někdy se mi zřídka rozkládají tak rychle, což mi někdy zdržuje ranní rutinu. Přesto jsem spokojený s celkovým efektem."
+        },
+        {
+          "gender": "f",
+          "rating": 5,
+          "daysAgo": 21,
+          "text": "Jsem spokojená, po třech týdnech jsem si všimla, že mi se zlepšila trávení a vytrvalost. Kapsle mi dodaly energii bez výrazného útlumu a pomohly mi udržet si pravidelný jídelníček. Doporučuji všem, kdo chtějí podpořit komfort těla postupným efektem."
+        },
+        {
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 35,
+          "text": "Po 35 dnech jsem si všiml, že se mi zlepšila metabolická rovnováha, ale výsledky nejsou natolik výrazné, aby mě úplně ohromily. Jedním z menších nedostatků je, že kapsle musím užívat těsně před jídlem, jinak se mi občas stane, že se mi zvedá tlak na břicho. Přesto je to dobrý doplněk podporující komfort těla."
+        }
+      ]
+    },
+    {
+      "id": 15098,
+      "source": "shakes",
+      "displayTitle": "Promicil – krém proti plísním",
+      "categorySlug": "fungus",
+      "formKind": "capsules",
+      "audience": "any",
+      "modelUsed": "openai/gpt-oss-20b:free",
+      "slots": [
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 21
+        },
+        {
+          "gender": "f",
+          "rating": 4,
+          "daysAgo": 14
+        },
+        {
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 35
+        },
+        {
+          "gender": "f",
+          "rating": 3,
+          "daysAgo": 28
+        },
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 6
+        }
+      ],
+      "reviews": [
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 21,
+          "text": "Když jsem začal trpět svěděním a svědomitými plísními na nohou, objednal jsem si kapsle Promicil. Už po třech týdnech jsem se cítil lépe a podráždění je téměř vyléčeno. Doporučuji každému, kdo hledá postupné zlepšení."
+        },
+        {
+          "gender": "f",
+          "rating": 4,
+          "daysAgo": 14,
+          "text": "Kapsle Promicil mi pomáhají, ale jejich vůně je trochu silná. Už po dvou týdnech jsem viděla, že se redukuje svědění a vyrážky. Jedinou výhodou je, že se snadno užívají, ale občas se mi zdá, že jsou příliš velké."
+        },
+        {
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 35,
+          "text": "Když jsem začal užívat kapsle Promicil, první zlepšení jsem viděl po čtvrtém týdnu. Je skvělé, že jsou přátelské k tělu, ale efekty se projeví pomaleji, než jsem očekával. I přesto jsou výhodné pro postupný komfort."
+        },
+        {
+          "gender": "f",
+          "rating": 3,
+          "daysAgo": 28,
+          "text": "Po několika týdnech užívání kapslí Promicil jsem poznala, že svědění se zlehčuje, ale plíseň zůstává na některých místech. Přesto, že jsou snadno užívatelný, mi připadá, že účinek není dost rychlý. Celkově jsem spokojená, ale stále hledám rychlejší zlepšení."
+        },
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 6,
+          "text": "Kapsle Promicil mi vyřadily plísně. Po pouhých dvou týdnech jsem zaznamenal výrazné zlepšení a svědění se ztratilo. Jsem naprosto spokojen a doporučuji."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "source": "shakes",
+  "writeDb": false,
+  "totalTokens": 4499,
+  "estUsdPaid": 0,
+  "results": [
+    {
+      "source": "shakes",
+      "offerId": 12197,
+      "status": "ok",
+      "method": "free",
+      "imageUrl": "https://shakes.pro/pics/offers/12197_promo.jpg",
+      "imageHash": "9d3g3m",
+      "jsonChars": 237,
+      "llmAttempts": 1,
+      "timing": {
+        "preflightMs": 845,
+        "llmMs": 14222,
+        "totalMs": 16855
+      },
+      "usage": {
+        "prompt_tokens": 587,
+        "completion_tokens": 882,
+        "total_tokens": 1469
+      },
+      "estUsdPaid": 0,
+      "hasContent": true,
+      "facts": {
+        "productType": "kosmetika",
+        "releaseForm": "krém",
+        "packaging": "tuba",
+        "primaryColor": "modrá",
+        "detectedText": "Proctonic, COOLING EFFECT",
+        "briefDescription": "Na obrázku je vidět tuba a krabička produktu Proctonic s nápisem 'COOLING EFFECT'."
+      },
+      "promptBlock": "Fakta z produktového obrázku (vision, stručná):\ntyp: kosmetika\nforma: krém\nobal: tuba\nbarva: modrá\ntextNaObalu: Proctonic, COOLING EFFECT\npopis: Na obrázku je vidět tuba a krabička produktu Proctonic s nápisem 'COOLING EFFECT'.",
+      "error": null,
+      "wroteDb": false
+    },
+    {
+      "source": "shakes",
+      "offerId": 12619,
+      "status": "ok",
+      "method": "free",
+      "imageUrl": "https://shakes.pro/pics/offers/12619_promo.jpg",
+      "imageHash": "eefz2b",
+      "jsonChars": 262,
+      "llmAttempts": 1,
+      "timing": {
+        "preflightMs": 389,
+        "llmMs": 6249,
+        "totalMs": 7833
+      },
+      "usage": {
+        "prompt_tokens": 594,
+        "completion_tokens": 608,
+        "total_tokens": 1202
+      },
+      "estUsdPaid": 0,
+      "hasContent": true,
+      "facts": {
+        "productType": "kosmetika",
+        "releaseForm": "gel",
+        "packaging": "tuba a krabička",
+        "primaryColor": "modrá",
+        "detectedText": "HondroFrost ICE COLD GEL 50 ml",
+        "briefDescription": "Modrá tuba a krabička HondroFrost ICE COLD GEL obsahují gelový krém určený na úpravu kloubů."
+      },
+      "promptBlock": "Fakta z produktového obrázku (vision, stručná):\ntyp: kosmetika\nforma: gel\nobal: tuba a krabička\nbarva: modrá\ntextNaObalu: HondroFrost ICE COLD GEL 50 ml\npopis: Modrá tuba a krabička HondroFrost ICE COLD GEL obsahují gelový krém určený na úpravu kloubů.",
+      "error": null,
+      "wroteDb": false
+    },
+    {
+      "source": "shakes",
+      "offerId": 11937,
+      "status": "ok",
+      "method": "free",
+      "imageUrl": "https://shakes.pro/pics/offers/11937_promo.jpg",
+      "imageHash": "yoea8z",
+      "jsonChars": 363,
+      "llmAttempts": 1,
+      "timing": {
+        "preflightMs": 309,
+        "llmMs": 8285,
+        "totalMs": 9528
+      },
+      "usage": {
+        "prompt_tokens": 587,
+        "completion_tokens": 1241,
+        "total_tokens": 1828
+      },
+      "estUsdPaid": 0,
+      "hasContent": true,
+      "facts": {
+        "productType": "doplněk stravy",
+        "releaseForm": null,
+        "packaging": "krabička",
+        "primaryColor": "červená",
+        "detectedText": "REDU SIZER Effective Weight Loss Complex",
+        "briefDescription": "Na obrázku je lahvička s kapkami a její krabička, která nese název Redusizer a popis \"Effective Weight Loss Complex\". Produkt je prezentován jako doplněk stravy pro úbytek hmotnosti."
+      },
+      "promptBlock": "Fakta z produktového obrázku (vision, stručná):\ntyp: doplněk stravy\nobal: krabička\nbarva: červená\ntextNaObalu: REDU SIZER Effective Weight Loss Complex\npopis: Na obrázku je lahvička s kapkami a její krabička, která nese název Redusizer a popis \"Effective Weight Loss Complex\". Produkt je prezentován jako doplněk stravy pro úbytek hmotnosti.",
+      "error": null,
+      "wroteDb": false
+    }
+  ]
+}

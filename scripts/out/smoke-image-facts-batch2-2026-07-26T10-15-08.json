@@ -1,0 +1,362 @@
+{
+  "ok": 16,
+  "total": 16,
+  "paidCalls": 2,
+  "totalTokens": 0,
+  "estUsdPaid": 0,
+  "softMismatches": [],
+  "results": [
+    {
+      "source": "shakes",
+      "offerId": 15648,
+      "expectHint": "Removio-like / papilloma gel if image matches",
+      "status": "ok",
+      "method": "free",
+      "facts": {
+        "packaging": "tuba",
+        "application": "topical",
+        "productType": "lokální přípravek",
+        "releaseForm": "gel",
+        "detectedText": "REMOVIO gel",
+        "briefDescription": "Bílá tuba s modrou šňůrou a textem REMOVIO gel."
+      },
+      "error": null,
+      "timing": {
+        "preflightMs": 0,
+        "llmMs": 0,
+        "totalMs": 1103
+      },
+      "usage": null
+    },
+    {
+      "source": "shakes",
+      "offerId": 14943,
+      "expectHint": "Pulsero device/other or supplement",
+      "status": "ok",
+      "method": "free",
+      "facts": {
+        "packaging": "tuba",
+        "application": "oral",
+        "productType": "doplněk stravy",
+        "releaseForm": "kapsle",
+        "detectedText": "PULSERO FOOD SUPPLEMENT 16 CAPSULES",
+        "briefDescription": "Černá tuba a krabička s modrým designem, na krabičce uvedeno 16 kapsul"
+      },
+      "error": null,
+      "timing": {
+        "preflightMs": 0,
+        "llmMs": 0,
+        "totalMs": 468
+      },
+      "usage": null
+    },
+    {
+      "source": "shakes",
+      "offerId": 4201,
+      "expectHint": "known landing-facts SKU",
+      "status": "ok",
+      "method": "free",
+      "facts": {
+        "packaging": null,
+        "application": null,
+        "productType": null,
+        "releaseForm": null,
+        "detectedText": "Gigant",
+        "briefDescription": "Logo s motivem stromu na žlutém kulatém pozadí."
+      },
+      "error": null,
+      "timing": {
+        "preflightMs": 0,
+        "llmMs": 0,
+        "totalMs": 388
+      },
+      "usage": null
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 23352,
+      "expectHint": "My Hero capsules oral",
+      "status": "ok",
+      "method": "free",
+      "facts": {
+        "packaging": "sklenice",
+        "application": "oral",
+        "productType": "doplněk stravy",
+        "releaseForm": "kapsle",
+        "detectedText": "My HERO DIETARY SUPPLEMENT IMPROVES MALE POTENCY",
+        "briefDescription": "Sklenice s bílým štítkem a červenou barvou, na ní text a ilustrace dvou lidí."
+      },
+      "error": null,
+      "timing": {
+        "preflightMs": 0,
+        "llmMs": 0,
+        "totalMs": 322
+      },
+      "usage": null
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 21433,
+      "expectHint": "KETO capsules oral",
+      "status": "ok",
+      "method": "free",
+      "facts": {
+        "packaging": "lahvička",
+        "application": "oral",
+        "productType": "doplněk stravy",
+        "releaseForm": "kapsle",
+        "detectedText": "LEANIFY 100 MG OF CAFFEINE KETO-FRIENDLY FOR EVERY DIET PLANS NET WEIGHT 120g WITH SWEETENER FOOD SUPPLEMENT 30 CAPS KETO",
+        "briefDescription": "Bílá lahvička s černým a oranžovým popisem, obsahuje 30 kapsel."
+      },
+      "error": null,
+      "timing": {
+        "preflightMs": 0,
+        "llmMs": 0,
+        "totalMs": 310
+      },
+      "usage": null
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 17811,
+      "expectHint": "Laser Light device/electronics",
+      "status": "ok",
+      "method": "free",
+      "facts": {
+        "packaging": null,
+        "application": "other",
+        "productType": "elektronika",
+        "releaseForm": "zařízení",
+        "detectedText": null,
+        "briefDescription": "Černý ruční laserový projektor s červeným laserovým bodem a zelenými a červenými paprsky."
+      },
+      "error": null,
+      "timing": {
+        "preflightMs": 0,
+        "llmMs": 0,
+        "totalMs": 327
+      },
+      "usage": null
+    },
+    {
+      "source": "m1_top",
+      "offerId": 3639,
+      "expectHint": "Flexosamine gel topical",
+      "status": "ok",
+      "method": "free",
+      "facts": {
+        "packaging": "lahvička",
+        "application": "topical",
+        "productType": "lokální přípravek",
+        "releaseForm": "gel",
+        "detectedText": "FLEXOSAMINE",
+        "briefDescription": "Bílá pumpovací lahvička s červeným a zeleným balením, na ní nápis FLEXOSAMINE a obrázek kloubu."
+      },
+      "error": null,
+      "timing": {
+        "preflightMs": 0,
+        "llmMs": 0,
+        "totalMs": 446
+      },
+      "usage": null
+    },
+    {
+      "source": "m1_top",
+      "offerId": 5149,
+      "expectHint": "Formelan gel topical",
+      "status": "ok",
+      "method": "free",
+      "facts": {
+        "packaging": "tuba",
+        "application": "topical",
+        "productType": "lokální přípravek",
+        "releaseForm": "gel",
+        "detectedText": "Novinka, Okamžitý efekt, Intimní gel, 50 ml, REVENSAN",
+        "briefDescription": "Černá tuba a krabička, 50 ml, nápis INSTANT EFFECT a INTIMATE GEL"
+      },
+      "error": null,
+      "timing": {
+        "preflightMs": 0,
+        "llmMs": 0,
+        "totalMs": 303
+      },
+      "usage": null
+    },
+    {
+      "source": "m1_top",
+      "offerId": 4823,
+      "expectHint": "Cardiotensive tablets oral",
+      "status": "ok",
+      "method": "free",
+      "facts": {
+        "packaging": "lahvička",
+        "application": "oral",
+        "productType": "doplněk stravy",
+        "releaseForm": "tablety",
+        "detectedText": "CARDIOTENSIVE Olive Leaf Extract Formula 20 tablets",
+        "briefDescription": "Dvě bílé lahvičky s červeným a zeleným motivem na dřevěném povrchu."
+      },
+      "error": null,
+      "timing": {
+        "preflightMs": 0,
+        "llmMs": 0,
+        "totalMs": 312
+      },
+      "usage": null
+    },
+    {
+      "source": "m1_top",
+      "offerId": 7095,
+      "expectHint": "HELMIRON capsules oral",
+      "status": "ok",
+      "method": "free",
+      "facts": {
+        "packaging": "lahvička",
+        "application": "oral",
+        "productType": "doplněk stravy",
+        "releaseForm": "kapsle",
+        "detectedText": "FOOD SUPPLEMENT HELMIRON Digestive Herbal Blend COMBINATION OF PLANT EXTRACTS AND PAPAIN ENZYME 20 CAPSULES",
+        "briefDescription": "Černá lahvička s nálepkou, na které je napsáno HELMIRON Digestive Herbal Blend a 20 kapslí."
+      },
+      "error": null,
+      "timing": {
+        "preflightMs": 0,
+        "llmMs": 0,
+        "totalMs": 302
+      },
+      "usage": null
+    },
+    {
+      "source": "kma",
+      "offerId": 7306,
+      "expectHint": "Hondrofrost gel topical",
+      "status": "ok",
+      "method": "free",
+      "facts": {
+        "packaging": "tuba",
+        "application": "topical",
+        "productType": "lokální přípravek",
+        "releaseForm": "gel",
+        "detectedText": "HondroFrost ICE COLD GEL",
+        "briefDescription": "Modrá tuba a modrá krabička s bílým textem \"HondroFrost\" a zeleným nápisem \"ICE COLD GEL\""
+      },
+      "error": null,
+      "timing": {
+        "preflightMs": 0,
+        "llmMs": 0,
+        "totalMs": 329
+      },
+      "usage": null
+    },
+    {
+      "source": "kma",
+      "offerId": 9225,
+      "expectHint": "Bullrun capsules oral",
+      "status": "ok",
+      "method": "free",
+      "facts": {
+        "packaging": "lahvička",
+        "application": "oral",
+        "productType": "doplněk stravy",
+        "releaseForm": "kapsle",
+        "detectedText": "DIETARY SUPPLEMENT BULLRUN INCREASE YOUR MASCULINITY 30 CAPSULES NET WT 21.5g",
+        "briefDescription": "Černá lahvička s žlutým nápisem BULLRUN a obrázkem býka."
+      },
+      "error": null,
+      "timing": {
+        "preflightMs": 0,
+        "llmMs": 0,
+        "totalMs": 328
+      },
+      "usage": null
+    },
+    {
+      "source": "kma",
+      "offerId": 7865,
+      "expectHint": "Cardiotensive tablets oral",
+      "status": "ok",
+      "method": "free",
+      "facts": {
+        "packaging": "blistr",
+        "application": "oral",
+        "productType": "doplněk stravy",
+        "releaseForm": "tablety",
+        "detectedText": "Cardiotensive Olive Leaf Extract Formula 20 tablets",
+        "briefDescription": "Bílá blistr se žlutou a zelenou etiketu, na ní červený srdce a olivové listy, text Cardiotensive a informace o produktu."
+      },
+      "error": null,
+      "timing": {
+        "preflightMs": 0,
+        "llmMs": 0,
+        "totalMs": 326
+      },
+      "usage": null
+    },
+    {
+      "source": "adcombo",
+      "offerId": 40695,
+      "expectHint": "Revinelle tube cream topical",
+      "status": "ok",
+      "method": "free",
+      "facts": {
+        "packaging": "tuba",
+        "application": "topical",
+        "productType": "kosmetika",
+        "releaseForm": "krém",
+        "detectedText": "rv AURI revinelle ROSE WATER ARGAN OIL REVITALISING FACE CREAM 30 mL / 1 fl.oz.",
+        "briefDescription": "Bílá plastová tuba s hnědým a černým štítkem, 30 mL Revitalising Face Cream."
+      },
+      "error": null,
+      "timing": {
+        "preflightMs": 0,
+        "llmMs": 0,
+        "totalMs": 320
+      },
+      "usage": null
+    },
+    {
+      "source": "adcombo",
+      "offerId": 40600,
+      "expectHint": "CardioViva jar oral",
+      "status": "ok",
+      "method": "paid",
+      "facts": {
+        "packaging": "lahvička",
+        "application": "oral",
+        "productType": "doplněk stravy",
+        "releaseForm": "kapsle",
+        "detectedText": "CARDIOVIVA CARDIOVASCULAR SUPPORT CRAFTED WITH NATURAL-ORIGIN INGREDIENTS GMO FREE GMP CERTIFIED PRACTICE 20 CAPSULES",
+        "briefDescription": "Bílá lahvička s červenobílou etiketou a obrázkem červených bobulí, obsahuje 20 kapslí."
+      },
+      "error": null,
+      "timing": {
+        "preflightMs": 0,
+        "llmMs": 0,
+        "totalMs": 314
+      },
+      "usage": null
+    },
+    {
+      "source": "adcombo",
+      "offerId": 39220,
+      "expectHint": "Tvidler device/other",
+      "status": "ok",
+      "method": "paid",
+      "facts": {
+        "packaging": null,
+        "application": null,
+        "productType": "jiné",
+        "releaseForm": null,
+        "detectedText": "Wydaje ci się, że prawidłowo czyścisz uszy, ale czy masz urządzenie do usuwania woskowiny?",
+        "briefDescription": "Obrázek zobrazuje prst s ušním mazem a text v polštině, který se ptá, zda máte zařízení na odstranění ušního mazu."
+      },
+      "error": null,
+      "timing": {
+        "preflightMs": 0,
+        "llmMs": 0,
+        "totalMs": 303
+      },
+      "usage": null
+    }
+  ]
+}

@@ -1,0 +1,845 @@
+{
+  "summary": {
+    "generated_at": "2026-07-22T11:49:45.140Z",
+    "source_filter": null,
+    "scanned": 332,
+    "flagged": 38,
+    "flag_counts": {
+      "SHELF_MISMATCH": 31,
+      "DESCRIPTOR_VS_ROLE": 14,
+      "TEMPLATE_SUSPECT": 1,
+      "MISSING_TITLE": 2,
+      "FORM_MISMATCH": 3
+    },
+    "by_source": {
+      "shakes": 9,
+      "adcombo": 5,
+      "cpagetti": 2,
+      "m1_top": 6,
+      "kma": 3,
+      "cpa_tl": 13
+    },
+    "top_shelf_pairs": [
+      {
+        "pair": "diabetes-care→nervous-system",
+        "count": 4
+      },
+      {
+        "pair": "weight-management→diabetes-care",
+        "count": 2
+      },
+      {
+        "pair": "nervous-system→digestive",
+        "count": 2
+      },
+      {
+        "pair": "nervous-system→diabetes-care",
+        "count": 2
+      },
+      {
+        "pair": "hemorrhoids→prostate-health",
+        "count": 2
+      },
+      {
+        "pair": "fungus→nervous-system",
+        "count": 1
+      },
+      {
+        "pair": "personal-grooming→home-gadgets",
+        "count": 1
+      },
+      {
+        "pair": "household→home-gadgets",
+        "count": 1
+      },
+      {
+        "pair": "garden-tools→accessories",
+        "count": 1
+      },
+      {
+        "pair": "detox-cleanse→home-gadgets",
+        "count": 1
+      },
+      {
+        "pair": "sleep-snoring→home-gadgets",
+        "count": 1
+      },
+      {
+        "pair": "accessories→optics",
+        "count": 1
+      },
+      {
+        "pair": "accessories→home-textile",
+        "count": 1
+      },
+      {
+        "pair": "potenz-libido→penis-enlargement",
+        "count": 1
+      },
+      {
+        "pair": "hemorrhoids→cystitis",
+        "count": 1
+      },
+      {
+        "pair": "hair-care→hearing",
+        "count": 1
+      },
+      {
+        "pair": "prostate-health→potenz-libido",
+        "count": 1
+      },
+      {
+        "pair": "hemorrhoids→potenz-libido",
+        "count": 1
+      },
+      {
+        "pair": "potenz-libido→immunity",
+        "count": 1
+      },
+      {
+        "pair": "accessories→shoes",
+        "count": 1
+      }
+    ],
+    "template_suspect": 1,
+    "descriptor_vs_role": 14,
+    "shelf_mismatch": 31
+  },
+  "rows": [
+    {
+      "key": "shakes:16612",
+      "source": "shakes",
+      "offer_id": 16612,
+      "slug": "benaga-s16612",
+      "feed_title": "Benaga Chaga",
+      "display_title": "Benaga Chaga – kapsle na hubnutí",
+      "descriptor": "kapsle na hubnutí",
+      "expected_role": null,
+      "expected_descriptor": null,
+      "site_shelf": "weight-management",
+      "expected_shelf": "diabetes-care",
+      "intent_slug": "diabetes-care",
+      "form_site": "capsules",
+      "form_expected": null,
+      "flags": [
+        "SHELF_MISMATCH"
+      ]
+    },
+    {
+      "key": "shakes:16624",
+      "source": "shakes",
+      "offer_id": 16624,
+      "slug": "benaga-s16624",
+      "feed_title": "Benaga Chaga",
+      "display_title": "Benaga Chaga – kapsle na hubnutí",
+      "descriptor": "kapsle na hubnutí",
+      "expected_role": null,
+      "expected_descriptor": null,
+      "site_shelf": "weight-management",
+      "expected_shelf": "diabetes-care",
+      "intent_slug": "diabetes-care",
+      "form_site": "capsules",
+      "form_expected": null,
+      "flags": [
+        "SHELF_MISMATCH"
+      ]
+    },
+    {
+      "key": "shakes:19410",
+      "source": "shakes",
+      "offer_id": 19410,
+      "slug": "benaga-s19410",
+      "feed_title": "Benaga Chaga",
+      "display_title": "Benaga Chaga – prostředek proti neuropatii",
+      "descriptor": "prostředek proti neuropatii",
+      "expected_role": "doplněk stravy na podporu trávení",
+      "expected_descriptor": "doplněk stravy na podporu trávení",
+      "site_shelf": "nervous-system",
+      "expected_shelf": "digestive",
+      "intent_slug": "digestive",
+      "form_site": null,
+      "form_expected": null,
+      "flags": [
+        "SHELF_MISMATCH",
+        "DESCRIPTOR_VS_ROLE"
+      ]
+    },
+    {
+      "key": "shakes:19414",
+      "source": "shakes",
+      "offer_id": 19414,
+      "slug": "cordyceps-s19414",
+      "feed_title": "Cordyceps Pulse",
+      "display_title": "Cordyceps Pulse – prostředek proti neuropatii",
+      "descriptor": "prostředek proti neuropatii",
+      "expected_role": "doplněk stravy na podporu trávení",
+      "expected_descriptor": "doplněk stravy na podporu trávení",
+      "site_shelf": "nervous-system",
+      "expected_shelf": "digestive",
+      "intent_slug": "digestive",
+      "form_site": null,
+      "form_expected": null,
+      "flags": [
+        "SHELF_MISMATCH",
+        "DESCRIPTOR_VS_ROLE"
+      ]
+    },
+    {
+      "key": "shakes:19944",
+      "source": "shakes",
+      "offer_id": 19944,
+      "slug": "cordyceps-s19944",
+      "feed_title": "Cordyceps Pulse",
+      "display_title": "Cordyceps Pulse – kapsle proti plísním",
+      "descriptor": "kapsle proti plísním",
+      "expected_role": null,
+      "expected_descriptor": null,
+      "site_shelf": "fungus",
+      "expected_shelf": "nervous-system",
+      "intent_slug": null,
+      "form_site": "capsules",
+      "form_expected": null,
+      "flags": [
+        "SHELF_MISMATCH",
+        "DESCRIPTOR_VS_ROLE",
+        "TEMPLATE_SUSPECT"
+      ]
+    },
+    {
+      "key": "shakes:20282",
+      "source": "shakes",
+      "offer_id": 20282,
+      "slug": "shivital-s20282",
+      "feed_title": "Shivital",
+      "display_title": "Shivital",
+      "descriptor": "",
+      "expected_role": "kapsle proti neuropatii",
+      "expected_descriptor": "kapsle proti neuropatii",
+      "site_shelf": "nervous-system",
+      "expected_shelf": "nervous-system",
+      "intent_slug": "nervous-system",
+      "form_site": null,
+      "form_expected": "capsules",
+      "flags": [
+        "MISSING_TITLE"
+      ]
+    },
+    {
+      "key": "shakes:23260",
+      "source": "shakes",
+      "offer_id": 23260,
+      "slug": "insuvit-s23260",
+      "feed_title": "Insuvit",
+      "display_title": "Insuvit – kapsle proti neuropatii",
+      "descriptor": "kapsle proti neuropatii",
+      "expected_role": "kapsle proti neuropatii",
+      "expected_descriptor": "kapsle proti neuropatii",
+      "site_shelf": "nervous-system",
+      "expected_shelf": "diabetes-care",
+      "intent_slug": "diabetes-care",
+      "form_site": "capsules",
+      "form_expected": "capsules",
+      "flags": [
+        "SHELF_MISMATCH"
+      ]
+    },
+    {
+      "key": "shakes:23250",
+      "source": "shakes",
+      "offer_id": 23250,
+      "slug": "insuvit-s23250",
+      "feed_title": "Insuvit",
+      "display_title": "Insuvit – kapsle proti neuropatii",
+      "descriptor": "kapsle proti neuropatii",
+      "expected_role": "kapsle proti neuropatii",
+      "expected_descriptor": "kapsle proti neuropatii",
+      "site_shelf": "nervous-system",
+      "expected_shelf": "diabetes-care",
+      "intent_slug": "diabetes-care",
+      "form_site": "capsules",
+      "form_expected": "capsules",
+      "flags": [
+        "SHELF_MISMATCH"
+      ]
+    },
+    {
+      "key": "shakes:23682",
+      "source": "shakes",
+      "offer_id": 23682,
+      "slug": "shivital-s23682",
+      "feed_title": "Shivital",
+      "display_title": "Shivital",
+      "descriptor": "",
+      "expected_role": "kapsle proti neuropatii",
+      "expected_descriptor": "kapsle proti neuropatii",
+      "site_shelf": "nervous-system",
+      "expected_shelf": "nervous-system",
+      "intent_slug": "nervous-system",
+      "form_site": null,
+      "form_expected": "capsules",
+      "flags": [
+        "MISSING_TITLE"
+      ]
+    },
+    {
+      "key": "adcombo:39220",
+      "source": "adcombo",
+      "offer_id": 39220,
+      "slug": "tvidler-a39220",
+      "feed_title": "Tvidler",
+      "display_title": "Tvidler – čistič uší",
+      "descriptor": "čistič uší",
+      "expected_role": null,
+      "expected_descriptor": null,
+      "site_shelf": "personal-grooming",
+      "expected_shelf": "home-gadgets",
+      "intent_slug": null,
+      "form_site": null,
+      "form_expected": null,
+      "flags": [
+        "SHELF_MISMATCH"
+      ]
+    },
+    {
+      "key": "adcombo:39080",
+      "source": "adcombo",
+      "offer_id": 39080,
+      "slug": "portable-a39080",
+      "feed_title": "Portable Foldable Mini Washing Machine",
+      "display_title": "Portable Foldable Mini Washing Machine – přenosná skládací mini pračka",
+      "descriptor": "přenosná skládací mini pračka",
+      "expected_role": null,
+      "expected_descriptor": null,
+      "site_shelf": "household",
+      "expected_shelf": "home-gadgets",
+      "intent_slug": null,
+      "form_site": null,
+      "form_expected": null,
+      "flags": [
+        "SHELF_MISMATCH"
+      ]
+    },
+    {
+      "key": "adcombo:39069",
+      "source": "adcombo",
+      "offer_id": 39069,
+      "slug": "mini-a39069",
+      "feed_title": "Mini saw",
+      "display_title": "Mini saw – mini pila",
+      "descriptor": "mini pila",
+      "expected_role": null,
+      "expected_descriptor": null,
+      "site_shelf": "garden-tools",
+      "expected_shelf": "accessories",
+      "intent_slug": null,
+      "form_site": null,
+      "form_expected": null,
+      "flags": [
+        "SHELF_MISMATCH"
+      ]
+    },
+    {
+      "key": "adcombo:39219",
+      "source": "adcombo",
+      "offer_id": 39219,
+      "slug": "nuubu-a39219",
+      "feed_title": "Nuubu",
+      "display_title": "Nuubu – detoxikační náplasti na nohy",
+      "descriptor": "detoxikační náplasti na nohy",
+      "expected_role": null,
+      "expected_descriptor": null,
+      "site_shelf": "detox-cleanse",
+      "expected_shelf": "home-gadgets",
+      "intent_slug": null,
+      "form_site": null,
+      "form_expected": null,
+      "flags": [
+        "SHELF_MISMATCH"
+      ]
+    },
+    {
+      "key": "adcombo:39221",
+      "source": "adcombo",
+      "offer_id": 39221,
+      "slug": "derila-a39221",
+      "feed_title": "Derila",
+      "display_title": "Derila – kapsle na spaní",
+      "descriptor": "kapsle na spaní",
+      "expected_role": null,
+      "expected_descriptor": null,
+      "site_shelf": "sleep-snoring",
+      "expected_shelf": "home-gadgets",
+      "intent_slug": null,
+      "form_site": "capsules",
+      "form_expected": null,
+      "flags": [
+        "SHELF_MISMATCH"
+      ]
+    },
+    {
+      "key": "cpagetti:15481",
+      "source": "cpagetti",
+      "offer_id": 15481,
+      "slug": "diaflex-g15481",
+      "feed_title": "DiaFlex Forte",
+      "display_title": "DiaFlex Forte – doplněk pro kontrolu cukru",
+      "descriptor": "doplněk pro kontrolu cukru",
+      "expected_role": "kapsle proti neuropatii",
+      "expected_descriptor": "kapsle proti neuropatii",
+      "site_shelf": "diabetes-care",
+      "expected_shelf": "nervous-system",
+      "intent_slug": "nervous-system",
+      "form_site": null,
+      "form_expected": "capsules",
+      "flags": [
+        "SHELF_MISMATCH",
+        "DESCRIPTOR_VS_ROLE"
+      ]
+    },
+    {
+      "key": "cpagetti:13209",
+      "source": "cpagetti",
+      "offer_id": 13209,
+      "slug": "diaflex-g13209",
+      "feed_title": "DiaFlex Forte",
+      "display_title": "DiaFlex Forte - DOPLNĚK PRO KONTROLU CUKRU",
+      "descriptor": "DOPLNĚK PRO KONTROLU CUKRU",
+      "expected_role": "kapsle proti neuropatii",
+      "expected_descriptor": "kapsle proti neuropatii",
+      "site_shelf": "diabetes-care",
+      "expected_shelf": "nervous-system",
+      "intent_slug": "nervous-system",
+      "form_site": null,
+      "form_expected": "capsules",
+      "flags": [
+        "SHELF_MISMATCH",
+        "DESCRIPTOR_VS_ROLE"
+      ]
+    },
+    {
+      "key": "m1_top:6272",
+      "source": "m1_top",
+      "offer_id": 6272,
+      "slug": "diaflex-m6272",
+      "feed_title": "DiaFlex Forte",
+      "display_title": "DiaFlex Forte – lék na cukrovku",
+      "descriptor": "lék na cukrovku",
+      "expected_role": "kapsle proti neuropatii",
+      "expected_descriptor": "kapsle proti neuropatii",
+      "site_shelf": "diabetes-care",
+      "expected_shelf": "nervous-system",
+      "intent_slug": "nervous-system",
+      "form_site": null,
+      "form_expected": "capsules",
+      "flags": [
+        "SHELF_MISMATCH",
+        "DESCRIPTOR_VS_ROLE"
+      ]
+    },
+    {
+      "key": "m1_top:6153",
+      "source": "m1_top",
+      "offer_id": 6153,
+      "slug": "dial-m6153",
+      "feed_title": "Очки Dial Vision",
+      "display_title": "Dial Vision – nastavitelné brýle",
+      "descriptor": "nastavitelné brýle",
+      "expected_role": null,
+      "expected_descriptor": null,
+      "site_shelf": "accessories",
+      "expected_shelf": "optics",
+      "intent_slug": null,
+      "form_site": null,
+      "form_expected": "eye_care",
+      "flags": [
+        "SHELF_MISMATCH"
+      ]
+    },
+    {
+      "key": "m1_top:5958",
+      "source": "m1_top",
+      "offer_id": 5958,
+      "slug": "magic-m5958",
+      "feed_title": "Magic Glow",
+      "display_title": "Magic Glow - svítící deka ve tmě",
+      "descriptor": "svítící deka ve tmě",
+      "expected_role": null,
+      "expected_descriptor": null,
+      "site_shelf": "accessories",
+      "expected_shelf": "home-textile",
+      "intent_slug": null,
+      "form_site": null,
+      "form_expected": null,
+      "flags": [
+        "SHELF_MISMATCH"
+      ]
+    },
+    {
+      "key": "m1_top:5641",
+      "source": "m1_top",
+      "offer_id": 5641,
+      "slug": "uro-m5641",
+      "feed_title": "Uro UP Forte Prostatitis",
+      "display_title": "Uro UP Forte – tablety proti prostatitidě",
+      "descriptor": "tablety proti prostatitidě",
+      "expected_role": null,
+      "expected_descriptor": null,
+      "site_shelf": "hemorrhoids",
+      "expected_shelf": "prostate-health",
+      "intent_slug": null,
+      "form_site": "tablets",
+      "form_expected": "capsules",
+      "flags": [
+        "SHELF_MISMATCH",
+        "FORM_MISMATCH"
+      ]
+    },
+    {
+      "key": "m1_top:5845",
+      "source": "m1_top",
+      "offer_id": 5845,
+      "slug": "menstill-m5845",
+      "feed_title": "Menstill Pro",
+      "display_title": "Menstill Pro – tablety na potenci",
+      "descriptor": "tablety na potenci",
+      "expected_role": "doplněk stravy pro mužskou potenci",
+      "expected_descriptor": "doplněk stravy pro mužskou potenci",
+      "site_shelf": "potenz-libido",
+      "expected_shelf": "penis-enlargement",
+      "intent_slug": "penis-enlargement",
+      "form_site": "tablets",
+      "form_expected": "capsules",
+      "flags": [
+        "SHELF_MISMATCH",
+        "DESCRIPTOR_VS_ROLE",
+        "FORM_MISMATCH"
+      ]
+    },
+    {
+      "key": "m1_top:5725",
+      "source": "m1_top",
+      "offer_id": 5725,
+      "slug": "cystiolla-m5725",
+      "feed_title": "Cystiolla",
+      "display_title": "Cystiolla – kapsle na cystitidu",
+      "descriptor": "kapsle na cystitidu",
+      "expected_role": null,
+      "expected_descriptor": null,
+      "site_shelf": "hemorrhoids",
+      "expected_shelf": "cystitis",
+      "intent_slug": "cystitis",
+      "form_site": "capsules",
+      "form_expected": "capsules",
+      "flags": [
+        "SHELF_MISMATCH"
+      ]
+    },
+    {
+      "key": "kma:9215",
+      "source": "kma",
+      "offer_id": 9215,
+      "slug": "hairstim-k9215",
+      "feed_title": "Hairstim",
+      "display_title": "Hairstim – sprej na růst vlasů",
+      "descriptor": "sprej na růst vlasů",
+      "expected_role": null,
+      "expected_descriptor": null,
+      "site_shelf": "hair-care",
+      "expected_shelf": "hearing",
+      "intent_slug": "hearing",
+      "form_site": "spray",
+      "form_expected": null,
+      "flags": [
+        "SHELF_MISMATCH",
+        "DESCRIPTOR_VS_ROLE"
+      ]
+    },
+    {
+      "key": "kma:9010",
+      "source": "kma",
+      "offer_id": 9010,
+      "slug": "fortolex-k9010",
+      "feed_title": "Fortolex",
+      "display_title": "Fortolex – krém na valgozní deformaci",
+      "descriptor": "krém na valgozní deformaci",
+      "expected_role": null,
+      "expected_descriptor": null,
+      "site_shelf": "valgus",
+      "expected_shelf": "valgus",
+      "intent_slug": null,
+      "form_site": "cream",
+      "form_expected": null,
+      "flags": [
+        "DESCRIPTOR_VS_ROLE"
+      ]
+    },
+    {
+      "key": "kma:11832",
+      "source": "kma",
+      "offer_id": 11832,
+      "slug": "immuxin-k11832",
+      "feed_title": "Immuxin",
+      "display_title": "Immuxin – kapsle na nemoci trávicího traktu",
+      "descriptor": "kapsle na nemoci trávicího traktu",
+      "expected_role": "doplněk stravy na podporu trávení",
+      "expected_descriptor": "doplněk stravy na podporu trávení",
+      "site_shelf": "digestive",
+      "expected_shelf": "digestive",
+      "intent_slug": "digestive",
+      "form_site": "capsules",
+      "form_expected": null,
+      "flags": [
+        "DESCRIPTOR_VS_ROLE"
+      ]
+    },
+    {
+      "key": "cpa_tl:23680",
+      "source": "cpa_tl",
+      "offer_id": 23680,
+      "slug": "prostate-23680",
+      "feed_title": "Prostate Support",
+      "display_title": "Prostate Support – kapsle na prostatu",
+      "descriptor": "kapsle na prostatu",
+      "expected_role": null,
+      "expected_descriptor": null,
+      "site_shelf": "prostate-health",
+      "expected_shelf": "potenz-libido",
+      "intent_slug": "potenz-libido",
+      "form_site": "capsules",
+      "form_expected": "capsules",
+      "flags": [
+        "SHELF_MISMATCH"
+      ]
+    },
+    {
+      "key": "cpa_tl:23632",
+      "source": "cpa_tl",
+      "offer_id": 23632,
+      "slug": "diaflex-23632",
+      "feed_title": "DiaFlex Forte",
+      "display_title": "DiaFlex Forte – kapsle proti neuropatii",
+      "descriptor": "kapsle proti neuropatii",
+      "expected_role": "kapsle proti neuropatii",
+      "expected_descriptor": "kapsle proti neuropatii",
+      "site_shelf": "diabetes-care",
+      "expected_shelf": "nervous-system",
+      "intent_slug": "nervous-system",
+      "form_site": "capsules",
+      "form_expected": "capsules",
+      "flags": [
+        "SHELF_MISMATCH"
+      ]
+    },
+    {
+      "key": "cpa_tl:23419",
+      "source": "cpa_tl",
+      "offer_id": 23419,
+      "slug": "uro-23419",
+      "feed_title": "Uro Up Forte",
+      "display_title": "Uro Up Forte - tablety proti prostatitidě",
+      "descriptor": "tablety proti prostatitidě",
+      "expected_role": null,
+      "expected_descriptor": null,
+      "site_shelf": "hemorrhoids",
+      "expected_shelf": "potenz-libido",
+      "intent_slug": "potenz-libido",
+      "form_site": "tablets",
+      "form_expected": "capsules",
+      "flags": [
+        "SHELF_MISMATCH",
+        "FORM_MISMATCH"
+      ]
+    },
+    {
+      "key": "cpa_tl:23352",
+      "source": "cpa_tl",
+      "offer_id": 23352,
+      "slug": "hero-23352",
+      "feed_title": "My Hero",
+      "display_title": "My Hero – kapsle na potenci",
+      "descriptor": "kapsle na potenci",
+      "expected_role": null,
+      "expected_descriptor": null,
+      "site_shelf": "potenz-libido",
+      "expected_shelf": "immunity",
+      "intent_slug": "immunity",
+      "form_site": "capsules",
+      "form_expected": "capsules",
+      "flags": [
+        "SHELF_MISMATCH"
+      ]
+    },
+    {
+      "key": "cpa_tl:22853",
+      "source": "cpa_tl",
+      "offer_id": 22853,
+      "slug": "mystery-22853",
+      "feed_title": "Mystery Box",
+      "display_title": "Mystery Box – tajný box",
+      "descriptor": "tajný box",
+      "expected_role": null,
+      "expected_descriptor": null,
+      "site_shelf": "accessories",
+      "expected_shelf": "shoes",
+      "intent_slug": null,
+      "form_site": null,
+      "form_expected": null,
+      "flags": [
+        "SHELF_MISMATCH",
+        "DESCRIPTOR_VS_ROLE"
+      ]
+    },
+    {
+      "key": "cpa_tl:21110",
+      "source": "cpa_tl",
+      "offer_id": 21110,
+      "slug": "sanoprost-21110",
+      "feed_title": "SanoProst",
+      "display_title": "SanoProst – kapsle na prostatu",
+      "descriptor": "kapsle na prostatu",
+      "expected_role": null,
+      "expected_descriptor": null,
+      "site_shelf": "hemorrhoids",
+      "expected_shelf": "prostate-health",
+      "intent_slug": null,
+      "form_site": "capsules",
+      "form_expected": "capsules",
+      "flags": [
+        "SHELF_MISMATCH"
+      ]
+    },
+    {
+      "key": "cpa_tl:2685",
+      "source": "cpa_tl",
+      "offer_id": 2685,
+      "slug": "dial-2685",
+      "feed_title": "Очки Dial Vision",
+      "display_title": "Dial Vision – univerzální brýle",
+      "descriptor": "univerzální brýle",
+      "expected_role": null,
+      "expected_descriptor": null,
+      "site_shelf": "vision-eye-care",
+      "expected_shelf": "optics",
+      "intent_slug": null,
+      "form_site": null,
+      "form_expected": "eye_care",
+      "flags": [
+        "SHELF_MISMATCH"
+      ]
+    },
+    {
+      "key": "cpa_tl:19809",
+      "source": "cpa_tl",
+      "offer_id": 19809,
+      "slug": "cordless-19809",
+      "feed_title": "Cordless Grass Trimmer",
+      "display_title": "Cordless Grass Trimmer – strunová sekačka",
+      "descriptor": "strunová sekačka",
+      "expected_role": null,
+      "expected_descriptor": null,
+      "site_shelf": "garden-tools",
+      "expected_shelf": "garden-tools",
+      "intent_slug": "garden-tools",
+      "form_site": null,
+      "form_expected": null,
+      "flags": [
+        "DESCRIPTOR_VS_ROLE"
+      ]
+    },
+    {
+      "key": "cpa_tl:17818",
+      "source": "cpa_tl",
+      "offer_id": 17818,
+      "slug": "magic-17818",
+      "feed_title": "Magic Glow",
+      "display_title": "Magic Glow – deka svítící ve tmě",
+      "descriptor": "deka svítící ve tmě",
+      "expected_role": "žehlička na vlasy",
+      "expected_descriptor": "žehlička na vlasy",
+      "site_shelf": "home-textile",
+      "expected_shelf": "personal-grooming",
+      "intent_slug": "personal-grooming",
+      "form_site": null,
+      "form_expected": null,
+      "flags": [
+        "SHELF_MISMATCH"
+      ]
+    },
+    {
+      "key": "cpa_tl:13320",
+      "source": "cpa_tl",
+      "offer_id": 13320,
+      "slug": "bae-13320",
+      "feed_title": "BAE",
+      "display_title": "BAE – svatební šaty",
+      "descriptor": "svatební šaty",
+      "expected_role": null,
+      "expected_descriptor": null,
+      "site_shelf": "clothing",
+      "expected_shelf": "clothing",
+      "intent_slug": "clothing",
+      "form_site": null,
+      "form_expected": null,
+      "flags": [
+        "DESCRIPTOR_VS_ROLE"
+      ]
+    },
+    {
+      "key": "cpa_tl:12616",
+      "source": "cpa_tl",
+      "offer_id": 12616,
+      "slug": "bae-12616",
+      "feed_title": "Bae",
+      "display_title": "Bae – večerní šaty",
+      "descriptor": "večerní šaty",
+      "expected_role": null,
+      "expected_descriptor": null,
+      "site_shelf": "clothing",
+      "expected_shelf": "clothing",
+      "intent_slug": "clothing",
+      "form_site": null,
+      "form_expected": null,
+      "flags": [
+        "DESCRIPTOR_VS_ROLE"
+      ]
+    },
+    {
+      "key": "cpa_tl:9181",
+      "source": "cpa_tl",
+      "offer_id": 9181,
+      "slug": "uromexil-9181",
+      "feed_title": "Uromexil Forte",
+      "display_title": "Uromexil Forte – doplněk na prostatu",
+      "descriptor": "doplněk na prostatu",
+      "expected_role": null,
+      "expected_descriptor": null,
+      "site_shelf": "potenz-libido",
+      "expected_shelf": "prostate-health",
+      "intent_slug": null,
+      "form_site": null,
+      "form_expected": null,
+      "flags": [
+        "SHELF_MISMATCH"
+      ]
+    },
+    {
+      "key": "cpa_tl:9177",
+      "source": "cpa_tl",
+      "offer_id": 9177,
+      "slug": "vermixin-9177",
+      "feed_title": "Vermixin",
+      "display_title": "Verminix – kapsle proti parazitům",
+      "descriptor": "kapsle proti parazitům",
+      "expected_role": null,
+      "expected_descriptor": null,
+      "site_shelf": "papillomas",
+      "expected_shelf": "parasites",
+      "intent_slug": "parasites",
+      "form_site": "capsules",
+      "form_expected": "capsules",
+      "flags": [
+        "SHELF_MISMATCH"
+      ]
+    }
+  ]
+}

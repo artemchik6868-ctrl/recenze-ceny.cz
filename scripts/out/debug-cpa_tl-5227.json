@@ -1,0 +1,41 @@
+{
+  "source": "cpa_tl",
+  "offerId": 5227,
+  "categorySlug": "home-gadgets",
+  "pipelineVersion": "v75-hu-expert-opinion-male-voice",
+  "feedTitle": "Tree Dazzler - Новогодняя  LED гирлянда с пультом",
+  "cleanedDescription": "LED гирлянда с пультом. Светодиодные новогодние гирлянды, которые порадуют детей и взрослых, создадут праздничное настроение и прослужат долгие годы! Отличное украшение, которое можно собрать за считанные секунды, потому что оно не путается, как обычные лампы. Таргет по возрасту: 30+ лет ВАЖНО! ❗️ Обратите внимание: запуск и возобновление трафика на оффер происходит только после согласования с вашим менеджером. ПП оставляет за собой право не оплачивать трафик, запущенный или возобновленный без предварительного согласования! Использование запрещенных методов привлечения потенциальных клиентов, в том числе знаменитостей, врачей, названий официальных учреждений и т. д., а также мислидинг (использование в",
+  "factsKind": "unknown",
+  "displayTitle": "Tree Dazzler – LED-es karácsonyi fényfüzér távirányítóval",
+  "maxAttempts": 5,
+  "attempts": [
+    {
+      "attempt": 1,
+      "mode": "full",
+      "promptLen": 0,
+      "htmlLen": 1923,
+      "qaSeverity": "critical",
+      "qaErrors": [
+        "garbled-display-title"
+      ],
+      "htmlPreview": "<h2>🎄 Tree Dazzler – LED-es karácsonyi fényfüzér távirányítóval</h2>\n<p>Ez a fényfüzér segít otthonában karácsonyi hangulatot teremteni. Felnőtteknek és gyerekeknek egyaránt örömet szerezhet.</p>\n<p>A Tree Dazzler LED-es fényfüzér távirányítóval egyszerűen felhelyezhető. Nem gubancolódik össze, mint a hagyományos égősorok.</p>\n\n<h2>✨ Mire jó a Tree Dazzler fényfüzér?</h2>\n<ul>\n    <li>Gyorsan és "
+    },
+    {
+      "attempt": 2,
+      "mode": "partial",
+      "promptLen": 0,
+      "htmlLen": 1923,
+      "qaSeverity": "critical",
+      "qaErrors": [
+        "AI pipeline completion budget exceeded: requested=18340"
+      ],
+      "gatewayError": "AI pipeline completion budget exceeded: requested=18340"
+    }
+  ],
+  "finalOrigin": "pipeline",
+  "estimatedTier": "failed",
+  "finalHtmlLen": 1923,
+  "qaErrorsFinal": [
+    "garbled-display-title"
+  ]
+}

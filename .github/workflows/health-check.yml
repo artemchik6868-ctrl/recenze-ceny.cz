@@ -1,0 +1,48 @@
+name: Production health check
+
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      BG_SYNC_BASE: ${{ vars.BG_SYNC_BASE || 'https://recenze-ceny.cz' }}
+      HOOK_SECRET: ${{ secrets.HOOK_SECRET }}
+      MAX_MISSING_CONTENT: "2"
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Monitor content pipeline
+        run: node scripts/monitor-content-pipeline.mjs --base="${BG_SYNC_BASE}" --max-missing-content="${MAX_MISSING_CONTENT}"
+
+      - name: Check sitemap health
+        run: node scripts/check-sitemap-health.mjs --base="${BG_SYNC_BASE}" --timeout-ms=20000
+
+      - name: Run SEO meta unit tests
+        run: npm run test:seo-meta-cz
+
+      - name: Run SEO preflight
+        run: npm run seo:preflight -- --base="${BG_SYNC_BASE}"
+
+      - name: Run public smoke test
+        run: npm run smoke:cz -- --base="${BG_SYNC_BASE}"
+
+      - name: Telegram alert on failure
+        if: failure()
+        run: >
+          node scripts/notify-telegram.mjs
+          --title="recenze-ceny.cz health FAIL"
+          --body="Hourly production health-check failed. Base: ${BG_SYNC_BASE}"

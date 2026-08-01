@@ -1,0 +1,59 @@
+[
+  {
+    "offerId": 5911,
+    "title": "Removio gel",
+    "landingType": "Адаптивный",
+    "landingTitle": "Лэндинг 1 (адапт.)",
+    "sourceUrl": "https://cza-removiogel.papilsh.com",
+    "finalUrl": "https://cza-removiogel.papilsh.com/?c=de",
+    "httpStatus": 200,
+    "sourceKind": "product_landing",
+    "pageTitle": "Removio",
+    "h1": null,
+    "ctaText": "OBJEDNAT",
+    "formHints": [
+      "gel",
+      "tablety"
+    ],
+    "bullets": [],
+    "textSample": "Removio Removio Zbavte se bradavic a papilomů rychle a bezpečně! SPECIÁLNÍ NABÍDKA do konce akce zbývá 11 : 11 : 11 Běžná cena Cena v akci Objednat ÚČINEK Účinnost vůči různým kmenům papilomaviru hodin Úplně ničí původce během prvních 48 hodin Komplexní Blokuje aktivitu viru a aktivuje imunitní obranu ODSTRAŇTE PAPILOMY A PŘEDEJDĚTE RAKOVINĚ KŮŽE! Removio ZACHRAŇUJE ŽIVOT! Kombinace aktivních složek odstraňuje kožní tukové útvary a předchází jejich přeměně na rakovinové nádory. Papilomy na krku Papilomy v oblasti podpaží Papilomy na nohách, které se začaly přetvářet Papilom, ze kterého se stala rakovina Příčiny vzniku papilomů Papilomy jsou výrůstky na kůži, způsobené virovou infekcí, která se tak i jmenuje: \"Lidský papilomavirus\" nebo HPV. Přenáší se výhradně z člověka na člověka přes poškození kůže. Inkubační doba tohoto onemocnění je od několika dní po desítky let. Jakmile organizmus začíná oslabovat při nemoci, stresu, těhotenství u žen, objeví se na kůži papilomy Removio bojuje se všemi druhy papilomů! Jednoduché (vulgární) papilomy Obvykle se tvoří na horních končetinách Ploché papilomy Šíří se na krku, obličeji, horních končetinách Chodidlové papilomy Zasahují chodidla Nitkovité papilomy Místo lokalizace: krk, obličej, tříselná a podpažní oblast Kondylomy Také nazývané genitální bradavice jsou zvlášť nebezpečný druh ZBAVTE SE JICH CO NEJDŘÍVE! Gel Removio je jednoduchý a účinný způsob jak se zbavit papilomů a bradavic! Potlačuje aktivitu virových buněk a proniká do hlu",
+    "charCount": 5977,
+    "htmlBytes": 39324
+  },
+  {
+    "offerId": 22128,
+    "title": "Benaga Chaga",
+    "landingType": "Фрейм",
+    "landingTitle": "Лэндинг 1 (iframe)",
+    "sourceUrl": "https://cz1-benagachaga.visionhsh.com",
+    "finalUrl": "https://cz1-benagachaga.visionhsh.com/?c=de",
+    "httpStatus": 200,
+    "sourceKind": "checkout",
+    "pageTitle": "Překontrolovat",
+    "h1": null,
+    "ctaText": "Dostávat",
+    "formHints": [],
+    "bullets": [],
+    "textSample": "Překontrolovat DOSTAT \"Benaga Chaga\" za zvýhodněná cena Vaše země: Tvé jméno: Telefon: Dostávat",
+    "charCount": 95,
+    "htmlBytes": 1442
+  },
+  {
+    "offerId": 8889,
+    "title": "Hondrofrost",
+    "landingType": "Фрейм",
+    "landingTitle": "Лэндинг 1 (iframe)",
+    "sourceUrl": "https://cz1.hondrofrostsale.com",
+    "finalUrl": "https://cz1.hondrofrostsale.com/?c=de",
+    "httpStatus": 200,
+    "sourceKind": "checkout",
+    "pageTitle": "Překontrolovat",
+    "h1": null,
+    "ctaText": "Dostávat",
+    "formHints": [],
+    "bullets": [],
+    "textSample": "Překontrolovat DOSTAT \"Hondrofrost\" za zvýhodněná cena Vaše země: Tvé jméno: Telefon: Dostávat",
+    "charCount": 94,
+    "htmlBytes": 1415
+  }
+]

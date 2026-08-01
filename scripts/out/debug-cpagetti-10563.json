@@ -1,0 +1,41 @@
+{
+  "source": "cpagetti",
+  "offerId": 10563,
+  "categorySlug": "fungus",
+  "pipelineVersion": "v75-hu-expert-opinion-male-voice",
+  "feedTitle": "Fungokiller - ANTIFUNGAL SOLUTION",
+  "cleanedDescription": "",
+  "factsKind": "unknown",
+  "displayTitle": "Fungokiller – gombaellenes oldat",
+  "maxAttempts": 5,
+  "attempts": [
+    {
+      "attempt": 1,
+      "mode": "full",
+      "promptLen": 0,
+      "htmlLen": 2139,
+      "qaSeverity": "critical",
+      "qaErrors": [
+        "garbled-display-title"
+      ],
+      "htmlPreview": "<h2>🌿 Fungokiller – gombaellenes oldat</h2>\n<p>A Fungokiller egy gombaellenes oldat. Arra tervezték, hogy segítsen a gombás fertőzések kezelésében.</p>\n<p>Ha gombás problémákkal küzd, ez a termék segíthet. Célja a tünetek enyhítése és a fertőzés visszaszorítása.</p>\n\n<h2>✅ Mikor érdemes használni?</h2>\n<p>A Fungokiller oldat használata akkor javasolt, ha:</p>\n<ul>\n    <li>Gombás fertőzés tüneteit"
+    },
+    {
+      "attempt": 2,
+      "mode": "partial",
+      "promptLen": 0,
+      "htmlLen": 2139,
+      "qaSeverity": "critical",
+      "qaErrors": [
+        "AI pipeline completion budget exceeded: requested=18340"
+      ],
+      "gatewayError": "AI pipeline completion budget exceeded: requested=18340"
+    }
+  ],
+  "finalOrigin": "pipeline",
+  "estimatedTier": "failed",
+  "finalHtmlLen": 2139,
+  "qaErrorsFinal": [
+    "garbled-display-title"
+  ]
+}

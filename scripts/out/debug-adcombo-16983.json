@@ -1,0 +1,52 @@
+{
+  "source": "adcombo",
+  "offerId": 16983,
+  "categorySlug": "home-gadgets",
+  "pipelineVersion": "v70-hu-full-locale",
+  "feedTitle": "Electricity saving box - HU",
+  "cleanedDescription": "Electronic devices, White products, Home improvement — NO local celebrities on creatives (landings, prelandings and banners) Tik-tok traffic is not acceptable!!",
+  "factsKind": "unknown",
+  "displayTitle": "Electricity saving box – energiatakarékos eszköz",
+  "maxAttempts": 3,
+  "attempts": [
+    {
+      "attempt": 1,
+      "mode": "pipeline",
+      "promptLen": 0,
+      "htmlLen": 1816,
+      "qaSeverity": "critical",
+      "qaErrors": [
+        "garbled-display-title"
+      ],
+      "htmlPreview": "<h2>⚡️ Electricity saving box – energiatakarékos eszköz</h2>\n<p>Ez az eszköz segíthet optimalizálni az otthoni áramfogyasztást. Célja, hogy stabilizálja az elektromos hálózatot, ami hozzájárulhat a hatékonyabb energiafelhasználáshoz.</p>\n<p>Az Electricity saving box azoknak készült, akik szeretnék jobban kezelni háztartásuk energiafelhasználását. Egyszerűen csatlakoztatható a konnektorba.</p>\n\n<h2"
+    },
+    {
+      "attempt": 2,
+      "mode": "pipeline",
+      "promptLen": 0,
+      "htmlLen": 1842,
+      "qaSeverity": "critical",
+      "qaErrors": [
+        "garbled-display-title"
+      ],
+      "htmlPreview": "<h2>💡 Electricity saving box – energiatakarékos eszköz</h2>\n<p>Ez az eszköz segít optimalizálni az otthoni áramfogyasztást. Célja, hogy stabilizálja az elektromos hálózatot, ami hozzájárulhat a hatékonyabb energiafelhasználáshoz.</p>\n<p>Az Electricity saving box azoknak készült, akik szeretnék tudatosabban kezelni otthonuk energiafelhasználását. Egyszerűen csatlakoztatható a hálózathoz.</p>\n\n<h2>"
+    },
+    {
+      "attempt": 3,
+      "mode": "pipeline",
+      "promptLen": 0,
+      "htmlLen": 1605,
+      "qaSeverity": "critical",
+      "qaErrors": [
+        "garbled-display-title"
+      ],
+      "htmlPreview": "<h2>⚡️ Electricity saving box – energiatakarékos eszköz</h2>\n<p>Ez az eszköz segíthet optimalizálni az otthoni energiafelhasználást. Célja, hogy stabilizálja az elektromos hálózatot.</p>\n<p>Az Electricity saving box azoknak készült, akik szeretnék tudatosabban kezelni az áramfogyasztásukat.</p>\n\n<h2>💡 Mikor érdemes használni?</h2>\n<ul>\n    <li>Ha szeretné csökkenteni az elektromos készülékek álta"
+    }
+  ],
+  "finalOrigin": "pipeline",
+  "estimatedTier": "failed",
+  "finalHtmlLen": 1605,
+  "qaErrorsFinal": [
+    "garbled-display-title"
+  ]
+}

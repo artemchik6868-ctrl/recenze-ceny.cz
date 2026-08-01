@@ -1,0 +1,37 @@
+{
+  "source": "shakes",
+  "writeDb": true,
+  "totalTokens": 0,
+  "estUsdPaid": 0,
+  "results": [
+    {
+      "source": "shakes",
+      "offerId": 12197,
+      "status": "ok",
+      "method": "free",
+      "imageUrl": "https://shakes.pro/pics/offers/12197_promo.jpg",
+      "imageHash": "9d3g3m",
+      "jsonChars": 193,
+      "llmAttempts": 2,
+      "timing": {
+        "preflightMs": 0,
+        "llmMs": 0,
+        "totalMs": 801
+      },
+      "usage": null,
+      "estUsdPaid": 0,
+      "hasContent": true,
+      "facts": {
+        "packaging": "tuba",
+        "productType": "BAD",
+        "releaseForm": "krém",
+        "detectedText": "Proctonic",
+        "primaryColor": "modrý a růžový",
+        "briefDescription": "Proctonic je krém v tubě s modrou a růžovou barvou."
+      },
+      "promptBlock": "Fakta z produktového obrázku (vision, stručná):\ntyp: BAD\nforma: krém\nobal: tuba\nbarva: modrý a růžový\ntextNaObalu: Proctonic\npopis: Proctonic je krém v tubě s modrou a růžovou barvou.",
+      "error": null,
+      "wroteDb": false
+    }
+  ]
+}

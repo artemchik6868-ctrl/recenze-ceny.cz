@@ -1,0 +1,1 @@
+UPDATE product_content SET source_hash='force-regen' WHERE title_uk ILIKE '%oculminex%' OR title_ru ILIKE '%oculminex%' OR intro_uk ILIKE '%крем для зовнішнього%' OR intro_ru ILIKE '%крем для наружного%';

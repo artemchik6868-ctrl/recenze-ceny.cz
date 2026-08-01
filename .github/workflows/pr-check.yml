@@ -1,0 +1,36 @@
+name: PR checks
+
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: pr-check-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Lint
+        # Full-repo prettier baseline is currently red; keep visible on PRs.
+        continue-on-error: true
+        run: npm run lint
+
+      - name: Typecheck
+        # Pre-existing Supabase/fork typing debt; keep visible until green.
+        continue-on-error: true
+        run: npm run typecheck
+
+      - name: SEO meta unit tests (CZ)
+        run: npm run test:seo-meta-cz

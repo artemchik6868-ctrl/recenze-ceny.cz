@@ -1,0 +1,41 @@
+{
+  "source": "shakes",
+  "writeDb": true,
+  "totalTokens": 1230,
+  "estUsdPaid": 0,
+  "results": [
+    {
+      "source": "shakes",
+      "offerId": 21838,
+      "status": "ok",
+      "method": "free",
+      "imageUrl": "https://shakes.pro/pics/offers/21838_promo.jpg",
+      "imageHash": "sy2df2",
+      "jsonChars": 378,
+      "llmAttempts": 1,
+      "timing": {
+        "preflightMs": 742,
+        "llmMs": 2443,
+        "totalMs": 5075
+      },
+      "usage": {
+        "prompt_tokens": 1089,
+        "completion_tokens": 141,
+        "total_tokens": 1230
+      },
+      "estUsdPaid": 0,
+      "hasContent": true,
+      "facts": {
+        "productType": "doplněk stravy",
+        "application": "oral",
+        "releaseForm": "kapsle",
+        "packaging": "dóza",
+        "detectedText": "Food supplement Herzena contributes to the normal functioning of the CARDIOVASCULAR SYSTEM HAWTHORN LEAF EXTRACT PUMPKIN SEED EXTRACT CHAGA MUSHROOM FRUIT BODY EXTRACT NATURAL EXTRACTS 20",
+        "briefDescription": "Průhledná dóza s bílým víčkem a růžovo-zelenou etiketou."
+      },
+      "promptBlock": "Fakta z produktového obrázku (PRIORITNÍ — forma/aplikace podle balení):\ntyp: doplněk stravy\naplikace: oral\nforma: kapsle\nobal: dóza\ntextNaObalu: Food supplement Herzena contributes to the normal functioning of the CARDIOVASCULAR SYSTEM HAWTHORN LEAF EXTRACT PUMPKIN SEED EXTRACT CHAGA MUSHROOM FRUIT BODY EXTRACT NATURAL EXTRACTS 20\npopis: Průhledná dóza s bílým víčkem a růžovo-zelenou etiketou.",
+      "error": null,
+      "wroteDb": true
+    }
+  ]
+}

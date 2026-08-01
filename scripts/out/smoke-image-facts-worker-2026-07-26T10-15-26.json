@@ -1,0 +1,61 @@
+[
+  {
+    "ok": true,
+    "mode": "extract",
+    "source": "m1_top",
+    "offerId": 6272,
+    "force": true,
+    "elapsed_ms": 6072,
+    "status": "ok",
+    "method": "free",
+    "imageUrl": "https://m1.top/uploads/offers/offer_img300x300/20250819143645913.jpg",
+    "imageHash": "1uoek7a",
+    "jsonChars": 286,
+    "llmAttempts": 1,
+    "timing": {
+      "preflightMs": 130,
+      "llmMs": 3102,
+      "totalMs": 6072
+    },
+    "usage": {
+      "prompt_tokens": 1142,
+      "completion_tokens": 640,
+      "total_tokens": 1782
+    },
+    "facts": {
+      "productType": "doplněk stravy",
+      "application": "oral",
+      "releaseForm": "tablety",
+      "packaging": "lahvička",
+      "detectedText": "DiaFlex Forte, Support for Prediabetes & Diabetes, Food Supplement 20 Tablets",
+      "briefDescription": "Červená krabička a bílá lahvička s červeným designem, obsah 20 tablet"
+    },
+    "promptBlock": "Fakta z produktového obrázku (vision, stručná):\ntyp: doplněk stravy\naplikace: oral\nforma: tablety\nobal: lahvička\ntextNaObalu: DiaFlex Forte, Support for Prediabetes & Diabetes, Food Supplement 20 Tablets\npopis: Červená krabička a bílá lahvička s červeným designem, obsah 20 tablet",
+    "error": null,
+    "wroteDb": true
+  },
+  {
+    "ok": false,
+    "mode": "extract",
+    "source": "kma",
+    "offerId": 10314,
+    "force": true,
+    "elapsed_ms": 451,
+    "status": "fetch_error",
+    "method": "none",
+    "imageUrl": "https://kma.biz/uploads/store/6bb24468956384c482a8b5a901fb6383/c2932aa1a6b0ff3fd23d88fd49c5674f795d2751.png",
+    "imageHash": "9jui12",
+    "jsonChars": 0,
+    "llmAttempts": 0,
+    "timing": {
+      "preflightMs": 160,
+      "llmMs": 0,
+      "totalMs": 451
+    },
+    "usage": null,
+    "facts": null,
+    "promptBlock": null,
+    "error": "http_502",
+    "wroteDb": true
+  }
+]

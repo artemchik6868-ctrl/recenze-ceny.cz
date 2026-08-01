@@ -1,0 +1,152 @@
+[
+  {
+    "ok": true,
+    "mode": "extract",
+    "source": "shakes",
+    "offerId": 12889,
+    "force": false,
+    "elapsed_ms": 3344,
+    "status": "ok",
+    "method": "free",
+    "imageUrl": "https://shakes.pro/pics/offers/12889_promo.jpg",
+    "imageHash": "kz3cys",
+    "jsonChars": 183,
+    "llmAttempts": 1,
+    "timing": {
+      "preflightMs": 294,
+      "llmMs": 2281,
+      "totalMs": 3344
+    },
+    "usage": {
+      "prompt_tokens": 1110,
+      "completion_tokens": 74,
+      "total_tokens": 1184
+    },
+    "facts": {
+      "productType": "lokální přípravek",
+      "application": "topical",
+      "releaseForm": "gel",
+      "packaging": "tuba",
+      "detectedText": "ABSlim",
+      "briefDescription": "Tuba s nápisem ABSlim a zelenou barvou."
+    },
+    "promptBlock": "Fakta z produktového obrázku (vision, stručná):\ntyp: lokální přípravek\naplikace: topical\nforma: gel\nobal: tuba\ntextNaObalu: ABSlim\npopis: Tuba s nápisem ABSlim a zelenou barvou.",
+    "error": null,
+    "wroteDb": true
+  },
+  {
+    "ok": false,
+    "mode": "extract",
+    "source": "m1_top",
+    "offerId": 6272,
+    "force": false,
+    "elapsed_ms": 16005,
+    "status": "thin",
+    "method": "none",
+    "imageUrl": "https://m1.top/uploads/offers/offer_img300x300/20250819143645913.jpg",
+    "imageHash": "1uoek7a",
+    "jsonChars": 0,
+    "llmAttempts": 1,
+    "timing": {
+      "preflightMs": 169,
+      "llmMs": 0,
+      "totalMs": 16005
+    },
+    "usage": null,
+    "facts": null,
+    "promptBlock": null,
+    "error": "Failed to parse LLM JSON: User Safety: safe",
+    "wroteDb": true
+  },
+  {
+    "ok": false,
+    "mode": "extract",
+    "source": "kma",
+    "offerId": 10314,
+    "force": false,
+    "elapsed_ms": 561,
+    "status": "fetch_error",
+    "method": "none",
+    "imageUrl": "https://kma.biz/uploads/store/6bb24468956384c482a8b5a901fb6383/c2932aa1a6b0ff3fd23d88fd49c5674f795d2751.png",
+    "imageHash": "9jui12",
+    "jsonChars": 0,
+    "llmAttempts": 0,
+    "timing": {
+      "preflightMs": 192,
+      "llmMs": 0,
+      "totalMs": 561
+    },
+    "usage": null,
+    "facts": null,
+    "promptBlock": null,
+    "error": "http_502",
+    "wroteDb": true
+  },
+  {
+    "ok": true,
+    "mode": "extract",
+    "source": "cpa_tl",
+    "offerId": 23680,
+    "force": false,
+    "elapsed_ms": 15605,
+    "status": "ok",
+    "method": "free",
+    "imageUrl": "https://cpa.tl/media/offers/thumbs/big/IMG_7121_2.PNG",
+    "imageHash": "pn0822",
+    "jsonChars": 369,
+    "llmAttempts": 1,
+    "timing": {
+      "preflightMs": 200,
+      "llmMs": 13308,
+      "totalMs": 15605
+    },
+    "usage": {
+      "prompt_tokens": 1144,
+      "completion_tokens": 122,
+      "total_tokens": 1266
+    },
+    "facts": {
+      "productType": "doplněk stravy",
+      "application": "oral",
+      "releaseForm": "kapsle",
+      "packaging": "dóza",
+      "detectedText": "PROSTATE SUPPORT FOR MEN Support for men's vitality - Lipidum meyeni For the health of the male urinary tract and prostate - Urtica dioica DIETARY SUPPLEMENT",
+      "briefDescription": "Bílá plastová dóza s modro-zeleným obalem a nápisem Prostate Support for men."
+    },
+    "promptBlock": "Fakta z produktového obrázku (vision, stručná):\ntyp: doplněk stravy\naplikace: oral\nforma: kapsle\nobal: dóza\ntextNaObalu: PROSTATE SUPPORT FOR MEN Support for men's vitality - Lipidum meyeni For the health of the male urinary tract and prostate - Urtica dioica DIETARY SUPPLEMENT\npopis: Bílá plastová dóza s modro-zeleným obalem a nápisem Prostate Support for men.",
+    "error": null,
+    "wroteDb": true
+  },
+  {
+    "ok": true,
+    "mode": "extract",
+    "source": "shakes",
+    "offerId": 12197,
+    "force": false,
+    "elapsed_ms": 181,
+    "status": "ok",
+    "method": "free",
+    "imageUrl": "https://shakes.pro/pics/offers/12197_promo.jpg",
+    "imageHash": "9d3g3m",
+    "jsonChars": 222,
+    "llmAttempts": 1,
+    "timing": {
+      "preflightMs": 0,
+      "llmMs": 0,
+      "totalMs": 181
+    },
+    "usage": null,
+    "facts": {
+      "packaging": "tuba",
+      "application": "topical",
+      "productType": "lokální přípravek",
+      "releaseForm": "gel",
+      "detectedText": "Proctonic",
+      "primaryColor": "modrá",
+      "briefDescription": "Proctonic je lokální gel s chladivým efektem v tubě."
+    },
+    "promptBlock": "Fakta z produktového obrázku (vision, stručná):\ntyp: lokální přípravek\naplikace: topical\nforma: gel\nobal: tuba\nbarva: modrá\ntextNaObalu: Proctonic\npopis: Proctonic je lokální gel s chladivým efektem v tubě.",
+    "error": null,
+    "wroteDb": false
+  }
+]

@@ -1,0 +1,41 @@
+{
+  "source": "cpa_tl",
+  "offerId": 17811,
+  "categorySlug": "home-gadgets",
+  "pipelineVersion": "v75-hu-expert-opinion-male-voice",
+  "feedTitle": "Лазерный проектор Laser Light",
+  "cleanedDescription": "- Уникальное новогоднее и рождественское украшение, которое порадует как детей, так и взрослых - Водонепроницаемость и морозостойкость гарантирует устойчивость на открытом воздухе зимой - Быстро и легко создаст оригинальный звездный эффект внутри и снаружи дома - Сияние красно-зеленых огней превратит будни в праздник и сказку - Cтанет любимым светильником в детской комнате - Сэкономит время и деньги вместо классического декора для праздничной атмосферы В оффере ЗАПРЕЩЕНО использование известных личностей, актёров, названий реальных учреждений, а также мислидинг (использование в",
+  "factsKind": "generic_item",
+  "displayTitle": "Laser Light – lézer projektor",
+  "maxAttempts": 5,
+  "attempts": [
+    {
+      "attempt": 1,
+      "mode": "full",
+      "promptLen": 0,
+      "htmlLen": 1794,
+      "qaSeverity": "critical",
+      "qaErrors": [
+        "garbled-display-title"
+      ],
+      "htmlPreview": "<h2>✨ Laser Light – lézer projektor</h2>\n<p>A Laser Light egy lézer projektor, ami ünnepi hangulatot teremt. Gyorsan és egyszerűen varázsolhatsz vele csillagos égboltot otthonodba, vagy a kertbe.</p>\n<p>Kültéri és beltéri használatra is alkalmas, így a hideg téli napokon is megállja a helyét. Gyerekek és felnőttek egyaránt örülhetnek neki.</p>\n\n<h2>🌟 Mikor érdemes használni?</h2>\n<ul>\n    <li>Ha "
+    },
+    {
+      "attempt": 2,
+      "mode": "partial",
+      "promptLen": 0,
+      "htmlLen": 1794,
+      "qaSeverity": "critical",
+      "qaErrors": [
+        "AI pipeline completion budget exceeded: requested=18340"
+      ],
+      "gatewayError": "AI pipeline completion budget exceeded: requested=18340"
+    }
+  ],
+  "finalOrigin": "pipeline",
+  "estimatedTier": "failed",
+  "finalHtmlLen": 1794,
+  "qaErrorsFinal": [
+    "garbled-display-title"
+  ]
+}

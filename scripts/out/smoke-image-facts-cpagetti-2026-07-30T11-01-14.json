@@ -1,0 +1,43 @@
+{
+  "source": "cpagetti",
+  "writeDb": true,
+  "totalTokens": 1421,
+  "estUsdPaid": 0.000701,
+  "results": [
+    {
+      "source": "cpagetti",
+      "offerId": 16737,
+      "status": "ok",
+      "method": "paid",
+      "model": "google/gemini-2.5-flash",
+      "generationId": "gen-1785409272-9k4yS1BYrpAlNWeBcWku",
+      "imageUrl": "https://s.cpagetti.com/img/sci/small/Offer/22732dab9d5e27adfb7dd62697eed3bb.png",
+      "imageHash": "eeuu5a",
+      "jsonChars": 333,
+      "llmAttempts": 2,
+      "timing": {
+        "preflightMs": 596,
+        "llmMs": 1595,
+        "totalMs": 9965
+      },
+      "usage": {
+        "prompt_tokens": 1296,
+        "completion_tokens": 125,
+        "total_tokens": 1421
+      },
+      "estUsdPaid": 0.000701,
+      "hasContent": true,
+      "facts": {
+        "productType": "doplněk stravy",
+        "application": "oral",
+        "releaseForm": "kapky",
+        "packaging": "lahvička",
+        "detectedText": "NATURAL extracts DIETTER Passiflora Papayo Kumquat DIETTER food supplement CONTRIBUTES TO NORMAL ENERGY YIELDING METABOLISM 30ml",
+        "briefDescription": "Hnědá lahvička s kapátkem a bílo-zelená krabička s nápisem Dietter."
+      },
+      "promptBlock": "Fakta z produktového obrázku (PRIORITNÍ — forma/aplikace podle balení):\ntyp: doplněk stravy\naplikace: oral\nforma: kapky\nobal: lahvička\ntextNaObalu: NATURAL extracts DIETTER Passiflora Papayo Kumquat DIETTER food supplement CONTRIBUTES TO NORMAL ENERGY YIELDING METABOLISM 30ml\npopis: Hnědá lahvička s kapátkem a bílo-zelená krabička s nápisem Dietter.",
+      "error": null,
+      "wroteDb": true
+    }
+  ]
+}

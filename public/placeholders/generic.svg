@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-hidden="true">
+  <rect width="400" height="300" fill="#f4f1ec"/>
+  <!-- jar body -->
+  <path d="M155 95h90v12c0 4-2 8-6 10l-8 145c-1 8-8 14-16 14h-26c-8 0-15-6-16-14l-8-145c-4-2-6-6-6-10v-12z" fill="#e8e2d8" stroke="#c9bfb0" stroke-width="2"/>
+  <!-- jar neck -->
+  <rect x="168" y="78" width="64" height="18" rx="4" fill="#d9d0c4" stroke="#c9bfb0" stroke-width="2"/>
+  <!-- lid -->
+  <rect x="162" y="68" width="76" height="12" rx="3" fill="#c9bfb0" stroke="#b5a99a" stroke-width="1.5"/>
+  <!-- label band -->
+  <rect x="162" y="145" width="76" height="48" rx="4" fill="#f4f1ec" stroke="#c9bfb0" stroke-width="1.5"/>
+  <path d="M175 162h50M175 178h35" stroke="#d9d0c4" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,529 @@
+{
+  "generatedAt": "2026-07-30T10:53:54.163Z",
+  "products": [
+    {
+      "source": "shakes",
+      "offer_id": 12907,
+      "display_title_uk": "ABslim - kapky na hubnutí",
+      "form_kind": null,
+      "target": 6,
+      "categorySlug": "weight-management",
+      "slug": "abslim-s12907",
+      "url": "https://recenze-ceny.cz/weight-management/abslim-s12907#reviews",
+      "ok": true,
+      "error": null,
+      "count": 6,
+      "form_kind_stored": null,
+      "reviews": [
+        {
+          "age": 34,
+          "text": "Jako mladá maminka dvou dětí jsem hledala něco, co by mi pomohlo dostat se zpět do formy po porodech. ABslim kapky jsem si objednala s velkými nadějemi. Musím říct, že mi opravdu pomohly s chutí k jídlu a cítím se celkově lépe. Jediné, co mě trochu mrzí, je, že výsledky nejsou tak rychlé, jak jsem si představovala, ale chápu, že to není žádný zázrak přes noc.",
+          "gender": "f",
+          "rating": 4,
+          "daysAgo": 13
+        },
+        {
+          "age": 45,
+          "text": "Ve svém věku už vím, že zázraky se nedějí, ale ABslim kapky jsem chtěla zkusit jako podporu při mé snaze zhubnout. Pracuji v kanceláři a pohybu moc nemám, takže každá pomoc je dobrá. Nějaký úbytek váhy jsem zaznamenala, ale nebylo to nic dramatického. Chuť k jídlu se mi sice trochu snížila, ale na druhou stranu jsem občas cítila takovou zvláštní nevolnost, což nebylo příjemné.",
+          "gender": "f",
+          "rating": 3,
+          "daysAgo": 48
+        },
+        {
+          "age": 50,
+          "text": "S blížící se padesátkou už je hubnutí mnohem těžší než dřív. ABslim kapky jsem si koupila s nadějí, že mi pomohou nastartovat metabolismus. Musím říct, že jsem se cítila trochu energičtější a možná i méně nafouklá. Ale co se týče samotného hubnutí, tak jsem nezaznamenala žádné výrazné změny. Možná jsem čekala víc, ale na druhou stranu, aspoň jsem se necítila hůř.",
+          "gender": "f",
+          "rating": 3,
+          "daysAgo": 62
+        },
+        {
+          "age": 39,
+          "text": "Jako účetní trávím většinu dne u počítače a bohužel se to projevuje i na mé postavě. ABslim kapky jsem si objednala na doporučení kamarádky a musím říct, že jsem příjemně překvapená. Mám pocit, že mi pomáhají s kontrolou porcí a už nemám takové chutě na sladké. Jediné, co bych vytkla, je, že chuť kapek je trochu zvláštní, ale dá se na to zvyknout.",
+          "gender": "f",
+          "rating": 4,
+          "daysAgo": 6
+        },
+        {
+          "age": 32,
+          "text": "Pořád jsem se snažil zhubnout, ale s mým sedavým zaměstnáním a láskou k pivu to bylo těžké. ABslim kapky jsem si objednal s trochou skepse, ale musím říct, že jsem naprosto spokojený! Cítím se lehčí, mám víc energie a dokonce jsem si všiml, že se mi zmenšil obvod pasu. Konečně něco, co funguje a pomáhá mi dostat se do formy!",
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 69
+        },
+        {
+          "age": 49,
+          "text": "Už jsem vyzkoušela snad všechno, co se týče hubnutí, a vždycky s malým úspěchem. ABslim kapky jsem si objednala jako poslední pokus předtím, než to vzdám. A musím říct, že jsem nadšená! Cítím se skvěle, mám víc energie a hlavně – kila jdou dolů! Konečně se zase cítím sebevědomě a můžu si dovolit nosit oblečení, které jsem si dřív jen prohlížela. Doporučuji všem, kdo se snaží zhubnout!",
+          "gender": "f",
+          "rating": 5,
+          "daysAgo": 55
+        }
+      ]
+    },
+    {
+      "source": "shakes",
+      "offer_id": 23404,
+      "display_title_uk": "Shivital – kapsle na hubnutí",
+      "form_kind": "capsules",
+      "target": 3,
+      "categorySlug": "weight-management",
+      "slug": "shivital-s23404",
+      "url": "https://recenze-ceny.cz/weight-management/shivital-s23404#reviews",
+      "ok": true,
+      "error": null,
+      "count": 3,
+      "form_kind_stored": "capsules",
+      "reviews": [
+        {
+          "age": 49,
+          "text": "Po padesátce už to hubnutí jde ztěžka, ale Shivital mi opravdu pomohl nastartovat metabolismus. Cítím se lehčí a mám víc energie na vnoučata. Jsem moc spokojená.",
+          "gender": "f",
+          "rating": 5,
+          "daysAgo": 20
+        },
+        {
+          "age": 36,
+          "text": "Kapsle Shivital jsem si objednala s velkým očekáváním, protože jsem po porodu chtěla shodit pár kilo. Nějaké výsledky vidím, ale nebylo to tak rychlé, jak jsem doufala. Navíc mi občas nebylo úplně dobře od žaludku, takže jsem je musela brát s jídlem. Celkově takový průměr.",
+          "gender": "f",
+          "rating": 3,
+          "daysAgo": 69
+        },
+        {
+          "age": 54,
+          "text": "S přibývajícím věkem se mi začalo ukládat břicho a Shivital mi pomohl s tím něco udělat. Zhubl jsem pár kilo a cítím se lépe. Jediné, co bych vytknul, je, že jsem musel být opravdu důsledný s pitným režimem, jinak jsem pociťoval mírnou žízeň. Ale jinak super.",
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 41
+        }
+      ]
+    },
+    {
+      "source": "cpagetti",
+      "offer_id": 16737,
+      "display_title_uk": "Dietter – gel na hubnutí",
+      "form_kind": null,
+      "target": 3,
+      "categorySlug": "weight-management",
+      "slug": "dietter-g16737",
+      "url": "https://recenze-ceny.cz/weight-management/dietter-g16737#reviews",
+      "ok": true,
+      "error": null,
+      "count": 3,
+      "form_kind_stored": null,
+      "reviews": [
+        {
+          "age": 49,
+          "text": "Dietter gel jsem si objednala s velkým očekáváním, protože po menopauze se mi nějak nedaří udržet si váhu. Používám ho už dva měsíce a musím říct, že kůže je sice hladší a hydratovanější, ale co se týče hubnutí, žádné zázraky se bohužel nekonají. Možná jsem čekala víc, ale pořád doufám, že se to ještě zlepší.",
+          "gender": "f",
+          "rating": 3,
+          "daysAgo": 62
+        },
+        {
+          "age": 42,
+          "text": "Jako maminka dvou malých dětí nemám moc času na cvičení, a tak jsem hledala něco, co by mi pomohlo s formováním postavy. Dietter gel je naprosto skvělý! Používám ho teprve týden, ale už teď vidím, že se mi kůže zpevnila a celulitida je méně viditelná. Navíc se krásně vstřebává a příjemně voní. Určitě si ho objednám znovu!",
+          "gender": "f",
+          "rating": 5,
+          "daysAgo": 6
+        },
+        {
+          "age": 38,
+          "text": "Po Vánocích jsem se rozhodl, že musím něco udělat se svým břichem, a tak jsem si objednal Dietter gel. Používám ho pravidelně už tři týdny a musím říct, že jsem příjemně překvapen. Kůže je na dotek hladší a mám pocit, že se mi břicho trochu zpevnilo. Jediné, co bych vytknul, je, že se gel někdy trochu lepí, než se úplně vstřebá.",
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 20
+        }
+      ]
+    },
+    {
+      "source": "shakes",
+      "offer_id": 23504,
+      "display_title_uk": "Shivital – kapsle na cukrovku",
+      "form_kind": "capsules",
+      "target": 7,
+      "categorySlug": "diabetes-care",
+      "slug": "shivital-s23504",
+      "url": "https://recenze-ceny.cz/diabetes-care/shivital-s23504#reviews",
+      "ok": true,
+      "error": null,
+      "count": 7,
+      "form_kind_stored": "capsules",
+      "reviews": [
+        {
+          "age": 54,
+          "text": "Jako řidič autobusu mám nepravidelnou stravu a s cukrovkou se potýkám už delší dobu. Shivital kapsle mi pomáhají udržet hladinu cukru v normě, což je pro mě klíčové, abych mohl bezpečně vykonávat svou práci. Jediné, co bych vytknul, je, že se mi občas stane, že zapomenu vzít dávku, když jsem na cestách. Jinak jsem ale spokojený.",
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 55
+        },
+        {
+          "age": 67,
+          "text": "Po tom, co mi lékařka diagnostikovala prediabetes, jsem hledala nějakou přírodní podporu. Kamarádka mi doporučila Shivital a musím říct, že jsem nadšená. Cítím se mnohem lépe, mám více energie a výsledky krevních testů se zlepšily. Určitě budu pokračovat v užívání.",
+          "gender": "f",
+          "rating": 5,
+          "daysAgo": 20
+        },
+        {
+          "age": 56,
+          "text": "S cukrovkou bojuji už přes deset let a vyzkoušel jsem snad všechno. Shivital kapsle jsou ale opravdu něco jiného. Moje hladina cukru je stabilnější a celkově se cítím mnohem lépe. Dokonce jsem si všiml, že mám i více energie na práci na zahradě, což mě moc těší.",
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 13
+        },
+        {
+          "age": 66,
+          "text": "Jako bývalá učitelka jsem zvyklá na pravidelný režim, ale s cukrovkou je to někdy výzva. Shivital mi pomáhá udržet hladinu cukru pod kontrolou, což mi dává klid. Jediné, co mi trochu vadí, je, že balení je poměrně velké a hůře se mi vejde do kabelky, když jdu na nákupy. Jinak jsem ale s účinky spokojená.",
+          "gender": "f",
+          "rating": 4,
+          "daysAgo": 41
+        },
+        {
+          "age": 63,
+          "text": "Jako důchodce s cukrovkou jsem hledal něco, co by mi pomohlo bez velkých vedlejších účinků. Shivital jsem zkusil na doporučení souseda. Nějaké zlepšení cítím, ale není to tak markantní, jak jsem očekával. Možná je to jen otázka delšího užívání, uvidíme.",
+          "gender": "m",
+          "rating": 3,
+          "daysAgo": 62
+        },
+        {
+          "age": 52,
+          "text": "Pracuji jako účetní a sedavé zaměstnání mi moc nepomáhá s cukrovkou. Shivital kapsle mi pomáhají udržet hladinu cukru v normě, což je pro mě důležité, abych se mohla soustředit na práci. Trochu mě mrzí, že je třeba užívat více kapslí denně, občas na to zapomenu. Jinak ale cítím zlepšení.",
+          "gender": "f",
+          "rating": 4,
+          "daysAgo": 69
+        },
+        {
+          "age": 58,
+          "text": "Jako kuchař mám neustále přístup k jídlu a udržet si disciplínu je těžké. Shivital mi ale opravdu pomáhá s regulací cukru v krvi. Cítím se mnohem lépe, mám více energie a dokonce se mi zdá, že mám menší chutě na sladké. Je to pro mě velká úleva.",
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 48
+        }
+      ]
+    },
+    {
+      "source": "cpagetti",
+      "offer_id": 10447,
+      "display_title_uk": "ABSlim – kapky na hubnutí",
+      "form_kind": null,
+      "target": 4,
+      "categorySlug": "weight-management",
+      "slug": "abslim-g10447",
+      "url": "https://recenze-ceny.cz/weight-management/abslim-g10447#reviews",
+      "ok": true,
+      "error": null,
+      "count": 4,
+      "form_kind_stored": null,
+      "reviews": [
+        {
+          "age": 53,
+          "text": "Jako učitelka ve školce mám pořád co dělat a na nějaké cvičení mi moc času nezbývá. ABSlim kapky jsem si objednala s nadějí, že mi pomůžou s pár kily, co se na mě nalepily po menopauze. Musím říct, že chuť k jídlu se mi opravdu snížila a cítím se lehčí. Jediné, co mi trochu vadí, je ta chuť kapek, ale dá se to přežít.",
+          "gender": "f",
+          "rating": 4,
+          "daysAgo": 13
+        },
+        {
+          "age": 45,
+          "text": "Po dvou dětech a sedavém zaměstnání jsem se necítila ve své kůži. Kamarádka mi doporučila ABSlim kapky a já jsem nadšená! Konečně se mi podařilo zhubnout bez drastických diet a nekonečného cvičení. Cítím se plná energie a zase se ráda podívám do zrcadla. Určitě doporučuji všem, kdo chtějí něco udělat se svou váhou.",
+          "gender": "f",
+          "rating": 5,
+          "daysAgo": 62
+        },
+        {
+          "age": 51,
+          "text": "Už jsem vyzkoušela snad všechno, abych se zbavila těch pár kil navíc, co mi zůstaly po Vánocích. ABSlim kapky jsem si objednala spíše ze zvědavosti a jsem opravdu mile překvapená. Chuť k jídlu se mi výrazně snížila a konečně se mi daří držet se zdravějšího jídelníčku. Cítím se skvěle a mám pocit, že mi to pomáhá i s trávením.",
+          "gender": "f",
+          "rating": 5,
+          "daysAgo": 34
+        },
+        {
+          "age": 46,
+          "text": "Jako manažer mám hodně stresu a často se mi stává, že se večer přejídám. ABSlim kapky jsem si objednal, abych s tím něco udělal. Musím říct, že mi pomohly snížit chuť k jídlu, hlavně večer. Cítím se lépe a mám víc energie. Jediné, co bych vytkl, je, že výsledky nejsou tak rychlé, jak jsem si představoval, ale to je asi individuální.",
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 41
+        }
+      ]
+    },
+    {
+      "source": "shakes",
+      "offer_id": 17632,
+      "display_title_uk": "Balancio – kapsle na hubnutí",
+      "form_kind": null,
+      "target": 4,
+      "categorySlug": "weight-management",
+      "slug": "balancio-s17632",
+      "url": "https://recenze-ceny.cz/weight-management/balancio-s17632#reviews",
+      "ok": true,
+      "error": null,
+      "count": 4,
+      "form_kind_stored": null,
+      "reviews": [
+        {
+          "age": 53,
+          "text": "Balancio kapsle jsem si objednala, protože jsem po menopauze přibrala a chtěla jsem s tím něco dělat. Beru je už skoro dva týdny a musím říct, že se cítím lépe a mám víc energie. Pár kilo už šlo dolů, což je super. Jediné, co mi trochu vadí, je, že se mi občas po nich hůř usíná, takže je beru jen ráno a v poledne.",
+          "gender": "f",
+          "rating": 4,
+          "daysAgo": 13
+        },
+        {
+          "age": 42,
+          "text": "Jako maminka dvou malých dětí jsem neměla moc času na cvičení a úpravu jídelníčku. Balancio kapsle mi ale opravdu pomohly nastartovat metabolismus. Cítím se lehčí, plná energie a konečně se zase vejdu do svých oblíbených džínů. Jsem nadšená a určitě si je objednám znovu!",
+          "gender": "f",
+          "rating": 5,
+          "daysAgo": 69
+        },
+        {
+          "age": 50,
+          "text": "Po padesátce jsem si myslela, že už se s váhou nedá nic dělat. Balancio kapsle mi ale dokázaly, že to jde! Beru je už druhý měsíc a cítím se skvěle. Mám víc energie, chutě na sladké zmizely a váha jde pomalu, ale jistě dolů. Doporučuji všem ženám v mém věku, které se chtějí cítit lépe.",
+          "gender": "f",
+          "rating": 5,
+          "daysAgo": 55
+        },
+        {
+          "age": 40,
+          "text": "Jako ajťák trávím většinu dne u počítače a pohybu moc nemám. Balancio kapsle jsem si pořídil, abych se trochu rozhýbal a shodil pár kilo, co se na mě nalepily. Cítím se po nich víc nabitý energií a mám menší hlad. Pár kilo už šlo dolů, což je fajn. Jenom bych uvítal, kdyby se daly sehnat i ve větším balení, abych nemusel tak často objednávat.",
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 6
+        }
+      ]
+    },
+    {
+      "source": "shakes",
+      "offer_id": 20160,
+      "display_title_uk": "Cordyceps Pulse – kapsle proti kouření",
+      "form_kind": null,
+      "target": 5,
+      "categorySlug": "smoking-cessation",
+      "slug": "cordyceps-s20160",
+      "url": "https://recenze-ceny.cz/smoking-cessation/cordyceps-s20160#reviews",
+      "ok": true,
+      "error": null,
+      "count": 5,
+      "form_kind_stored": null,
+      "reviews": [
+        {
+          "age": 28,
+          "text": "Jako 28letý ajťák jsem se snažil přestat kouřit už několikrát, ale vždycky jsem se k tomu vrátil. Cordyceps Pulse jsem si objednal s nadějí, že mi to tentokrát pomůže. Cítím, že mi to opravdu snižuje chuť na cigaretu a pomáhá mi zvládat abstinenční příznaky. Jediné, co bych vytknul, je, že se mi zdá, že účinek není úplně konzistentní každý den.",
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 34
+        },
+        {
+          "age": 46,
+          "text": "Už mi je 46 a kouřím od střední, takže jsem si myslela, že už se toho nikdy nezbavím. Cordyceps Pulse jsem zkusila na doporučení kamarádky a musím říct, že jsem příjemně překvapená. Chuť na cigaretu se mi snížila a cítím se celkově lépe. Jen bych uvítala, kdyby balení obsahovalo více kapslí, abych nemusela tak často objednávat.",
+          "gender": "f",
+          "rating": 4,
+          "daysAgo": 6
+        },
+        {
+          "age": 39,
+          "text": "Jako 39letý otec dvou dětí jsem si uvědomil, že musím přestat kouřit kvůli nim. Cordyceps Pulse mi v tom neskutečně pomohl. Už po pár týdnech jsem cítil obrovskou změnu a teď už nekouřím vůbec. Jsem naprosto spokojený a vděčný za tento produkt!",
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 48
+        },
+        {
+          "age": 45,
+          "text": "Po 20 letech kouření jsem si myslela, že už se nikdy nezbavím závislosti. Ale Cordyceps Pulse mi ukázal, že to jde! Jako 45letá účetní jsem měla stresu až nad hlavu a cigareta byla můj únik. Teď už nekouřím a cítím se mnohem lépe, plná energie. Doporučuji všem, co chtějí přestat.",
+          "gender": "f",
+          "rating": 5,
+          "daysAgo": 69
+        },
+        {
+          "age": 29,
+          "text": "Jako 29letý student jsem se snažil přestat kouřit už několikrát, ale bez úspěchu. Cordyceps Pulse jsem si objednal s velkými nadějemi. Nějaké zlepšení cítím, chuť na cigarety se mi trochu snížila, ale pořád to není ono. Čekal jsem asi větší zázrak, ale možná to chce víc času.",
+          "gender": "m",
+          "rating": 3,
+          "daysAgo": 41
+        }
+      ]
+    },
+    {
+      "source": "shakes",
+      "offer_id": 21260,
+      "display_title_uk": "Dietter – kapky na hubnutí",
+      "form_kind": null,
+      "target": 9,
+      "categorySlug": "weight-management",
+      "slug": "dietter-s21260",
+      "url": "https://recenze-ceny.cz/weight-management/dietter-s21260#reviews",
+      "ok": true,
+      "error": null,
+      "count": 9,
+      "form_kind_stored": null,
+      "reviews": [
+        {
+          "age": 44,
+          "text": "Jako máma dvou dětí jsem měla problém shodit poporodní kila a Dietter kapky mi opravdu pomohly. Cítím se lehčí a plná energie, konečně se zase vejdu do svých oblíbených džínů. Určitě doporučuji všem, kdo chtějí podpořit své hubnutí.",
+          "gender": "f",
+          "rating": 5,
+          "daysAgo": 62
+        },
+        {
+          "age": 47,
+          "text": "S příchodem menopauzy jsem začala přibírat, i když jsem se snažila jíst zdravě. Tyto kapky mi pomohly nastartovat metabolismus a konečně vidím výsledky. Jsem nadšená, jak se cítím a vypadám, a to se mi dlouho nestalo.",
+          "gender": "f",
+          "rating": 5,
+          "daysAgo": 41
+        },
+        {
+          "age": 53,
+          "text": "Jako řidič z povolání trávím hodně času za volantem a pohyb mi chybí. Dietter kapky mi pomohly s kontrolou chuti k jídlu, což je super. Jediná výtka je, že chuť není úplně nejlepší, ale dá se na to zvyknout.",
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 27
+        },
+        {
+          "age": 40,
+          "text": "Po třicítce mi začalo jít hubnutí hůř a hůř, i když jsem se snažila cvičit. Tyto kapky mi pomohly s chutěmi a cítím se méně nafouklá. Trochu mě mrzí, že výsledky nejsou tak rychlé, jak jsem očekávala, ale celkově jsem spokojená.",
+          "gender": "f",
+          "rating": 4,
+          "daysAgo": 48
+        },
+        {
+          "age": 48,
+          "text": "Jako účetní sedím celý den u počítače a večer už nemám sílu na cvičení. Dietter kapky mi pomohly s kontrolou porcí a mám pocit, že mi dodávají energii. Jen bych uvítala větší balení, protože je spotřebuji docela rychle.",
+          "gender": "f",
+          "rating": 4,
+          "daysAgo": 6
+        },
+        {
+          "age": 29,
+          "text": "Jako student jsem si řekl, že zkusím něco na hubnutí, abych se cítil lépe. Kapky Dietter mi trochu pomohly s chutí na sladké, ale žádné zázraky se neděly. Možná jsem čekal víc, ale na druhou stranu, alespoň to nebyly vyhozené peníze.",
+          "gender": "m",
+          "rating": 3,
+          "daysAgo": 69
+        },
+        {
+          "age": 51,
+          "text": "S věkem se mi zpomalil metabolismus a bylo těžké udržet si váhu. Dietter kapky mi pomohly s pocitem sytosti a mám méně chutí na nezdravé jídlo. Jediné, co bych vytkla, je, že se mi zdají trochu drahé na to, jak dlouho vydrží.",
+          "gender": "f",
+          "rating": 4,
+          "daysAgo": 13
+        },
+        {
+          "age": 40,
+          "text": "Po narození dětí jsem se nemohla zbavit posledních kil. S Dietter kapkami jsem se konečně dostala na svou původní váhu a cítím se skvěle. Jsem nadšená, že jsem našla něco, co mi opravdu pomohlo bez drastických diet.",
+          "gender": "f",
+          "rating": 5,
+          "daysAgo": 55
+        },
+        {
+          "age": 47,
+          "text": "Jako zdravotní sestra mám náročné směny a často jím nepravidelně. Tyto kapky mi pomohly s kontrolou chuti k jídlu a mám pocit, že mám více energie. Cítím se mnohem lépe a lehčeji, což je pro mou práci klíčové.",
+          "gender": "f",
+          "rating": 5,
+          "daysAgo": 20
+        }
+      ]
+    },
+    {
+      "source": "shakes",
+      "offer_id": 16624,
+      "display_title_uk": "Benaga Chaga – kapsle na cukrovku",
+      "form_kind": null,
+      "target": 7,
+      "categorySlug": "diabetes-care",
+      "slug": "benaga-s16624",
+      "url": "https://recenze-ceny.cz/diabetes-care/benaga-s16624#reviews",
+      "ok": true,
+      "error": null,
+      "count": 7,
+      "form_kind_stored": null,
+      "reviews": [
+        {
+          "age": 53,
+          "text": "Jako aktivní padesátník s mírnou cukrovkou jsem hledal něco přírodního na podporu. Benaga Chaga kapsle mě opravdu překvapily. Cítím se lépe, mám víc energie a i hodnoty cukru se mi zdají stabilnější. Určitě budu pokračovat v užívání.",
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 6
+        },
+        {
+          "age": 61,
+          "text": "S přibývajícím věkem se mi začaly objevovat problémy s cukrem. Nechtěla jsem hned sahat po silných lécích a zkusila jsem Benaga Chaga. Jsem nadšená! Cítím se mnohem lépe a i můj lékař potvrdil, že se hodnoty zlepšily. Doporučuji všem, kdo hledají přírodní cestu.",
+          "gender": "f",
+          "rating": 5,
+          "daysAgo": 69
+        },
+        {
+          "age": 46,
+          "text": "Pracuji jako řidič kamionu a nepravidelný režim se mi začal podepisovat na zdraví, včetně zvýšeného cukru. Benaga Chaga kapsle mi pomohly stabilizovat hladinu cukru a cítím se celkově lépe. Jediné, co bych vytknul, je, že je potřeba je užívat dlouhodobě, aby se dostavil plný efekt.",
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 48
+        },
+        {
+          "age": 61,
+          "text": "Jako babička, která se stará o vnoučata, potřebuji mít dostatek energie a být v kondici. Benaga Chaga kapsle mi pomohly s mým prediabetem a cítím se vitálnější. Trochu mě mrzí, že balení nevydrží déle, musím objednávat častěji.",
+          "gender": "f",
+          "rating": 4,
+          "daysAgo": 27
+        },
+        {
+          "age": 54,
+          "text": "Mám sedavé zaměstnání v kanceláři a s tím spojené i problémy s cukrem. Benaga Chaga kapsle mi pomohly s regulací a cítím se méně unavený. Co mě ale trochu zklamalo, je, že jsem neviděl tak rychlé výsledky, jak jsem očekával, trvalo to déle.",
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 34
+        },
+        {
+          "age": 52,
+          "text": "S cukrovkou bojuji už několik let a hledám cokoliv, co by mi mohlo pomoci. Benaga Chaga kapsle jsem zkusila s nadějí. Cítím se trochu lépe, ale žádné dramatické zlepšení jsem nezaznamenala. Možná to chce delší dobu užívání, ale zatím jsem spíše na vážkách.",
+          "gender": "f",
+          "rating": 3,
+          "daysAgo": 20
+        },
+        {
+          "age": 69,
+          "text": "V mém věku už je důležité dbát na zdraví a cukrovka je pro mě velká starost. Benaga Chaga kapsle mi doporučil syn a jsem mu za to vděčný. Cítím se mnohem lépe, mám víc energie na procházky a i mé výsledky u lékaře se zlepšily. Jsem velmi spokojený.",
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 41
+        }
+      ]
+    },
+    {
+      "source": "shakes",
+      "offer_id": 14713,
+      "display_title_uk": "Hondroine – kloubní gel",
+      "form_kind": "gel",
+      "target": 4,
+      "categorySlug": "joint-care",
+      "slug": "hondroine-s14713",
+      "url": "https://recenze-ceny.cz/joint-care/hondroine-s14713#reviews",
+      "ok": true,
+      "error": null,
+      "count": 4,
+      "form_kind_stored": "gel",
+      "reviews": [
+        {
+          "age": 68,
+          "text": "Jako bývalý zedník mám klouby už dost opotřebované, hlavně kolena. Hondroine gel jsem si objednal na doporučení kamaráda a musím říct, že mi opravdu pomáhá od bolesti, hlavně po delší procházce se psem. Jediné, co bych vytknul, je, že se gel docela dlouho vstřebává, takže musím chvíli počkat, než se obléknu.",
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 69
+        },
+        {
+          "age": 54,
+          "text": "Už delší dobu mě trápily bolesti v zápěstí, hlavně po práci na zahradě. Vyzkoušela jsem spoustu mastí, ale nic mi nepomohlo tak jako Hondroine. Gel se krásně vstřebává, nemastí a hlavně – bolesti jsou pryč! Můžu zase bez problémů sázet kytky a plít záhonky. Jsem nadšená!",
+          "gender": "f",
+          "rating": 5,
+          "daysAgo": 62
+        },
+        {
+          "age": 48,
+          "text": "Jsem vášnivý cyklista a po delších vyjížďkách mě občas pobolívala kolena. Hondroine gel jsem si koupil na zkoušku a musím říct, že je to pecka. Používám ho pravidelně po každé jízdě a cítím se mnohem lépe. Klouby jsou pružnější a bolest zmizela. Určitě si ho koupím znovu.",
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 27
+        },
+        {
+          "age": 54,
+          "text": "Pracuji jako kadeřnice a moje ruce jsou neustále v zápřahu, takže mě často bolí klouby na prstech. Hondroine gel mi pomáhá ulevit od bolesti a cítím se po něm lépe. Oceňuji, že se rychle vstřebává a nezanechává mastný film. Jen bych si přála, aby balení bylo o něco větší, protože ho spotřebuji docela rychle.",
+          "gender": "f",
+          "rating": 4,
+          "daysAgo": 20
+        }
+      ]
+    }
+  ]
+}

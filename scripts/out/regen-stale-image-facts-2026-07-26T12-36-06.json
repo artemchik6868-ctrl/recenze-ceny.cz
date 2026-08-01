@@ -1,0 +1,17 @@
+{
+  "totalJobs": 321,
+  "processed": 1,
+  "okCount": 1,
+  "failCount": 0,
+  "results": [
+    {
+      "source": "shakes",
+      "offerId": 14411,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13617
+    }
+  ]
+}

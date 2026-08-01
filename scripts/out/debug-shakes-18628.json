@@ -1,0 +1,41 @@
+{
+  "source": "shakes",
+  "offerId": 18628,
+  "categorySlug": "potenz-libido",
+  "pipelineVersion": "v75-hu-expert-opinion-male-voice",
+  "feedTitle": "Pulsactive - hyperpotency",
+  "cleanedDescription": "Pulsactive - hyperpotency — https://hu1.pulsactivehyper.potencsh.com — Лэндинг 1(iframe) hu1 pulsactivehyper potencsh com Веб-сайты Email-рассылки (по согласованию с личным менеджером) Дорвей-трафик Контекстная реклама Контекстная реклама на бренд Паблики ВК, ОК и Мой мир Соц. сети приложения Мотивированный трафик Push-уведомления YouTube TikTok Popup / Clickunder myTarget, таргет ВК Facebook Instagram",
+  "factsKind": "unknown",
+  "displayTitle": "Pulsactive – nagy hatékonyságú",
+  "maxAttempts": 5,
+  "attempts": [
+    {
+      "attempt": 1,
+      "mode": "full",
+      "promptLen": 0,
+      "htmlLen": 1774,
+      "qaSeverity": "critical",
+      "qaErrors": [
+        "garbled-display-title"
+      ],
+      "htmlPreview": "<h2>💪 Pulsactive – nagy hatékonyságú</h2>\n<p>A Pulsactive egy kiegészítő, ami a férfiaknak segíthet. Célja, hogy támogassa a normális szexuális funkciókat és a vitalitást.</p>\n<p>Ha úgy érzi, hogy szüksége van egy kis pluszra a mindennapokban, vagy a hálószobában, ez a termék segíthet.</p>\n\n<h2>🎯 Mire ajánlott a Pulsactive?</h2>\n<ul>\n    <li>Ha szeretné támogatni a normális potencia működését.</"
+    },
+    {
+      "attempt": 2,
+      "mode": "partial",
+      "promptLen": 0,
+      "htmlLen": 1774,
+      "qaSeverity": "critical",
+      "qaErrors": [
+        "AI pipeline completion budget exceeded: requested=18340"
+      ],
+      "gatewayError": "AI pipeline completion budget exceeded: requested=18340"
+    }
+  ],
+  "finalOrigin": "pipeline",
+  "estimatedTier": "failed",
+  "finalHtmlLen": 1774,
+  "qaErrorsFinal": [
+    "garbled-display-title"
+  ]
+}

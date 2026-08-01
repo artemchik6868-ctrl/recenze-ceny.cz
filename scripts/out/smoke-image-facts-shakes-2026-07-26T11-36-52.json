@@ -1,0 +1,173 @@
+{
+  "source": "shakes",
+  "writeDb": true,
+  "totalTokens": 8226,
+  "estUsdPaid": 0,
+  "results": [
+    {
+      "source": "shakes",
+      "offerId": 14467,
+      "status": "ok",
+      "method": "free",
+      "imageUrl": "https://shakes.pro/pics/offers/14467_promo.jpg",
+      "imageHash": "1u6yzn2",
+      "jsonChars": 356,
+      "llmAttempts": 1,
+      "timing": {
+        "preflightMs": 620,
+        "llmMs": 10475,
+        "totalMs": 12950
+      },
+      "usage": {
+        "prompt_tokens": 1133,
+        "completion_tokens": 958,
+        "total_tokens": 2091
+      },
+      "estUsdPaid": 0,
+      "hasContent": true,
+      "facts": {
+        "productType": "doplněk stravy",
+        "application": "oral",
+        "releaseForm": "kapsle",
+        "packaging": "lahvička",
+        "detectedText": "CORDYCEPS PULSE 100% PŘÍRODNÍ 20 CAPSULES",
+        "briefDescription": "Bílá plastová lahvička s černým uzávěrem a modrou etiketou, vedle ní modrý a bílý obal, na obou viditelný text 'CORDYCEPS PULSE' a obrázek žlutých houbovitých plodů, 20 kapsul."
+      },
+      "promptBlock": "Fakta z produktového obrázku (PRIORITNÍ — forma/aplikace podle balení):\ntyp: doplněk stravy\naplikace: oral\nforma: kapsle\nobal: lahvička\ntextNaObalu: CORDYCEPS PULSE 100% PŘÍRODNÍ 20 CAPSULES\npopis: Bílá plastová lahvička s černým uzávěrem a modrou etiketou, vedle ní modrý a bílý obal, na obou viditelný text 'CORDYCEPS PULSE' a obrázek žlutých houbovitých plodů, 20 kapsul.",
+      "error": null,
+      "wroteDb": true
+    },
+    {
+      "source": "shakes",
+      "offerId": 14491,
+      "status": "ok",
+      "method": "free",
+      "imageUrl": "https://shakes.pro/pics/offers/14491_promo.jpg",
+      "imageHash": "bnzmkn",
+      "jsonChars": 288,
+      "llmAttempts": 1,
+      "timing": {
+        "preflightMs": 284,
+        "llmMs": 12907,
+        "totalMs": 14549
+      },
+      "usage": {
+        "prompt_tokens": 1133,
+        "completion_tokens": 114,
+        "total_tokens": 1247
+      },
+      "estUsdPaid": 0,
+      "hasContent": true,
+      "facts": {
+        "productType": "doplněk stravy",
+        "application": "oral",
+        "releaseForm": "kapsle",
+        "packaging": "krabička a dóza",
+        "detectedText": "CORDYCEPS PULSE, Cordyceps mushroom extract, 100% natural, 20 capsules",
+        "briefDescription": "Bílá krabička a dóza s obrázkem oranžových hub a textem Cordyceps Pulse."
+      },
+      "promptBlock": "Fakta z produktového obrázku (PRIORITNÍ — forma/aplikace podle balení):\ntyp: doplněk stravy\naplikace: oral\nforma: kapsle\nobal: krabička a dóza\ntextNaObalu: CORDYCEPS PULSE, Cordyceps mushroom extract, 100% natural, 20 capsules\npopis: Bílá krabička a dóza s obrázkem oranžových hub a textem Cordyceps Pulse.",
+      "error": null,
+      "wroteDb": true
+    },
+    {
+      "source": "shakes",
+      "offerId": 14703,
+      "status": "ok",
+      "method": "free",
+      "imageUrl": "https://shakes.pro/pics/offers/14703_promo.jpg",
+      "imageHash": "15inu9b",
+      "jsonChars": 297,
+      "llmAttempts": 1,
+      "timing": {
+        "preflightMs": 300,
+        "llmMs": 14372,
+        "totalMs": 16171
+      },
+      "usage": {
+        "prompt_tokens": 1133,
+        "completion_tokens": 121,
+        "total_tokens": 1254
+      },
+      "estUsdPaid": 0,
+      "hasContent": true,
+      "facts": {
+        "productType": "doplněk stravy",
+        "application": "oral",
+        "releaseForm": "kapsle",
+        "packaging": "krabička a lahvička",
+        "detectedText": "CORDYCEPS PULSE, CORDYCEPS mushroom extract, 100% natural, 20 CAPSULES",
+        "briefDescription": "Bílá krabička a lahvička s obrázkem oranžových hub a modro-fialovým designem."
+      },
+      "promptBlock": "Fakta z produktového obrázku (PRIORITNÍ — forma/aplikace podle balení):\ntyp: doplněk stravy\naplikace: oral\nforma: kapsle\nobal: krabička a lahvička\ntextNaObalu: CORDYCEPS PULSE, CORDYCEPS mushroom extract, 100% natural, 20 CAPSULES\npopis: Bílá krabička a lahvička s obrázkem oranžových hub a modro-fialovým designem.",
+      "error": null,
+      "wroteDb": true
+    },
+    {
+      "source": "shakes",
+      "offerId": 14713,
+      "status": "ok",
+      "method": "free",
+      "imageUrl": "https://shakes.pro/pics/offers/14713_promo.jpg",
+      "imageHash": "1gd21hq",
+      "jsonChars": 221,
+      "llmAttempts": 1,
+      "timing": {
+        "preflightMs": 285,
+        "llmMs": 17160,
+        "totalMs": 18748
+      },
+      "usage": {
+        "prompt_tokens": 1131,
+        "completion_tokens": 869,
+        "total_tokens": 2000
+      },
+      "estUsdPaid": 0,
+      "hasContent": true,
+      "facts": {
+        "productType": "lokální přípravek",
+        "application": "topical",
+        "releaseForm": "gel",
+        "packaging": "tuba",
+        "detectedText": "Hondroine ICE COLD GEL",
+        "briefDescription": "Žlutá a stříbrná tuba a stříbrná krabička s nápisem Hondroine"
+      },
+      "promptBlock": "Fakta z produktového obrázku (PRIORITNÍ — forma/aplikace podle balení):\ntyp: lokální přípravek\naplikace: topical\nforma: gel\nobal: tuba\ntextNaObalu: Hondroine ICE COLD GEL\npopis: Žlutá a stříbrná tuba a stříbrná krabička s nápisem Hondroine",
+      "error": null,
+      "wroteDb": true
+    },
+    {
+      "source": "shakes",
+      "offerId": 15005,
+      "status": "ok",
+      "method": "free",
+      "imageUrl": "https://shakes.pro/pics/offers/15005_promo.jpg",
+      "imageHash": "1nhvij3",
+      "jsonChars": 232,
+      "llmAttempts": 1,
+      "timing": {
+        "preflightMs": 270,
+        "llmMs": 5970,
+        "totalMs": 7495
+      },
+      "usage": {
+        "prompt_tokens": 1131,
+        "completion_tokens": 503,
+        "total_tokens": 1634
+      },
+      "estUsdPaid": 0,
+      "hasContent": true,
+      "facts": {
+        "productType": "lokální přípravek",
+        "application": "topical",
+        "releaseForm": "gel",
+        "packaging": "tuba",
+        "detectedText": "EUDALIE, GEL",
+        "briefDescription": "Fialová tuba s bílou uzávěrou a krabicí vedle ní, na ní napsáno 'EUDALIE' a 'GEL'."
+      },
+      "promptBlock": "Fakta z produktového obrázku (PRIORITNÍ — forma/aplikace podle balení):\ntyp: lokální přípravek\naplikace: topical\nforma: gel\nobal: tuba\ntextNaObalu: EUDALIE, GEL\npopis: Fialová tuba s bílou uzávěrou a krabicí vedle ní, na ní napsáno 'EUDALIE' a 'GEL'.",
+      "error": null,
+      "wroteDb": true
+    }
+  ]
+}

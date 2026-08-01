@@ -1,0 +1,140 @@
+[
+  {
+    "offerId": 5911,
+    "ok": true,
+    "elapsed_ms": 16089,
+    "landing": {
+      "status": "ok",
+      "langHint": "cs",
+      "sourceUrl": "https://cza-removiogel.papilsh.com",
+      "jsonChars": 404,
+      "fullTextChars": 5977,
+      "facts": {
+        "form": "gel",
+        "role": "papilomy",
+        "dosage": null,
+        "ingredients": [
+          "zazvorovy olej",
+          "vytazek z kostivalu",
+          "vytazek z medunky",
+          "tokoferol",
+          "olej z vonatky citronove",
+          "olej z cajovniku",
+          "skorice",
+          "niacinamid"
+        ],
+        "benefits": [
+          "potlacuje aktivitu virovych bunek",
+          "bezbolestne odstranovani utvaru",
+          "obnovuje poskozene casti kuze",
+          "nici puvodce behem 48 hodin",
+          "blokuje aktivitu viru + imunitni obrana"
+        ],
+        "h1": "Removio"
+      },
+      "timing": {
+        "pickMs": 505,
+        "fetchMs": 1296,
+        "extractMs": 6,
+        "totalMs": 1807
+      },
+      "error": null,
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: gel\nrole/indikace: papilomy\nslozeni: zazvorovy olej; vytazek z kostivalu; vytazek z medunky; tokoferol; olej z vonatky citronove; olej z cajovniku; skorice; niacinamid\nbenefity: potlacuje aktivitu virovych bunek; bezbolestne odstranovani utvaru; obnovuje poskozene casti kuze; nici puvodce behem 48 hodin; blokuje aktivitu viru + imunitni obrana\nnadpis: Removio"
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "genMs": 14281,
+      "tokens": 11383,
+      "displayTitle": "Removio – gel proti bradavicím",
+      "htmlLen": 2488,
+      "hasSlozeni": true,
+      "hasFormHint": true,
+      "htmlPreview": "<h2>✨ Co je Removio gel a k čemu slouží?</h2>\n<p>Removio je gel, který se používá na bradavice. Je určený pro ty, kteří hledají lokální řešení na tyto kožní výrůstky.</p>\n<p>Cílem je pomoci s odstraněním bradavic a podpořit regeneraci pokožky. Gel se nanáší přímo na postižené místo.</p>\n\n<h2>🎯 Kdy Removio gel použít?</h2>\n<p>Removio gel je vhodný, pokud vás trápí bradavice a chcete je řešit přímo"
+    }
+  },
+  {
+    "offerId": 22128,
+    "ok": true,
+    "elapsed_ms": 27131,
+    "landing": {
+      "status": "ok",
+      "langHint": "cs",
+      "sourceUrl": "https://cz3-benagachaga.visionhsh.com",
+      "jsonChars": 233,
+      "fullTextChars": 7769,
+      "facts": {
+        "form": null,
+        "role": "zrak",
+        "dosage": null,
+        "ingredients": [],
+        "benefits": [
+          "obnova funkce ocnich svalu",
+          "zlepseni stavu cocky",
+          "ucinek srovnatelny s laserovou korekci"
+        ],
+        "h1": "Příběh pilota, který porazil krátkozrakost a splnil svůj sen."
+      },
+      "timing": {
+        "pickMs": 324,
+        "fetchMs": 513,
+        "extractMs": 2,
+        "totalMs": 839
+      },
+      "error": null,
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nrole/indikace: zrak\nbenefity: obnova funkce ocnich svalu; zlepseni stavu cocky; ucinek srovnatelny s laserovou korekci\nnadpis: Příběh pilota, který porazil krátkozrakost a splnil svůj sen."
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "genMs": 26292,
+      "tokens": 10742,
+      "displayTitle": "Benaga Chaga – produkt pro zrak",
+      "htmlLen": 2461,
+      "hasSlozeni": true,
+      "hasFormHint": false,
+      "htmlPreview": "<h2>👁️ Co je Benaga Chaga pro zrak?</h2>\n<p>Benaga Chaga je produkt, který se zaměřuje na podporu zraku. Je určený pro ty, kteří chtějí pečovat o své oči.</p>\n<p>Může pomoci s obnovou funkce očních svalů. Také může zlepšit stav oční čočky.</p>\n<p>Tento produkt je lokálně aplikovatelný, což znamená, že se nanáší přímo na kůži.</p>\n\n<h2>🎯 Kdy Benaga Chaga použít?</h2>\n<p>Benaga Chaga se hodí, poku"
+    }
+  },
+  {
+    "offerId": 6247,
+    "ok": true,
+    "elapsed_ms": 22831,
+    "landing": {
+      "status": "ok",
+      "langHint": "cs",
+      "sourceUrl": "https://cza-wloss.wlossh.com",
+      "jsonChars": 113,
+      "fullTextChars": 3993,
+      "facts": {
+        "form": null,
+        "role": "hubnuti",
+        "dosage": null,
+        "ingredients": [],
+        "benefits": [
+          "podpora hubnuti / keto"
+        ],
+        "h1": "W-Loss"
+      },
+      "timing": {
+        "pickMs": 127,
+        "fetchMs": 4635,
+        "extractMs": 4,
+        "totalMs": 4766
+      },
+      "error": null,
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nrole/indikace: hubnuti\nbenefity: podpora hubnuti / keto\nnadpis: W-Loss"
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "genMs": 18065,
+      "tokens": 10944,
+      "displayTitle": "W-Loss – kapky na kontrolu hmotnosti",
+      "htmlLen": 2114,
+      "hasSlozeni": true,
+      "hasFormHint": true,
+      "htmlPreview": "<h2>👋 Co je W-Loss a k čemu slouží?</h2>\n<p>W-Loss jsou kapky, které pomáhají s kontrolou hmotnosti. Jsou určené pro ty, kteří chtějí podpořit své hubnutí.</p>\n<p>Tyto kapky mohou být součástí vašeho plánu na snížení váhy. Pomáhají tělu dostat se do stavu, kdy lépe spaluje tuky.</p>\n\n<h2>🎯 Pro koho je W-Loss vhodný?</h2>\n<p>W-Loss je vhodný, pokud:</p>\n<ul>\n    <li>Chcete podpořit proces hubnutí"
+    }
+  }
+]

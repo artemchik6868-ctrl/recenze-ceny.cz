@@ -1,0 +1,43 @@
+{
+  "source": "cpa_tl",
+  "writeDb": true,
+  "totalTokens": 2733,
+  "estUsdPaid": 0.001022,
+  "results": [
+    {
+      "source": "cpa_tl",
+      "offerId": 10739,
+      "status": "ok",
+      "method": "paid",
+      "model": "google/gemini-2.5-flash",
+      "generationId": "gen-1785076768-FgRa7DAegGDeATdwrUDj",
+      "imageUrl": "https://cpa.tl/media/offers/thumbs/big/photo11.jpg",
+      "imageHash": "93fnli",
+      "jsonChars": 221,
+      "llmAttempts": 2,
+      "timing": {
+        "preflightMs": 972,
+        "llmMs": 1606,
+        "totalMs": 9246
+      },
+      "usage": {
+        "prompt_tokens": 2641,
+        "completion_tokens": 92,
+        "total_tokens": 2733
+      },
+      "estUsdPaid": 0.001022,
+      "hasContent": true,
+      "facts": {
+        "productType": "zdravotnický prostředek",
+        "application": "other",
+        "releaseForm": "zařízení",
+        "packaging": "dóza",
+        "detectedText": "snapon smile",
+        "briefDescription": "Bílé zubní náhrady v kulaté bílé dóze s nápisem Snap On Smile."
+      },
+      "promptBlock": "Fakta z produktového obrázku (PRIORITNÍ — forma/aplikace podle balení):\ntyp: zdravotnický prostředek\naplikace: other\nforma: zařízení\nobal: dóza\ntextNaObalu: snapon smile\npopis: Bílé zubní náhrady v kulaté bílé dóze s nápisem Snap On Smile.",
+      "error": null,
+      "wroteDb": true
+    }
+  ]
+}

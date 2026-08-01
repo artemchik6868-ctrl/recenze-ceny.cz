@@ -1,0 +1,223 @@
+[
+  {
+    "offerId": 23334,
+    "ok": true,
+    "url": "https://recenze-ceny.cz/diabetes-care/gluconix-23334",
+    "category": "diabetes-care",
+    "slug": "gluconix-23334",
+    "elapsed_ms": 39433,
+    "landing": {
+      "status": "ok",
+      "langHint": "cs",
+      "sourceUrl": "http://gluconix.xcartpro.com/r13fhn/",
+      "jsonChars": 308,
+      "fullTextChars": 21782,
+      "method": "llm",
+      "usage": {
+        "prompt_tokens": 1869,
+        "completion_tokens": 136,
+        "total_tokens": 2005
+      },
+      "facts": {
+        "form": "kapsle",
+        "role": "diabetes",
+        "dosage": null,
+        "ingredients": [],
+        "benefits": [],
+        "h1": "Mnoho lidí nepřežije příští tři měsíce... Kowalski varoval diabetiky před smrtelnou hrozbou.",
+        "application": "oral",
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [],
+        "audience": "diabetici",
+        "warnings": [],
+        "categoryHint": null
+      },
+      "heuristicFacts": {
+        "form": null,
+        "role": "zrak",
+        "dosage": null,
+        "ingredients": [],
+        "benefits": [],
+        "h1": "\"Mnoho lidí nepřežije příští tři měsíce...\"",
+        "application": null,
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [],
+        "audience": null,
+        "warnings": [],
+        "categoryHint": null
+      },
+      "timing": {
+        "pickMs": 277,
+        "fetchMs": 1589,
+        "extractMs": 12465,
+        "totalMs": 14337
+      },
+      "error": null,
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: kapsle\naplikace: oral\nrole/indikace: diabetes\nproKoho: diabetici\nnadpis: Mnoho lidí nepřežije příští tři měsíce... Kowalski varoval diabetiky před smrtelnou hrozbou."
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "genMs": 24652,
+      "tokens": 10999,
+      "displayTitle": "Gluconix – kapsle na cukrovku",
+      "htmlLen": 2202,
+      "hasSlozeni": true,
+      "hasFormHint": true,
+      "htmlPreview": "<h2>💊 Gluconix – kapsle na cukrovku</h2>\n<p>Gluconix jsou kapsle, které pomáhají s kontrolou hladiny cukru v krvi. Jsou určené pro lidi, kteří potřebují stabilizovat cukr a snížit chuť na sladké.</p>\n<p>Tento doplněk stravy obsahuje přírodní složky, které mohou podpořit tělo v boji proti výkyvům cukru. Může pomoci chránit tělo před komplikacemi, které s cukrovkou souvisí.</p>\n<p>Kapsle se užívají"
+    }
+  },
+  {
+    "offerId": 21180,
+    "ok": true,
+    "url": "https://recenze-ceny.cz/joint-care/artizynt-21180",
+    "category": "joint-care",
+    "slug": "artizynt-21180",
+    "elapsed_ms": 29982,
+    "landing": {
+      "status": "ok",
+      "langHint": "cs",
+      "sourceUrl": "http://arti.xcartpro.com/r3cz99/",
+      "jsonChars": 354,
+      "fullTextChars": 18453,
+      "method": "llm",
+      "usage": {
+        "prompt_tokens": 1744,
+        "completion_tokens": 167,
+        "total_tokens": 1911
+      },
+      "facts": {
+        "form": "kapsle",
+        "role": "klouby",
+        "dosage": null,
+        "ingredients": [],
+        "benefits": [
+          "obnovuje zdraví kloubů"
+        ],
+        "h1": "Nezávislé výzkumné centrum v Praze vyvinulo přípravek, který obnovuje zdraví kloubů v každém věku s 99 % účinností!",
+        "application": "oral",
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [],
+        "audience": null,
+        "warnings": [],
+        "categoryHint": "joint-care"
+      },
+      "heuristicFacts": {
+        "form": "tablety",
+        "role": "zrak",
+        "dosage": null,
+        "ingredients": [],
+        "benefits": [],
+        "h1": "Nezávislé výzkumné centrum v Praze vyvinulo přípravek, který obnovuje zdraví kloubů v každém věku s 99 % účinností!",
+        "application": null,
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [],
+        "audience": null,
+        "warnings": [],
+        "categoryHint": null
+      },
+      "timing": {
+        "pickMs": 232,
+        "fetchMs": 1434,
+        "extractMs": 1372,
+        "totalMs": 3042
+      },
+      "error": null,
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: kapsle\naplikace: oral\nrole/indikace: klouby\nkategorieHint: joint-care\nbenefity: obnovuje zdraví kloubů\nnadpis: Nezávislé výzkumné centrum v Praze vyvinulo přípravek, který obnovuje zdraví kloubů v každém věku s 99 % účinností!"
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "genMs": 26513,
+      "tokens": 9774,
+      "displayTitle": "ArtiZynt – kapsle na bolest kloubů",
+      "htmlLen": 1600,
+      "hasSlozeni": true,
+      "hasFormHint": true,
+      "htmlPreview": "<h2>💊 ArtiZynt – kapsle na klouby</h2>\n<p>ArtiZynt jsou kapsle, které se zaměřují na podporu kloubů. Jsou určené pro ty, kteří hledají pomoc s nepohodlím v kloubech.</p>\n<p>Cílem je pomoci zastavit ničení kloubní tkáně a podpořit její obnovu. Může to být dobrá volba, pokud máte pocit, že vaše klouby potřebují podporu.</p>\n\n<h2>🎯 Pro koho je ArtiZynt vhodný?</h2>\n<p>ArtiZynt je určený pro lidi, k"
+    }
+  },
+  {
+    "offerId": 9181,
+    "ok": true,
+    "url": "https://recenze-ceny.cz/potenz-libido/uromexil-9181",
+    "category": "potenz-libido",
+    "slug": "uromexil-9181",
+    "elapsed_ms": 23662,
+    "landing": {
+      "status": "ok",
+      "langHint": "cs",
+      "sourceUrl": "http://uromexilforte.xcartpro.com/r7/",
+      "jsonChars": 385,
+      "fullTextChars": 6205,
+      "method": "llm",
+      "usage": {
+        "prompt_tokens": 1844,
+        "completion_tokens": 195,
+        "total_tokens": 2039
+      },
+      "facts": {
+        "form": null,
+        "role": "potence",
+        "dosage": null,
+        "ingredients": [],
+        "benefits": [
+          "Zlepšuje kvalitu sexu",
+          "Zvyšuje erekci",
+          "Zvyšuje sexuální touhu",
+          "Urychluje proces produkce pohlavních hormonů"
+        ],
+        "h1": null,
+        "application": "oral",
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [
+          "Otevřete obal",
+          "Přečtěte si návod",
+          "Začněte používat"
+        ],
+        "audience": "Muži",
+        "warnings": [],
+        "categoryHint": "potenz-libido"
+      },
+      "heuristicFacts": {
+        "form": null,
+        "role": "potence",
+        "dosage": null,
+        "ingredients": [],
+        "benefits": [],
+        "h1": "Jak jsem zachránila svůj vztah před rozpadem",
+        "application": null,
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [],
+        "audience": null,
+        "warnings": [],
+        "categoryHint": null
+      },
+      "timing": {
+        "pickMs": 217,
+        "fetchMs": 1676,
+        "extractMs": 1411,
+        "totalMs": 3307
+      },
+      "error": null,
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\naplikace: oral\nrole/indikace: potence\nkategorieHint: potenz-libido\nbenefity: Zlepšuje kvalitu sexu; Zvyšuje erekci; Zvyšuje sexuální touhu; Urychluje proces produkce pohlavních hormonů\nnavod: 1. Otevřete obal | 2. Přečtěte si návod | 3. Začněte používat\nproKoho: Muži"
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "genMs": 19944,
+      "tokens": 10810,
+      "displayTitle": "Uromexil Forte – doplněk na prostatu",
+      "htmlLen": 1846,
+      "hasSlozeni": true,
+      "hasFormHint": false,
+      "htmlPreview": "<h2>💊 Uromexil Forte: Doplněk na prostatu</h2>\n<p>Uromexil Forte je doplněk stravy pro muže. Je určený pro ty, kteří chtějí podpořit zdraví své prostaty a celkovou vitalitu.</p>\n<p>Může pomoci s běžnými problémy, které souvisí s věkem nebo životním stylem. Cena je 860 Kč.</p>\n<p>Tento doplněk se zaměřuje na zlepšení kvality života mužů.</p>\n\n<h2>🎯 Indikace k použití</h2>\n<p>Uromexil Forte je vho"
+    }
+  }
+]

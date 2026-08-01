@@ -1,0 +1,440 @@
+[
+  {
+    "ok": true,
+    "offerId": 14211,
+    "source": "shakes",
+    "mode": "llm",
+    "elapsed_ms": 4223,
+    "landing": {
+      "status": "ok",
+      "langHint": "cs",
+      "sourceUrl": "https://czl2-cordycepspulse.hypertsh.com",
+      "jsonChars": 610,
+      "fullTextChars": 6064,
+      "method": "llm",
+      "usage": {
+        "prompt_tokens": 2790,
+        "completion_tokens": 282,
+        "total_tokens": 3072
+      },
+      "facts": {
+        "form": "kapsle",
+        "role": "hypertenze",
+        "dosage": "2 kapsle denně",
+        "ingredients": [
+          "bioflavonoid",
+          "kořen kopřivy"
+        ],
+        "benefits": [
+          "Normalizuje tlak během prvních 6 hodin",
+          "Obnovuje tonus a pružnost cév",
+          "Odstranění stenokardie, arytmie, neuróz",
+          "Zlepšení paměti",
+          "Obnovení řeči a pohyblivosti po mozkové mrtvici"
+        ],
+        "h1": "Cordyceps pulse © — tlak je v normě již od prvního použití a navždy",
+        "application": "oral",
+        "packSize": null,
+        "courseDays": "90 dní",
+        "usageSteps": [
+          "Pro dospělé 2 kapsle denně.",
+          "Používejte po dobu 3 měsíců.",
+          "V případě potřeby lze léčbu zopakovat."
+        ],
+        "audience": null,
+        "warnings": [],
+        "categoryHint": "other"
+      },
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: kapsle\naplikace: oral\nrole/indikace: hypertenze\nkategorieHint: other\nkura: 90 dní\ndavkovani: 2 kapsle denně\nslozeni: bioflavonoid; kořen kopřivy\nbenefity: Normalizuje tlak během prvních 6 hodin; Obnovuje tonus a pružnost cév; Odstranění stenokardie, arytmie, neuróz; Zlepšení paměti; Obnovení řeči a pohyblivosti po mozkové mrtvici\nnavod: 1. Pro dospělé 2 kapsle denně. | 2. Používejte po dobu 3 měsíců. | 3. V případě potřeby lze léčbu zopakovat.\nnadpis: Cordyceps pulse © — tlak je v normě již od prvního použití a navždy",
+      "timing": {
+        "pickMs": 136,
+        "fetchMs": 73,
+        "extractMs": 4014,
+        "totalMs": 4223
+      },
+      "error": null
+    },
+    "generate": null
+  },
+  {
+    "ok": true,
+    "offerId": 14771,
+    "source": "shakes",
+    "mode": "llm",
+    "elapsed_ms": 2458,
+    "landing": {
+      "status": "ok",
+      "langHint": "cs",
+      "sourceUrl": "https://czl2-hondroine.jointssh.com",
+      "jsonChars": 475,
+      "fullTextChars": 11537,
+      "method": "llm",
+      "usage": {
+        "prompt_tokens": 4599,
+        "completion_tokens": 243,
+        "total_tokens": 4842
+      },
+      "facts": {
+        "form": "gel",
+        "role": "klouby",
+        "dosage": null,
+        "ingredients": [
+          "Glukosamin",
+          "Chondroitin",
+          "Arnika",
+          "Mentol"
+        ],
+        "benefits": [
+          "Pomáhá při artritidě",
+          "Pomáhá při artróze",
+          "Pomáhá při osteochondróze",
+          "Pomáhá při osteoporóze",
+          "Pomáhá při poranění menisku"
+        ],
+        "h1": "Když vám klouby neumožňují žít život naplno, nezbývá než doufat v zázrak",
+        "application": "topical",
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [],
+        "audience": null,
+        "warnings": [
+          "Pozor na padělky"
+        ],
+        "categoryHint": "joint-care"
+      },
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: gel\naplikace: topical\nrole/indikace: klouby\nkategorieHint: joint-care\nslozeni: Glukosamin; Chondroitin; Arnika; Mentol\nbenefity: Pomáhá při artritidě; Pomáhá při artróze; Pomáhá při osteochondróze; Pomáhá při osteoporóze; Pomáhá při poranění menisku\nupozorneni: Pozor na padělky\nnadpis: Když vám klouby neumožňují žít život naplno, nezbývá než doufat v zázrak",
+      "timing": {
+        "pickMs": 125,
+        "fetchMs": 82,
+        "extractMs": 2251,
+        "totalMs": 2458
+      },
+      "error": null
+    },
+    "generate": null
+  },
+  {
+    "ok": true,
+    "offerId": 15054,
+    "source": "shakes",
+    "mode": "llm",
+    "elapsed_ms": 3159,
+    "landing": {
+      "status": "ok",
+      "langHint": "cs",
+      "sourceUrl": "https://czl2-eudalie.rejuvsh.com",
+      "jsonChars": 432,
+      "fullTextChars": 6830,
+      "method": "llm",
+      "usage": {
+        "prompt_tokens": 2872,
+        "completion_tokens": 210,
+        "total_tokens": 3082
+      },
+      "facts": {
+        "form": "krem",
+        "role": "omlazení pleti, proti vráskám",
+        "dosage": null,
+        "ingredients": [
+          "přírodní složky"
+        ],
+        "benefits": [
+          "omlazuje pokožku",
+          "odstraňuje vrásky",
+          "zlepšuje suchou pokožku",
+          "příjemná a hedvábná pokožka",
+          "bez zarudnutí a podráždění"
+        ],
+        "h1": "Žena zažalovala velmi známou estetickou kliniku v Evropě",
+        "application": "topical",
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [],
+        "audience": "ženy",
+        "warnings": [],
+        "categoryHint": "other"
+      },
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: krem\naplikace: topical\nrole/indikace: omlazení pleti, proti vráskám\nkategorieHint: other\nbenefity: omlazuje pokožku; odstraňuje vrásky; zlepšuje suchou pokožku; příjemná a hedvábná pokožka; bez zarudnutí a podráždění\nproKoho: ženy\nnadpis: Žena zažalovala velmi známou estetickou kliniku v Evropě",
+      "timing": {
+        "pickMs": 82,
+        "fetchMs": 77,
+        "extractMs": 3000,
+        "totalMs": 3159
+      },
+      "error": null
+    },
+    "generate": null
+  },
+  {
+    "ok": true,
+    "offerId": 16266,
+    "source": "shakes",
+    "mode": "llm",
+    "elapsed_ms": 23226,
+    "landing": {
+      "status": "ok",
+      "langHint": "cs",
+      "sourceUrl": "https://cz2-cystolax.cystitsh.com",
+      "jsonChars": 543,
+      "fullTextChars": 11228,
+      "method": "llm",
+      "usage": {
+        "prompt_tokens": 4387,
+        "completion_tokens": 267,
+        "total_tokens": 4654
+      },
+      "facts": {
+        "form": null,
+        "role": "cystitida",
+        "dosage": null,
+        "ingredients": [
+          "D-Mannosa"
+        ],
+        "benefits": [
+          "Účinně a bezpečně eliminuje příčinu cystitidy",
+          "Vytváří přirozenou bariéru proti zánětlivým procesům",
+          "100% přírodní a bezpečné složení",
+          "Diuretikum",
+          "Antiseptický"
+        ],
+        "h1": "PŘÍRODNÍ PŘÍPRAVEK NA CYSTITIDU Cystolax",
+        "application": "oral",
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [],
+        "audience": "ženy, muži v jakémkoli věku, kteří dříve čelili problémům s cystitidou, a také ti, kteří jsou náchylní k faktorům přisp…",
+        "warnings": [],
+        "categoryHint": "other"
+      },
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\naplikace: oral\nrole/indikace: cystitida\nkategorieHint: other\nslozeni: D-Mannosa\nbenefity: Účinně a bezpečně eliminuje příčinu cystitidy; Vytváří přirozenou bariéru proti zánětlivým procesům; Diuretikum; Antiseptický\nproKoho: ženy, muži v jakémkoli věku, kteří dříve čelili problémům s cystitidou, a také ti, kteří jsou náchylní k faktorům přisp…\nnadpis: PŘÍRODNÍ PŘÍPRAVEK NA CYSTITIDU Cystolax",
+      "timing": {
+        "pickMs": 82,
+        "fetchMs": 81,
+        "extractMs": 23063,
+        "totalMs": 23226
+      },
+      "error": null
+    },
+    "generate": null
+  },
+  {
+    "ok": false,
+    "offerId": 16376,
+    "source": "shakes",
+    "mode": "llm",
+    "elapsed_ms": 6728,
+    "landing": {
+      "status": "fetch_error",
+      "langHint": "unknown",
+      "sourceUrl": "https://cz2-insuwell.diabetsh.com",
+      "jsonChars": 0,
+      "fullTextChars": 0,
+      "method": "llm",
+      "usage": null,
+      "facts": null,
+      "promptBlock": null,
+      "timing": {
+        "pickMs": 249,
+        "fetchMs": 6479,
+        "extractMs": 0,
+        "totalMs": 6728
+      },
+      "error": "Failed to parse LLM JSON: ```json\n{\n  \"form\": \"kapsle\",\n  \"application\": \"oral\",\n  \"role\": \"cukrovka\",\n  \"categoryHint\": null,\n  \"packSize\": null,\n  \"courseDays\": \"90 dní\",\n  \"dosage\": \"3 krát denně během jídla\",\n  \"ingredient"
+    },
+    "generate": null
+  },
+  {
+    "ok": false,
+    "offerId": 16402,
+    "source": "shakes",
+    "mode": "llm",
+    "elapsed_ms": 12280,
+    "landing": {
+      "status": "fetch_error",
+      "langHint": "unknown",
+      "sourceUrl": "https://cz2.benagachagapotency.com",
+      "jsonChars": 0,
+      "fullTextChars": 0,
+      "method": "llm",
+      "usage": null,
+      "facts": null,
+      "promptBlock": null,
+      "timing": {
+        "pickMs": 280,
+        "fetchMs": 12000,
+        "extractMs": 0,
+        "totalMs": 12280
+      },
+      "error": "all 2 landing candidate(s) failed (last: https://cz3.benagachagapotency.com: The operation was aborted)"
+    },
+    "generate": null
+  },
+  {
+    "ok": false,
+    "offerId": 17156,
+    "source": "shakes",
+    "mode": "llm",
+    "elapsed_ms": 12449,
+    "landing": {
+      "status": "fetch_error",
+      "langHint": "unknown",
+      "sourceUrl": "https://cz2.pulsactivehyper.com",
+      "jsonChars": 0,
+      "fullTextChars": 0,
+      "method": "llm",
+      "usage": null,
+      "facts": null,
+      "promptBlock": null,
+      "timing": {
+        "pickMs": 449,
+        "fetchMs": 12000,
+        "extractMs": 0,
+        "totalMs": 12449
+      },
+      "error": "all 2 landing candidate(s) failed (last: https://cz3.pulsactivehyper.com: The operation was aborted)"
+    },
+    "generate": null
+  },
+  {
+    "ok": false,
+    "offerId": 17350,
+    "source": "shakes",
+    "mode": "llm",
+    "elapsed_ms": 12105,
+    "landing": {
+      "status": "fetch_error",
+      "langHint": "unknown",
+      "sourceUrl": "https://cz2.neofloraxparasit.com",
+      "jsonChars": 0,
+      "fullTextChars": 0,
+      "method": "llm",
+      "usage": null,
+      "facts": null,
+      "promptBlock": null,
+      "timing": {
+        "pickMs": 105,
+        "fetchMs": 12000,
+        "extractMs": 0,
+        "totalMs": 12105
+      },
+      "error": "all 2 landing candidate(s) failed (last: https://cz3.neofloraxparasit.com: The operation was aborted)"
+    },
+    "generate": null
+  },
+  {
+    "ok": true,
+    "offerId": 17620,
+    "source": "shakes",
+    "mode": "llm",
+    "elapsed_ms": 5367,
+    "landing": {
+      "status": "ok",
+      "langHint": "cs",
+      "sourceUrl": "https://cz2.balancioloss.com",
+      "jsonChars": 649,
+      "fullTextChars": 5453,
+      "method": "llm",
+      "usage": {
+        "prompt_tokens": 2514,
+        "completion_tokens": 311,
+        "total_tokens": 2825
+      },
+      "facts": {
+        "form": "kapsle",
+        "role": "hubnutí",
+        "dosage": "Stačí brát Balancio denně a shodíte až 10–15 kg nadváhy za měsíc! Pouhá 1 kapsle Balancio sníží tuto dobu na 40-50 minu…",
+        "ingredients": [
+          "Ketony maliny",
+          "Guarana",
+          "HMV",
+          "L-tryptofan",
+          "Chrom",
+          "Vitamín B6",
+          "Vitamin B1",
+          "Vitamín B3"
+        ],
+        "benefits": [
+          "Spouští ketózu a transformuje tukové zásoby na energii",
+          "Urychluje metabolismus",
+          "Snižuje chuť k jídlu",
+          "Spaluje tělesný tuk a zvyšuje svalovou hmotu",
+          "Zlepšuje náladu a snižuje stres"
+        ],
+        "h1": "Balancio revoluční díky ketóze!",
+        "application": "oral",
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [],
+        "audience": null,
+        "warnings": [],
+        "categoryHint": "weight-management"
+      },
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: kapsle\naplikace: oral\nrole/indikace: hubnutí\nkategorieHint: weight-management\nslozeni: Ketony maliny; Guarana; HMV; L-tryptofan; Chrom; Vitamín B6; Vitamin B1; Vitamín B3\nbenefity: Spouští ketózu a transformuje tukové zásoby na energii; Urychluje metabolismus; Snižuje chuť k jídlu; Spaluje tělesný tuk a zvyšuje svalovou hmotu; Zlepšuje náladu a snižuje stres\nnadpis: Balancio revoluční díky ketóze!",
+      "timing": {
+        "pickMs": 178,
+        "fetchMs": 78,
+        "extractMs": 5111,
+        "totalMs": 5367
+      },
+      "error": null
+    },
+    "generate": null
+  },
+  {
+    "ok": true,
+    "offerId": 13905,
+    "source": "shakes",
+    "mode": "llm",
+    "elapsed_ms": 4148,
+    "landing": {
+      "status": "ok",
+      "langHint": "cs",
+      "sourceUrl": "https://czl2.herzena.hypertsh.com",
+      "jsonChars": 584,
+      "fullTextChars": 5984,
+      "method": "llm",
+      "usage": {
+        "prompt_tokens": 2774,
+        "completion_tokens": 281,
+        "total_tokens": 3055
+      },
+      "facts": {
+        "form": "kapsle",
+        "role": "hypertenze",
+        "dosage": "2 kapsle denně",
+        "ingredients": [
+          "bioflavonoid",
+          "kořen kopřivy"
+        ],
+        "benefits": [
+          "normalizuje tlak během prvních 6 hodin",
+          "obnovuje tonus a pružnost cév",
+          "bezpečný v jakémkoliv věku",
+          "efektivní u 1., 2., 3. stadií hypertenze",
+          "odstranění stenokardie, arytmie, neuróz"
+        ],
+        "h1": "Efektivní přípravek proti hypertenzi!",
+        "application": "oral",
+        "packSize": null,
+        "courseDays": "90 dní",
+        "usageSteps": [
+          "Pro dospělé 2 kapsle denně.",
+          "Používejte po dobu 3 měsíců.",
+          "V případě potřeby lze léčbu zopakovat."
+        ],
+        "audience": null,
+        "warnings": [],
+        "categoryHint": "other"
+      },
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: kapsle\naplikace: oral\nrole/indikace: hypertenze\nkategorieHint: other\nkura: 90 dní\ndavkovani: 2 kapsle denně\nslozeni: bioflavonoid; kořen kopřivy\nbenefity: normalizuje tlak během prvních 6 hodin; obnovuje tonus a pružnost cév; bezpečný v jakémkoliv věku; efektivní u 1., 2., 3. stadií hypertenze; odstranění stenokardie, arytmie, neuróz\nnavod: 1. Pro dospělé 2 kapsle denně. | 2. Používejte po dobu 3 měsíců. | 3. V případě potřeby lze léčbu zopakovat.\nnadpis: Efektivní přípravek proti hypertenzi!",
+      "timing": {
+        "pickMs": 309,
+        "fetchMs": 114,
+        "extractMs": 3725,
+        "totalMs": 4148
+      },
+      "error": null
+    },
+    "generate": null
+  }
+]

@@ -1,0 +1,236 @@
+{
+  "totalTokens": 9005,
+  "estUsdListGeminiFlash": 0.004884,
+  "results": [
+    {
+      "offerId": 12197,
+      "status": "ok",
+      "sourceUrl": "https://cz2.proctonicsale.com",
+      "langHint": "cs",
+      "fullTextChars": 3771,
+      "jsonChars": 379,
+      "extractMs": 1559,
+      "fetchMs": 704,
+      "totalMs": 2725,
+      "usage": {
+        "prompt_tokens": 1686,
+        "completion_tokens": 196,
+        "total_tokens": 1882
+      },
+      "estUsdListGeminiFlash": 0.000996,
+      "rich": true,
+      "llmFacts": {
+        "form": "krém",
+        "role": "hemoroidy",
+        "dosage": null,
+        "ingredients": [
+          "přírodní složky"
+        ],
+        "benefits": [
+          "Zmírňuje bolest, svědění a pálení",
+          "Podporuje resorpci hemoroidů",
+          "Zabraňuje opětovnému rozvoji nemoci",
+          "Hojí i hluboké vnitřní trhliny",
+          "Rychlá úleva od bolesti a dalších příznaků"
+        ],
+        "h1": "Proctonic EFEKTIVNÍ LÉČBA HEMOROIDŮ V JAKÉMKOLIV STADIU BOLEST A SVĚDĚNÍ ZMIZÍ ZA 5-10 MINUT!"
+      },
+      "heuristicFacts": {
+        "form": "krem",
+        "role": "proctology",
+        "dosage": null,
+        "ingredients": [],
+        "benefits": [],
+        "h1": "EFEKTIVNÍ LÉČBA HEMOROIDŮ V JAKÉMKOLIV STADIU"
+      },
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: krém\nrole/indikace: hemoroidy\nslozeni: přírodní složky\nbenefity: Zmírňuje bolest, svědění a pálení; Podporuje resorpci hemoroidů; Zabraňuje opětovnému rozvoji nemoci; Hojí i hluboké vnitřní trhliny; Rychlá úleva od bolesti a dalších příznaků\nnadpis: Proctonic EFEKTIVNÍ LÉČBA HEMOROIDŮ V JAKÉMKOLIV STADIU BOLEST A SVĚDĚNÍ ZMIZÍ ZA 5-10 MINUT!",
+      "error": null
+    },
+    {
+      "offerId": 12619,
+      "status": "ok",
+      "sourceUrl": "https://czl2.hondrofrostsale.com",
+      "langHint": "unknown",
+      "fullTextChars": 11589,
+      "jsonChars": 248,
+      "extractMs": 1026,
+      "fetchMs": 594,
+      "totalMs": 1803,
+      "usage": {
+        "prompt_tokens": 1658,
+        "completion_tokens": 162,
+        "total_tokens": 1820
+      },
+      "estUsdListGeminiFlash": 0.000902,
+      "rich": true,
+      "llmFacts": {
+        "form": "gel",
+        "role": "klouby",
+        "dosage": null,
+        "ingredients": [
+          "Glukosamin",
+          "Chondroitin",
+          "Arnika",
+          "Mentol"
+        ],
+        "benefits": [],
+        "h1": "Hondrofrost Dnes Přihlásit se Domovská stránka Novinky Politika Ekonomika Svět Lifestyle Sport Články Dnešní televize \"…"
+      },
+      "heuristicFacts": {
+        "form": "gel",
+        "role": "zrak",
+        "dosage": null,
+        "ingredients": [],
+        "benefits": [],
+        "h1": "\"Když vám klouby neumožňují žít život naplno, nezbývá než doufat v zázrak \"- Exkluzivní rozhovor s legendárním mužem!"
+      },
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: gel\nrole/indikace: klouby\nslozeni: Glukosamin; Chondroitin; Arnika; Mentol\nnadpis: Hondrofrost Dnes Přihlásit se Domovská stránka Novinky Politika Ekonomika Svět Lifestyle Sport Články Dnešní televize \"…",
+      "error": null
+    },
+    {
+      "offerId": 11937,
+      "status": "ok",
+      "sourceUrl": "https://cz2-redusizer.wlossh.com",
+      "langHint": "cs",
+      "fullTextChars": 5472,
+      "jsonChars": 444,
+      "extractMs": 1288,
+      "fetchMs": 659,
+      "totalMs": 2105,
+      "usage": {
+        "prompt_tokens": 1686,
+        "completion_tokens": 227,
+        "total_tokens": 1913
+      },
+      "estUsdListGeminiFlash": 0.001073,
+      "rich": true,
+      "llmFacts": {
+        "form": "kapky",
+        "role": "hubnutí",
+        "dosage": "Stačí brát Redusizer denně a shodíte až 10–15 kg nadváhy za měsíc!",
+        "ingredients": [
+          "Ketony maliny",
+          "Guarana",
+          "HMV",
+          "L-tryptofan",
+          "Chrom",
+          "Vitamín B6",
+          "Vitamin B1",
+          "Vitamín B3"
+        ],
+        "benefits": [
+          "Bezpečné hubnutí díky ketóze",
+          "Spouští ketózu a transformuje zásoby tuku do energie",
+          "Urychluje metabolismus",
+          "Snižuje chuť k jídlu",
+          "Pomáhá zbavit se nadbytečného tuku"
+        ],
+        "h1": "Redusizer revoluční díky ketóze!"
+      },
+      "heuristicFacts": {
+        "form": null,
+        "role": "hubnuti",
+        "dosage": "1 kapky Redusizer sníží tuto dobu na 40-50 minut, během níž začne proces přeměny tuků n",
+        "ingredients": [],
+        "benefits": [
+          "podpora hubnuti / keto"
+        ],
+        "h1": "Redusizer"
+      },
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: kapky\nrole/indikace: hubnutí\ndavkovani: Stačí brát Redusizer denně a shodíte až 10–15 kg nadváhy za měsíc!\nslozeni: Ketony maliny; Guarana; HMV; L-tryptofan; Chrom; Vitamín B6; Vitamin B1; Vitamín B3\nbenefity: Bezpečné hubnutí díky ketóze; Spouští ketózu a transformuje zásoby tuku do energie; Urychluje metabolismus; Snižuje chuť k jídlu; Pomáhá zbavit se nadbytečného tuku\nnadpis: Redusizer revoluční díky ketóze!",
+      "error": null
+    },
+    {
+      "offerId": 4201,
+      "status": "ok",
+      "sourceUrl": "https://cza-gigant.potencsh.com",
+      "langHint": "cs",
+      "fullTextChars": 2616,
+      "jsonChars": 411,
+      "extractMs": 1589,
+      "fetchMs": 928,
+      "totalMs": 2786,
+      "usage": {
+        "prompt_tokens": 1285,
+        "completion_tokens": 204,
+        "total_tokens": 1489
+      },
+      "estUsdListGeminiFlash": 0.000896,
+      "rich": true,
+      "llmFacts": {
+        "form": "gel",
+        "role": "zvětšení penisu a zlepšení erekce",
+        "dosage": "Aplikovat na penis a pečlivě rozmazat.",
+        "ingredients": [
+          "Rhodiola rosea (kořenový extrakt Rozchodnici růžové)",
+          "Plody Paulinie nápojné",
+          "Guarana",
+          "Šalvěj",
+          "Máta rolní"
+        ],
+        "benefits": [
+          "Dělá penis větším",
+          "Upevňuje a posiluje erekci",
+          "Zvyšuje sexuální pud partnerů",
+          "Zvyšuje citlivost",
+          "Přispívá k nástupu orgasmu"
+        ],
+        "h1": "Gigant PRO VAŠE POTĚŠENÍ!"
+      },
+      "heuristicFacts": {
+        "form": "gel",
+        "role": "potence",
+        "dosage": null,
+        "ingredients": [],
+        "benefits": [],
+        "h1": "Gigant"
+      },
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: gel\nrole/indikace: zvětšení penisu a zlepšení erekce\ndavkovani: Aplikovat na penis a pečlivě rozmazat.\nslozeni: Rhodiola rosea (kořenový extrakt Rozchodnici růžové); Plody Paulinie nápojné; Guarana; Šalvěj; Máta rolní\nbenefity: Dělá penis větším; Upevňuje a posiluje erekci; Zvyšuje sexuální pud partnerů; Zvyšuje citlivost; Přispívá k nástupu orgasmu\nnadpis: Gigant PRO VAŠE POTĚŠENÍ!",
+      "error": null
+    },
+    {
+      "offerId": 12889,
+      "status": "ok",
+      "sourceUrl": "https://cz2-abslim.wlossh.com",
+      "langHint": "cs",
+      "fullTextChars": 3993,
+      "jsonChars": 448,
+      "extractMs": 1264,
+      "fetchMs": 570,
+      "totalMs": 1976,
+      "usage": {
+        "prompt_tokens": 1698,
+        "completion_tokens": 203,
+        "total_tokens": 1901
+      },
+      "estUsdListGeminiFlash": 0.001017,
+      "rich": true,
+      "llmFacts": {
+        "form": null,
+        "role": "hubnutí",
+        "dosage": "Stačí brát ABSlim denně a shodíte až 10–15 kg nadváhy za měsíc!",
+        "ingredients": [],
+        "benefits": [
+          "Získávání energie z tuků, nikoli z glukózy",
+          "Aktivní přeměna tuků na energii",
+          "Spalování těžko přístupného tuku při zachování svalové hmoty",
+          "Urychluje metabolismus, snižuje chuť k jídlu",
+          "Obohacuje o nezbytné prvky, potlačuje hlad, odstraňuje únavu a úzkost"
+        ],
+        "h1": "ABSlim revoluční ABSlim! jen dnes! SLEVA 50%"
+      },
+      "heuristicFacts": {
+        "form": null,
+        "role": "hubnuti",
+        "dosage": null,
+        "ingredients": [],
+        "benefits": [
+          "podpora hubnuti / keto"
+        ],
+        "h1": "ABSlim"
+      },
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nrole/indikace: hubnutí\ndavkovani: Stačí brát ABSlim denně a shodíte až 10–15 kg nadváhy za měsíc!\nbenefity: Získávání energie z tuků, nikoli z glukózy; Aktivní přeměna tuků na energii; Spalování těžko přístupného tuku při zachování svalové hmoty; Urychluje metabolismus, snižuje chuť k jídlu; Obohacuje o nezbytné prvky, potlačuje hlad, odstraňuje únavu a úzkost\nnadpis: ABSlim revoluční ABSlim! jen dnes! SLEVA 50%",
+      "error": null
+    }
+  ]
+}

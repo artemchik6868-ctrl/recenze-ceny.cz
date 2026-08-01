@@ -1,0 +1,30 @@
+{
+  "source": "shakes",
+  "offerId": 23102,
+  "categorySlug": "nervous-system",
+  "pipelineVersion": "v70-bg-full-locale",
+  "feedTitle": "Benaga Chaga",
+  "cleanedDescription": "Benaga Chaga — https://bgl1-benagachaga-neuropathy.othersh.com — Лэндинг 1(iframe) bgl1 benagachaga neuropathy othersh com Веб-сайты Email-рассылки (по согласованию с личным менеджером) Дорвей-трафик Контекстная реклама Контекстная реклама на бренд Паблики ВК, ОК и Мой мир Соц. сети приложения Мотивированный трафик Push-уведомления YouTube TikTok Popup / Clickunder myTarget, таргет ВК Facebook Instagram",
+  "factsKind": "unknown",
+  "displayTitle": "Benaga Chaga – средство при невропатии",
+  "maxAttempts": 3,
+  "attempts": [
+    {
+      "attempt": 1,
+      "mode": "pipeline",
+      "promptLen": 0,
+      "htmlLen": 2327,
+      "qaSeverity": "warn",
+      "qaErrors": [
+        "niche-must-mention-missing"
+      ],
+      "htmlPreview": "<h2>🍄 Benaga Chaga: При невропатии</h2>\n<p>Benaga Chaga е продукт, създаден да подпомогне хора с невропатии. Той е базиран на екстракт от гъба чага, известна със своите свойства.</p>\n<p>Ако търсите начин да подкрепите нервната си система, Benaga Chaga може да е подходящ за вас. Продуктът е предназначен за ежедневна употреба.</p>\n\n<h2>🎯 За кого е Benaga Chaga?</h2>\n<p>Benaga Chaga е предназначен "
+    }
+  ],
+  "finalOrigin": "pipeline",
+  "estimatedTier": "ai",
+  "finalHtmlLen": 2327,
+  "qaErrorsFinal": [
+    "niche-must-mention-missing"
+  ]
+}

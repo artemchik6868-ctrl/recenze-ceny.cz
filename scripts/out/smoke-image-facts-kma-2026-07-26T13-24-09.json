@@ -1,0 +1,41 @@
+{
+  "source": "kma",
+  "writeDb": true,
+  "totalTokens": 2306,
+  "estUsdPaid": 0,
+  "results": [
+    {
+      "source": "kma",
+      "offerId": 11900,
+      "status": "ok",
+      "method": "free",
+      "imageUrl": "https://kma.biz/uploads/store/6bb24468956384c482a8b5a901fb6383/815357147ca74688e8e0dd5baf383e70a825378e.png",
+      "imageHash": "1l93uqe",
+      "jsonChars": 526,
+      "llmAttempts": 1,
+      "timing": {
+        "preflightMs": 1146,
+        "llmMs": 22971,
+        "totalMs": 26460
+      },
+      "usage": {
+        "prompt_tokens": 1250,
+        "completion_tokens": 1056,
+        "total_tokens": 2306
+      },
+      "estUsdPaid": 0,
+      "hasContent": true,
+      "facts": {
+        "productType": "doplněk stravy",
+        "application": "oral",
+        "releaseForm": "kapsle",
+        "packaging": "krabička",
+        "detectedText": "Vitality Plus Ultra FOOD SUPPLEMENT Vitamin E, Vitamin B1, Vitamin B2, Vitamin B6, Vitamin B7, Vitamin K, Vitamin D Thyme whole herb extract Origanum aerial part extract +14 more herbal extracts 20 capsules Multivitamins complex",
+        "briefDescription": "Bílá krabička s černým a zlatým designem, na přední straně uvedeno název, \"FOOD SUPPLEMENT\", seznam vitamínů a bylinných extraktů a informace o 20 kapsulách."
+      },
+      "promptBlock": "Fakta z produktového obrázku (PRIORITNÍ — forma/aplikace podle balení):\ntyp: doplněk stravy\naplikace: oral\nforma: kapsle\nobal: krabička\ntextNaObalu: Vitality Plus Ultra FOOD SUPPLEMENT Vitamin E, Vitamin B1, Vitamin B2, Vitamin B6, Vitamin B7, Vitamin K, Vitamin D Thyme whole herb extract Origanum aerial part extract +14 more herbal extracts 20 capsules Multivitamins complex\npopis: Bílá krabička s černým a zlatým designem, na přední straně uvedeno název, \"FOOD SUPPLEMENT\", seznam vitamínů a bylinných extraktů a informace o 20 kapsulách.",
+      "error": null,
+      "wroteDb": true
+    }
+  ]
+}

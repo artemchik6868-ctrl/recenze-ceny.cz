@@ -1,0 +1,278 @@
+{
+  "generatedAt": "2026-07-29T17:08:42.846Z",
+  "requestedModel": "openai/gpt-oss-20b:free",
+  "products": [
+    {
+      "id": 14345,
+      "source": "shakes",
+      "displayTitle": "Cordyceps Pulse - kapsle na klouby",
+      "categorySlug": "joint-care",
+      "formKind": "capsules",
+      "audience": "any",
+      "modelUsed": "openai/gpt-oss-20b:free",
+      "slots": [
+        {
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 28
+        },
+        {
+          "gender": "f",
+          "rating": 3,
+          "daysAgo": 6
+        },
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 14
+        },
+        {
+          "gender": "f",
+          "rating": 4,
+          "daysAgo": 21
+        },
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 35
+        }
+      ],
+      "reviews": [
+        {
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 28,
+          "text": "Objednal jsem si kapsle Cordyceps Pulse a po týdnu už jsem pocítil úlevu od ranního křečování. Všiml jsem si, že balení není příliš obtížné otevřít, ale obaly mají drobný prvek, který se snadno roztrhne. Přesto je efekt spokojený a doporučuji."
+        },
+        {
+          "gender": "f",
+          "rating": 3,
+          "daysAgo": 6,
+          "text": "Užívám si kapsle už pár dní a vidím, že pomáhají s bolestí kolen při dlouhých chůzích. Přesto mě mrzí, že chuť je trochu přítulná a není příjemná. Ne vždy jsem spokojená. Celkově je to průměrný produkt, s možností zlepšení."
+        },
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 14,
+          "text": "Po dvou týdnech užívání jsem si všiml výrazného zlepšení v mobilitě kloubů. Kapsle se snadno rozložily a žádné vedlejší účinky nic nevyvolaly. Jsem nadšený a rozhodně je doporučuji každému, kdo má problémy s klouby."
+        },
+        {
+          "gender": "f",
+          "rating": 4,
+          "daysAgo": 21,
+          "text": "Kapsle mi pomohly snížit bolest v krční oblasti během dlouhé práce u počítače. Počkejte však na to, že balení je trochu těžké a je potřeba pečlivě zkontrolovat datum spotřeby. Přesto je výsledek dobrý a přináší úlevu."
+        },
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 35,
+          "text": "Cítím, že moje klouby jsou pevnější a méně bolestivé při každodenním pohybu. Kapsle jsou snadno stravitelné a dávám si je ráno s kávou. Jsem naprosto spokojený s výsledkem a budu pokračovat v používání."
+        }
+      ]
+    },
+    {
+      "id": 14405,
+      "source": "shakes",
+      "displayTitle": "Cordyceps Pulse – kapsle na prostatu",
+      "categorySlug": "prostate-health",
+      "formKind": "capsules",
+      "audience": "men",
+      "modelUsed": "openai/gpt-oss-20b:free",
+      "slots": [
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 6
+        },
+        {
+          "gender": "m",
+          "rating": 3,
+          "daysAgo": 14
+        },
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 28
+        },
+        {
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 21
+        },
+        {
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 35
+        }
+      ],
+      "reviews": [
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 6,
+          "text": "Už jsem si každý večer před spaním užíval jednu kapsli a po týdnu jsem si všiml, že mohu častěji a bez obtíží vyprázdnit močový měchýř. Můj den začíná bez náhlých východů a cítím se celkově osvěžený. Doporučuji každému, kdoუსტc zlepšit funkci prostaty."
+        },
+        {
+          "gender": "m",
+          "rating": 3,
+          "daysAgo": 14,
+          "text": "Po čtyřech týdnech užívání jsem zaznamenal, že se mi urychlilo vyprázdnění močového měchýře, což je pozitivní. Na druhou stranu jsem stále pociťoval mírné křeče v oblasti bederní páteře, které mi trochu rušily noční odpočinek. Představoval bych si, že by výrobce mohl přidat další složku proti křečím."
+        },
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 28,
+          "text": "Již po druhém týdnu se mi výrazně snížila potřeba často chodit do toalety. Při sportu se necítím méně napnutý a mohu se soustředit na cvičení. Toto doplněk je opravdu výkonný a zaručil mi lepší kvalitu života."
+        },
+        {
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 21,
+          "text": "Po měsících užívání jsem zaznamenal výrazné zlepšení v noci, když už nevyprázdňuji častěji. Jediným minusem je, že kapsle mají na obalu poměrně těžký náklad, takže je potřeba je nosit na celou dobu, což mi trochu znepříjemnilo cestování."
+        },
+        {
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 35,
+          "text": "Zdravotní účinek je jasný – mohu se vyhnout nočním východům a mám lepší kontrolu nad prostatu. Avšak cena je mírně vyšší než u konkurence, a proto bych si přál, aby byl balení dostupnější."
+        }
+      ]
+    },
+    {
+      "id": 12905,
+      "source": "shakes",
+      "displayTitle": "ABslim – kapky na hubnutí",
+      "categorySlug": "weight-management",
+      "formKind": "drops",
+      "audience": "any",
+      "modelUsed": "openai/gpt-oss-20b:free",
+      "slots": [
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 6
+        },
+        {
+          "gender": "f",
+          "rating": 3,
+          "daysAgo": 28
+        },
+        {
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 14
+        },
+        {
+          "gender": "f",
+          "rating": 5,
+          "daysAgo": 21
+        },
+        {
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 35
+        }
+      ],
+      "reviews": [
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 6,
+          "text": "Díky ABslim jsem zhubnul o 3 kg a cítím se o krok blíž ke svému cíli. Kapky mi dodaly energii a motivaci k pravidelnému cvičení. Doporučuji všem, kteří chtějí vidět skutečné výsledky."
+        },
+        {
+          "gender": "f",
+          "rating": 3,
+          "daysAgo": 28,
+          "text": "Kapky ABslim mi pomohly zvýšit mírnou úroveň chuti na jídlo, ale nevšly mi úplně udržet energii po večerním posilování. Přesto jsem zhubla asi 1,5 kg, což je pozitivní. Když jsem však zkoušela kombinovat s dietou, výsledky byly méně výrazné."
+        },
+        {
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 14,
+          "text": "ABslim mi pomohl zhubnout o 2 kg, což je pro mě velký úspěch. Po prvním týdnu jsem však zažil mírné nevolnosti po užití kapek v noci. Přesto jsem pokračuje a doufám v lepší výsledky."
+        },
+        {
+          "gender": "f",
+          "rating": 5,
+          "daysAgo": 21,
+          "text": "ABslim mi pomohl zhubnout 4 kg a jsem nadšená výsledky, které jsem viděla na zrcadle. Kapky mi dodaly energii, takže jsem mohla trénovat bez únavy. Doporučuji všem, kteří chtějí rychle a bezpečně zhubnout."
+        },
+        {
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 35,
+          "text": "Kapky ABslim mi pomohly zhubnout 3 kg, což je skvělý výsledek. Jediný problém byl, že se mi občas zhoršilo trávení po prvním týdnu užívání. Přesto jsem pokračuje a cítím se lépe."
+        }
+      ]
+    },
+    {
+      "id": 15098,
+      "source": "shakes",
+      "displayTitle": "Promicil – krém proti plísním",
+      "categorySlug": "fungus",
+      "formKind": "cream",
+      "audience": "any",
+      "modelUsed": "openai/gpt-oss-20b:free",
+      "slots": [
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 21
+        },
+        {
+          "gender": "f",
+          "rating": 4,
+          "daysAgo": 14
+        },
+        {
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 35
+        },
+        {
+          "gender": "f",
+          "rating": 3,
+          "daysAgo": 28
+        },
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 6
+        }
+      ],
+      "reviews": [
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 21,
+          "text": "Nedávno jsem měl problémy s plísní na nohou po sportovní aktivitě. Tento krém mi rychle pomohl, po třech dnech už bylo zánik plísně. Přesně tak, jak jsem hledal, ideální pro mě. Rád doporučuji!"
+        },
+        {
+          "gender": "f",
+          "rating": 4,
+          "daysAgo": 14,
+          "text": "Krém mi pomohl redukovat svědění a zmírnil bolest. Navíc se rychle vstřebává a nezanechává mastný film. Jediným malým zklamáním byl vůně, která není příliš příjemná. Přesto je to dobrá volba."
+        },
+        {
+          "gender": "m",
+          "rating": 4,
+          "daysAgo": 35,
+          "text": "Použil jsem Promicil na plíseň v dřevěném obývacím pokoji. Krém účinně redukoval skvrnu a rychle se vstřebával. Měl jsem ale mírné podráždění na kůži. Přesto je to dobrá volba, pokud vás nevadí lehké svědění."
+        },
+        {
+          "gender": "f",
+          "rating": 3,
+          "daysAgo": 28,
+          "text": "Krém mi původně pomohl, ale po týdnu se plísně vrátila. Jednoho dne jsem si všimla, že se v místech rozšířuje, a nejsem spokojená s tím, že se neřeší úplně. Na druhou stranu, krém se dobře vkládá a není těžký."
+        },
+        {
+          "gender": "m",
+          "rating": 5,
+          "daysAgo": 6,
+          "text": "Nedávno jsem se postavil proti těžké plísni po dešti. Promicil mi pomohl během dvou dnů, kůže se vrátila do normálu a plíseň už vůbec ne. Kromě toho se krém rychle vstřebává a neuchovává mastný film. Doporučuji ho všem, kdo mají problémy s plísní."
+        }
+      ]
+    }
+  ]
+}

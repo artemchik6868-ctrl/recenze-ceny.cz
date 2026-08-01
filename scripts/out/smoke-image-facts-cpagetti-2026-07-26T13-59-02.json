@@ -1,0 +1,41 @@
+{
+  "source": "cpagetti",
+  "writeDb": true,
+  "totalTokens": 1237,
+  "estUsdPaid": 0,
+  "results": [
+    {
+      "source": "cpagetti",
+      "offerId": 14103,
+      "status": "ok",
+      "method": "free",
+      "imageUrl": "https://s.cpagetti.com/img/sci/small/Offer/3d4f1dec66b85afff9233b91c8041b9a.png",
+      "imageHash": "sjrelt",
+      "jsonChars": 286,
+      "llmAttempts": 1,
+      "timing": {
+        "preflightMs": 594,
+        "llmMs": 5230,
+        "totalMs": 7703
+      },
+      "usage": {
+        "prompt_tokens": 1131,
+        "completion_tokens": 106,
+        "total_tokens": 1237
+      },
+      "estUsdPaid": 0,
+      "hasContent": true,
+      "facts": {
+        "productType": "doplněk stravy",
+        "application": "oral",
+        "releaseForm": "kapsle",
+        "packaging": "krabička a blistr",
+        "detectedText": "PULSACTIVE, CONTRIBUTES TO THE MAINTENANCE OF A NORMAL BLOOD PRESSURE, Food supplement",
+        "briefDescription": "Bílá krabička s červeným kruhem a blistr s kapslemi."
+      },
+      "promptBlock": "Fakta z produktového obrázku (PRIORITNÍ — forma/aplikace podle balení):\ntyp: doplněk stravy\naplikace: oral\nforma: kapsle\nobal: krabička a blistr\ntextNaObalu: PULSACTIVE, CONTRIBUTES TO THE MAINTENANCE OF A NORMAL BLOOD PRESSURE, Food supplement\npopis: Bílá krabička s červeným kruhem a blistr s kapslemi.",
+      "error": null,
+      "wroteDb": true
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "source": "cpagetti",
+  "writeDb": true,
+  "totalTokens": 1233,
+  "estUsdPaid": 0,
+  "results": [
+    {
+      "source": "cpagetti",
+      "offerId": 15493,
+      "status": "ok",
+      "method": "free",
+      "imageUrl": "https://s.cpagetti.com/img/sci/small/Offer/9cf8625323b15eac4f2cec5a2dab8cf6.png",
+      "imageHash": "10y7oxf",
+      "jsonChars": 268,
+      "llmAttempts": 1,
+      "timing": {
+        "preflightMs": 648,
+        "llmMs": 11038,
+        "totalMs": 13589
+      },
+      "usage": {
+        "prompt_tokens": 1132,
+        "completion_tokens": 101,
+        "total_tokens": 1233
+      },
+      "estUsdPaid": 0,
+      "hasContent": true,
+      "facts": {
+        "productType": "lokální přípravek",
+        "application": "topical",
+        "releaseForm": "sprej",
+        "packaging": "krabička a sprejová nádoba",
+        "detectedText": "HONDRO SOL Joint Care Spray",
+        "briefDescription": "Oranžová krabička a bílá sprejová nádoba s nápisem Hondro Sol Joint Care Spray."
+      },
+      "promptBlock": "Fakta z produktového obrázku (PRIORITNÍ — forma/aplikace podle balení):\ntyp: lokální přípravek\naplikace: topical\nforma: sprej\nobal: krabička a sprejová nádoba\ntextNaObalu: HONDRO SOL Joint Care Spray\npopis: Oranžová krabička a bílá sprejová nádoba s nápisem Hondro Sol Joint Care Spray.",
+      "error": null,
+      "wroteDb": true
+    }
+  ]
+}

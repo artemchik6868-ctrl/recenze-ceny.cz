@@ -1,0 +1,708 @@
+[
+  {
+    "ok": true,
+    "offerId": 13815,
+    "source": "shakes",
+    "mode": "llm",
+    "elapsed_ms": 26370,
+    "landing": {
+      "status": "ok",
+      "langHint": "cs",
+      "sourceUrl": "https://cz2.herzena.hypertsh.com",
+      "jsonChars": 438,
+      "fullTextChars": 5984,
+      "method": "llm",
+      "usage": {
+        "prompt_tokens": 1898,
+        "completion_tokens": 209,
+        "total_tokens": 2107
+      },
+      "facts": {
+        "form": null,
+        "role": "hypertenze",
+        "dosage": null,
+        "ingredients": [
+          "bioflavonoid",
+          "Kořen kopřivy"
+        ],
+        "benefits": [
+          "Normalizuje tlak během prvních 6 hodin",
+          "Obnovuje tonus a pružnost cév za 1 kurz léčení",
+          "Bezpečný v jakémkoliv věku",
+          "Efektivní u 1., 2., 3. stadii hypertenzi"
+        ],
+        "h1": "Efektivní přípravek proti hypertenzi!",
+        "application": "oral",
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [],
+        "audience": null,
+        "warnings": [],
+        "categoryHint": "other"
+      },
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\naplikace: oral\nrole/indikace: hypertenze\nkategorieHint: other\nslozeni: bioflavonoid; Kořen kopřivy\nbenefity: Normalizuje tlak během prvních 6 hodin; Obnovuje tonus a pružnost cév za 1 kurz léčení; Bezpečný v jakémkoliv věku; Efektivní u 1., 2., 3. stadii hypertenzi\nnadpis: Efektivní přípravek proti hypertenzi!",
+      "timing": {
+        "pickMs": 177,
+        "fetchMs": 161,
+        "extractMs": 4101,
+        "totalMs": 4439
+      },
+      "error": null
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "saved": true,
+      "genMs": 21931,
+      "metrics": {
+        "promptTokens": 10436,
+        "completionTokens": 1288,
+        "totalTokens": 11724,
+        "requestedCompletionTokens": 17828,
+        "attempts": 8,
+        "retries": 0,
+        "durationMs": 21064
+      },
+      "displayTitle": "Herzena – lék na hypertenzi",
+      "htmlLen": 2130,
+      "htmlPreview": "<h2>💊 Herzena – lék na hypertenzi</h2>\n<p>Herzena je doplněk stravy, který se zaměřuje na podporu normálního krevního tlaku. Je určen pro lidi, kteří chtějí přirozenou cestou pomoci svému tělu udržet tlak v rovnováze.</p>\n<p>Tento přípravek může být užitečný pro ty, kteří hledají podporu pro svůj kardiovaskulární systém.</p>\n\n<h2>✅ Indikace k použití</h2>\n<p>Herzena je vhodná pro lidi, kteří řeší problémy s vysokým krevním tlakem. Může pomoci v různých fázích hypertenze.</p>\n<ul>\n    <li>Při po",
+      "hasSlozeni": true,
+      "hasNavod": true,
+      "hasFormHint": false
+    }
+  },
+  {
+    "ok": true,
+    "offerId": 13867,
+    "source": "shakes",
+    "mode": "llm",
+    "elapsed_ms": 26818,
+    "landing": {
+      "status": "ok",
+      "langHint": "unknown",
+      "sourceUrl": "https://czl2.insuvit.diabetsh.com",
+      "jsonChars": 464,
+      "fullTextChars": 5577,
+      "method": "llm",
+      "usage": {
+        "prompt_tokens": 1867,
+        "completion_tokens": 204,
+        "total_tokens": 2071
+      },
+      "facts": {
+        "form": "kapsle",
+        "role": "diabetes",
+        "dosage": "1 krát denně",
+        "ingredients": [],
+        "benefits": [
+          "Stabilizuje hladinu cukru a normalizuje tvorbu inzulinu",
+          "Chrání před vysokým obsahem cukru",
+          "Obnovuje fungování jater a pankreasu",
+          "Normalizuje obměnu sacharidů",
+          "Čistí organismus od škodlivých látek a toxinů"
+        ],
+        "h1": "Insuvit – dvojitá rána cukrovce",
+        "application": "oral",
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [],
+        "audience": null,
+        "warnings": [],
+        "categoryHint": "other"
+      },
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: kapsle\naplikace: oral\nrole/indikace: diabetes\nkategorieHint: other\ndavkovani: 1 krát denně\nbenefity: Stabilizuje hladinu cukru a normalizuje tvorbu inzulinu; Chrání před vysokým obsahem cukru; Obnovuje fungování jater a pankreasu; Normalizuje obměnu sacharidů; Čistí organismus od škodlivých látek a toxinů\nnadpis: Insuvit – dvojitá rána cukrovce",
+      "timing": {
+        "pickMs": 128,
+        "fetchMs": 276,
+        "extractMs": 3532,
+        "totalMs": 3936
+      },
+      "error": null
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "saved": true,
+      "genMs": 22882,
+      "metrics": {
+        "promptTokens": 10583,
+        "completionTokens": 1486,
+        "totalTokens": 12069,
+        "requestedCompletionTokens": 17828,
+        "attempts": 8,
+        "retries": 2,
+        "durationMs": 9752
+      },
+      "displayTitle": "Insuvit – kapsle na cukrovku",
+      "htmlLen": 2543,
+      "htmlPreview": "<h2>💊 Insuvit – kapsle pro kontrolu cukru</h2>\n<p>Insuvit jsou kapsle, které pomáhají s kontrolou hladiny cukru v krvi. Jsou určené pro lidi, kteří chtějí podpořit normální funkci svého metabolismu cukrů.</p>\n<p>Tento doplněk stravy se zaměřuje na stabilizaci hladiny cukru a podporu tvorby inzulinu. Může také pomoci chránit tělo před dopady vysokého cukru.</p>\n<p>Insuvit je navržen tak, aby přispíval k obnově funkce jater a slinivky břišní. Také pomáhá čistit tělo od škodlivých látek.</p>\n\n<h2>",
+      "hasSlozeni": true,
+      "hasNavod": true,
+      "hasFormHint": true
+    }
+  },
+  {
+    "ok": true,
+    "offerId": 14177,
+    "source": "shakes",
+    "mode": "llm",
+    "elapsed_ms": 11468,
+    "landing": {
+      "status": "ok",
+      "langHint": "cs",
+      "sourceUrl": "https://cz2-cordycepspulse.hypertsh.com",
+      "jsonChars": 505,
+      "fullTextChars": 6064,
+      "method": "llm",
+      "usage": {
+        "prompt_tokens": 1896,
+        "completion_tokens": 254,
+        "total_tokens": 2150
+      },
+      "facts": {
+        "form": null,
+        "role": "hypertenze",
+        "dosage": null,
+        "ingredients": [
+          "Bioflavonoid",
+          "Kořen kopřivy"
+        ],
+        "benefits": [
+          "Normalizuje tlak během prvních 6 hodin",
+          "Obnovuje tonus a pružnost cév za 1 kurz léčení",
+          "Bezpečný v jakémkoliv věku",
+          "Efektivní u 1., 2., 3. stadii hypertenze",
+          "Normalizace arteriálního tlaku"
+        ],
+        "h1": "Cordyceps pulse © — tlak je v normě již od prvního použití a navždy",
+        "application": "oral",
+        "packSize": null,
+        "courseDays": "25 dní",
+        "usageSteps": [],
+        "audience": null,
+        "warnings": [],
+        "categoryHint": "other"
+      },
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\naplikace: oral\nrole/indikace: hypertenze\nkategorieHint: other\nkura: 25 dní\nslozeni: Bioflavonoid; Kořen kopřivy\nbenefity: Normalizuje tlak během prvních 6 hodin; Obnovuje tonus a pružnost cév za 1 kurz léčení; Bezpečný v jakémkoliv věku; Efektivní u 1., 2., 3. stadii hypertenze; Normalizace arteriálního tlaku\nnadpis: Cordyceps pulse © — tlak je v normě již od prvního použití a navždy",
+      "timing": {
+        "pickMs": 154,
+        "fetchMs": 223,
+        "extractMs": 1222,
+        "totalMs": 1599
+      },
+      "error": null
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "saved": true,
+      "genMs": 9869,
+      "metrics": {
+        "promptTokens": 10511,
+        "completionTokens": 1300,
+        "totalTokens": 11811,
+        "requestedCompletionTokens": 17828,
+        "attempts": 8,
+        "retries": 0,
+        "durationMs": 9280
+      },
+      "displayTitle": "Cordyceps Pulse – kapsle proti plísním",
+      "htmlLen": 1968,
+      "htmlPreview": "<h2>💊 Cordyceps Pulse – kapsle proti plísním</h2>\n<p>Cordyceps Pulse jsou kapsle, které pomáhají bojovat proti plísňovým infekcím. Jsou určené pro ty, kteří hledají podporu při řešení těchto problémů.</p>\n<p>Tento produkt je navržen tak, aby pomohl udržet vaše tělo v rovnováze. Může být užitečný, pokud se potýkáte s plísněmi.</p>\n\n<h2>🎯 Indikace k použití</h2>\n<p>Cordyceps Pulse je vhodný pro lidi, kteří:</p>\n<ul>\n    <li>Mají problémy s plísňovými infekcemi.</li>\n    <li>Hledají přírodní podp",
+      "hasSlozeni": true,
+      "hasNavod": true,
+      "hasFormHint": true
+    }
+  },
+  {
+    "ok": true,
+    "offerId": 14713,
+    "source": "shakes",
+    "mode": "llm",
+    "elapsed_ms": 72523,
+    "landing": {
+      "status": "ok",
+      "langHint": "cs",
+      "sourceUrl": "https://cz2.hondroine.jointssh.com",
+      "jsonChars": 331,
+      "fullTextChars": 11537,
+      "method": "llm",
+      "usage": {
+        "prompt_tokens": 1835,
+        "completion_tokens": 167,
+        "total_tokens": 2002
+      },
+      "facts": {
+        "form": "gel",
+        "role": "klouby",
+        "dosage": null,
+        "ingredients": [
+          "Glukosamin",
+          "Chondroitin",
+          "Arnika",
+          "Mentol"
+        ],
+        "benefits": [],
+        "h1": "Když vám klouby neumožňují žít život naplno, nezbývá než doufat v zázrak",
+        "application": "topical",
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [],
+        "audience": null,
+        "warnings": [],
+        "categoryHint": "joint-care"
+      },
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: gel\naplikace: topical\nrole/indikace: klouby\nkategorieHint: joint-care\nslozeni: Glukosamin; Chondroitin; Arnika; Mentol\nnadpis: Když vám klouby neumožňují žít život naplno, nezbývá než doufat v zázrak",
+      "timing": {
+        "pickMs": 169,
+        "fetchMs": 200,
+        "extractMs": 11969,
+        "totalMs": 12338
+      },
+      "error": null
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "saved": true,
+      "genMs": 60185,
+      "metrics": {
+        "promptTokens": 9694,
+        "completionTokens": 1388,
+        "totalTokens": 11082,
+        "requestedCompletionTokens": 17828,
+        "attempts": 9,
+        "retries": 1,
+        "durationMs": 33821
+      },
+      "displayTitle": "Hondroine – kloubní gel",
+      "htmlLen": 1969,
+      "htmlPreview": "<h2>🤔 Co je Hondroine kloubní gel?</h2>\n<p>Hondroine je gel, který se nanáší na kůži. Je určený pro lidi, které trápí nepohodlí v kloubech.</p>\n<p>Může pomoci, když se klouby ozývají a brání vám v běžných činnostech. Není to lék, ale spíš pomocník pro lepší pocit.</p>\n\n<h2>🎯 K čemu se Hondroine používá?</h2>\n<p>Tento gel je vhodný, když cítíte, že vaše klouby potřebují trochu péče. Může se hodit v několika situacích:</p>\n<ul>\n    <li>Když se klouby ozývají po námaze.</li>\n    <li>Pro pocit úle",
+      "hasSlozeni": true,
+      "hasNavod": true,
+      "hasFormHint": true
+    }
+  },
+  {
+    "ok": true,
+    "offerId": 14943,
+    "source": "shakes",
+    "mode": "llm",
+    "elapsed_ms": 51952,
+    "landing": {
+      "status": "ok",
+      "langHint": "cs",
+      "sourceUrl": "https://cz2plus-pulsero.potencsh.com",
+      "jsonChars": 641,
+      "fullTextChars": 4087,
+      "method": "llm",
+      "usage": {
+        "prompt_tokens": 1849,
+        "completion_tokens": 303,
+        "total_tokens": 2152
+      },
+      "facts": {
+        "form": "kapsle",
+        "role": "potence",
+        "dosage": "1 kapsle 1-2 krát denně",
+        "ingredients": [],
+        "benefits": [
+          "Stabilní a dlouhá erekce",
+          "Živý a bouřlivý sex až 3 hod.",
+          "Maximální uspokojení ze sexu",
+          "Okamžitý účinek",
+          "Posílení erekce"
+        ],
+        "h1": "Pulsero Pusť na svobodu své divoké zvíře!",
+        "application": "oral",
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [
+          "Užívejte 1-2 krát denně 1 kapsli",
+          "Opakujte každý den během kúry",
+          "Užívejte si silné erekce a orgasmy"
+        ],
+        "audience": "Muži v jakémkoliv věku, kteří se potýkají s problémy s potencí, slabou touhou nebo rychlým koncem.",
+        "warnings": [
+          "Lze kombinovat s alkoholem a léky."
+        ],
+        "categoryHint": "potenz-libido"
+      },
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: kapsle\naplikace: oral\nrole/indikace: potence\nkategorieHint: potenz-libido\ndavkovani: 1 kapsle 1-2 krát denně\nbenefity: Stabilní a dlouhá erekce; Živý a bouřlivý sex až 3 hod.; Maximální uspokojení ze sexu; Okamžitý účinek; Posílení erekce\nnavod: 1. Užívejte 1-2 krát denně 1 kapsli | 2. Opakujte každý den během kúry | 3. Užívejte si silné erekce a orgasmy\nproKoho: Muži v jakémkoliv věku, kteří se potýkají s problémy s potencí, slabou touhou nebo rychlým koncem.\nupozorneni: Lze kombinovat s alkoholem a léky.\nnadpis: Pulsero Pusť na svobodu své divoké zvíře!",
+      "timing": {
+        "pickMs": 211,
+        "fetchMs": 151,
+        "extractMs": 13009,
+        "totalMs": 13371
+      },
+      "error": null
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "saved": true,
+      "genMs": 38581,
+      "metrics": {
+        "promptTokens": 10793,
+        "completionTokens": 1339,
+        "totalTokens": 12132,
+        "requestedCompletionTokens": 17828,
+        "attempts": 8,
+        "retries": 0,
+        "durationMs": 37551
+      },
+      "displayTitle": "Pulsero – kapsle na potenci",
+      "htmlLen": 2139,
+      "htmlPreview": "<h2>🍆 Pulsero – kapsle na potenci</h2>\n<p>Pulsero jsou kapsle určené pro muže. Jejich cílem je pomoci s problémy s potencí. Můžou se hodit, pokud máte pocit, že vaše sexuální touha slábne nebo erekce není tak pevná, jak byste si přáli.</p>\n<p>Tyto kapsle jsou navrženy tak, aby podpořily stabilní a dlouhou erekci. Můžou vám pomoci prožít intenzivnější sex a dosáhnout většího uspokojení.</p>\n\n<h2>🎯 Indikace k použití</h2>\n<p>Pulsero je vhodné pro muže, kteří:</p>\n<ul>\n    <li>Se potýkají s probl",
+      "hasSlozeni": true,
+      "hasNavod": true,
+      "hasFormHint": true
+    }
+  },
+  {
+    "ok": true,
+    "offerId": 15005,
+    "source": "shakes",
+    "mode": "llm",
+    "elapsed_ms": 12479,
+    "landing": {
+      "status": "ok",
+      "langHint": "cs",
+      "sourceUrl": "https://cz2-eudalie.rejuvsh.com",
+      "jsonChars": 317,
+      "fullTextChars": 6830,
+      "method": "llm",
+      "usage": {
+        "prompt_tokens": 1747,
+        "completion_tokens": 149,
+        "total_tokens": 1896
+      },
+      "facts": {
+        "form": "krem",
+        "role": "omlazení pleti",
+        "dosage": null,
+        "ingredients": [],
+        "benefits": [
+          "omlazující účinek",
+          "proti stárnutí pleti"
+        ],
+        "h1": "Žena zažalovala velmi známou estetickou kliniku v Evropě",
+        "application": "topical",
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [],
+        "audience": null,
+        "warnings": [],
+        "categoryHint": "other"
+      },
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: krem\naplikace: topical\nrole/indikace: omlazení pleti\nkategorieHint: other\nbenefity: omlazující účinek; proti stárnutí pleti\nnadpis: Žena zažalovala velmi známou estetickou kliniku v Evropě",
+      "timing": {
+        "pickMs": 250,
+        "fetchMs": 163,
+        "extractMs": 923,
+        "totalMs": 1336
+      },
+      "error": null
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "saved": true,
+      "genMs": 11143,
+      "metrics": {
+        "promptTokens": 10408,
+        "completionTokens": 1228,
+        "totalTokens": 11636,
+        "requestedCompletionTokens": 17828,
+        "attempts": 8,
+        "retries": 0,
+        "durationMs": 10120
+      },
+      "displayTitle": "Eudalie – omlazující krém",
+      "htmlLen": 1875,
+      "htmlPreview": "<h2>🌸 Eudalie – omlazující krém</h2>\n<p>Eudalie je krém, který má pomoci s omlazením pleti. Je určený pro ty, kdo chtějí bojovat proti známkám stárnutí. Krém se nanáší lokálně na pokožku.</p>\n<p>Může pomoci zlepšit vzhled pleti a dodat jí svěžejší dojem. Je to běžný produkt pro péči o pleť.</p>\n\n<h2>✨ Pro koho je Eudalie krém vhodný?</h2>\n<p>Tento krém je určený pro lidi, kteří si všímají prvních známek stárnutí pleti. Může se hodit, pokud:</p>\n<ul>\n    <li>Chcete podpořit omlazující účinek ple",
+      "hasSlozeni": true,
+      "hasNavod": true,
+      "hasFormHint": true
+    }
+  },
+  {
+    "ok": true,
+    "offerId": 15098,
+    "source": "shakes",
+    "mode": "llm",
+    "elapsed_ms": 24470,
+    "landing": {
+      "status": "thin",
+      "langHint": "unknown",
+      "sourceUrl": "https://czl2.promicilsale.com",
+      "jsonChars": 0,
+      "fullTextChars": 16,
+      "method": "llm",
+      "usage": {
+        "prompt_tokens": 523,
+        "completion_tokens": 99,
+        "total_tokens": 622
+      },
+      "facts": null,
+      "promptBlock": null,
+      "timing": {
+        "pickMs": 89,
+        "fetchMs": 14,
+        "extractMs": 582,
+        "totalMs": 685
+      },
+      "error": "llm returned empty/unusable facts"
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "saved": true,
+      "genMs": 23785,
+      "metrics": {
+        "promptTokens": 9199,
+        "completionTokens": 1324,
+        "totalTokens": 10523,
+        "requestedCompletionTokens": 17828,
+        "attempts": 8,
+        "retries": 1,
+        "durationMs": 19501
+      },
+      "displayTitle": "Promicil – protiplísňový gel",
+      "htmlLen": 2126,
+      "htmlPreview": "<h2>🌿 Promicil – gel proti plísni nehtů</h2>\n<p>Promicil je gel, který se používá na nehty. Je určený pro ty, kteří mají problémy s plísní nehtů. Může pomoci zmírnit nepříjemné projevy plísně.</p>\n<p>Pokud vás trápí změny barvy nehtů, jejich lámavost nebo svědění, Promicil může být řešení. Je to lokální přípravek, který se nanáší přímo na postižené místo.</p>\n\n<h2>🎯 Kdy Promicil použít?</h2>\n<p>Promicil se hodí, když:</p>\n<ul>\n    <li>Máte nehty, které mění barvu – žloutnou nebo hnědnou.</li>\n",
+      "hasSlozeni": true,
+      "hasNavod": true,
+      "hasFormHint": true
+    }
+  },
+  {
+    "ok": true,
+    "offerId": 15648,
+    "source": "shakes",
+    "mode": "llm",
+    "elapsed_ms": 24843,
+    "landing": {
+      "status": "ok",
+      "langHint": "unknown",
+      "sourceUrl": "https://czl2-removiogel.papilsh.com",
+      "jsonChars": 652,
+      "fullTextChars": 5977,
+      "method": "llm",
+      "usage": {
+        "prompt_tokens": 1909,
+        "completion_tokens": 313,
+        "total_tokens": 2222
+      },
+      "facts": {
+        "form": "gel",
+        "role": "bradavice a papilomy",
+        "dosage": null,
+        "ingredients": [
+          "Zázvorový olej",
+          "Výtažek z kostivalu",
+          "Výtažek z meduňky",
+          "Tokoferol",
+          "Olej z voňatky citrónové",
+          "Olej z čajovníku",
+          "Skořice",
+          "Niacinamid"
+        ],
+        "benefits": [
+          "Potlačuje aktivitu virových buněk",
+          "Bezbolestně odstraňuje nové útvary a brání dalšímu rozvoji papilomů",
+          "Obnovuje poškozené části kůže",
+          "Zvyšuje odolnost vůči virům, plísňovým infekcím",
+          "Brání rozvoji onkologických onemocnění"
+        ],
+        "h1": "Removio Zbavte se bradavic a papilomů rychle a bezpečně!",
+        "application": "topical",
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [],
+        "audience": null,
+        "warnings": [],
+        "categoryHint": "papillomas"
+      },
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: gel\naplikace: topical\nrole/indikace: bradavice a papilomy\nkategorieHint: papillomas\nslozeni: Zázvorový olej; Výtažek z kostivalu; Výtažek z meduňky; Tokoferol; Olej z voňatky citrónové; Olej z čajovníku; Skořice; Niacinamid\nbenefity: Potlačuje aktivitu virových buněk; Bezbolestně odstraňuje nové útvary a brání dalšímu rozvoji papilomů; Obnovuje poškozené části kůže; Zvyšuje odolnost vůči virům, plísňovým infekcím; Brání rozvoji onkologických onemocnění\nnadpis: Removio Zbavte se bradavic a papilomů rychle a bezpečně!",
+      "timing": {
+        "pickMs": 173,
+        "fetchMs": 204,
+        "extractMs": 1418,
+        "totalMs": 1795
+      },
+      "error": null
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "saved": true,
+      "genMs": 23048,
+      "metrics": {
+        "promptTokens": 10026,
+        "completionTokens": 1582,
+        "totalTokens": 11608,
+        "requestedCompletionTokens": 17828,
+        "attempts": 8,
+        "retries": 0,
+        "durationMs": 22502
+      },
+      "displayTitle": "Removio – gel proti bradavicím",
+      "htmlLen": 2239,
+      "htmlPreview": "<h2>👋 Removio – gel proti bradavicím</h2>\n<p>Removio je gel, který pomáhá s bradavicemi a papilomy. Je určený k lokální aplikaci přímo na postižené místo. Může vám pomoci, pokud vás trápí tyto kožní výrůstky.</p>\n<p>Cílem je potlačit aktivitu viru, který bradavice způsobuje. Zároveň pomáhá pokožce se obnovit. Je to bezbolestná cesta, jak se s bradavicemi vypořádat.</p>\n\n<h2>🎯 Pro koho je Removio vhodné?</h2>\n<p>Tento gel je pro vás, pokud:</p>\n<ul>\n    <li>Máte bradavice nebo papilomy.</li>\n  ",
+      "hasSlozeni": true,
+      "hasNavod": true,
+      "hasFormHint": true
+    }
+  },
+  {
+    "ok": true,
+    "offerId": 15682,
+    "source": "shakes",
+    "mode": "llm",
+    "elapsed_ms": 23348,
+    "landing": {
+      "status": "ok",
+      "langHint": "unknown",
+      "sourceUrl": "https://czl2-pulsero.potencsh.com",
+      "jsonChars": 698,
+      "fullTextChars": 4087,
+      "method": "llm",
+      "usage": {
+        "prompt_tokens": 1846,
+        "completion_tokens": 443,
+        "total_tokens": 2289
+      },
+      "facts": {
+        "form": "kapsle",
+        "role": "potence",
+        "dosage": "1 kapsle 1-2 krát denně",
+        "ingredients": [
+          "100% přírodní"
+        ],
+        "benefits": [
+          "Stabilní a dlouhá erekce",
+          "Živý a bouřlivý sex až 3 hod.",
+          "Maximální uspokojení ze sexu",
+          "Okamžitý účinek",
+          "Posílení erekce"
+        ],
+        "h1": "Pulsero Pusť na svobodu své divoké zvíře!",
+        "application": "oral",
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [
+          "1-2 krát denně 1 kapslí",
+          "Opakujte každý den během kúry",
+          "Užívejte si silné erekce a orgasmy"
+        ],
+        "audience": "Muži, kteří se potýkají s problémy s erekcí, slabou touhou, rychlým koncem nebo chtějí zlepšit svůj sexuální život.",
+        "warnings": [
+          "Zcela bezpečné",
+          "Nemá vedlejší účinky",
+          "Lze užívat v jakémkoliv věku"
+        ],
+        "categoryHint": "potenz-libido"
+      },
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: kapsle\naplikace: oral\nrole/indikace: potence\nkategorieHint: potenz-libido\ndavkovani: 1 kapsle 1-2 krát denně\nslozeni: 100% přírodní\nbenefity: Stabilní a dlouhá erekce; Živý a bouřlivý sex až 3 hod.; Maximální uspokojení ze sexu; Okamžitý účinek; Posílení erekce\nnavod: 1. 1-2 krát denně 1 kapslí | 2. Opakujte každý den během kúry | 3. Užívejte si silné erekce a orgasmy\nproKoho: Muži, kteří se potýkají s problémy s erekcí, slabou touhou, rychlým koncem nebo chtějí zlepšit svůj sexuální život.\nupozorneni: Zcela bezpečné; Nemá vedlejší účinky; Lze užívat v jakémkoliv věku\nnadpis: Pulsero Pusť na svobodu své divoké zvíře!",
+      "timing": {
+        "pickMs": 128,
+        "fetchMs": 198,
+        "extractMs": 2780,
+        "totalMs": 3106
+      },
+      "error": null
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "saved": true,
+      "genMs": 20242,
+      "metrics": {
+        "promptTokens": 10860,
+        "completionTokens": 1305,
+        "totalTokens": 12165,
+        "requestedCompletionTokens": 17828,
+        "attempts": 8,
+        "retries": 0,
+        "durationMs": 19667
+      },
+      "displayTitle": "Pulsero – kapsle na potenci",
+      "htmlLen": 1886,
+      "htmlPreview": "<h2>🚀 Pulsero – kapsle na potenci</h2>\n<p>Pulsero jsou kapsle určené pro muže, kteří chtějí zlepšit svůj sexuální život. Pomáhají řešit problémy s erekcí a slabou sexuální touhou. Produkt je navržen tak, aby podpořil mužskou potenci.</p>\n<p>Pokud hledáte způsob, jak posílit erekci nebo si užít delší a intenzivnější sex, Pulsero může být pro vás. Cena je 690 Kč.</p>\n\n<h2>🎯 Pro koho je Pulsero vhodné?</h2>\n<p>Pulsero je určeno pro muže, kteří se potýkají s:</p>\n<ul>\n    <li>Problémy s erekcí.</l",
+      "hasSlozeni": true,
+      "hasNavod": true,
+      "hasFormHint": true
+    }
+  },
+  {
+    "ok": true,
+    "offerId": 16240,
+    "source": "shakes",
+    "mode": "llm",
+    "elapsed_ms": 18048,
+    "landing": {
+      "status": "ok",
+      "langHint": "unknown",
+      "sourceUrl": "https://czl2-insuwell.diabetsh.com",
+      "jsonChars": 417,
+      "fullTextChars": 5595,
+      "method": "llm",
+      "usage": {
+        "prompt_tokens": 1856,
+        "completion_tokens": 188,
+        "total_tokens": 2044
+      },
+      "facts": {
+        "form": "kapsle",
+        "role": "diabetes",
+        "dosage": "1 krát denně",
+        "ingredients": [],
+        "benefits": [
+          "Stabilizuje hladinu cukru",
+          "Normalizuje tvorbu inzulinu",
+          "Chrání před vysokým obsahem cukru",
+          "Obnovuje fungování jater a pankreasu",
+          "Normalizuje obměnu sacharidů"
+        ],
+        "h1": "Insuwell – dvojitá rána cukrovce",
+        "application": "oral",
+        "packSize": null,
+        "courseDays": null,
+        "usageSteps": [],
+        "audience": null,
+        "warnings": [],
+        "categoryHint": "other"
+      },
+      "promptBlock": "Fakta z adaptive landingu (strukturovaná, stručná):\nforma: kapsle\naplikace: oral\nrole/indikace: diabetes\nkategorieHint: other\ndavkovani: 1 krát denně\nbenefity: Stabilizuje hladinu cukru; Normalizuje tvorbu inzulinu; Chrání před vysokým obsahem cukru; Obnovuje fungování jater a pankreasu; Normalizuje obměnu sacharidů\nnadpis: Insuwell – dvojitá rána cukrovce",
+      "timing": {
+        "pickMs": 116,
+        "fetchMs": 145,
+        "extractMs": 963,
+        "totalMs": 1224
+      },
+      "error": null
+    },
+    "generate": {
+      "status": "generated",
+      "error": null,
+      "saved": true,
+      "genMs": 16824,
+      "metrics": {
+        "promptTokens": 10486,
+        "completionTokens": 1315,
+        "totalTokens": 11801,
+        "requestedCompletionTokens": 17828,
+        "attempts": 8,
+        "retries": 0,
+        "durationMs": 16244
+      },
+      "displayTitle": "Insuwell – kapsle na cukrovku",
+      "htmlLen": 2015,
+      "htmlPreview": "<h2>💊 Insuwell – kapsle na cukrovku</h2>\n<p>Insuwell jsou kapsle určené pro lidi, kteří se potýkají s cukrovkou. Jejich cílem je pomoci stabilizovat hladinu cukru v krvi. Můžou také podpořit normální tvorbu inzulinu.</p>\n<p>Tyto kapsle chrání tělo před vysokým obsahem cukru. Pomáhají obnovit funkci jater a slinivky břišní. Také normalizují metabolismus sacharidů v těle.</p>\n<h2>🎯 Pro koho je Insuwell vhodný?</h2>\n<ul>\n    <li>Pro lidi s cukrovkou, kteří hledají podporu.</li>\n    <li>Pokud chce",
+      "hasSlozeni": true,
+      "hasNavod": true,
+      "hasFormHint": true
+    }
+  }
+]

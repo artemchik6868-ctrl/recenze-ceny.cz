@@ -1,0 +1,50 @@
+[
+  {
+    "ok": false,
+    "mode": "extract",
+    "source": "kma",
+    "offerId": 10314,
+    "force": true,
+    "elapsed_ms": 550,
+    "status": "fetch_error",
+    "method": "none",
+    "imageUrl": "https://kma.biz/uploads/store/6bb24468956384c482a8b5a901fb6383/c2932aa1a6b0ff3fd23d88fd49c5674f795d2751.png",
+    "imageHash": "9jui12",
+    "jsonChars": 0,
+    "llmAttempts": 0,
+    "timing": {
+      "preflightMs": 151,
+      "llmMs": 0,
+      "totalMs": 550
+    },
+    "usage": null,
+    "facts": null,
+    "promptBlock": null,
+    "error": "http_502",
+    "wroteDb": true
+  },
+  {
+    "ok": false,
+    "mode": "extract",
+    "source": "kma",
+    "offerId": 9225,
+    "force": true,
+    "elapsed_ms": 424,
+    "status": "fetch_error",
+    "method": "none",
+    "imageUrl": "https://kma.biz/uploads/store/6bb24468956384c482a8b5a901fb6383/327e2767da6c5ec1d18a71f7113964b9a80e383c.png",
+    "imageHash": "rzwkjl",
+    "jsonChars": 0,
+    "llmAttempts": 0,
+    "timing": {
+      "preflightMs": 149,
+      "llmMs": 0,
+      "totalMs": 424
+    },
+    "usage": null,
+    "facts": null,
+    "promptBlock": null,
+    "error": "http_502",
+    "wroteDb": true
+  }
+]

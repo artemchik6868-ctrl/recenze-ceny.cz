@@ -1,0 +1,42 @@
+{
+  "source": "shakes",
+  "writeDb": true,
+  "totalTokens": 1229,
+  "estUsdPaid": 0,
+  "results": [
+    {
+      "source": "shakes",
+      "offerId": 12619,
+      "status": "ok",
+      "method": "free",
+      "imageUrl": "https://shakes.pro/pics/offers/12619_promo.jpg",
+      "imageHash": "eefz2b",
+      "jsonChars": 247,
+      "llmAttempts": 1,
+      "timing": {
+        "preflightMs": 703,
+        "llmMs": 3992,
+        "totalMs": 6851
+      },
+      "usage": {
+        "prompt_tokens": 1125,
+        "completion_tokens": 104,
+        "total_tokens": 1229
+      },
+      "estUsdPaid": 0,
+      "hasContent": true,
+      "facts": {
+        "productType": "lokální přípravek",
+        "application": "topical",
+        "releaseForm": "gel",
+        "packaging": "tuba",
+        "primaryColor": "modrý",
+        "detectedText": "Hondrofrost ICE COLD GEL",
+        "briefDescription": "Modrý tuba s bílým kápákem a textem 'Hondrofrost ICE COLD GEL'"
+      },
+      "promptBlock": "Fakta z produktového obrázku (vision, stručná):\ntyp: lokální přípravek\naplikace: topical\nforma: gel\nobal: tuba\nbarva: modrý\ntextNaObalu: Hondrofrost ICE COLD GEL\npopis: Modrý tuba s bílým kápákem a textem 'Hondrofrost ICE COLD GEL'",
+      "error": null,
+      "wroteDb": true
+    }
+  ]
+}

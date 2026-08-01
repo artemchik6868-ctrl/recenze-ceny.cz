@@ -1,0 +1,2888 @@
+{
+  "totalJobs": 320,
+  "processed": 320,
+  "okCount": 320,
+  "failCount": 0,
+  "results": [
+    {
+      "source": "shakes",
+      "offerId": 14491,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15376
+    },
+    {
+      "source": "shakes",
+      "offerId": 14467,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15938
+    },
+    {
+      "source": "shakes",
+      "offerId": 14703,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14657
+    },
+    {
+      "source": "shakes",
+      "offerId": 14713,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15433
+    },
+    {
+      "source": "shakes",
+      "offerId": 14771,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14154
+    },
+    {
+      "source": "shakes",
+      "offerId": 14943,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15113
+    },
+    {
+      "source": "shakes",
+      "offerId": 12619,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14558
+    },
+    {
+      "source": "shakes",
+      "offerId": 15005,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15905
+    },
+    {
+      "source": "shakes",
+      "offerId": 15054,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16638
+    },
+    {
+      "source": "shakes",
+      "offerId": 13133,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 18051
+    },
+    {
+      "source": "shakes",
+      "offerId": 5911,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15011
+    },
+    {
+      "source": "shakes",
+      "offerId": 15098,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16534
+    },
+    {
+      "source": "shakes",
+      "offerId": 15682,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14693
+    },
+    {
+      "source": "shakes",
+      "offerId": 15214,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15926
+    },
+    {
+      "source": "shakes",
+      "offerId": 15970,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15945
+    },
+    {
+      "source": "shakes",
+      "offerId": 15938,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16833
+    },
+    {
+      "source": "shakes",
+      "offerId": 16098,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14351
+    },
+    {
+      "source": "shakes",
+      "offerId": 15972,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15909
+    },
+    {
+      "source": "shakes",
+      "offerId": 16114,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13626
+    },
+    {
+      "source": "shakes",
+      "offerId": 16240,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16376
+    },
+    {
+      "source": "shakes",
+      "offerId": 16266,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14648
+    },
+    {
+      "source": "shakes",
+      "offerId": 16278,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15699
+    },
+    {
+      "source": "shakes",
+      "offerId": 16402,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 12920
+    },
+    {
+      "source": "shakes",
+      "offerId": 16376,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13927
+    },
+    {
+      "source": "shakes",
+      "offerId": 16446,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13635
+    },
+    {
+      "source": "shakes",
+      "offerId": 16414,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13949
+    },
+    {
+      "source": "shakes",
+      "offerId": 16458,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13034
+    },
+    {
+      "source": "shakes",
+      "offerId": 16560,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14602
+    },
+    {
+      "source": "shakes",
+      "offerId": 16612,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13542
+    },
+    {
+      "source": "shakes",
+      "offerId": 16576,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14015
+    },
+    {
+      "source": "shakes",
+      "offerId": 16710,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13294
+    },
+    {
+      "source": "shakes",
+      "offerId": 16624,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14078
+    },
+    {
+      "source": "shakes",
+      "offerId": 16724,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15425
+    },
+    {
+      "source": "shakes",
+      "offerId": 16812,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15522
+    },
+    {
+      "source": "shakes",
+      "offerId": 16862,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13074
+    },
+    {
+      "source": "shakes",
+      "offerId": 16830,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13360
+    },
+    {
+      "source": "shakes",
+      "offerId": 16896,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14098
+    },
+    {
+      "source": "shakes",
+      "offerId": 16876,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15512
+    },
+    {
+      "source": "shakes",
+      "offerId": 17156,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13864
+    },
+    {
+      "source": "shakes",
+      "offerId": 16912,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16229
+    },
+    {
+      "source": "shakes",
+      "offerId": 17168,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13371
+    },
+    {
+      "source": "shakes",
+      "offerId": 17312,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14154
+    },
+    {
+      "source": "shakes",
+      "offerId": 17350,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 12987
+    },
+    {
+      "source": "shakes",
+      "offerId": 17362,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14210
+    },
+    {
+      "source": "shakes",
+      "offerId": 17510,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14041
+    },
+    {
+      "source": "shakes",
+      "offerId": 17620,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15164
+    },
+    {
+      "source": "shakes",
+      "offerId": 17790,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13284
+    },
+    {
+      "source": "shakes",
+      "offerId": 17788,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13539
+    },
+    {
+      "source": "shakes",
+      "offerId": 13905,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13600
+    },
+    {
+      "source": "shakes",
+      "offerId": 17940,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13926
+    },
+    {
+      "source": "shakes",
+      "offerId": 13521,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13297
+    },
+    {
+      "source": "shakes",
+      "offerId": 17952,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13991
+    },
+    {
+      "source": "shakes",
+      "offerId": 18536,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 12800
+    },
+    {
+      "source": "shakes",
+      "offerId": 18462,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14063
+    },
+    {
+      "source": "shakes",
+      "offerId": 13763,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 11880
+    },
+    {
+      "source": "shakes",
+      "offerId": 14177,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13969
+    },
+    {
+      "source": "shakes",
+      "offerId": 18570,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13756
+    },
+    {
+      "source": "shakes",
+      "offerId": 18644,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14271
+    },
+    {
+      "source": "shakes",
+      "offerId": 18742,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 11629
+    },
+    {
+      "source": "shakes",
+      "offerId": 18656,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14803
+    },
+    {
+      "source": "shakes",
+      "offerId": 18776,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 12441
+    },
+    {
+      "source": "shakes",
+      "offerId": 18760,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14066
+    },
+    {
+      "source": "shakes",
+      "offerId": 18812,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13524
+    },
+    {
+      "source": "shakes",
+      "offerId": 18792,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15595
+    },
+    {
+      "source": "shakes",
+      "offerId": 18826,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 12179
+    },
+    {
+      "source": "shakes",
+      "offerId": 18982,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15943
+    },
+    {
+      "source": "shakes",
+      "offerId": 19040,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14433
+    },
+    {
+      "source": "shakes",
+      "offerId": 18992,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15646
+    },
+    {
+      "source": "shakes",
+      "offerId": 19046,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 11966
+    },
+    {
+      "source": "shakes",
+      "offerId": 19238,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13056
+    },
+    {
+      "source": "shakes",
+      "offerId": 19294,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15050
+    },
+    {
+      "source": "shakes",
+      "offerId": 19314,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15343
+    },
+    {
+      "source": "shakes",
+      "offerId": 19328,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 12194
+    },
+    {
+      "source": "shakes",
+      "offerId": 19362,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13727
+    },
+    {
+      "source": "shakes",
+      "offerId": 19372,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14238
+    },
+    {
+      "source": "shakes",
+      "offerId": 19410,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16071
+    },
+    {
+      "source": "shakes",
+      "offerId": 19414,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14153
+    },
+    {
+      "source": "shakes",
+      "offerId": 19606,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14368
+    },
+    {
+      "source": "shakes",
+      "offerId": 19608,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13526
+    },
+    {
+      "source": "shakes",
+      "offerId": 19620,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15882
+    },
+    {
+      "source": "shakes",
+      "offerId": 19644,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14294
+    },
+    {
+      "source": "shakes",
+      "offerId": 19678,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14796
+    },
+    {
+      "source": "shakes",
+      "offerId": 19698,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16808
+    },
+    {
+      "source": "shakes",
+      "offerId": 19680,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 17155
+    },
+    {
+      "source": "shakes",
+      "offerId": 19736,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15359
+    },
+    {
+      "source": "shakes",
+      "offerId": 19720,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 17561
+    },
+    {
+      "source": "shakes",
+      "offerId": 19766,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15422
+    },
+    {
+      "source": "shakes",
+      "offerId": 19764,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15679
+    },
+    {
+      "source": "shakes",
+      "offerId": 19776,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13867
+    },
+    {
+      "source": "shakes",
+      "offerId": 19780,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15227
+    },
+    {
+      "source": "shakes",
+      "offerId": 19810,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13531
+    },
+    {
+      "source": "shakes",
+      "offerId": 19838,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16034
+    },
+    {
+      "source": "shakes",
+      "offerId": 19840,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16015
+    },
+    {
+      "source": "shakes",
+      "offerId": 19842,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16376
+    },
+    {
+      "source": "shakes",
+      "offerId": 19966,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14898
+    },
+    {
+      "source": "shakes",
+      "offerId": 19944,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15616
+    },
+    {
+      "source": "shakes",
+      "offerId": 20010,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14656
+    },
+    {
+      "source": "shakes",
+      "offerId": 20172,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 17341
+    },
+    {
+      "source": "shakes",
+      "offerId": 20286,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15865
+    },
+    {
+      "source": "shakes",
+      "offerId": 20282,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16241
+    },
+    {
+      "source": "shakes",
+      "offerId": 20288,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 12896
+    },
+    {
+      "source": "shakes",
+      "offerId": 20316,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13772
+    },
+    {
+      "source": "shakes",
+      "offerId": 20318,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 12436
+    },
+    {
+      "source": "shakes",
+      "offerId": 21256,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14927
+    },
+    {
+      "source": "shakes",
+      "offerId": 21260,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15921
+    },
+    {
+      "source": "shakes",
+      "offerId": 21258,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16058
+    },
+    {
+      "source": "shakes",
+      "offerId": 21866,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14654
+    },
+    {
+      "source": "shakes",
+      "offerId": 21838,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15787
+    },
+    {
+      "source": "shakes",
+      "offerId": 22380,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13956
+    },
+    {
+      "source": "shakes",
+      "offerId": 22128,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 17011
+    },
+    {
+      "source": "shakes",
+      "offerId": 22420,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14165
+    },
+    {
+      "source": "shakes",
+      "offerId": 12903,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15005
+    },
+    {
+      "source": "shakes",
+      "offerId": 22706,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13090
+    },
+    {
+      "source": "shakes",
+      "offerId": 13815,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16549
+    },
+    {
+      "source": "shakes",
+      "offerId": 13867,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 12883
+    },
+    {
+      "source": "shakes",
+      "offerId": 22718,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14157
+    },
+    {
+      "source": "shakes",
+      "offerId": 22716,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13172
+    },
+    {
+      "source": "shakes",
+      "offerId": 22868,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14483
+    },
+    {
+      "source": "shakes",
+      "offerId": 22886,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13359
+    },
+    {
+      "source": "shakes",
+      "offerId": 22874,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16331
+    },
+    {
+      "source": "shakes",
+      "offerId": 23014,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13974
+    },
+    {
+      "source": "shakes",
+      "offerId": 12907,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14040
+    },
+    {
+      "source": "shakes",
+      "offerId": 23018,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14688
+    },
+    {
+      "source": "shakes",
+      "offerId": 23016,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15469
+    },
+    {
+      "source": "shakes",
+      "offerId": 23060,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13469
+    },
+    {
+      "source": "shakes",
+      "offerId": 23404,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14705
+    },
+    {
+      "source": "shakes",
+      "offerId": 23428,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 12494
+    },
+    {
+      "source": "shakes",
+      "offerId": 23504,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 12944
+    },
+    {
+      "source": "shakes",
+      "offerId": 11937,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13774
+    },
+    {
+      "source": "shakes",
+      "offerId": 8889,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15582
+    },
+    {
+      "source": "shakes",
+      "offerId": 14405,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13161
+    },
+    {
+      "source": "shakes",
+      "offerId": 14309,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13383
+    },
+    {
+      "source": "shakes",
+      "offerId": 15936,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 12582
+    },
+    {
+      "source": "shakes",
+      "offerId": 17632,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14672
+    },
+    {
+      "source": "shakes",
+      "offerId": 20160,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14291
+    },
+    {
+      "source": "shakes",
+      "offerId": 21856,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14785
+    },
+    {
+      "source": "shakes",
+      "offerId": 22182,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13225
+    },
+    {
+      "source": "shakes",
+      "offerId": 22338,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14607
+    },
+    {
+      "source": "shakes",
+      "offerId": 22170,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13909
+    },
+    {
+      "source": "shakes",
+      "offerId": 22710,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14960
+    },
+    {
+      "source": "shakes",
+      "offerId": 23156,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13702
+    },
+    {
+      "source": "shakes",
+      "offerId": 23090,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14333
+    },
+    {
+      "source": "shakes",
+      "offerId": 23250,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14156
+    },
+    {
+      "source": "shakes",
+      "offerId": 23610,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16831
+    },
+    {
+      "source": "shakes",
+      "offerId": 23178,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14146
+    },
+    {
+      "source": "shakes",
+      "offerId": 23620,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14487
+    },
+    {
+      "source": "shakes",
+      "offerId": 23682,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14346
+    },
+    {
+      "source": "shakes",
+      "offerId": 23776,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15872
+    },
+    {
+      "source": "shakes",
+      "offerId": 22140,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 10909
+    },
+    {
+      "source": "shakes",
+      "offerId": 23260,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15185
+    },
+    {
+      "source": "shakes",
+      "offerId": 23416,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14514
+    },
+    {
+      "source": "shakes",
+      "offerId": 23780,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14910
+    },
+    {
+      "source": "shakes",
+      "offerId": 23800,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14359
+    },
+    {
+      "source": "shakes",
+      "offerId": 23832,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15086
+    },
+    {
+      "source": "shakes",
+      "offerId": 23842,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13618
+    },
+    {
+      "source": "shakes",
+      "offerId": 23048,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14209
+    },
+    {
+      "source": "shakes",
+      "offerId": 23190,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14538
+    },
+    {
+      "source": "shakes",
+      "offerId": 23168,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15339
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 2685,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13149
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 17811,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13659
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 19175,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14500
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 19495,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15927
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 23409,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14891
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 23680,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16032
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 18531,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14853
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 23419,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15014
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 21417,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13557
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 9177,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16006
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 10739,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 11219
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 9178,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14914
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 18677,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14836
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 13070,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15866
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 20980,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13057
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 13631,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16485
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 17769,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13119
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 23135,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13899
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 22853,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 11914
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 23632,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13952
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 9181,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14566
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 19114,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16837
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 12616,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14731
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 13320,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14956
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 19809,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13722
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 8917,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 17779
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 23334,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13860
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 23354,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15431
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 21110,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 12674
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 23355,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13507
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 18532,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14601
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 23353,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15293
+    },
+    {
+      "source": "kma",
+      "offerId": 7306,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14357
+    },
+    {
+      "source": "cpa_tl",
+      "offerId": 23980,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15997
+    },
+    {
+      "source": "kma",
+      "offerId": 9225,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13640
+    },
+    {
+      "source": "kma",
+      "offerId": 9215,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14581
+    },
+    {
+      "source": "kma",
+      "offerId": 9572,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14275
+    },
+    {
+      "source": "kma",
+      "offerId": 11656,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 17048
+    },
+    {
+      "source": "kma",
+      "offerId": 9010,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14733
+    },
+    {
+      "source": "kma",
+      "offerId": 11723,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15032
+    },
+    {
+      "source": "kma",
+      "offerId": 7865,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13725
+    },
+    {
+      "source": "kma",
+      "offerId": 8103,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15247
+    },
+    {
+      "source": "kma",
+      "offerId": 8104,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14196
+    },
+    {
+      "source": "kma",
+      "offerId": 9208,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14264
+    },
+    {
+      "source": "kma",
+      "offerId": 6883,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15741
+    },
+    {
+      "source": "kma",
+      "offerId": 7126,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15742
+    },
+    {
+      "source": "kma",
+      "offerId": 11900,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15657
+    },
+    {
+      "source": "kma",
+      "offerId": 8383,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16624
+    },
+    {
+      "source": "kma",
+      "offerId": 9039,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14330
+    },
+    {
+      "source": "kma",
+      "offerId": 8764,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14622
+    },
+    {
+      "source": "kma",
+      "offerId": 9187,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15283
+    },
+    {
+      "source": "kma",
+      "offerId": 11899,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16170
+    },
+    {
+      "source": "kma",
+      "offerId": 6348,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15048
+    },
+    {
+      "source": "kma",
+      "offerId": 9220,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15898
+    },
+    {
+      "source": "kma",
+      "offerId": 8384,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13240
+    },
+    {
+      "source": "kma",
+      "offerId": 9108,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15528
+    },
+    {
+      "source": "kma",
+      "offerId": 10753,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14617
+    },
+    {
+      "source": "kma",
+      "offerId": 11811,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15367
+    },
+    {
+      "source": "kma",
+      "offerId": 10315,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14724
+    },
+    {
+      "source": "kma",
+      "offerId": 6423,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 17237
+    },
+    {
+      "source": "kma",
+      "offerId": 11834,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13116
+    },
+    {
+      "source": "kma",
+      "offerId": 7626,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15341
+    },
+    {
+      "source": "kma",
+      "offerId": 11813,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14859
+    },
+    {
+      "source": "kma",
+      "offerId": 11832,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15827
+    },
+    {
+      "source": "kma",
+      "offerId": 8675,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14539
+    },
+    {
+      "source": "kma",
+      "offerId": 8788,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15399
+    },
+    {
+      "source": "kma",
+      "offerId": 11812,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14750
+    },
+    {
+      "source": "kma",
+      "offerId": 8947,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16302
+    },
+    {
+      "source": "m1_top",
+      "offerId": 6272,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13510
+    },
+    {
+      "source": "m1_top",
+      "offerId": 5486,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15117
+    },
+    {
+      "source": "m1_top",
+      "offerId": 6153,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 12750
+    },
+    {
+      "source": "m1_top",
+      "offerId": 5149,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13745
+    },
+    {
+      "source": "m1_top",
+      "offerId": 7095,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15116
+    },
+    {
+      "source": "m1_top",
+      "offerId": 6066,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15576
+    },
+    {
+      "source": "m1_top",
+      "offerId": 5958,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13064
+    },
+    {
+      "source": "m1_top",
+      "offerId": 6075,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 18686
+    },
+    {
+      "source": "m1_top",
+      "offerId": 5941,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14648
+    },
+    {
+      "source": "m1_top",
+      "offerId": 5641,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15479
+    },
+    {
+      "source": "m1_top",
+      "offerId": 5567,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16055
+    },
+    {
+      "source": "m1_top",
+      "offerId": 7068,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16348
+    },
+    {
+      "source": "m1_top",
+      "offerId": 5725,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14204
+    },
+    {
+      "source": "m1_top",
+      "offerId": 5845,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14897
+    },
+    {
+      "source": "m1_top",
+      "offerId": 5860,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15146
+    },
+    {
+      "source": "m1_top",
+      "offerId": 5482,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15255
+    },
+    {
+      "source": "m1_top",
+      "offerId": 6151,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15309
+    },
+    {
+      "source": "m1_top",
+      "offerId": 7069,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 18031
+    },
+    {
+      "source": "m1_top",
+      "offerId": 5092,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14603
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 7839,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14613
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 9027,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13115
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 9329,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14783
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 10563,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13526
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 10565,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14274
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 11321,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15034
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 11073,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15532
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 11347,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15952
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 11349,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16573
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 11375,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14399
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 11515,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15692
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 11683,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14158
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 11679,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14634
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 11691,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13976
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 11689,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15069
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 12157,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14643
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 11983,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15507
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 12183,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14220
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 12185,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14229
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 12345,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14462
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 12347,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15202
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 12775,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14140
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 13209,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15223
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 13555,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14745
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 13589,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16254
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 13687,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15222
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 13697,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15826
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 13879,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13481
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 13701,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14880
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 13883,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13035
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 14099,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15283
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 14105,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14094
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 14101,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14354
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 14233,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 12311
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 15481,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14134
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 15815,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13117
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 15495,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14392
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 16057,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 12998
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 16059,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14468
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 16285,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 12157
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 16281,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15528
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 16629,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13125
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 16287,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13529
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 16737,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14081
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 16739,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16158
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 16999,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14281
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17009,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14737
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17013,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13333
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17015,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15462
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17021,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 12989
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17019,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15046
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17025,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 12791
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17031,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 17270
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17039,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13747
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17033,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15083
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17041,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14443
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17057,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15214
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17063,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14563
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17061,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16365
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17077,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13538
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17071,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14375
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17087,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13921
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17085,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14239
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17091,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 13604
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17103,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16297
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17111,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 15844
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17109,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16867
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17115,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 14807
+    },
+    {
+      "source": "cpagetti",
+      "offerId": 17117,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 17711
+    },
+    {
+      "source": "adcombo",
+      "offerId": 39561,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16421
+    },
+    {
+      "source": "adcombo",
+      "offerId": 40600,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 17144
+    },
+    {
+      "source": "adcombo",
+      "offerId": 39220,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16165
+    },
+    {
+      "source": "adcombo",
+      "offerId": 38771,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16473
+    },
+    {
+      "source": "adcombo",
+      "offerId": 40658,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 16234
+    },
+    {
+      "source": "adcombo",
+      "offerId": 39219,
+      "ok": true,
+      "status": "generated",
+      "saved": true,
+      "error": null,
+      "elapsed_ms": 17319
+    }
+  ]
+}

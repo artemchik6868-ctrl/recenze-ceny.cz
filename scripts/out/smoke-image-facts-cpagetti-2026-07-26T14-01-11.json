@@ -1,0 +1,41 @@
+{
+  "source": "cpagetti",
+  "writeDb": true,
+  "totalTokens": 2099,
+  "estUsdPaid": 0,
+  "results": [
+    {
+      "source": "cpagetti",
+      "offerId": 11679,
+      "status": "ok",
+      "method": "free",
+      "imageUrl": "https://s.cpagetti.com/img/sci/small/Offer/dfc7dfee14b1765454cf1d430c5632a0.png",
+      "imageHash": "1bmdt66",
+      "jsonChars": 494,
+      "llmAttempts": 1,
+      "timing": {
+        "preflightMs": 725,
+        "llmMs": 8302,
+        "totalMs": 10850
+      },
+      "usage": {
+        "prompt_tokens": 1134,
+        "completion_tokens": 965,
+        "total_tokens": 2099
+      },
+      "estUsdPaid": 0,
+      "hasContent": true,
+      "facts": {
+        "productType": "doplněk stravy",
+        "application": "oral",
+        "releaseForm": "kapsle",
+        "packaging": "lahvička",
+        "detectedText": "Herzena, food supplement, PŘÍRODNÍ EXTRAKTEM Z KARDIKOVÉHO LISTU, CHASTEHON LEAF EXTRACT, CHASTEHON SEED EXTRACT, CODIA MIRABILIS FRUIT EXTRACT, NATURAL EXTRACTS, 25",
+        "briefDescription": "Bílá plastová lahvička se stříbrným uzávěrem a etiketou s červeným a zeleným designem, na níž je uvedeno jméno 'Herzena' a popis 'food supplement' a 'PŘÍRODNÍ EXTRAKTEM Z KARDIKOVÉHO LISTU'."
+      },
+      "promptBlock": "Fakta z produktového obrázku (PRIORITNÍ — forma/aplikace podle balení):\ntyp: doplněk stravy\naplikace: oral\nforma: kapsle\nobal: lahvička\ntextNaObalu: Herzena, food supplement, PŘÍRODNÍ EXTRAKTEM Z KARDIKOVÉHO LISTU, CHASTEHON LEAF EXTRACT, CHASTEHON SEED EXTRACT, CODIA MIRABILIS FRUIT EXTRACT, NATURAL EXTRACTS, 25\npopis: Bílá plastová lahvička se stříbrným uzávěrem a etiketou s červeným a zeleným designem, na níž je uvedeno jméno 'Herzena' a popis 'food supplement' a 'PŘÍRODNÍ EXTRAKTEM Z KARDIKOVÉHO LISTU'.",
+      "error": null,
+      "wroteDb": true
+    }
+  ]
+}

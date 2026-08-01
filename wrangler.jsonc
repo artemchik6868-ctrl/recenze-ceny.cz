@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "recenze-ceny",
+  "compatibility_date": "2025-09-24",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "main": "src/server.ts",
+  "triggers": {
+    "crons": ["*/30 * * * *"]
+  },
+  // Sampled invocation logs in CF Observability (5%) — low overhead.
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 0.05
+  }
+  // CZ ONLY. Custom domain: recenze-ceny.cz (isolated from meinungcheck.at / DE).
+}

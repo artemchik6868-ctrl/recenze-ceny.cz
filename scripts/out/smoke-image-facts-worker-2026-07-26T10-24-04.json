@@ -1,0 +1,72 @@
+[
+  {
+    "ok": true,
+    "mode": "extract",
+    "source": "kma",
+    "offerId": 10314,
+    "force": true,
+    "elapsed_ms": 8341,
+    "status": "ok",
+    "method": "free",
+    "imageUrl": "https://kma.biz/uploads/store/6bb24468956384c482a8b5a901fb6383/c2932aa1a6b0ff3fd23d88fd49c5674f795d2751.png",
+    "imageHash": "9jui12",
+    "jsonChars": 239,
+    "llmAttempts": 1,
+    "timing": {
+      "preflightMs": 205,
+      "llmMs": 7216,
+      "totalMs": 8341
+    },
+    "usage": {
+      "prompt_tokens": 1142,
+      "completion_tokens": 96,
+      "total_tokens": 1238
+    },
+    "facts": {
+      "productType": "lokální přípravek",
+      "application": "topical",
+      "releaseForm": "gel",
+      "packaging": "tuba",
+      "detectedText": "ARTIZYNT COMPREHENSIVE REBUILDING FORMULA",
+      "briefDescription": "Bílá tuba s oranžovými a zelenými prvky a papírová krabička."
+    },
+    "promptBlock": "Fakta z produktového obrázku (vision, stručná):\ntyp: lokální přípravek\naplikace: topical\nforma: gel\nobal: tuba\ntextNaObalu: ARTIZYNT COMPREHENSIVE REBUILDING FORMULA\npopis: Bílá tuba s oranžovými a zelenými prvky a papírová krabička.",
+    "error": "preflight:http_502;recovered:url_only",
+    "wroteDb": true
+  },
+  {
+    "ok": true,
+    "mode": "extract",
+    "source": "kma",
+    "offerId": 9225,
+    "force": true,
+    "elapsed_ms": 6128,
+    "status": "ok",
+    "method": "free",
+    "imageUrl": "https://kma.biz/uploads/store/6bb24468956384c482a8b5a901fb6383/327e2767da6c5ec1d18a71f7113964b9a80e383c.png",
+    "imageHash": "rzwkjl",
+    "jsonChars": 271,
+    "llmAttempts": 1,
+    "timing": {
+      "preflightMs": 171,
+      "llmMs": 5240,
+      "totalMs": 6128
+    },
+    "usage": {
+      "prompt_tokens": 1141,
+      "completion_tokens": 108,
+      "total_tokens": 1249
+    },
+    "facts": {
+      "productType": "doplněk stravy",
+      "application": "oral",
+      "releaseForm": "kapsle",
+      "packaging": "lahvička",
+      "detectedText": "DIETARY SUPPLEMENT BULLRUN INCREASE YOUR MASCULINITY 30 CAPSULES NET WT 21.5g",
+      "briefDescription": "Černá lahvička s žlutým textem Bullrun a obrázkem býka."
+    },
+    "promptBlock": "Fakta z produktového obrázku (vision, stručná):\ntyp: doplněk stravy\naplikace: oral\nforma: kapsle\nobal: lahvička\ntextNaObalu: DIETARY SUPPLEMENT BULLRUN INCREASE YOUR MASCULINITY 30 CAPSULES NET WT 21.5g\npopis: Černá lahvička s žlutým textem Bullrun a obrázkem býka.",
+    "error": "preflight:http_502;recovered:url_only",
+    "wroteDb": true
+  }
+]
