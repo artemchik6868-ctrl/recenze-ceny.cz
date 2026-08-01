@@ -12,7 +12,7 @@ const arg = (name) => {
   return hit ? hit.slice(name.length + 3) : "";
 };
 
-const title = arg("title") || "recenze-ceny.cz alert";
+const title = arg("title") || "Уведомление recenze-ceny.cz";
 const body = arg("body") || "";
 const ok = process.argv.includes("--ok");
 
@@ -20,7 +20,7 @@ const token = (process.env.TELEGRAM_BOT_TOKEN || "").trim();
 const chatId = (process.env.TELEGRAM_CHAT_ID || "").trim();
 
 if (!token || !chatId) {
-  console.warn("notify-telegram: TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID not set — skip");
+  console.warn("notify-telegram: TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID не заданы — пропуск");
   process.exit(0);
 }
 
@@ -31,7 +31,7 @@ const runUrl =
 
 const icon = ok ? "✅" : "🚨";
 const lines = [`${icon} *${escapeMd(title)}*`, "", escapeMd(body)].filter(Boolean);
-if (runUrl) lines.push("", `[GitHub Actions run](${runUrl})`);
+if (runUrl) lines.push("", `[Открыть прогон в GitHub Actions](${runUrl})`);
 
 const text = lines.join("\n");
 

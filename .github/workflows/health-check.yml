@@ -44,5 +44,5 @@ jobs:
         if: failure()
         run: >
           node scripts/notify-telegram.mjs
-          --title="recenze-ceny.cz health FAIL"
-          --body="Hourly production health-check failed. Base: ${BG_SYNC_BASE}"
+          --title="recenze-ceny.cz: проверка здоровья не прошла"
+          --body="Ежечасная проверка продакшена упала (smoke / sitemap / pipeline). Адрес: ${BG_SYNC_BASE}"

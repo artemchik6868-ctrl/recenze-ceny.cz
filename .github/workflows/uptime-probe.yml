@@ -51,8 +51,8 @@ jobs:
           if [ "${{ steps.state.outputs.previous }}" = "fail" ]; then
             node scripts/notify-telegram.mjs \
               --ok \
-              --title="recenze-ceny.cz UP again" \
-              --body="Uptime probe recovered. Base: ${SITE_BASE}"
+              --title="recenze-ceny.cz снова доступен" \
+              --body="Сайт снова отвечает. Проверка: главная и /api/public/health. Адрес: ${SITE_BASE}"
           fi
 
       - name: Record failure + down alert
@@ -61,10 +61,10 @@ jobs:
           echo "fail" > .uptime-state/last
           if [ "${{ steps.state.outputs.previous }}" != "fail" ]; then
             node scripts/notify-telegram.mjs \
-              --title="recenze-ceny.cz DOWN" \
-              --body="Uptime probe failed after retries (/ and /api/public/health). Base: ${SITE_BASE}"
+              --title="recenze-ceny.cz недоступен" \
+              --body="Сайт не ответил после нескольких попыток (главная и /api/public/health). Адрес: ${SITE_BASE}"
           else
-            echo "Already in fail state — skip repeat Telegram"
+            echo "Уже в состоянии сбоя — повторное сообщение в Telegram не отправляем"
           fi
           exit 1
 
