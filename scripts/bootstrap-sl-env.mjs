@@ -39,9 +39,6 @@ const COPY_FROM_ES = [
   "M1_TOP_WEBMASTER_ID",
   "ADCOMBO_API_KEY",
   "SHAKES_API_KEY",
-  "TERRALEADS_USER_ID",
-  "TERRALEADS_API_KEY",
-  "TERRALEADS_PUBLIC_KEY",
   "AI_GATEWAY_URL",
   "AI_API_KEY",
   "AI_MODEL",
@@ -64,8 +61,6 @@ if (es.SHAKES_STREAM_CODE) {
   console.warn("WARN: SHAKES_STREAM_CODE copied from ES — replace with SI stream ID when available.");
   out.SHAKES_STREAM_CODE = es.SHAKES_STREAM_CODE;
 }
-if (es.TERRALEADS_STREAM_ID) {
-  out.TERRALEADS_STREAM_ID = es.TERRALEADS_STREAM_ID;
 }
 
 // Supabase: leave empty for new SI project

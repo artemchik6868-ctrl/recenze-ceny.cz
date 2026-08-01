@@ -13,7 +13,7 @@ export const getProductAIContent = createServerFn({ method: "GET" })
   .inputValidator(
     (data: {
       offerId: number;
-      source?: "cpa_tl" | "kma" | "m1_top" | "cpagetti" | "adcombo" | "shakes" | "terraleads";
+      source?: "cpa_tl" | "kma" | "m1_top" | "cpagetti" | "adcombo" | "shakes";
       lang?: typeof PDP_CONTENT_SLOT | typeof PDP_LEGACY_ALT_SLOT | "ro";
       categorySlug?: string;
       cacheOnly?: boolean;
@@ -22,7 +22,7 @@ export const getProductAIContent = createServerFn({ method: "GET" })
         .object({
           offerId: z.coerce.number().int().positive(),
           source: z
-            .enum(["cpa_tl", "kma", "m1_top", "cpagetti", "adcombo", "shakes", "terraleads"])
+            .enum(["cpa_tl", "kma", "m1_top", "cpagetti", "adcombo", "shakes"])
             .default("cpa_tl"),
           lang: z
             .enum([PDP_CONTENT_SLOT, PDP_LEGACY_ALT_SLOT, "ro"])

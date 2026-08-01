@@ -24,7 +24,6 @@ const HOOKS = {
   "indexing-retry": { path: "/api/public/hooks/indexing-retry", timeoutMs: 300_000 },
   "backfill-content": { path: "/api/public/hooks/backfill-content", timeoutMs: 130_000 },
   "pipeline-status": { path: "/api/public/hooks/pipeline-status", timeoutMs: 180_000 },
-  "sync-terraleads": { path: "/api/public/hooks/sync-terraleads", timeoutMs: 120_000 },
   "smoke-landing-facts": { path: "/api/public/hooks/smoke-landing-facts", timeoutMs: 300_000 },
   "smoke-image-facts": { path: "/api/public/hooks/smoke-image-facts", timeoutMs: 180_000 },
   "landing-facts-drain": { path: "/api/public/hooks/landing-facts-drain", timeoutMs: 180_000 },

@@ -147,7 +147,7 @@ const filtered = onlyDisputed ? offers.filter((o) => DISPUTED_SLUGS.has(o.slug))
 const resolvedMap = await loadResolvedCategoryMap();
 
 const contentByKey = new Map<string, Record<string, unknown>>();
-for (const source of ["cpa_tl", "kma", "m1_top", "cpagetti", "adcombo", "shakes", "terraleads"] as const) {
+for (const source of ["cpa_tl", "kma", "m1_top", "cpagetti", "adcombo", "shakes"] as const) {
   const { data } = await supabaseAdmin
     .from("product_content")
     .select(

@@ -20,7 +20,6 @@ const TABLES: Record<OfferSource, { table: string; nameCol: string }> = {
   cpagetti: { table: "cpagetti_offers", nameCol: "title" },
   adcombo: { table: "adcombo_offers", nameCol: "title" },
   shakes: { table: "shakes_offers", nameCol: "title" },
-  terraleads: { table: "terraleads_offers", nameCol: "title" },
 };
 
 export type EnrichResult = {

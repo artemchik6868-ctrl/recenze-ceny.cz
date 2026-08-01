@@ -136,12 +136,6 @@ const OFFER_TABLE: Record<
   cpagetti: { table: "cpagetti_offers", titleCol: "title", imageCol: "picture_url", hasActive: false },
   adcombo: { table: "adcombo_offers", titleCol: "title", imageCol: "picture_url", hasActive: false },
   kma: { table: "kma_offers", titleCol: "name", imageCol: "logo", hasActive: true },
-  terraleads: {
-    table: "terraleads_offers",
-    titleCol: "title",
-    imageCol: "picture_url",
-    hasActive: false,
-  },
 };
 
 function canRunImageFactsLlm(opts?: { smoke?: boolean }): boolean {
@@ -194,7 +188,7 @@ export async function loadOfferImageCandidate(
   source: OfferSource,
   offerId: number,
 ): Promise<OfferImageCandidate | null> {
-  if (!isImageFactsSource(source) && source !== "terraleads") return null;
+  if (!isImageFactsSource(source)) return null;
   const meta = OFFER_TABLE[source];
   let q = db
     .from(meta.table)

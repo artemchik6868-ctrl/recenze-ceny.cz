@@ -45,10 +45,7 @@ async function loadContentMap(): Promise<Map<string, ContentRow>> {
 }
 
 async function loadFresh(): Promise<Offer[]> {
-  const loadTerraleadsOffersAsOffers = (
-    await import("./terraleads-sync.server")
-  ).loadTerraleadsOffersAsOffers;
-  const [cpa, kma, m1, cpagetti, adcombo, shakes, terraleads, resolvedMap, contentMap] =
+  const [cpa, kma, m1, cpagetti, adcombo, shakes, resolvedMap, contentMap] =
     await Promise.all([
       loadCpaTlOffersAsOffers(),
       loadKmaOffersAsOffers(),
@@ -56,11 +53,10 @@ async function loadFresh(): Promise<Offer[]> {
       loadCpagettiOffersAsOffers(),
       loadAdcomboOffersAsOffers(),
       loadShakesOffersAsOffers(),
-      loadTerraleadsOffersAsOffers(),
       loadResolvedCategoryMap().catch(() => new Map<string, string>()),
       loadContentMap().catch(() => new Map<string, ContentRow>()),
     ]);
-  const merged = [...cpa, ...kma, ...m1, ...cpagetti, ...adcombo, ...shakes, ...terraleads]
+  const merged = [...cpa, ...kma, ...m1, ...cpagetti, ...adcombo, ...shakes]
     .map((o) => {
       const key = `${o.source}:${o.id}`;
       const resolvedSlug = resolvedMap.get(key);
@@ -174,7 +170,6 @@ export async function findOfferBySlug(slug: string): Promise<Offer | null> {
       g: "cpagetti",
       a: "adcombo",
       s: "shakes",
-      t: "terraleads",
     };
     const source = sourcePrefix ? sourceMap[sourcePrefix] : "cpa_tl";
     return offers.find((o) => o.id === id && o.source === source) ?? null;

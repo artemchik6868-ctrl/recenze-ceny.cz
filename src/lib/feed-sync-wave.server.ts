@@ -88,23 +88,40 @@ export async function loadWave(): Promise<FeedWaveState> {
     return emptyState();
   }
 
-  const pending = (data.pending ?? []).filter(isOfferSource);
+  const rawPending = data.pending ?? [];
+  const pending = rawPending.filter(isOfferSource);
   const active =
     data.active_source && isOfferSource(data.active_source) ? data.active_source : null;
 
-  return {
+  // Drop retired-partner errors so ops alerts stay clean after TerraLeads removal.
+  let last_error = data.last_error ?? null;
+  if (typeof last_error === "string" && /^terraleads:/i.test(last_error)) {
+    last_error = null;
+  }
+
+  const state: FeedWaveState = {
     pending,
     active_source: active,
-    active_cursor: parseCursor(data.active_cursor),
+    active_cursor: active ? parseCursor(data.active_cursor) : null,
     wave_id: data.wave_id,
     started_at: data.started_at,
     updated_at: data.updated_at,
-    last_error: data.last_error,
+    last_error,
     last_result:
       data.last_result && typeof data.last_result === "object" && !Array.isArray(data.last_result)
         ? (data.last_result as Record<string, unknown>)
         : null,
   };
+
+  const scrubbed =
+    last_error !== (data.last_error ?? null) ||
+    pending.length !== rawPending.length ||
+    active !== (data.active_source ?? null);
+  if (scrubbed) {
+    await saveWave(state);
+  }
+
+  return state;
 }
 
 async function saveWave(state: FeedWaveState): Promise<void> {

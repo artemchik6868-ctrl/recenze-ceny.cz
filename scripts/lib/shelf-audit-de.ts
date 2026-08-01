@@ -16,7 +16,7 @@ export const SOURCE_TABLE: Record<OfferSource, string> = {
   cpagetti: "cpagetti_offers",
   adcombo: "adcombo_offers",
   shakes: "shakes_offers",
-  terraleads: "terraleads_offers",
+
 };
 
 const CONFLICTING_CUE_RE =

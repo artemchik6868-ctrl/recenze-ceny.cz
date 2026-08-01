@@ -247,7 +247,6 @@ const PIPELINE_SOURCES: OfferSource[] = [
   "cpagetti",
   "adcombo",
   "shakes",
-  "terraleads",
 ];
 
 function isBadBodyHtml(html: string | null | undefined): boolean {

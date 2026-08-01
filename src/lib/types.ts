@@ -1,4 +1,4 @@
-export type OfferSource = "cpa_tl" | "kma" | "m1_top" | "cpagetti" | "adcombo" | "shakes" | "terraleads";
+export type OfferSource = "cpa_tl" | "kma" | "m1_top" | "cpagetti" | "adcombo" | "shakes";
 
 export type Offer = {
   id: number;

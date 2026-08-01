@@ -4,7 +4,6 @@ import { syncM1TopOffers } from "./m1-top-sync.server";
 import { syncCpagettiOffers } from "./cpagetti-sync.server";
 import { syncAdcomboOffers } from "./adcombo-sync.server";
 import { syncShakesOffers } from "./shakes-sync.server";
-import { syncTerraleadsOffers } from "./terraleads-sync.server";
 import {
   generateNewContent,
   getSourceMissingCount,
@@ -22,7 +21,6 @@ export const PIPELINE_SOURCES: OfferSource[] = [
   "cpagetti",
   "adcombo",
   "shakes",
-  "terraleads",
 ];
 
 /** Default budget for content-only cron slot / hooks when new offers are pending. */
@@ -75,7 +73,6 @@ export const SYNC_FNS: Record<OfferSource, SyncFn> = {
   cpagetti: syncCpagettiOffers,
   adcombo: syncAdcomboOffers,
   shakes: syncShakesOffers,
-  terraleads: syncTerraleadsOffers,
 };
 
 export type SyncFeedsResult = {
@@ -95,7 +92,6 @@ export async function syncAllFeeds(): Promise<SyncFeedsResult> {
     cpagetti: {},
     adcombo: {},
     shakes: {},
-    terraleads: {},
   };
 
   for (const source of PIPELINE_SOURCES) {

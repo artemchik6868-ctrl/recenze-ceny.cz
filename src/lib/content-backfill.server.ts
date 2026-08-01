@@ -35,7 +35,6 @@ const TABLE: Record<OfferSource, string> = {
   cpagetti: "cpagetti_offers",
   adcombo: "adcombo_offers",
   shakes: "shakes_offers",
-  terraleads: "terraleads_offers",
 };
 
 const NAME_COL: Record<OfferSource, string> = {
@@ -45,7 +44,6 @@ const NAME_COL: Record<OfferSource, string> = {
   cpagetti: "title",
   adcombo: "title",
   shakes: "title",
-  terraleads: "title",
 };
 
 const OFFER_SELECT: Record<OfferSource, string> = {
@@ -55,7 +53,6 @@ const OFFER_SELECT: Record<OfferSource, string> = {
   cpagetti: "offer_id,title,category,raw,synced_at,picture_url",
   adcombo: "offer_id,title,category,raw,synced_at,picture_url",
   shakes: "offer_id,title,category,raw,synced_at,picture_url",
-  terraleads: "offer_id,title,category,raw,synced_at,picture_url",
 };
 
 type BackfillOfferRow = SourceOfferRow & {

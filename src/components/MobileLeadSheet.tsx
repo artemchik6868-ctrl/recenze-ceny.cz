@@ -17,7 +17,7 @@ export function MobileLeadSheet({
   open: boolean;
   onOpenChange: (v: boolean) => void;
   offerId: number;
-  source: "cpa_tl" | "kma" | "m1_top" | "cpagetti" | "adcombo" | "shakes" | "terraleads";
+  source: "cpa_tl" | "kma" | "m1_top" | "cpagetti" | "adcombo" | "shakes";
   imageOffer: ImageOffer;
   title: string;
   priceEUR: number | null;

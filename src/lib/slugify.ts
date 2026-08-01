@@ -4,7 +4,7 @@
 
 import { firstLatinToken } from "./brand-clean";
 
-export type OfferSource = "cpa_tl" | "kma" | "m1_top" | "cpagetti" | "adcombo" | "shakes" | "terraleads";
+export type OfferSource = "cpa_tl" | "kma" | "m1_top" | "cpagetti" | "adcombo" | "shakes";
 
 const SOURCE_SUFFIX: Record<OfferSource, string> = {
   cpagetti: "g",
@@ -13,7 +13,6 @@ const SOURCE_SUFFIX: Record<OfferSource, string> = {
   cpa_tl: "",
   adcombo: "a",
   shakes: "s",
-  terraleads: "t",
 };
 
 const TRANSLIT: Record<string, string> = {

@@ -12,7 +12,6 @@ import { submitM1TopLead } from "../src/lib/m1-top-sync.server";
 import { submitCpagettiLead } from "../src/lib/cpagetti-sync.server";
 import { submitAdcomboLead } from "../src/lib/adcombo-sync.server";
 import { submitShakesLead } from "../src/lib/shakes-sync.server";
-import { submitTerraleadsLead } from "../src/lib/terraleads-sync.server";
 import { isValidPhoneCSDigits, phoneNationalCS } from "../src/lib/phone.cs";
 import { MARKET_GEO } from "../src/lib/market";
 
@@ -25,7 +24,6 @@ const SOURCES: OfferSource[] = [
   "cpagetti",
   "adcombo",
   "shakes",
-  "terraleads",
 ];
 
 const CPA_LEAD_ENDPOINT = "https://api.cpa.tl/api/lead/send";
@@ -85,7 +83,6 @@ const ENV_BY_SOURCE: Record<OfferSource, string[]> = {
   cpagetti: ["CPAGETTI_API_TOKEN"],
   adcombo: ["ADCOMBO_API_KEY"],
   shakes: ["SHAKES_API_KEY", "SHAKES_STREAM_CODE"],
-  terraleads: ["TERRALEADS_USER_ID", "TERRALEADS_API_KEY"],
 };
 
 function missingEnv(source: OfferSource) {
@@ -190,7 +187,7 @@ async function submitForSource(source: OfferSource, offerId: number) {
       return submitAdcomboLead(base);
     case "shakes":
       return submitShakesLead(base);
-    case "terraleads":
+    case:
       return submitTerraleadsLead(base);
   }
 }
@@ -221,8 +218,8 @@ for (const source of activeSources) {
   const geo =
     source === "cpa_tl"
       ? `country=${MARKET_GEO} tz=5 phone=${TEST_PHONE} ip=${testIpResolved}`
-      : source === "shakes" || source === "terraleads"
-        ? `country=${MARKET_GEO} phone=${phoneNationalCS(TEST_PHONE)} ip=${testIpResolved}${source === "terraleads" ? " (no ip in TL API payload)" : ""}`
+      : source === "shakes" || source ===
+        ? `country=${MARKET_GEO} phone=${phoneNationalCS(TEST_PHONE)} ip=${testIpResolved}${source === ? " (no ip in TL API payload)" : ""}`
         : source === "adcombo"
           ? `country_code=${MARKET_GEO} phone=${TEST_PHONE} ip=${testIpResolved} referer=${TEST_REFERER}`
           : source === "m1_top"
@@ -315,7 +312,7 @@ const payloadChecklist: Record<OfferSource, Record<string, string>> = {
   cpagetti: { country: MARKET_GEO, lang: "DE", phone: "E164", ip: testIpResolved },
   adcombo: { country_code: MARKET_GEO, phone: "E164", ip: testIpResolved, referer: TEST_REFERER },
   shakes: { countryCode: MARKET_GEO, phone: "national", phoneNational, ip: testIpResolved },
-  terraleads: { country: MARKET_GEO, phone: "national", phoneNational, ip: "(not in API payload)" },
+ phone: "national", phoneNational, ip: "(not in API payload)" },
 };
 
 const report = {

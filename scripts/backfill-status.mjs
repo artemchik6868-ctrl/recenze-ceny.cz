@@ -36,7 +36,7 @@ const SOURCES = [
   { source: "cpagetti", table: "cpagetti_offers" },
   { source: "adcombo", table: "adcombo_offers" },
   { source: "shakes", table: "shakes_offers" },
-  { source: "terraleads", table: "terraleads_offers" },
+
 ];
 
 for (const { source, table } of SOURCES) {

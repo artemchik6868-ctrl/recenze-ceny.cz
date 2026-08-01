@@ -42,10 +42,10 @@ const TABLES = {
   cpagetti: "cpagetti_offers",
   adcombo: "adcombo_offers",
   shakes: "shakes_offers",
-  terraleads: "terraleads_offers",
+
 };
 
-const SOURCES = ["cpa_tl", "kma", "m1_top", "cpagetti", "adcombo", "shakes", "terraleads"];
+const SOURCES = ["cpa_tl", "kma", "m1_top", "cpagetti", "adcombo", "shakes"];
 
 const PLACEHOLDER_MARKERS = [
   "доступний до замовлення",

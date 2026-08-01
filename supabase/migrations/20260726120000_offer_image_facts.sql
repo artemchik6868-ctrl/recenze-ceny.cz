@@ -1,5 +1,5 @@
 -- Vision facts from partner product images (service_role only).
--- Covers all OfferSource values; drain allowlist excludes terraleads for now.
+-- Covers all OfferSource values.
 
 CREATE TABLE public.offer_image_facts (
   source text NOT NULL,

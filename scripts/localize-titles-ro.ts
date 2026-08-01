@@ -147,7 +147,6 @@ const FEED_TABLES: { source: OfferSource; table: string; titleField: "title" | "
   { source: "cpagetti", table: "cpagetti_offers", titleField: "title" },
   { source: "adcombo", table: "adcombo_offers", titleField: "title" },
   { source: "shakes", table: "shakes_offers", titleField: "title" },
-  { source: "terraleads", table: "terraleads_offers", titleField: "title" },
 ];
 
 async function loadTitleJobs(): Promise<TitleJob[]> {

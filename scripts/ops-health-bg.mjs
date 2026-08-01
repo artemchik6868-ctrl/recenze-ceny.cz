@@ -1,5 +1,4 @@
 /**
- * BG ops health check — pipeline, content audit, smoke, secrets, cron, TerraLeads probe.
  * Usage: npm run ops:health
  */
 import { execSync, spawnSync } from "node:child_process";
@@ -36,25 +35,6 @@ for (const [name, cmd] of [
   if (!r.ok) failed += 1;
 }
 
-process.stdout.write("terraleads-api... ");
-const tl = run("node scripts/terraleads-test-api.mjs offer");
-const tlBlocked = tl.out.includes("403");
-console.log(tlBlocked ? "BLOCKED (403 offer/list)" : tl.ok ? "OK" : "FAIL");
-steps.push({
-  name: "terraleads-api",
-  ok: tl.ok,
-  blocked: tlBlocked,
-  action: tlBlocked
-    ? "Ask TerraLeads manager to enable Offer API for user_id, then: npm run sync:terraleads"
-    : null,
-  tail: tl.out.split("\n").slice(-4).join("\n"),
-});
-
-const report = {
-  checkedAt: new Date().toISOString(),
-  steps,
-  autonomousReady: failed === 0,
-  blockers: tlBlocked ? ["terraleads: offer/list 403 — catalog API disabled"] : [],
   cron: ["0 2 * * * sync-daily", "*/30 * * * * content-drain"],
   monitorCommands: [
     "npm run ops:health",
@@ -73,5 +53,4 @@ const outPath = resolve(cacheDir, "ops-health-bg.json");
 writeFileSync(outPath, JSON.stringify(report, null, 2), "utf8");
 console.log(`\nWrote ${outPath}`);
 console.log(`\nops-health-bg: ${failed === 0 ? "OK" : `FAIL (${failed} step(s))`}`);
-if (tlBlocked) console.log("TerraLeads: enable Offer API with manager — ip/get works, offer/list 403");
 process.exit(failed > 0 ? 1 : 0);

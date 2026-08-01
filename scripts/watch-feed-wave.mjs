@@ -73,4 +73,4 @@ console.log("\nFINAL feed_wave", JSON.stringify(final.json.feed_wave, null, 2));
 console.log("alerts", final.json.alerts);
 console.log(`failures=${failures} units=${log.length}`);
 if (final.json.feed_wave?.active) process.exit(2);
-if (failures > 1) process.exit(1); // terraleads 403 expected once
+if (failures > 1) process.exit(1);

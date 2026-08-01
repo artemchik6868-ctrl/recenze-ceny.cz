@@ -11,7 +11,7 @@ import {
 import { checkHookSecret } from "@/lib/hook-auth";
 import type { OfferSource } from "@/lib/types";
 
-const SOURCES: OfferSource[] = ["cpa_tl", "kma", "m1_top", "cpagetti", "adcombo", "shakes", "terraleads"];
+const SOURCES: OfferSource[] = ["cpa_tl", "kma", "m1_top", "cpagetti", "adcombo", "shakes"];
 
 async function run(request: Request) {
   const unauthorized = checkHookSecret(request);

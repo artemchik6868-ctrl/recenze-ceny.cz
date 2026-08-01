@@ -30,7 +30,6 @@
     "sync:daily": "node scripts/trigger-hook.mjs sync-daily",
     "sync:drain": "node scripts/trigger-hook.mjs content-drain",
     "sync:drain:ai": "node scripts/trigger-hook.mjs content-drain",
-    "sync:terraleads": "node scripts/trigger-hook.mjs sync-terraleads",
     "ops:health": "node scripts/ops-health-cz.mjs",
     "status:pipeline": "node scripts/backfill-status.mjs",
     "monitor:pipeline": "node scripts/monitor-content-pipeline.mjs",

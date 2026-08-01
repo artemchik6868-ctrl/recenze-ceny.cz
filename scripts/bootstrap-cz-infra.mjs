@@ -155,7 +155,6 @@ const REPLACEMENTS = [
   ["geo.region: \"HU\"", "geo.region: \"CZ\""],
   ["geo.placename: \"Hungary\"", "geo.placename: \"Czech Republic\""],
   ["INDEXNOW_HOST = \"velemenylab.com\"", "INDEXNOW_HOST = \"recenze-ceny.cz\""],
-  ["terraleads-status-hu.json", "terraleads-status-cz.json"],
   ["audit-shelf-mismatches-hu", "audit-shelf-mismatches-cz"],
   ["+36", "+420"],
   ['return `${Math.round(amount).toLocaleString("hu-HU")} Ft`;', 'return `${Math.round(amount).toLocaleString("cs-CZ")} Kč`;'],

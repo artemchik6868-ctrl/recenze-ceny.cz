@@ -47,7 +47,6 @@ const ALL_SOURCES: OfferSource[] = [
   "cpagetti",
   "adcombo",
   "shakes",
-  "terraleads",
 ];
 
 const MATRIX_SOURCES: OfferSource[] = ["cpa_tl", "kma", "cpagetti"];
@@ -59,7 +58,7 @@ const TEST_OFFER_ID: Record<OfferSource, number> = {
   cpagetti: 999994,
   adcombo: 999995,
   shakes: 999996,
-  terraleads: 999997,
+
 };
 
 const TABLE: Record<OfferSource, string> = {
@@ -69,7 +68,7 @@ const TABLE: Record<OfferSource, string> = {
   cpagetti: "cpagetti_offers",
   adcombo: "adcombo_offers",
   shakes: "shakes_offers",
-  terraleads: "terraleads_offers",
+
 };
 
 const CATEGORY: Record<OfferSource, string> = {
@@ -79,7 +78,7 @@ const CATEGORY: Record<OfferSource, string> = {
   cpagetti: "cukrovka",
   adcombo: "cukrovka",
   shakes: "cukrovka",
-  terraleads: "cukrovka",
+
 };
 
 function parseArgs() {

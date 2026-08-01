@@ -28,7 +28,7 @@ const TABLE: Record<OfferSource, string> = {
   cpagetti: "cpagetti_offers",
   adcombo: "adcombo_offers",
   shakes: "shakes_offers",
-  terraleads: "terraleads_offers",
+
 };
 
 async function activeCount(source: OfferSource): Promise<number> {

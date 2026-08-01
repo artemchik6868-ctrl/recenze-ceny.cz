@@ -23,7 +23,6 @@ const SOURCES: OfferSource[] = [
   "cpagetti",
   "adcombo",
   "shakes",
-  "terraleads",
 ];
 
 /** Categories we want coverage for (supplement + appliance + fashion). */

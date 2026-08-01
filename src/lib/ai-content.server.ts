@@ -744,23 +744,6 @@ async function buildPromptSource(
       },
     };
   }
-  if (source === "terraleads") {
-    const { getTerraleadsRawOffer } = await import("./terraleads-sync.server");
-    const raw = await getTerraleadsRawOffer(offerId);
-    if (!raw) return null;
-    const feedPrice = promptFeedPrice(raw.landing_price, raw.landing_currency ?? "EUR");
-    return {
-      title: String(raw.product_name ?? `Offer ${raw.offer_id}`),
-      category: String(raw.product_category ?? ""),
-      description: String(raw.product_description ?? raw.product_name ?? ""),
-      priceKey: `${raw.landing_price ?? ""}|${raw.landing_currency ?? "EUR"}`,
-      feedPrice,
-      feedExtra: {
-        category: String(raw.product_category ?? ""),
-        feedPrice,
-      },
-    };
-  }
   if (source === "cpagetti") {
     const raw = await getCpagettiRawOffer(offerId);
     if (!raw) return null;
@@ -1226,7 +1209,7 @@ async function initPipelineState(
     }
   }
 
-  // Cached vision facts from product image (all networks except terraleads drain).
+  // Cached vision facts from product image (all image-facts sources).
   // Vision form overrides landing when both exist (packaging is visible ground truth).
   try {
     const { getInjectableImageFacts } = await import("./image-facts.server");

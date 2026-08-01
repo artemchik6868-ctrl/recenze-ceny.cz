@@ -69,7 +69,7 @@ export const KEYWORD_TO_SLUG: Array<[RegExp, string]> = [
   [/\bparasites?\b|toxic off/i, "paraziti"],
   [/\bsnoring\b|\bsnore/i, "chrapani"],
   [/\bvalgus\b/i, "vboceny-palec"],
-  // === TerraLeads product_category labels ===
+  // === English / partner product_category labels ===
   [/\bDiet\b/i, "hubnuti"],
   [/\bBeauty\b/i, "other"],
   [/\bWatch\/jewelery\b/i, "modni-doplnky"],

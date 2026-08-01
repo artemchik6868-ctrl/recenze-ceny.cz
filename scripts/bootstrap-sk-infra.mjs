@@ -154,7 +154,6 @@ const REPLACEMENTS = [
   ["geo.region: \"CZ\"", "geo.region: \"SK\""],
   ["geo.placename: \"Czech Republic\"", "geo.placename: \"Slovakia\""],
   ["INDEXNOW_HOST = \"recenze-ceny.cz\"", "INDEXNOW_HOST = \"skrecenzie.sk\""],
-  ["terraleads-status-cz.json", "terraleads-status-sk.json"],
   ["audit-shelf-mismatches-cz", "audit-shelf-mismatches-sk"],
   ["+420", "+421"],
   ['return `${Math.round(amount).toLocaleString("cs-CZ")} Kč`;', 'return `${Math.round(amount).toLocaleString("sk-SK")} €`;'],

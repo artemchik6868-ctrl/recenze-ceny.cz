@@ -39,10 +39,6 @@ export function categorySlugFromRow(source: OfferSource, row: SourceOfferRow): s
     const rawTitle = String((raw as { title?: string }).title ?? title);
     const titleFirst = classifyTitleFirst(title, rawTitle, "other");
     slug = titleFirst !== "other" ? titleFirst : classifyByText(`${title} ${rawTitle}`, "other");
-  } else if (source === "terraleads") {
-    const feedCategory = String((raw as { product_category?: string }).product_category ?? category);
-    const titleFirst = classifyTitleFirst(title, feedCategory, "other");
-    slug = titleFirst !== "other" ? titleFirst : classifyByText(`${title} ${feedCategory}`, "other");
   } else {
     slug = classifyTitleFirst(title, blob || category, "other");
   }

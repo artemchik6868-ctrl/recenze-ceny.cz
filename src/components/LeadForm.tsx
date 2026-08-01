@@ -20,7 +20,7 @@ export function LeadForm({
   priceEUR = null,
 }: {
   offerId?: number;
-  source?: "cpa_tl" | "kma" | "m1_top" | "cpagetti" | "adcombo" | "shakes" | "terraleads";
+  source?: "cpa_tl" | "kma" | "m1_top" | "cpagetti" | "adcombo" | "shakes";
   compact?: boolean;
   priceEUR?: number | null;
 }) {

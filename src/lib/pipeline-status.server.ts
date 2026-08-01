@@ -11,7 +11,6 @@ const PIPELINE_SOURCES: OfferSource[] = [
   "cpagetti",
   "adcombo",
   "shakes",
-  "terraleads",
 ];
 
 /** Hard indexing errors in the last day before Telegram/ops digest alerts. */
@@ -34,7 +33,6 @@ const SOURCE_TABLES: Record<OfferSource, string> = {
   cpagetti: "cpagetti_offers",
   adcombo: "adcombo_offers",
   shakes: "shakes_offers",
-  terraleads: "terraleads_offers",
 };
 
 const STALE_MS = 2 * 60 * 60 * 1000;

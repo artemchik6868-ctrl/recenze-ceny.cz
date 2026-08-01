@@ -15,7 +15,7 @@ const CPA_LEAD_ENDPOINT = "https://api.cpa.tl/api/lead/send";
 
 const LeadSchema = z.object({
   offerId: z.number().int().positive().nullable().optional(),
-  source: z.enum(["cpa_tl", "kma", "m1_top", "cpagetti", "adcombo", "shakes", "terraleads"]).default("cpa_tl"),
+  source: z.enum(["cpa_tl", "kma", "m1_top", "cpagetti", "adcombo", "shakes"]).default("cpa_tl"),
   name: z
     .string()
     .min(2, "Zadejte prosím jméno (alespoň 2 znaky).")
@@ -177,21 +177,7 @@ export const submitLead = createServerFn({ method: "POST" })
         : { ok: false as const, error: result.error };
     }
 
-    if (data.source === "terraleads") {
-      if (!data.offerId) return { ok: false as const, error: noOffer };
-      const { submitTerraleadsLead } = await import("./terraleads-sync.server");
-      const result = await submitTerraleadsLead({
-        offerId: data.offerId,
-        name: data.name,
-        phone: data.phone,
-        ip,
-        userAgent,
-        referer,
-      });
-      return result.ok
-        ? { ok: true as const, leadId: result.leadId }
-        : { ok: false as const, error: result.error };
-    }
+
 
     const result = await submitCpaLead({
       offerId: data.offerId ?? null,

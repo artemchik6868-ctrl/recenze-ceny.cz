@@ -26,7 +26,7 @@ const { supabaseAdmin } = await import("../src/integrations/supabase/client.serv
 const { loadOffers } = await import("../src/lib/offers.server.ts");
 const { offerDisplayTitle } = await import("../src/lib/offer-display.ts");
 
-const PIPELINE_SOURCES = ["cpa_tl", "kma", "m1_top", "cpagetti", "adcombo", "shakes", "terraleads"];
+const PIPELINE_SOURCES = ["cpa_tl", "kma", "m1_top", "cpagetti", "adcombo", "shakes"];
 
 const allRows = [];
 for (const source of PIPELINE_SOURCES) {
