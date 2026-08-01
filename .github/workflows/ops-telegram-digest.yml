@@ -1,0 +1,43 @@
+name: Ops Telegram digest
+
+# Daily low-noise pipeline / feed / indexing alerts (edge-triggered).
+on:
+  schedule:
+    # 07:30 UTC — after indexing-retry (06:00) and weekday sitemap (Mon 07:00)
+    - cron: "30 7 * * *"
+  workflow_dispatch:
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      BG_SYNC_BASE: ${{ vars.BG_SYNC_BASE || 'https://recenze-ceny.cz' }}
+      HOOK_SECRET: ${{ secrets.HOOK_SECRET }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      OPS_TELEGRAM_STATE_PATH: ${{ github.workspace }}/.ops-telegram-state/state.json
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Restore ops alert state
+        uses: actions/cache/restore@v4
+        with:
+          path: .ops-telegram-state
+          key: ops-telegram-state-${{ github.repository }}-${{ github.run_id }}
+          restore-keys: |
+            ops-telegram-state-${{ github.repository }}-
+
+      - name: Run ops Telegram digest
+        run: node scripts/ops-telegram-digest.mjs --base="${BG_SYNC_BASE}"
+
+      - name: Persist ops alert state
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .ops-telegram-state
+          key: ops-telegram-state-${{ github.repository }}-${{ github.run_id }}

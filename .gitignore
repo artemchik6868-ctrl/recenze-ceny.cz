@@ -23,6 +23,7 @@ dist-ssr
 .tools/
 scripts/.cache/
 .cursor/
+.ops-telegram-state.json
 
 # Wrangler / Cloudflare
 .wrangler/

@@ -15,6 +15,7 @@ jobs:
       MAX_MISSING_CONTENT: "2"
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      OPS_TELEGRAM_STATE_PATH: ${{ github.workspace }}/.ops-telegram-state/state.json
     steps:
       - uses: actions/checkout@v4
 
@@ -40,9 +41,6 @@ jobs:
       - name: Run public smoke test
         run: npm run smoke:cz -- --base="${BG_SYNC_BASE}"
 
-      - name: Telegram alert on failure
+      - name: Telegram alert on failure (with pipeline details)
         if: failure()
-        run: >
-          node scripts/notify-telegram.mjs
-          --title="recenze-ceny.cz: проверка здоровья не прошла"
-          --body="Ежечасная проверка продакшена упала (smoke / sitemap / pipeline). Адрес: ${BG_SYNC_BASE}"
+        run: node scripts/ops-telegram-digest.mjs --base="${BG_SYNC_BASE}" --health-fail
