@@ -1,6 +1,9 @@
 /**
  * Create or align an UptimeRobot monitor for /api/public/health.
  *
+ * NOTE: Primary free uptime + Telegram is HetrixTools (scripts/setup-hetrixtools.mjs).
+ * UptimeRobot Free has no Telegram/webhook — use pause-uptimerobot.mjs after switching.
+ *
  * Usage:
  *   UPTIMEROBOT_API_KEY=... node scripts/setup-uptimerobot.mjs
  *   node scripts/setup-uptimerobot.mjs --url=https://recenze-ceny.cz/api/public/health
