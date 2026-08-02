@@ -6,10 +6,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  # Pure node probes — no npm install (avoids false Telegram on npm ci failure).
+  # Pure node probes + SEO scripts without full `npm ci` (ci install fails in ~1s on GHA).
   probes:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     env:
       BG_SYNC_BASE: ${{ vars.BG_SYNC_BASE || 'https://recenze-ceny.cz' }}
       HOOK_SECRET: ${{ secrets.HOOK_SECRET }}
@@ -33,37 +33,12 @@ jobs:
       - name: Run public smoke test
         run: node scripts/smoke-cz.mjs --base="${BG_SYNC_BASE}"
 
+      - name: SEO meta unit tests
+        run: npx --yes tsx@4.20.3 scripts/test-seo-meta-cz.mjs
+
+      - name: SEO preflight
+        run: node scripts/seo-preflight.mjs --base="${BG_SYNC_BASE}"
+
       - name: Telegram alert on probe failure
         if: failure()
         run: node scripts/ops-telegram-digest.mjs --base="${BG_SYNC_BASE}" --health-fail
-
-  seo:
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    env:
-      BG_SYNC_BASE: ${{ vars.BG_SYNC_BASE || 'https://recenze-ceny.cz' }}
-      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci --no-audit --no-fund
-
-      - name: Run SEO meta unit tests
-        run: npm run test:seo-meta-cz
-
-      - name: Run SEO preflight
-        run: npm run seo:preflight -- --base="${BG_SYNC_BASE}"
-
-      - name: Telegram on SEO check failure
-        if: failure()
-        run: |
-          node scripts/notify-telegram.mjs \
-            --title="recenze-ceny.cz: SEO health-check не прошёл" \
-            --body="Упали SEO unit tests / preflight в GitHub Actions (не smoke сайта). Проверьте логи прогона."
