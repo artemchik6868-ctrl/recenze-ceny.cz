@@ -1,9 +1,8 @@
 name: Uptime probe
 
+# Schedule removed — primary uptime is UptimeRobot (5 min) on /api/public/health.
+# Keep manual dispatch for downtime drills.
 on:
-  schedule:
-    # Every 10 minutes
-    - cron: "*/10 * * * *"
   workflow_dispatch:
     inputs:
       base_url:
