@@ -85,18 +85,19 @@ async function postJson(url, body) {
 
 console.log(`HetrixTools setup → ${monitorUrl}`);
 
-// v1 list monitors (page 0)
-const listUrl = `https://api.hetrixtools.com/v1/${encodeURIComponent(apiKey)}/uptime/monitors/0/`;
-const { json: listRes } = await getJson(listUrl);
-const monitorsRaw = listRes?.monitors ?? listRes?.result ?? listRes;
-const monitors = Array.isArray(monitorsRaw)
-  ? monitorsRaw
-  : Array.isArray(monitorsRaw?.data)
-    ? monitorsRaw.data
-    : [];
+async function listMonitorsV3() {
+  const res = await fetch("https://api.hetrixtools.com/v3/uptime-monitors", {
+    headers: { Authorization: `Bearer ${apiKey}` },
+    signal: AbortSignal.timeout(30_000),
+  });
+  const json = await res.json().catch(() => null);
+  if (!res.ok) throw new Error(`v3 list monitors HTTP ${res.status}: ${JSON.stringify(json)}`);
+  return Array.isArray(json?.monitors) ? json.monitors : [];
+}
 
+const monitors = await listMonitorsV3();
 const existing = monitors.find((m) => {
-  const t = normalizeUrl(m.Target || m.target || m.URL || m.url || "");
+  const t = normalizeUrl(m.target || m.Target || m.url || "");
   return t === target || t.includes("/api/public/health");
 });
 
@@ -105,9 +106,11 @@ if (existing) {
     JSON.stringify(
       {
         action: "reuse",
-        id: existing.ID || existing.id || existing.MID,
-        name: existing.Name || existing.name,
-        target: existing.Target || existing.target || existing.URL,
+        id: existing.id,
+        name: existing.name,
+        target: existing.target,
+        contact_lists: existing.contact_lists,
+        uptime_status: existing.uptime_status,
       },
       null,
       2,
@@ -116,7 +119,7 @@ if (existing) {
   process.exit(0);
 }
 
-// Resolve contact list (Telegram must be configured in Hetrix UI first)
+// Resolve contact list — prefer one named Telegram (configured in Hetrix UI).
 let contactList = (contactListArg || env.HETRIXTOOLS_CONTACT_LIST || "").trim();
 if (!contactList) {
   const contactsUrl = `https://api.hetrixtools.com/v1/${encodeURIComponent(apiKey)}/contacts/`;
@@ -129,21 +132,22 @@ if (!contactList) {
         : Array.isArray(contactsRes?.result)
           ? contactsRes.result
           : [];
-    if (lists.length === 1) {
-      contactList = String(lists[0].ID || lists[0].id || lists[0].ContactListID || "");
-    } else if (lists.length > 1) {
-      console.log(
-        "Multiple contact lists — pass --contact-list=ID. Lists:",
-        lists.map((c) => `${c.Name || c.name}:${c.ID || c.id}`).join(", "),
-      );
-      const withTg = lists.find(
-        (c) =>
-          c.Telegram ||
-          c.telegram ||
-          (Array.isArray(c.Contacts) && c.Contacts.some((x) => /telegram/i.test(JSON.stringify(x)))),
-      );
-      if (withTg) contactList = String(withTg.ID || withTg.id || "");
-      else contactList = String(lists[0].ID || lists[0].id || "");
+    console.log(
+      "Contact lists:",
+      lists.map((c) => `${c.Name || c.name}:${c.ID || c.id}`).join(", ") || "(none)",
+    );
+    const withTgName = lists.find((c) => /telegram/i.test(String(c.Name || c.name || "")));
+    const withTgField = lists.find(
+      (c) =>
+        c.Telegram ||
+        c.telegram ||
+        (Array.isArray(c.Contacts) && c.Contacts.some((x) => /telegram/i.test(JSON.stringify(x)))),
+    );
+    const pick = withTgName || withTgField || (lists.length === 1 ? lists[0] : null);
+    if (pick) contactList = String(pick.ID || pick.id || "");
+    else if (lists.length > 1) {
+      console.error("Multiple contact lists — pass --contact-list=ID (prefer Telegram list)");
+      process.exit(1);
     }
   } catch (e) {
     console.warn("Could not list contacts:", e instanceof Error ? e.message : e);
