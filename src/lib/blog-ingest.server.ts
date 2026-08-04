@@ -391,7 +391,12 @@ function parseLlmPayload(raw: string): Record<string, unknown> {
   if (metaMark && bodyMark && bodyMark.index != null) {
     const metaStart = (metaMark.index ?? 0) + metaMark[0].length;
     const metaSlice = text.slice(metaStart, bodyMark.index);
-    const html = text.slice(bodyMark.index + bodyMark[0].length).trim();
+    let html = text.slice(bodyMark.index + bodyMark[0].length).trim();
+    // Models sometimes emit BODY_HTML twice (full article duplicated).
+    const second = html.search(/\n?\s*BODY_HTML\s*:/i);
+    if (second >= 0) html = html.slice(0, second).trim();
+    const metaTail = html.search(/\n?\s*META_JSON\s*:/i);
+    if (metaTail >= 0) html = html.slice(0, metaTail).trim();
     const meta = extractJsonObject(metaSlice) as Record<string, unknown>;
     return { ...meta, body_html: html };
   }

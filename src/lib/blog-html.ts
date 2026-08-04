@@ -52,12 +52,22 @@ function wrapBareTables(html: string): string {
   });
 }
 
+/** Drop leaked LLM format markers and anything after a second BODY_HTML dump. */
+export function stripLlmFormatArtifacts(html: string): string {
+  let s = String(html ?? "");
+  // Truncate at a mid/trailing BODY_HTML / META_JSON label (duplicate dump or orphan label).
+  const cut = s.search(/(?:^|\n)\s*(?:BODY_HTML|META_JSON)\s*:/i);
+  if (cut >= 0) s = s.slice(0, cut);
+  s = s.replace(/^\s*(?:BODY_HTML|META_JSON)\s*:\s*/i, "");
+  return s.trim();
+}
+
 /**
  * Sanitize blog article HTML for safe SSR via dangerouslySetInnerHTML.
  */
 export function sanitizeBlogHtml(html: string | null | undefined): string {
   if (!html) return "";
-  let s = String(html);
+  let s = stripLlmFormatArtifacts(String(html));
 
   const hadMarker = s.includes(BLOG_PRODUCTS_MARKER);
   if (hadMarker) s = s.split(BLOG_PRODUCTS_MARKER).join(PRODUCTS_PLACEHOLDER);
