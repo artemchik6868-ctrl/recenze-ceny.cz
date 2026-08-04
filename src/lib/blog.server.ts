@@ -69,17 +69,31 @@ function mapRow(row: BlogRow): BlogPost {
   };
 }
 
-function mapListItem(row: BlogRow): BlogPostListItem {
-  const full = mapRow(row);
+const LIST_SELECT =
+  "id, slug, title, excerpt, category_slug, cover_image_path, cover_credit, published_at, status";
+
+type BlogListRow = {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string | null;
+  category_slug: string;
+  cover_image_path: string | null;
+  cover_credit: string | null;
+  published_at: string | null;
+  status: string;
+};
+
+function mapListRow(row: BlogListRow): BlogPostListItem {
   return {
-    id: full.id,
-    slug: full.slug,
-    title: full.title,
-    excerpt: full.excerpt,
-    categorySlug: full.categorySlug,
-    coverImagePath: full.coverImagePath,
-    coverCredit: full.coverCredit,
-    publishedAt: full.publishedAt,
+    id: row.id,
+    slug: row.slug,
+    title: row.title,
+    excerpt: row.excerpt,
+    categorySlug: row.category_slug,
+    coverImagePath: row.cover_image_path,
+    coverCredit: row.cover_credit,
+    publishedAt: row.published_at,
   };
 }
 
@@ -107,10 +121,7 @@ export async function listPublishedBlogPostsPage(opts: {
 
   const { data, error, count } = await supabaseAdmin
     .from("blog_posts")
-    .select(
-      "id, slug, title, excerpt, body_html, meta_title, meta_description, category_slug, cover_image_path, cover_credit, source_url, source_name, product_ids, faq, status, published_at, content_hash, created_at",
-      { count: "exact" },
-    )
+    .select(LIST_SELECT, { count: "exact" })
     .eq("status", "published")
     .order("published_at", { ascending: false })
     .range(offset, offset + limit - 1);
@@ -120,9 +131,85 @@ export async function listPublishedBlogPostsPage(opts: {
     return { posts: [], total: 0 };
   }
   return {
-    posts: (data as BlogRow[]).map(mapListItem),
+    posts: (data as BlogListRow[]).map(mapListRow),
     total: typeof count === "number" ? count : data.length + offset,
   };
+}
+
+/** Latest published posts for a catalog shelf (category hub rail). */
+export async function listBlogPostsByCategory(
+  categorySlug: string,
+  limit = 4,
+): Promise<BlogPostListItem[]> {
+  const slug = categorySlug.trim();
+  if (!slug) return [];
+  const take = Math.max(1, Math.min(limit, 12));
+  const { data, error } = await supabaseAdmin
+    .from("blog_posts")
+    .select(LIST_SELECT)
+    .eq("status", "published")
+    .eq("category_slug", slug)
+    .order("published_at", { ascending: false })
+    .limit(take);
+  if (error || !data) {
+    if (error) console.error("[blog] listBlogPostsByCategory:", error.message);
+    return [];
+  }
+  return (data as BlogListRow[]).map(mapListRow);
+}
+
+/**
+ * Related posts for an article page: same shelf first, then latest others.
+ * Deterministic (no random) for stable SSR / crawl HTML.
+ */
+export async function listRelatedBlogPosts(opts: {
+  excludeSlug: string;
+  categorySlug: string;
+  limit?: number;
+}): Promise<BlogPostListItem[]> {
+  const limit = Math.max(1, Math.min(opts.limit ?? 4, 8));
+  const exclude = opts.excludeSlug.trim();
+  const shelf = opts.categorySlug.trim();
+
+  const same = shelf
+    ? (
+        await supabaseAdmin
+          .from("blog_posts")
+          .select(LIST_SELECT)
+          .eq("status", "published")
+          .eq("category_slug", shelf)
+          .neq("slug", exclude)
+          .order("published_at", { ascending: false })
+          .limit(limit)
+      ).data
+    : [];
+
+  const out: BlogPostListItem[] = ((same as BlogListRow[] | null) ?? []).map(mapListRow);
+  if (out.length >= limit) return out.slice(0, limit);
+
+  const seen = new Set(out.map((p) => p.slug));
+  if (exclude) seen.add(exclude);
+
+  const { data: others, error } = await supabaseAdmin
+    .from("blog_posts")
+    .select(LIST_SELECT)
+    .eq("status", "published")
+    .neq("slug", exclude || "__none__")
+    .order("published_at", { ascending: false })
+    .limit(limit + out.length + 4);
+
+  if (error) {
+    console.error("[blog] listRelatedBlogPosts:", error.message);
+    return out;
+  }
+
+  for (const row of (others as BlogListRow[] | null) ?? []) {
+    if (seen.has(row.slug)) continue;
+    out.push(mapListRow(row));
+    seen.add(row.slug);
+    if (out.length >= limit) break;
+  }
+  return out.slice(0, limit);
 }
 
 export async function loadPublishedBlogPost(slug: string): Promise<BlogPost | null> {

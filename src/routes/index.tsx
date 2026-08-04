@@ -13,6 +13,7 @@ import { pageHead } from "@/lib/page-head";
 import { LANG_LOCALE } from "@/lib/lang";
 import { offerDisplayTitle } from "@/lib/offer-display";
 import { CITIES } from "@/lib/cities.cs";
+import { BlogPostRail } from "@/components/blog/BlogPostRail";
 
 const HOME_STALE_MS = 60 * 60 * 1000;
 
@@ -102,7 +103,7 @@ function HomePage() {
   const lang = useLang();
   const href = useHref();
   const { data } = useSuspenseQuery(homePageQO);
-  const { featured, categories: rawCategories, stats } = data;
+  const { featured, categories: rawCategories, stats, latestBlogPosts = [] } = data;
   const categories = rawCategories.map((c) => localizeCategory(c, lang));
 
   return (
@@ -259,6 +260,18 @@ function HomePage() {
         </div>
       </section>
 
+      {latestBlogPosts.length > 0 ? (
+        <section className="border-t border-border bg-stone">
+          <div className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-24">
+            <BlogPostRail
+              title={T.blog.homePostsTitle}
+              posts={latestBlogPosts}
+              showCategory
+            />
+          </div>
+        </section>
+      ) : null}
+
       {/* COD / delivery cultural anchor */}
       <section className="bg-primary text-primary-foreground">
         <div className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-24">
@@ -298,7 +311,7 @@ function HomePage() {
 
       {/* FAQ — stacked */}
       <section className="mx-auto max-w-3xl px-5 py-20 md:px-8 md:py-24">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-cta">FAQ</p>
+        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-cta">{T.home.faqKicker}</p>
         <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-primary md:text-5xl">
           {T.home.faqH}
         </h2>

@@ -420,6 +420,10 @@ export const T = {
     empty: "Zatím tu nejsou žádné publikované články.",
     loadMore: "Načíst další",
     loadMoreLoading: "Načítám…",
+    relatedPostsTitle: "Další články",
+    categoryPostsTitle: "Články k tématu",
+    homePostsTitle: "Nové články",
+    allPostsLink: "Všechny články",
     relatedCategory: "Související kategorie",
     relatedCategoryLead: (name: string) =>
       `Porovnejte doplňky v kategorii „${name}“ — forma, cena a doručení po České republice.`,

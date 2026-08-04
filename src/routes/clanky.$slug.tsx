@@ -13,6 +13,7 @@ import { categoryDisplayName } from "@/lib/category-display-name";
 import { categoryPath } from "@/lib/category-path";
 import { LANG_LOCALE } from "@/lib/lang";
 import { BlogProductPicks } from "@/components/blog/BlogProductPicks";
+import { BlogPostRail } from "@/components/blog/BlogPostRail";
 import { clampDesc } from "@/lib/seo-meta";
 
 export const Route = createFileRoute("/clanky/$slug")({
@@ -135,7 +136,7 @@ function formatDate(iso: string | null): string | null {
 }
 
 function BlogPostPage() {
-  const { post, offers, coverUrl } = Route.useLoaderData() as BlogPostData;
+  const { post, offers, coverUrl, relatedPosts = [] } = Route.useLoaderData() as BlogPostData;
   const T = useI18n();
   const href = useHref();
   if (!post) return null;
@@ -247,6 +248,16 @@ function BlogPostPage() {
               ))}
             </div>
           </section>
+        ) : null}
+
+        {relatedPosts.length > 0 ? (
+          <BlogPostRail
+            className="mt-12"
+            title={T.blog.relatedPostsTitle}
+            posts={relatedPosts}
+            showExcerpt
+            showCategory
+          />
         ) : null}
 
         <aside className="mt-12 border-t border-border/70 pt-8">

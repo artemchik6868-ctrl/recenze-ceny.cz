@@ -5,6 +5,7 @@ import {
   BLOG_INDEX_PAGE_SIZE,
   blogCoverPublicUrl,
   listPublishedBlogPostsPage,
+  listRelatedBlogPosts,
   loadOffersByProductKeys,
   loadPublishedBlogPost,
 } from "@/lib/blog.server";
@@ -22,6 +23,7 @@ export type BlogPostData = {
   post: BlogPost | null;
   offers: Offer[];
   coverUrl: string | null;
+  relatedPosts: BlogIndexPost[];
 };
 
 function withCover(posts: BlogPostListItem[]): BlogIndexPost[] {
@@ -72,11 +74,19 @@ export const getBlogPostData = createServerFn({ method: "GET" })
   )
   .handler(async ({ data }): Promise<BlogPostData> => {
     const post = await loadPublishedBlogPost(data.slug);
-    if (!post) return { post: null, offers: [], coverUrl: null };
-    const offers = await loadOffersByProductKeys(post.productIds);
+    if (!post) return { post: null, offers: [], coverUrl: null, relatedPosts: [] };
+    const [offers, related] = await Promise.all([
+      loadOffersByProductKeys(post.productIds),
+      listRelatedBlogPosts({
+        excludeSlug: post.slug,
+        categorySlug: post.categorySlug,
+        limit: 4,
+      }),
+    ]);
     return {
       post,
       offers,
       coverUrl: blogCoverPublicUrl(post.coverImagePath),
+      relatedPosts: withCover(related),
     };
   });

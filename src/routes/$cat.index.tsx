@@ -24,6 +24,7 @@ import { WeightToolsPromo } from "@/components/services/WeightToolsPromo";
 import { isWeightToolsCategory } from "@/lib/services/weight-tools";
 import { DoctorReviewedBadge } from "@/components/DoctorReviewedBadge";
 import { isYmylCategory } from "@/lib/niche-types";
+import { BlogPostRail } from "@/components/blog/BlogPostRail";
 
 const CATEGORY_STALE_MS = 5 * 60 * 1000;
 
@@ -175,7 +176,7 @@ function CategoryPage() {
   const T = useI18n();
   const href = useHref();
   const { data } = useSuspenseQuery(categoryPageQO(slug));
-  const { category: rawCategory, offers: allOffers, allCategories } = data;
+  const { category: rawCategory, offers: allOffers, allCategories, blogPosts = [] } = data;
   const offers = allOffers.filter(isProductIndexable);
   const category = localizeCategory(rawCategory, lang);
   const content = getCategoryContentByLang(slug, lang);
@@ -200,7 +201,7 @@ function CategoryPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-5 py-12 md:px-6 md:py-16">
-      <nav aria-label="breadcrumb" className="mb-8 text-sm text-muted-foreground">
+      <nav aria-label="Drobečková navigace" className="mb-8 text-sm text-muted-foreground">
         <Link to={href("/")} className="hover:text-foreground">
           {T.product.crumbHome}
         </Link>
@@ -270,6 +271,15 @@ function CategoryPage() {
           />
         ) : null}
       </section>
+
+      {blogPosts.length > 0 ? (
+        <BlogPostRail
+          className="mx-auto mt-16 max-w-4xl"
+          title={T.blog.categoryPostsTitle}
+          posts={blogPosts}
+          showCategory={false}
+        />
+      ) : null}
 
       <section className="mx-auto mt-16 max-w-4xl">
         <h2 className="font-display text-3xl text-foreground md:text-4xl">{T.category.faqH}</h2>
