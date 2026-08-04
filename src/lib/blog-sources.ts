@@ -1,6 +1,12 @@
 /**
  * Whitelist of medical / health RSS sources for blog ingest.
- * Prefer ScienceDaily niche shelves (title-friendly) — WHO/CDC are mostly institutional PR.
+ *
+ * Prefer title-friendly niche feeds (ScienceDaily shelves, consumer CZ portals,
+ * specialty journal TOC). Skip empty / blocked sources:
+ * - MedlinePlus topic feeds → often 0 items; "what's new" is site chrome
+ * - NIH News / Research Matters → 403 to bots
+ * - PubMed New & Noteworthy → PubMed UI changelog, not papers
+ * - Ordinace.cz / Medical Tribune → bot-blocked or HTML landing pages
  */
 
 export type BlogRssSource = {
@@ -14,6 +20,7 @@ export type BlogRssSource = {
 };
 
 export const BLOG_RSS_SOURCES: BlogRssSource[] = [
+  // —— ScienceDaily niche shelves (high title → catalog hit rate) ——
   {
     id: "sciencedaily-health",
     name: "ScienceDaily — Health & Medicine",
@@ -43,11 +50,32 @@ export const BLOG_RSS_SOURCES: BlogRssSource[] = [
     maxItems: 10,
   },
   {
+    id: "sciencedaily-diet-weight",
+    name: "ScienceDaily — Diet & Weight Loss",
+    feedUrl: "https://www.sciencedaily.com/rss/health_medicine/diet_and_weight_loss.xml",
+    defaultCategorySlug: "hubnuti",
+    maxItems: 10,
+  },
+  {
+    id: "sciencedaily-fitness",
+    name: "ScienceDaily — Fitness",
+    feedUrl: "https://www.sciencedaily.com/rss/health_medicine/fitness.xml",
+    defaultCategorySlug: "hubnuti",
+    maxItems: 8,
+  },
+  {
     id: "sciencedaily-hypertension",
     name: "ScienceDaily — Hypertension",
     feedUrl: "https://www.sciencedaily.com/rss/health_medicine/hypertension.xml",
     defaultCategorySlug: "krevni-tlak",
     maxItems: 10,
+  },
+  {
+    id: "sciencedaily-cholesterol",
+    name: "ScienceDaily — Cholesterol",
+    feedUrl: "https://www.sciencedaily.com/rss/health_medicine/cholesterol.xml",
+    defaultCategorySlug: "krevni-tlak",
+    maxItems: 8,
   },
   {
     id: "sciencedaily-joint-pain",
@@ -69,6 +97,13 @@ export const BLOG_RSS_SOURCES: BlogRssSource[] = [
     feedUrl: "https://www.sciencedaily.com/rss/mind_brain/insomnia.xml",
     defaultCategorySlug: "stres",
     maxItems: 8,
+  },
+  {
+    id: "sciencedaily-stress",
+    name: "ScienceDaily — Stress",
+    feedUrl: "https://www.sciencedaily.com/rss/mind_brain/stress.xml",
+    defaultCategorySlug: "stres",
+    maxItems: 10,
   },
   {
     id: "sciencedaily-gi",
@@ -134,11 +169,87 @@ export const BLOG_RSS_SOURCES: BlogRssSource[] = [
     maxItems: 8,
   },
   {
+    id: "sciencedaily-healthy-aging",
+    name: "ScienceDaily — Healthy Aging",
+    feedUrl: "https://www.sciencedaily.com/rss/health_medicine/healthy_aging.xml",
+    defaultCategorySlug: "anti-aging",
+    maxItems: 8,
+  },
+
+  // —— Specialty journal TOC (paper titles often carry niche keywords) ——
+  {
+    id: "aha-hypertension",
+    name: "AHA Hypertension (eTOC)",
+    feedUrl: "https://www.ahajournals.org/action/showFeed?type=etoc&feed=rss&jc=hyp",
+    defaultCategorySlug: "krevni-tlak",
+    maxItems: 10,
+  },
+  {
+    id: "gastroenterology-toc",
+    name: "Gastroenterology (current)",
+    feedUrl: "https://www.gastrojournal.org/current.rss",
+    defaultCategorySlug: "traveni",
+    maxItems: 10,
+  },
+  {
+    id: "sciencedirect-diabetes-rcp",
+    name: "Diabetes Research and Clinical Practice",
+    feedUrl: "https://rss.sciencedirect.com/publication/science/01688227",
+    defaultCategorySlug: "cukrovka",
+    maxItems: 12,
+  },
+  {
+    id: "nejm-etoc",
+    name: "NEJM (eTOC)",
+    feedUrl: "https://www.nejm.org/action/showFeed?type=etoc&feed=rss&jc=nejm",
+    defaultCategorySlug: "prostata",
+    maxItems: 8,
+  },
+  {
+    id: "nature-medicine",
+    name: "Nature Medicine",
+    feedUrl: "https://www.nature.com/nm.rss",
+    defaultCategorySlug: "traveni",
+    maxItems: 6,
+  },
+
+  // —— Czech consumer / health portals ——
+  {
+    id: "zdrave-cz",
+    name: "Zdrave.cz",
+    feedUrl: "https://www.zdrave.cz/rss",
+    defaultCategorySlug: "stres",
+    maxItems: 12,
+  },
+  {
+    id: "vitalia-cz",
+    name: "Vitalia.cz",
+    feedUrl: "https://www.vitalia.cz/rss.xml",
+    defaultCategorySlug: "traveni",
+    maxItems: 10,
+  },
+  {
+    id: "ulekare-cz",
+    name: "uLekare.cz",
+    feedUrl: "https://www.ulekare.cz/rss",
+    defaultCategorySlug: "stres",
+    maxItems: 12,
+  },
+  {
+    id: "zdravotnicky-denik",
+    name: "Zdravotnický deník",
+    feedUrl: "https://zdravotnickydenik.cz/feed/",
+    defaultCategorySlug: "stres",
+    maxItems: 8,
+  },
+
+  // —— Institutional (low volume — title gate + noise filter) ——
+  {
     id: "cdc-newsroom",
     name: "CDC Newsroom",
     feedUrl: "https://tools.cdc.gov/api/v2/resources/media/132608.rss",
     defaultCategorySlug: "stres",
-    maxItems: 10,
+    maxItems: 8,
   },
   {
     id: "who-news",

@@ -46,7 +46,7 @@ const TARGET_PRODUCTS = 4;
 const BLOG_TOPIC_HINTS: Array<[RegExp, string]> = [
   [/alzheimer|dement|neurodegener|cognitive\s*impair|pam[eě]t/i, "stres"],
   [
-    /anxiety|depress|insomni|sleep\s*disorder|can[\u2019']?t\s*sleep|poor\s*sleep|burnout|úzkost|nespav|stres(?:u|em)?\b|circadian|jet\s*lag|cortisol|mindfulness/i,
+    /anxiety|depress|insomni|sleep\s*disorder|can[\u2019']?t\s*sleep|poor\s*sleep|burnout|úzkost|nespav|\bspán|\bspan(?:ek|ku|kem|ím)?\b|stres(?:u|em)?\b|circadian|jet\s*lag|cortisol|mindfulness/i,
     "stres",
   ],
   [
@@ -75,7 +75,7 @@ const BLOG_TOPIC_HINTS: Array<[RegExp, string]> = [
   [/smok(?:e|ing)|nicotin|tobacco|kouřen|kouren|cigaret|vaping|quit\s*smoking/i, "odvykani-koureni"],
   [/parasit|helminth|cyclospor|giardia|cryptospor|pinworm|roundworm|parazit/i, "paraziti"],
   [/hemorrhoid|proctolog|hemoroid/i, "hemoroidy"],
-  [/varicose|\bžilní|\bzilni|křečov|krecov|spider\s*vein/i, "krecove-zily"],
+  [/varicose|\bžilní|\bzilni|křečov|krecov|spider\s*vein|otok(?:y|l[éeý])?|otékl|otekl|lymf/i, "krecove-zily"],
   [
     /\banti-?ag(?:e|ing)\b|wrinkle|\bkolagen\b|\bcollagen\b|skin\s*aging|longevity|senescence/i,
     "anti-aging",
@@ -88,7 +88,7 @@ const BLOG_TOPIC_HINTS: Array<[RegExp, string]> = [
 
 /** Diplomacy / funding / institutional PR — never map to a supplement shelf. */
 const INSTITUTIONAL_NOISE =
-  /director-general|\bvisits?\b|paying tribute|certified .{0,40}free|notification of withdrawal|united states|geopolit|obituar|in memoriam|appoints?\b|statement on notification|strategic partnership|renew.{0,40}partner|african union|world health day|health systems?|eib global|fifa|world cup|hospital[- ]acquired|healthcare[- ]associated|hai\b|press briefing|memorandum of understanding|\bmou\b|funding|philanthrop|public health across|strengthen(?:ing)?\s+public\s+health|outbreak\s+response\s+readiness|policy\s+brief/i;
+  /director-general|\bvisits?\b|paying tribute|certified .{0,40}free|notification of withdrawal|united states|geopolit|obituar|in memoriam|appoints?\b|statement on notification|strategic partnership|renew.{0,40}partner|african union|world health day|health systems?|eib global|fifa|world cup|hospital[- ]acquired|healthcare[- ]associated|hai\b|press briefing|memorandum of understanding|\bmou\b|funding|philanthrop|public health across|strengthen(?:ing)?\s+public\s+health|outbreak\s+response\s+readiness|policy\s+brief|\(z\/m\)|odborný pracovník|přírodovědní analytik|volná místa|hledáme posilu|převest lékařskou praxi|pravní rámec/i;
 
 function matchTopicHint(text: string): string | null {
   for (const [re, slug] of BLOG_TOPIC_HINTS) {
