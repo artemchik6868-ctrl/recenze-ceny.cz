@@ -45,30 +45,45 @@ const TARGET_PRODUCTS = 4;
  */
 const BLOG_TOPIC_HINTS: Array<[RegExp, string]> = [
   [/alzheimer|dement|neurodegener|cognitive\s*impair|pam[eě]t/i, "stres"],
-  [/anxiety|depress|insomni|sleep\s*disorder|can[\u2019']?t\s*sleep|poor\s*sleep|burnout|úzkost|nespav|stres(?:u|em)?\b/i, "stres"],
-  [/diabet|blood\s*sugar|gluk[oó]z|cukrov|hypoglyc|insulin/i, "cukrovka"],
-  [/hypertens|blood\s*pressure|krevn[ií]\s*tlak/i, "krevni-tlak"],
-  [/\bjoints?\b|arthritis|osteoarthr|\bkloub/i, "klouby"],
+  [
+    /anxiety|depress|insomni|sleep\s*disorder|can[\u2019']?t\s*sleep|poor\s*sleep|burnout|úzkost|nespav|stres(?:u|em)?\b|circadian|jet\s*lag|cortisol|mindfulness/i,
+    "stres",
+  ],
+  [
+    /diabet|prediabetes|blood\s*sugar|gluk[oó]z|cukrov|hypoglyc|insulin|\ba1c\b|hba1c|type\s*2\s*diabetes/i,
+    "cukrovka",
+  ],
+  [/hypertens|blood\s*pressure|krevn[ií]\s*tlak|systolic|diastolic/i, "krevni-tlak"],
+  [/\bjoints?\b|arthritis|osteoarthr|cartilage|knee\s*pain|\bkloub/i, "klouby"],
   [/prostat/i, "prostata"],
-  [/weight\s*loss|lost\s*weight|obesit|hubnut|\bbmi\b|belly\s*fat|bariatric/i, "hubnuti"],
-  [/digestive|gut\s*microbiom|irritable\s*bowel|\bibs\b|intestin|žalud|zalud|střev|strev|tráven|traven|constipation|zácpa|zacpa|e\.?\s*coli|foodborne|salmonella/i, "traveni"],
-  [/\bliver\b|játr|jatr|hepatit/i, "jatra"],
-  [/\bkidney\b|ledvin|renal\s*fail/i, "ledviny"],
-  [/eyesight|retinopathy|glaucoma|cataract|\bzrak\b|oční|ocni|macular/i, "zrak"],
-  [/hearing\s*loss|tinnit|\bsluch\b/i, "sluch"],
+  [
+    /weight\s*loss|lost\s*weight|obesit|overweight|hubnut|\bbmi\b|belly\s*fat|visceral\s*fat|bariatric|metabol(?:ic)?\s*syndrome|kalori|calorie\s*restrict/i,
+    "hubnuti",
+  ],
+  [
+    /digestive|gut\s*microbiom|microbiome|irritable\s*bowel|\bibs\b|intestin|probiotic|bloating|reflux|žalud|zalud|střev|strev|tráven|traven|constipation|zácpa|zacpa|e\.?\s*coli|foodborne|salmonella/i,
+    "traveni",
+  ],
+  [/\bliver\b|játr|jatr|hepatit|fatty\s*liver|nash\b|nafld/i, "jatra"],
+  [/\bkidney\b|ledvin|renal\s*fail|chronic\s*kidney/i, "ledviny"],
+  [/eyesight|retinopathy|glaucoma|cataract|macular|\bzrak\b|oční|ocni/i, "zrak"],
+  [/hearing\s*loss|tinnit|\bsluch\b|age[- ]related\s*hearing/i, "sluch"],
   [
     /menopaus|endometri|\bpcos\b|pregnan|breastfeeding|žensk(?:é|e)\s*zdrav|women'?s\s*health/i,
     "zdravi-zen",
   ],
-  [/smok(?:e|ing)|nicotin|tobacco|kouřen|kouren|cigaret|vaping/i, "odvykani-koureni"],
+  [/smok(?:e|ing)|nicotin|tobacco|kouřen|kouren|cigaret|vaping|quit\s*smoking/i, "odvykani-koureni"],
   [/parasit|helminth|cyclospor|giardia|cryptospor|pinworm|roundworm|parazit/i, "paraziti"],
   [/hemorrhoid|proctolog|hemoroid/i, "hemoroidy"],
-  [/varicose|\bžilní|\bzilni|křečov|krecov/i, "krecove-zily"],
-  [/\banti-?ag(?:e|ing)\b|wrinkle|\bkolagen\b|\bcollagen\b|skin\s*aging/i, "anti-aging"],
-  [/cystitis|urinary\s*tract|\buti\b|močov|mocov|zánět\s*moč/i, "cystitida"],
-  [/erectile|libido|impoten|potenc/i, "potence"],
-  [/papilloma|wart\b|bradavic|papilom/i, "papilomy"],
-  [/nail\s*fungus|onychomyc|plís[eě]n\s*neht|plisen\s*neht/i, "plisen-nehtu"],
+  [/varicose|\bžilní|\bzilni|křečov|krecov|spider\s*vein/i, "krecove-zily"],
+  [
+    /\banti-?ag(?:e|ing)\b|wrinkle|\bkolagen\b|\bcollagen\b|skin\s*aging|longevity|senescence/i,
+    "anti-aging",
+  ],
+  [/cystitis|urinary\s*tract|\buti\b|močov|mocov|zánět\s*moč|bladder\s*infection/i, "cystitida"],
+  [/erectile|\bed\b|libido|impoten|potenc|testosterone\s*deficien/i, "potence"],
+  [/papilloma|wart\b|bradavic|papilom|hpv\b/i, "papilomy"],
+  [/nail\s*fungus|onychomyc|plís[eě]n\s*neht|plisen\s*neht|toenail\s*fung/i, "plisen-nehtu"],
 ];
 
 /** Diplomacy / funding / institutional PR — never map to a supplement shelf. */
