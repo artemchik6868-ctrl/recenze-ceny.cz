@@ -2,7 +2,7 @@
 
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { getBlogPostData, type BlogPostData } from "@/lib/blog.functions";
-import { blogPath, splitBlogBody, truncateBlogLabel } from "@/lib/blog";
+import { blogPath, blogSourceDisplayName, splitBlogBody, truncateBlogLabel } from "@/lib/blog";
 import { sanitizeBlogHtml } from "@/lib/blog-html";
 import { useI18n, getI18n } from "@/lib/i18n";
 import { useHref } from "@/lib/lang-link";
@@ -143,6 +143,7 @@ function BlogPostPage() {
   const date = formatDate(post.publishedAt);
   const catName = categoryDisplayName(post.categorySlug);
   const catHref = categoryPath(post.categorySlug);
+  const sourceLabel = blogSourceDisplayName(post.coverCredit || post.sourceName);
   const { before, after } = splitBlogBody(sanitizeBlogHtml(post.bodyHtml));
   const pricedOffers = offers
     .filter((o) => o.priceEUR == null || o.priceEUR > 0)
@@ -192,9 +193,9 @@ function BlogPostPage() {
               decoding="async"
               referrerPolicy="no-referrer"
             />
-            {post.coverCredit || post.sourceName ? (
+            {sourceLabel ? (
               <figcaption className="mt-2 text-xs text-muted-foreground">
-                {post.coverCredit || post.sourceName}
+                {T.blog.sourceLabel}: {sourceLabel}
               </figcaption>
             ) : null}
           </figure>
@@ -260,12 +261,12 @@ function BlogPostPage() {
           </Link>
         </aside>
 
-        {(post.sourceName || post.coverCredit) && (
+        {sourceLabel ? (
           <p className="mt-10 text-sm text-muted-foreground">
             <span className="font-medium text-foreground">{T.blog.sourceLabel}: </span>
-            {post.sourceName || post.coverCredit}
+            {sourceLabel}
           </p>
-        )}
+        ) : null}
     </main>
   );
 }

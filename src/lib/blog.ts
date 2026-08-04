@@ -60,6 +60,17 @@ export function blogPath(slug?: string): string {
   return `${BLOG_PATH}/${slug}`;
 }
 
+/**
+ * Public source label for captions / footer.
+ * RSS niche shelves ("ScienceDaily — Diet & Weight Loss") collapse to the outlet name.
+ */
+export function blogSourceDisplayName(raw: string | null | undefined): string {
+  const s = String(raw ?? "").trim();
+  if (!s) return "";
+  const brand = s.split(/\s+[—–]\s+/)[0]?.trim() || s;
+  return brand.replace(/\s*\([^)]*\)\s*$/, "").trim() || s;
+}
+
 const CS_DIACRITICS: Record<string, string> = {
   á: "a",
   ä: "a",

@@ -8,6 +8,7 @@ import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import {
   BLOG_PRODUCTS_MARKER,
   blogSlugFromTitle,
+  blogSourceDisplayName,
   ensureBlogProductsMarker,
   offerProductKey,
   type BlogFaqItem,
@@ -657,9 +658,10 @@ export async function runBlogIngest(opts: BlogIngestOptions = {}): Promise<BlogI
         continue;
       }
 
+      const sourceDisplay = blogSourceDisplayName(item.source.name);
       const rewritten = await rewriteWithLlm({
         title: item.title,
-        sourceName: item.source.name,
+        sourceName: sourceDisplay,
         sourceUrl: item.link,
         text: articleText,
         shelfChoices,
@@ -693,7 +695,7 @@ export async function runBlogIngest(opts: BlogIngestOptions = {}): Promise<BlogI
 
       const coverPath =
         imageUrl && /^https?:\/\//i.test(imageUrl) ? imageUrl.trim() : null;
-      const coverCredit = coverPath ? item.source.name : null;
+      const coverCredit = coverPath ? sourceDisplay : null;
 
       const publishedAt = status === "published" ? new Date().toISOString() : null;
 
@@ -717,7 +719,7 @@ export async function runBlogIngest(opts: BlogIngestOptions = {}): Promise<BlogI
         cover_image_path: coverPath,
         cover_credit: coverCredit,
         source_url: item.link,
-        source_name: item.source.name,
+        source_name: sourceDisplay,
         product_ids: productIds,
         faq: rewritten.faq,
         status,
