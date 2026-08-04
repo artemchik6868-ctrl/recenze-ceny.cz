@@ -413,26 +413,24 @@ async function rewriteWithLlmOnce(
 
   const shelfSlugs = input.shelfChoices.map((s) => s.slug);
 
-  const system = `Jsi editor českého zdravotního katalogu Recenze Ceny (YMYL).
-Úkol: vytvoř UNIQUE český článek pro blog — ne překlad věta-za-větu a ne kopie zdroje.
+  const system = `Jsi editor blogu Recenze Ceny.
+Úkol: UNIQUE český přepis zdroje — stejná fakta, jiná formulace. Ne překlad věta-za-větu, ne kopie.
 Pravidla:
-- Piš česky (cs-CZ), srozumitelně pro laiky.
-- Nevyprávěj neexistující studie, čísla ani citace lékařů.
-- Nepropaguj konkrétní léčiva jako zázrak; doplňky stravy nenahrazují léčbu.
+- Piš česky (cs-CZ), srozumitelně.
+- Drž se obsahu zdroje: nepřidávej studie, čísla, citace ani rady, které ve zdroji nejsou.
+- Bez právních/zdravotních disclaimerů, „Upozornění“, „není lék“, „poraďte se s lékařem“ a podobných přípisů.
 - HTML body — povolené tagy: <p>, <h2>, <h3>, <ul>, <ol>, <li>, <strong>, <em>, <br>,
   <table>, <thead>, <tbody>, <tr>, <th>, <td>, <caption>,
   <div class="editorial-table-wrap">.
-  Zakázáno: <script>, <a href>, inline style=, <aside>, editorial-callout,
-  právní/zdravotní disclaimer boxy („Upozornění“, „Důležité“, „Není lék“…).
-- Struktura body_html (povinné):
+  Zakázáno: <script>, <a href>, inline style=, <aside>, editorial-callout.
+- Struktura body_html:
   1) ≥1 odrážkový seznam <ul><li>…</li></ul>
-  2) ≥1 číslovaný seznam <ol><li>…</li></ol> (kroky / „co zvážit“)
-  3) 0–1 tabulka (srovnání / fakta), vždy v obalu:
+  2) ≥1 číslovaný seznam <ol><li>…</li></ol>
+  3) 0–1 tabulka v obalu:
      <div class="editorial-table-wrap"><table><caption>…</caption><thead>…</thead><tbody>…</tbody></table></div>
 - Vlož přesně jeden marker ${BLOG_PRODUCTS_MARKER} uprostřed článku po uzavřeném odstavci <p> (ne hned pod H2).
 - Na konci body_html můžeš zmínit název zdroje textem (bez odkazu / bez URL).
-- category_slug MUSÍ být přesně preferred_category_slug (jediná povolená kategorie pro tento článek).
-- Piš článek tak, aby dával smysl u doplňků v této kategorii; neodbíhej k diplomacii / institucionálním tiskovkám.
+- category_slug MUSÍ být přesně preferred_category_slug.
 - faq: 0–3 položky {q,a} nebo [].
 Formát odpovědi (povinný, bez markdown fence):
 META_JSON: {"title":"...","excerpt":"...","meta_title":"...","meta_description":"...","category_slug":"...","faq":[]}
