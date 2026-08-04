@@ -57,7 +57,7 @@ const BLOG_TOPIC_HINTS: Array<[RegExp, string]> = [
   [/\bjoints?\b|arthritis|osteoarthr|cartilage|knee\s*pain|\bkloub/i, "klouby"],
   [/prostat/i, "prostata"],
   [
-    /weight\s*loss|lost\s*weight|obesit|overweight|hubnut|\bbmi\b|belly\s*fat|visceral\s*fat|bariatric|metabol(?:ic)?\s*syndrome|kalori|calorie\s*restrict/i,
+    /weight\s*loss|lost\s*weight|lose\s*fat|losing\s*fat|body\s*fat|obesit|overweight|hubnut|\bbmi\b|belly\s*fat|visceral\s*fat|bariatric|metabol(?:ic)?\s*syndrome|kalori|calorie\s*restrict|longevity\s*diet/i,
     "hubnuti",
   ],
   [
@@ -99,11 +99,25 @@ function matchTopicHint(text: string): string | null {
   return null;
 }
 
+/** Diet / weight cues — longevity alone is anti-aging, but not with these. */
+const LONGEVITY_DIET_WEIGHT =
+  /\bdiet\b|weight|lose\s*fat|losing\s*fat|body\s*fat|obesit|overweight|calorie|hubnut|bariatric/i;
+
 /** Strict niche gate: TITLE must carry the catalog topic. Body-only hits are rejected. */
 function hintShelfFromText(title: string, _text: string): string | null {
   const t = title.trim();
   if (!t || INSTITUTIONAL_NOISE.test(t)) return null;
-  return matchTopicHint(t);
+  const shelf = matchTopicHint(t);
+  // Bare "longevity" → anti-aging, but longevity + diet/weight → hubnuti.
+  if (
+    shelf === "anti-aging" &&
+    /\blongevity\b/i.test(t) &&
+    LONGEVITY_DIET_WEIGHT.test(t)
+  ) {
+    const hub = validateShelfSlug("hubnuti");
+    if (hub && isSupplementCategory(hub)) return hub;
+  }
+  return shelf;
 }
 
 /** Supplement shelves that currently have enough indexable offers for a product block. */
