@@ -38,6 +38,7 @@
     "uptime:probe": "node scripts/uptime-probe.mjs",
     "notify:telegram": "node scripts/notify-telegram.mjs",
     "ops:telegram-digest": "node scripts/ops-telegram-digest.mjs",
+    "blog:ingest": "node --import ./scripts/win-fetch-proxy.mjs ./node_modules/tsx/dist/cli.mjs scripts/blog-ingest.ts",
     "smoke:home-hydration": "node scripts/smoke-home-hydration.mjs",
     "test:brand-clean-cz": "npx tsx scripts/test-brand-clean-cz.mjs",
     "test:seo-meta-cz": "npx tsx scripts/test-seo-meta-cz.mjs",

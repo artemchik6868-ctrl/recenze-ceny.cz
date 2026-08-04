@@ -15,6 +15,7 @@ export const T = {
     faq: "Nápověda",
     contact: "Kontakt",
     services: "Služby",
+    blog: "Články",
   },
   badges: {
     cod: "Platba na dobírku",
@@ -105,6 +106,7 @@ export const T = {
       { t: "Kurýr 2–5 dnů", b: "Expresní doručení domů po celé republice." },
     ],
     faqH: "Než objednáte",
+    faqKicker: "Otázky",
     faqViewAll: "Všechny otázky a odpovědi →",
     faq: [
       {
@@ -215,6 +217,7 @@ export const T = {
     youMayLike: "Mohlo by se vám líbit",
     aboutThis: "Informace o produktu",
     faqH: "Často kladené otázky",
+    faqKicker: "Otázky",
     urgencyToday: "Objednejte ještě dnes — zavoláme vám do 15 minut",
     deliveryEtaPrefix: "Objednejte ještě dnes — doručení",
     deliveryEtaShort: (date: string) => `🚚 Doručení do ${date}`,
@@ -404,6 +407,46 @@ export const T = {
     compareH: "Jak porovnat produkty v katalogu",
     compareP: (name: string) =>
       `V kategorii „${name}“ porovnávejte formu (kapsle, gel, přístroj), složení, délku kúry a cenu za dávku — ne jen propagační balení.`,
+  },
+  blog: {
+    breadcrumb: "Články",
+    navLabel: "Články",
+    indexTitle: (site: string) => `Články o zdraví a produktech — ${site}`,
+    indexDesc:
+      "Srozumitelné články o zdraví a doplňcích stravy: kontext k kategoriím katalogu, tipy a odkazy na ověřené produkty s doručením po České republice.",
+    indexH1: "Články",
+    indexLead:
+      "Krátké texty k tématům, která se prolínají s našimi kategoriemi — s odkazy na průvodce a produkty v katalogu.",
+    empty: "Zatím tu nejsou žádné publikované články.",
+    relatedCategory: "Související kategorie",
+    relatedCategoryLead: (name: string) =>
+      `Porovnejte doplňky v kategorii „${name}“ — forma, cena a doručení po České republice.`,
+    relatedCategoryCta: (name: string) => `Prohlédnout kategorii ${name}`,
+    productsTitle: "Produkty z katalogu",
+    productsLead:
+      "Výběr položek z katalogu k tématu článku — srovnejte formu, cenu a popis před objednávkou.",
+    productsTrust: "Dobírka · 2–5 dní · 14 dní na vrácení",
+    productsAllInCategory: (name: string) => `Všechny produkty: ${name}`,
+    softCtaProducts: (name: string) => `Produkty v kategorii ${name}`,
+    softCtaGuide: "Jak vybrat",
+    midCtaEyebrow: "Katalog · Dobírka",
+    midCtaTitle: (name: string) =>
+      `Připravené produkty pro „${name}“ — vyberte v našem katalogu`,
+    midCtaLead:
+      "Porovnejte formu a cenu, objednávku potvrdíme telefonicky. Platíte až při převzetí — doručení po celé ČR.",
+    midCtaButton: "Ukázat výběr",
+    midCtaCategoryLink: (name: string) => `Celá kategorie ${name}`,
+    stickyCompare: (n: number) => `Porovnat ${n} produktů`,
+    stickyCategory: "Kategorie",
+    faqTitle: "Časté otázky",
+    sourceLabel: "Zdroj",
+    publishedLabel: "Publikováno",
+    disclaimer:
+      "Článek slouží pouze k informaci a nenahrazuje lékařskou péči. Před užíváním doplňků stravy se poraďte se svým lékařem.",
+    expertLink: "O lékařském poradci",
+    expertStripLead: "Odborný rámec obsahu katalogu",
+    readMore: "Číst článek",
+    pageTitle: (title: string, site: string) => `${title} — ${site}`,
   },
   medicalExpert: {
     breadcrumb: "Lékařský poradce",
@@ -865,7 +908,7 @@ export const T = {
     categoriesKicker: "Katalog",
     productsKicker: "Výběr",
     faqH: "Často kladené otázky",
-    faqKicker: "FAQ",
+    faqKicker: "Otázky",
     siblingsH: "Další města",
     etaKicker: "Pravidla doručení",
     ctaCategories: "Prohlédnout kategorie",
@@ -890,6 +933,7 @@ export const T = {
     sitemap: "Mapa webu",
     medicalExpert: "Lékařský poradce",
     services: "Užitečné služby",
+    blog: "Články",
     payment: "Platba",
     returns: "Vrácení",
     privacy: "Ochrana osobních údajů",

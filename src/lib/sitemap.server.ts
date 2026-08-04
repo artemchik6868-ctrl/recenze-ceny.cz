@@ -3,9 +3,10 @@
  */
 import { loadOffers } from "@/lib/offers.server";
 import { isProductIndexable } from "@/lib/index-policy";
-import { SITE, GUIDE_PATH, SERVICES_PATH } from "@/lib/site";
+import { SITE, GUIDE_PATH, SERVICES_PATH, BLOG_PATH } from "@/lib/site";
 import { CITIES, cityPath } from "@/lib/cities.cs";
 import { canonicalCategorySlug, categoryPath } from "@/lib/category-path";
+import { listPublishedBlogSitemapEntries } from "@/lib/blog.server";
 
 export type SitemapEntry = {
   path: string;
@@ -51,6 +52,7 @@ export function staticSitemapEntries(): SitemapEntry[] {
     { path: `${SERVICES_PATH}/kaloricka-kalkulacka`, changefreq: "monthly", priority: "0.6" },
     { path: `${SERVICES_PATH}/personalni-pomocnik`, changefreq: "monthly", priority: "0.6" },
     { path: `${SERVICES_PATH}/vodni-bilance`, changefreq: "monthly", priority: "0.6" },
+    { path: BLOG_PATH, changefreq: "daily", priority: "0.75" },
     { path: "/privacy", changefreq: "yearly", priority: "0.3" },
     { path: "/terms", changefreq: "yearly", priority: "0.3" },
   ];
@@ -101,7 +103,14 @@ export async function buildSitemapEntries(): Promise<SitemapEntry[]> {
     changefreq: "weekly",
     priority: "0.75",
   }));
-  return [...staticEntries, ...categories, ...guides, ...products];
+  const blogRows = await listPublishedBlogSitemapEntries().catch(() => []);
+  const blogPosts: SitemapEntry[] = blogRows.map((row) => ({
+    path: row.path,
+    changefreq: "weekly",
+    priority: "0.65",
+    lastmod: formatLastmod(row.lastmod),
+  }));
+  return [...staticEntries, ...categories, ...guides, ...blogPosts, ...products];
 }
 
 export async function buildSitemapResponse(): Promise<Response> {

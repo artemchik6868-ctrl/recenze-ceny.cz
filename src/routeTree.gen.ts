@@ -9,94 +9,56 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as SplatRouteImport } from './routes/$'
-import { Route as AboutRouteImport } from './routes/about'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as FaqRouteImport } from './routes/faq'
-import { Route as MedicalExpertRouteImport } from './routes/medical-expert'
-import { Route as PaymentRouteImport } from './routes/payment'
-import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as ReturnsRouteImport } from './routes/returns'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as TermsRouteImport } from './routes/terms'
-import { Route as CatIndexRouteImport } from './routes/$cat.index'
-import { Route as CategoryBrandRouteImport } from './routes/$category.$brand'
-import { Route as CategoryIndexRouteImport } from './routes/category.index'
-import { Route as CategorySlugRouteImport } from './routes/category.$slug'
-import { Route as DeliveryIndexRouteImport } from './routes/delivery.index'
-import { Route as DeliverySlugRouteImport } from './routes/delivery.$slug'
-import { Route as GhidSlugRouteImport } from './routes/ghid.$slug'
-import { Route as ProductIndexRouteImport } from './routes/product.index'
-import { Route as ProductSlugRouteImport } from './routes/product.$slug'
-import { Route as PruvodceSlugRouteImport } from './routes/pruvodce.$slug'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ReturnsRouteImport } from './routes/returns'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as PaymentRouteImport } from './routes/payment'
+import { Route as MedicalExpertRouteImport } from './routes/medical-expert'
+import { Route as FaqRouteImport } from './routes/faq'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as SplatRouteImport } from './routes/$'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as SluzbyIndexRouteImport } from './routes/sluzby.index'
-import { Route as SluzbyKalorickaKalkulackaRouteImport } from './routes/sluzby.kaloricka-kalkulacka'
-import { Route as SluzbyPersonalniPomocnikRouteImport } from './routes/sluzby.personalni-pomocnik'
+import { Route as ProductIndexRouteImport } from './routes/product.index'
+import { Route as DeliveryIndexRouteImport } from './routes/delivery.index'
+import { Route as ClankyIndexRouteImport } from './routes/clanky.index'
+import { Route as CategoryIndexRouteImport } from './routes/category.index'
+import { Route as CatIndexRouteImport } from './routes/$cat.index'
 import { Route as SluzbyVodniBilanceRouteImport } from './routes/sluzby.vodni-bilance'
+import { Route as SluzbyPersonalniPomocnikRouteImport } from './routes/sluzby.personalni-pomocnik'
+import { Route as SluzbyKalorickaKalkulackaRouteImport } from './routes/sluzby.kaloricka-kalkulacka'
+import { Route as PruvodceSlugRouteImport } from './routes/pruvodce.$slug'
+import { Route as ProductSlugRouteImport } from './routes/product.$slug'
+import { Route as GhidSlugRouteImport } from './routes/ghid.$slug'
+import { Route as DeliverySlugRouteImport } from './routes/delivery.$slug'
+import { Route as ClankySlugRouteImport } from './routes/clanky.$slug'
+import { Route as CategorySlugRouteImport } from './routes/category.$slug'
+import { Route as CategoryBrandRouteImport } from './routes/$category.$brand'
 import { Route as ApiPublicHealthRouteImport } from './routes/api/public/health'
-import { Route as ApiPublicHooksBackfillContentRouteImport } from './routes/api/public/hooks/backfill-content'
-import { Route as ApiPublicHooksContentDrainRouteImport } from './routes/api/public/hooks/content-drain'
-import { Route as ApiPublicHooksImageFactsDrainRouteImport } from './routes/api/public/hooks/image-facts-drain'
-import { Route as ApiPublicHooksIndexingRetryRouteImport } from './routes/api/public/hooks/indexing-retry'
-import { Route as ApiPublicHooksLandingFactsDrainRouteImport } from './routes/api/public/hooks/landing-facts-drain'
-import { Route as ApiPublicHooksNotifyIndexersBackfillRouteImport } from './routes/api/public/hooks/notify-indexers-backfill'
-import { Route as ApiPublicHooksPipelineStatusRouteImport } from './routes/api/public/hooks/pipeline-status'
-import { Route as ApiPublicHooksSmokeImageFactsRouteImport } from './routes/api/public/hooks/smoke-image-facts'
-import { Route as ApiPublicHooksSmokeLandingFactsRouteImport } from './routes/api/public/hooks/smoke-landing-facts'
-import { Route as ApiPublicHooksSubmitSitemapRouteImport } from './routes/api/public/hooks/submit-sitemap'
-import { Route as ApiPublicHooksSyncAdcomboRouteImport } from './routes/api/public/hooks/sync-adcombo'
-import { Route as ApiPublicHooksSyncCpaTlRouteImport } from './routes/api/public/hooks/sync-cpa-tl'
-import { Route as ApiPublicHooksSyncCpagettiRouteImport } from './routes/api/public/hooks/sync-cpagetti'
-import { Route as ApiPublicHooksSyncDailyRouteImport } from './routes/api/public/hooks/sync-daily'
-import { Route as ApiPublicHooksSyncFeedsRouteImport } from './routes/api/public/hooks/sync-feeds'
-import { Route as ApiPublicHooksSyncKmaRouteImport } from './routes/api/public/hooks/sync-kma'
-import { Route as ApiPublicHooksSyncM1TopRouteImport } from './routes/api/public/hooks/sync-m1-top'
 import { Route as ApiPublicHooksSyncShakesRouteImport } from './routes/api/public/hooks/sync-shakes'
+import { Route as ApiPublicHooksSyncM1TopRouteImport } from './routes/api/public/hooks/sync-m1-top'
+import { Route as ApiPublicHooksSyncKmaRouteImport } from './routes/api/public/hooks/sync-kma'
+import { Route as ApiPublicHooksSyncFeedsRouteImport } from './routes/api/public/hooks/sync-feeds'
+import { Route as ApiPublicHooksSyncDailyRouteImport } from './routes/api/public/hooks/sync-daily'
+import { Route as ApiPublicHooksSyncCpagettiRouteImport } from './routes/api/public/hooks/sync-cpagetti'
+import { Route as ApiPublicHooksSyncCpaTlRouteImport } from './routes/api/public/hooks/sync-cpa-tl'
+import { Route as ApiPublicHooksSyncAdcomboRouteImport } from './routes/api/public/hooks/sync-adcombo'
+import { Route as ApiPublicHooksSubmitSitemapRouteImport } from './routes/api/public/hooks/submit-sitemap'
+import { Route as ApiPublicHooksSmokeLandingFactsRouteImport } from './routes/api/public/hooks/smoke-landing-facts'
+import { Route as ApiPublicHooksSmokeImageFactsRouteImport } from './routes/api/public/hooks/smoke-image-facts'
+import { Route as ApiPublicHooksPipelineStatusRouteImport } from './routes/api/public/hooks/pipeline-status'
+import { Route as ApiPublicHooksNotifyIndexersBackfillRouteImport } from './routes/api/public/hooks/notify-indexers-backfill'
+import { Route as ApiPublicHooksLandingFactsDrainRouteImport } from './routes/api/public/hooks/landing-facts-drain'
+import { Route as ApiPublicHooksIndexingRetryRouteImport } from './routes/api/public/hooks/indexing-retry'
+import { Route as ApiPublicHooksImageFactsDrainRouteImport } from './routes/api/public/hooks/image-facts-drain'
+import { Route as ApiPublicHooksContentDrainRouteImport } from './routes/api/public/hooks/content-drain'
+import { Route as ApiPublicHooksBackfillContentRouteImport } from './routes/api/public/hooks/backfill-content'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SplatRoute = SplatRouteImport.update({
-  id: '/$',
-  path: '/$',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FaqRoute = FaqRouteImport.update({
-  id: '/faq',
-  path: '/faq',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MedicalExpertRoute = MedicalExpertRouteImport.update({
-  id: '/medical-expert',
-  path: '/medical-expert',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PaymentRoute = PaymentRouteImport.update({
-  id: '/payment',
-  path: '/payment',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PrivacyRoute = PrivacyRouteImport.update({
-  id: '/privacy',
-  path: '/privacy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ReturnsRoute = ReturnsRouteImport.update({
-  id: '/returns',
-  path: '/returns',
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -104,59 +66,49 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TermsRoute = TermsRouteImport.update({
-  id: '/terms',
-  path: '/terms',
+const ReturnsRoute = ReturnsRouteImport.update({
+  id: '/returns',
+  path: '/returns',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CatIndexRoute = CatIndexRouteImport.update({
-  id: '/$cat/',
-  path: '/$cat/',
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CategoryBrandRoute = CategoryBrandRouteImport.update({
-  id: '/$category/$brand',
-  path: '/$category/$brand',
+const PaymentRoute = PaymentRouteImport.update({
+  id: '/payment',
+  path: '/payment',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CategoryIndexRoute = CategoryIndexRouteImport.update({
-  id: '/category/',
-  path: '/category/',
+const MedicalExpertRoute = MedicalExpertRouteImport.update({
+  id: '/medical-expert',
+  path: '/medical-expert',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CategorySlugRoute = CategorySlugRouteImport.update({
-  id: '/category/$slug',
-  path: '/category/$slug',
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DeliveryIndexRoute = DeliveryIndexRouteImport.update({
-  id: '/delivery/',
-  path: '/delivery/',
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DeliverySlugRoute = DeliverySlugRouteImport.update({
-  id: '/delivery/$slug',
-  path: '/delivery/$slug',
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const GhidSlugRoute = GhidSlugRouteImport.update({
-  id: '/ghid/$slug',
-  path: '/ghid/$slug',
+const SplatRoute = SplatRouteImport.update({
+  id: '/$',
+  path: '/$',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProductIndexRoute = ProductIndexRouteImport.update({
-  id: '/product/',
-  path: '/product/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProductSlugRoute = ProductSlugRouteImport.update({
-  id: '/product/$slug',
-  path: '/product/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PruvodceSlugRoute = PruvodceSlugRouteImport.update({
-  id: '/pruvodce/$slug',
-  path: '/pruvodce/$slug',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SluzbyIndexRoute = SluzbyIndexRouteImport.update({
@@ -164,21 +116,81 @@ const SluzbyIndexRoute = SluzbyIndexRouteImport.update({
   path: '/sluzby/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SluzbyKalorickaKalkulackaRoute =
-  SluzbyKalorickaKalkulackaRouteImport.update({
-    id: '/sluzby/kaloricka-kalkulacka',
-    path: '/sluzby/kaloricka-kalkulacka',
-    getParentRoute: () => rootRouteImport,
-  } as any)
+const ProductIndexRoute = ProductIndexRouteImport.update({
+  id: '/product/',
+  path: '/product/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DeliveryIndexRoute = DeliveryIndexRouteImport.update({
+  id: '/delivery/',
+  path: '/delivery/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClankyIndexRoute = ClankyIndexRouteImport.update({
+  id: '/clanky/',
+  path: '/clanky/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CategoryIndexRoute = CategoryIndexRouteImport.update({
+  id: '/category/',
+  path: '/category/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CatIndexRoute = CatIndexRouteImport.update({
+  id: '/$cat/',
+  path: '/$cat/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SluzbyVodniBilanceRoute = SluzbyVodniBilanceRouteImport.update({
+  id: '/sluzby/vodni-bilance',
+  path: '/sluzby/vodni-bilance',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SluzbyPersonalniPomocnikRoute =
   SluzbyPersonalniPomocnikRouteImport.update({
     id: '/sluzby/personalni-pomocnik',
     path: '/sluzby/personalni-pomocnik',
     getParentRoute: () => rootRouteImport,
   } as any)
-const SluzbyVodniBilanceRoute = SluzbyVodniBilanceRouteImport.update({
-  id: '/sluzby/vodni-bilance',
-  path: '/sluzby/vodni-bilance',
+const SluzbyKalorickaKalkulackaRoute =
+  SluzbyKalorickaKalkulackaRouteImport.update({
+    id: '/sluzby/kaloricka-kalkulacka',
+    path: '/sluzby/kaloricka-kalkulacka',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const PruvodceSlugRoute = PruvodceSlugRouteImport.update({
+  id: '/pruvodce/$slug',
+  path: '/pruvodce/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductSlugRoute = ProductSlugRouteImport.update({
+  id: '/product/$slug',
+  path: '/product/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GhidSlugRoute = GhidSlugRouteImport.update({
+  id: '/ghid/$slug',
+  path: '/ghid/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DeliverySlugRoute = DeliverySlugRouteImport.update({
+  id: '/delivery/$slug',
+  path: '/delivery/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClankySlugRoute = ClankySlugRouteImport.update({
+  id: '/clanky/$slug',
+  path: '/clanky/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CategorySlugRoute = CategorySlugRouteImport.update({
+  id: '/category/$slug',
+  path: '/category/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CategoryBrandRoute = CategoryBrandRouteImport.update({
+  id: '/$category/$brand',
+  path: '/$category/$brand',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicHealthRoute = ApiPublicHealthRouteImport.update({
@@ -186,75 +198,30 @@ const ApiPublicHealthRoute = ApiPublicHealthRouteImport.update({
   path: '/api/public/health',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPublicHooksBackfillContentRoute =
-  ApiPublicHooksBackfillContentRouteImport.update({
-    id: '/api/public/hooks/backfill-content',
-    path: '/api/public/hooks/backfill-content',
+const ApiPublicHooksSyncShakesRoute =
+  ApiPublicHooksSyncShakesRouteImport.update({
+    id: '/api/public/hooks/sync-shakes',
+    path: '/api/public/hooks/sync-shakes',
     getParentRoute: () => rootRouteImport,
   } as any)
-const ApiPublicHooksContentDrainRoute =
-  ApiPublicHooksContentDrainRouteImport.update({
-    id: '/api/public/hooks/content-drain',
-    path: '/api/public/hooks/content-drain',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPublicHooksImageFactsDrainRoute =
-  ApiPublicHooksImageFactsDrainRouteImport.update({
-    id: '/api/public/hooks/image-facts-drain',
-    path: '/api/public/hooks/image-facts-drain',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPublicHooksIndexingRetryRoute =
-  ApiPublicHooksIndexingRetryRouteImport.update({
-    id: '/api/public/hooks/indexing-retry',
-    path: '/api/public/hooks/indexing-retry',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPublicHooksLandingFactsDrainRoute =
-  ApiPublicHooksLandingFactsDrainRouteImport.update({
-    id: '/api/public/hooks/landing-facts-drain',
-    path: '/api/public/hooks/landing-facts-drain',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPublicHooksNotifyIndexersBackfillRoute =
-  ApiPublicHooksNotifyIndexersBackfillRouteImport.update({
-    id: '/api/public/hooks/notify-indexers-backfill',
-    path: '/api/public/hooks/notify-indexers-backfill',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPublicHooksPipelineStatusRoute =
-  ApiPublicHooksPipelineStatusRouteImport.update({
-    id: '/api/public/hooks/pipeline-status',
-    path: '/api/public/hooks/pipeline-status',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPublicHooksSmokeImageFactsRoute =
-  ApiPublicHooksSmokeImageFactsRouteImport.update({
-    id: '/api/public/hooks/smoke-image-facts',
-    path: '/api/public/hooks/smoke-image-facts',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPublicHooksSmokeLandingFactsRoute =
-  ApiPublicHooksSmokeLandingFactsRouteImport.update({
-    id: '/api/public/hooks/smoke-landing-facts',
-    path: '/api/public/hooks/smoke-landing-facts',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPublicHooksSubmitSitemapRoute =
-  ApiPublicHooksSubmitSitemapRouteImport.update({
-    id: '/api/public/hooks/submit-sitemap',
-    path: '/api/public/hooks/submit-sitemap',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPublicHooksSyncAdcomboRoute =
-  ApiPublicHooksSyncAdcomboRouteImport.update({
-    id: '/api/public/hooks/sync-adcombo',
-    path: '/api/public/hooks/sync-adcombo',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPublicHooksSyncCpaTlRoute = ApiPublicHooksSyncCpaTlRouteImport.update({
-  id: '/api/public/hooks/sync-cpa-tl',
-  path: '/api/public/hooks/sync-cpa-tl',
+const ApiPublicHooksSyncM1TopRoute = ApiPublicHooksSyncM1TopRouteImport.update({
+  id: '/api/public/hooks/sync-m1-top',
+  path: '/api/public/hooks/sync-m1-top',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicHooksSyncKmaRoute = ApiPublicHooksSyncKmaRouteImport.update({
+  id: '/api/public/hooks/sync-kma',
+  path: '/api/public/hooks/sync-kma',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicHooksSyncFeedsRoute = ApiPublicHooksSyncFeedsRouteImport.update({
+  id: '/api/public/hooks/sync-feeds',
+  path: '/api/public/hooks/sync-feeds',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicHooksSyncDailyRoute = ApiPublicHooksSyncDailyRouteImport.update({
+  id: '/api/public/hooks/sync-daily',
+  path: '/api/public/hooks/sync-daily',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicHooksSyncCpagettiRoute =
@@ -263,30 +230,75 @@ const ApiPublicHooksSyncCpagettiRoute =
     path: '/api/public/hooks/sync-cpagetti',
     getParentRoute: () => rootRouteImport,
   } as any)
-const ApiPublicHooksSyncDailyRoute = ApiPublicHooksSyncDailyRouteImport.update({
-  id: '/api/public/hooks/sync-daily',
-  path: '/api/public/hooks/sync-daily',
+const ApiPublicHooksSyncCpaTlRoute = ApiPublicHooksSyncCpaTlRouteImport.update({
+  id: '/api/public/hooks/sync-cpa-tl',
+  path: '/api/public/hooks/sync-cpa-tl',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPublicHooksSyncFeedsRoute = ApiPublicHooksSyncFeedsRouteImport.update({
-  id: '/api/public/hooks/sync-feeds',
-  path: '/api/public/hooks/sync-feeds',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiPublicHooksSyncKmaRoute = ApiPublicHooksSyncKmaRouteImport.update({
-  id: '/api/public/hooks/sync-kma',
-  path: '/api/public/hooks/sync-kma',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiPublicHooksSyncM1TopRoute = ApiPublicHooksSyncM1TopRouteImport.update({
-  id: '/api/public/hooks/sync-m1-top',
-  path: '/api/public/hooks/sync-m1-top',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiPublicHooksSyncShakesRoute =
-  ApiPublicHooksSyncShakesRouteImport.update({
-    id: '/api/public/hooks/sync-shakes',
-    path: '/api/public/hooks/sync-shakes',
+const ApiPublicHooksSyncAdcomboRoute =
+  ApiPublicHooksSyncAdcomboRouteImport.update({
+    id: '/api/public/hooks/sync-adcombo',
+    path: '/api/public/hooks/sync-adcombo',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicHooksSubmitSitemapRoute =
+  ApiPublicHooksSubmitSitemapRouteImport.update({
+    id: '/api/public/hooks/submit-sitemap',
+    path: '/api/public/hooks/submit-sitemap',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicHooksSmokeLandingFactsRoute =
+  ApiPublicHooksSmokeLandingFactsRouteImport.update({
+    id: '/api/public/hooks/smoke-landing-facts',
+    path: '/api/public/hooks/smoke-landing-facts',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicHooksSmokeImageFactsRoute =
+  ApiPublicHooksSmokeImageFactsRouteImport.update({
+    id: '/api/public/hooks/smoke-image-facts',
+    path: '/api/public/hooks/smoke-image-facts',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicHooksPipelineStatusRoute =
+  ApiPublicHooksPipelineStatusRouteImport.update({
+    id: '/api/public/hooks/pipeline-status',
+    path: '/api/public/hooks/pipeline-status',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicHooksNotifyIndexersBackfillRoute =
+  ApiPublicHooksNotifyIndexersBackfillRouteImport.update({
+    id: '/api/public/hooks/notify-indexers-backfill',
+    path: '/api/public/hooks/notify-indexers-backfill',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicHooksLandingFactsDrainRoute =
+  ApiPublicHooksLandingFactsDrainRouteImport.update({
+    id: '/api/public/hooks/landing-facts-drain',
+    path: '/api/public/hooks/landing-facts-drain',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicHooksIndexingRetryRoute =
+  ApiPublicHooksIndexingRetryRouteImport.update({
+    id: '/api/public/hooks/indexing-retry',
+    path: '/api/public/hooks/indexing-retry',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicHooksImageFactsDrainRoute =
+  ApiPublicHooksImageFactsDrainRouteImport.update({
+    id: '/api/public/hooks/image-facts-drain',
+    path: '/api/public/hooks/image-facts-drain',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicHooksContentDrainRoute =
+  ApiPublicHooksContentDrainRouteImport.update({
+    id: '/api/public/hooks/content-drain',
+    path: '/api/public/hooks/content-drain',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicHooksBackfillContentRoute =
+  ApiPublicHooksBackfillContentRouteImport.update({
+    id: '/api/public/hooks/backfill-content',
+    path: '/api/public/hooks/backfill-content',
     getParentRoute: () => rootRouteImport,
   } as any)
 
@@ -304,6 +316,7 @@ export interface FileRoutesByFullPath {
   '/terms': typeof TermsRoute
   '/$category/$brand': typeof CategoryBrandRoute
   '/category/$slug': typeof CategorySlugRoute
+  '/clanky/$slug': typeof ClankySlugRoute
   '/delivery/$slug': typeof DeliverySlugRoute
   '/ghid/$slug': typeof GhidSlugRoute
   '/product/$slug': typeof ProductSlugRoute
@@ -313,6 +326,7 @@ export interface FileRoutesByFullPath {
   '/sluzby/vodni-bilance': typeof SluzbyVodniBilanceRoute
   '/$cat/': typeof CatIndexRoute
   '/category/': typeof CategoryIndexRoute
+  '/clanky/': typeof ClankyIndexRoute
   '/delivery/': typeof DeliveryIndexRoute
   '/product/': typeof ProductIndexRoute
   '/sluzby/': typeof SluzbyIndexRoute
@@ -350,6 +364,7 @@ export interface FileRoutesByTo {
   '/terms': typeof TermsRoute
   '/$category/$brand': typeof CategoryBrandRoute
   '/category/$slug': typeof CategorySlugRoute
+  '/clanky/$slug': typeof ClankySlugRoute
   '/delivery/$slug': typeof DeliverySlugRoute
   '/ghid/$slug': typeof GhidSlugRoute
   '/product/$slug': typeof ProductSlugRoute
@@ -359,6 +374,7 @@ export interface FileRoutesByTo {
   '/sluzby/vodni-bilance': typeof SluzbyVodniBilanceRoute
   '/$cat': typeof CatIndexRoute
   '/category': typeof CategoryIndexRoute
+  '/clanky': typeof ClankyIndexRoute
   '/delivery': typeof DeliveryIndexRoute
   '/product': typeof ProductIndexRoute
   '/sluzby': typeof SluzbyIndexRoute
@@ -397,6 +413,7 @@ export interface FileRoutesById {
   '/terms': typeof TermsRoute
   '/$category/$brand': typeof CategoryBrandRoute
   '/category/$slug': typeof CategorySlugRoute
+  '/clanky/$slug': typeof ClankySlugRoute
   '/delivery/$slug': typeof DeliverySlugRoute
   '/ghid/$slug': typeof GhidSlugRoute
   '/product/$slug': typeof ProductSlugRoute
@@ -406,6 +423,7 @@ export interface FileRoutesById {
   '/sluzby/vodni-bilance': typeof SluzbyVodniBilanceRoute
   '/$cat/': typeof CatIndexRoute
   '/category/': typeof CategoryIndexRoute
+  '/clanky/': typeof ClankyIndexRoute
   '/delivery/': typeof DeliveryIndexRoute
   '/product/': typeof ProductIndexRoute
   '/sluzby/': typeof SluzbyIndexRoute
@@ -445,6 +463,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/$category/$brand'
     | '/category/$slug'
+    | '/clanky/$slug'
     | '/delivery/$slug'
     | '/ghid/$slug'
     | '/product/$slug'
@@ -454,6 +473,7 @@ export interface FileRouteTypes {
     | '/sluzby/vodni-bilance'
     | '/$cat/'
     | '/category/'
+    | '/clanky/'
     | '/delivery/'
     | '/product/'
     | '/sluzby/'
@@ -491,6 +511,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/$category/$brand'
     | '/category/$slug'
+    | '/clanky/$slug'
     | '/delivery/$slug'
     | '/ghid/$slug'
     | '/product/$slug'
@@ -500,6 +521,7 @@ export interface FileRouteTypes {
     | '/sluzby/vodni-bilance'
     | '/$cat'
     | '/category'
+    | '/clanky'
     | '/delivery'
     | '/product'
     | '/sluzby'
@@ -537,6 +559,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/$category/$brand'
     | '/category/$slug'
+    | '/clanky/$slug'
     | '/delivery/$slug'
     | '/ghid/$slug'
     | '/product/$slug'
@@ -546,6 +569,7 @@ export interface FileRouteTypes {
     | '/sluzby/vodni-bilance'
     | '/$cat/'
     | '/category/'
+    | '/clanky/'
     | '/delivery/'
     | '/product/'
     | '/sluzby/'
@@ -584,6 +608,7 @@ export interface RootRouteChildren {
   TermsRoute: typeof TermsRoute
   CategoryBrandRoute: typeof CategoryBrandRoute
   CategorySlugRoute: typeof CategorySlugRoute
+  ClankySlugRoute: typeof ClankySlugRoute
   DeliverySlugRoute: typeof DeliverySlugRoute
   GhidSlugRoute: typeof GhidSlugRoute
   ProductSlugRoute: typeof ProductSlugRoute
@@ -593,6 +618,7 @@ export interface RootRouteChildren {
   SluzbyVodniBilanceRoute: typeof SluzbyVodniBilanceRoute
   CatIndexRoute: typeof CatIndexRoute
   CategoryIndexRoute: typeof CategoryIndexRoute
+  ClankyIndexRoute: typeof ClankyIndexRoute
   DeliveryIndexRoute: typeof DeliveryIndexRoute
   ProductIndexRoute: typeof ProductIndexRoute
   SluzbyIndexRoute: typeof SluzbyIndexRoute
@@ -619,67 +645,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/$': {
-      id: '/$'
-      path: '/$'
-      fullPath: '/$'
-      preLoaderRoute: typeof SplatRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/faq': {
-      id: '/faq'
-      path: '/faq'
-      fullPath: '/faq'
-      preLoaderRoute: typeof FaqRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/medical-expert': {
-      id: '/medical-expert'
-      path: '/medical-expert'
-      fullPath: '/medical-expert'
-      preLoaderRoute: typeof MedicalExpertRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/payment': {
-      id: '/payment'
-      path: '/payment'
-      fullPath: '/payment'
-      preLoaderRoute: typeof PaymentRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/privacy': {
-      id: '/privacy'
-      path: '/privacy'
-      fullPath: '/privacy'
-      preLoaderRoute: typeof PrivacyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/returns': {
-      id: '/returns'
-      path: '/returns'
-      fullPath: '/returns'
-      preLoaderRoute: typeof ReturnsRouteImport
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -689,81 +659,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/terms': {
-      id: '/terms'
-      path: '/terms'
-      fullPath: '/terms'
-      preLoaderRoute: typeof TermsRouteImport
+    '/returns': {
+      id: '/returns'
+      path: '/returns'
+      fullPath: '/returns'
+      preLoaderRoute: typeof ReturnsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/$cat/': {
-      id: '/$cat/'
-      path: '/$cat'
-      fullPath: '/$cat/'
-      preLoaderRoute: typeof CatIndexRouteImport
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/$category/$brand': {
-      id: '/$category/$brand'
-      path: '/$category/$brand'
-      fullPath: '/$category/$brand'
-      preLoaderRoute: typeof CategoryBrandRouteImport
+    '/payment': {
+      id: '/payment'
+      path: '/payment'
+      fullPath: '/payment'
+      preLoaderRoute: typeof PaymentRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/category/': {
-      id: '/category/'
-      path: '/category'
-      fullPath: '/category/'
-      preLoaderRoute: typeof CategoryIndexRouteImport
+    '/medical-expert': {
+      id: '/medical-expert'
+      path: '/medical-expert'
+      fullPath: '/medical-expert'
+      preLoaderRoute: typeof MedicalExpertRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/category/$slug': {
-      id: '/category/$slug'
-      path: '/category/$slug'
-      fullPath: '/category/$slug'
-      preLoaderRoute: typeof CategorySlugRouteImport
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/delivery/': {
-      id: '/delivery/'
-      path: '/delivery'
-      fullPath: '/delivery/'
-      preLoaderRoute: typeof DeliveryIndexRouteImport
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/delivery/$slug': {
-      id: '/delivery/$slug'
-      path: '/delivery/$slug'
-      fullPath: '/delivery/$slug'
-      preLoaderRoute: typeof DeliverySlugRouteImport
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/ghid/$slug': {
-      id: '/ghid/$slug'
-      path: '/ghid/$slug'
-      fullPath: '/ghid/$slug'
-      preLoaderRoute: typeof GhidSlugRouteImport
+    '/$': {
+      id: '/$'
+      path: '/$'
+      fullPath: '/$'
+      preLoaderRoute: typeof SplatRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/product/': {
-      id: '/product/'
-      path: '/product'
-      fullPath: '/product/'
-      preLoaderRoute: typeof ProductIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/product/$slug': {
-      id: '/product/$slug'
-      path: '/product/$slug'
-      fullPath: '/product/$slug'
-      preLoaderRoute: typeof ProductSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/pruvodce/$slug': {
-      id: '/pruvodce/$slug'
-      path: '/pruvodce/$slug'
-      fullPath: '/pruvodce/$slug'
-      preLoaderRoute: typeof PruvodceSlugRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sluzby/': {
@@ -773,18 +729,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SluzbyIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/sluzby/kaloricka-kalkulacka': {
-      id: '/sluzby/kaloricka-kalkulacka'
-      path: '/sluzby/kaloricka-kalkulacka'
-      fullPath: '/sluzby/kaloricka-kalkulacka'
-      preLoaderRoute: typeof SluzbyKalorickaKalkulackaRouteImport
+    '/product/': {
+      id: '/product/'
+      path: '/product'
+      fullPath: '/product/'
+      preLoaderRoute: typeof ProductIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/sluzby/personalni-pomocnik': {
-      id: '/sluzby/personalni-pomocnik'
-      path: '/sluzby/personalni-pomocnik'
-      fullPath: '/sluzby/personalni-pomocnik'
-      preLoaderRoute: typeof SluzbyPersonalniPomocnikRouteImport
+    '/delivery/': {
+      id: '/delivery/'
+      path: '/delivery'
+      fullPath: '/delivery/'
+      preLoaderRoute: typeof DeliveryIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/clanky/': {
+      id: '/clanky/'
+      path: '/clanky'
+      fullPath: '/clanky/'
+      preLoaderRoute: typeof ClankyIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/category/': {
+      id: '/category/'
+      path: '/category'
+      fullPath: '/category/'
+      preLoaderRoute: typeof CategoryIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$cat/': {
+      id: '/$cat/'
+      path: '/$cat'
+      fullPath: '/$cat/'
+      preLoaderRoute: typeof CatIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sluzby/vodni-bilance': {
@@ -794,6 +771,69 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SluzbyVodniBilanceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sluzby/personalni-pomocnik': {
+      id: '/sluzby/personalni-pomocnik'
+      path: '/sluzby/personalni-pomocnik'
+      fullPath: '/sluzby/personalni-pomocnik'
+      preLoaderRoute: typeof SluzbyPersonalniPomocnikRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sluzby/kaloricka-kalkulacka': {
+      id: '/sluzby/kaloricka-kalkulacka'
+      path: '/sluzby/kaloricka-kalkulacka'
+      fullPath: '/sluzby/kaloricka-kalkulacka'
+      preLoaderRoute: typeof SluzbyKalorickaKalkulackaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pruvodce/$slug': {
+      id: '/pruvodce/$slug'
+      path: '/pruvodce/$slug'
+      fullPath: '/pruvodce/$slug'
+      preLoaderRoute: typeof PruvodceSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/product/$slug': {
+      id: '/product/$slug'
+      path: '/product/$slug'
+      fullPath: '/product/$slug'
+      preLoaderRoute: typeof ProductSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ghid/$slug': {
+      id: '/ghid/$slug'
+      path: '/ghid/$slug'
+      fullPath: '/ghid/$slug'
+      preLoaderRoute: typeof GhidSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/delivery/$slug': {
+      id: '/delivery/$slug'
+      path: '/delivery/$slug'
+      fullPath: '/delivery/$slug'
+      preLoaderRoute: typeof DeliverySlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/clanky/$slug': {
+      id: '/clanky/$slug'
+      path: '/clanky/$slug'
+      fullPath: '/clanky/$slug'
+      preLoaderRoute: typeof ClankySlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/category/$slug': {
+      id: '/category/$slug'
+      path: '/category/$slug'
+      fullPath: '/category/$slug'
+      preLoaderRoute: typeof CategorySlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$category/$brand': {
+      id: '/$category/$brand'
+      path: '/$category/$brand'
+      fullPath: '/$category/$brand'
+      preLoaderRoute: typeof CategoryBrandRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/health': {
       id: '/api/public/health'
       path: '/api/public/health'
@@ -801,116 +841,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicHealthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/hooks/backfill-content': {
-      id: '/api/public/hooks/backfill-content'
-      path: '/api/public/hooks/backfill-content'
-      fullPath: '/api/public/hooks/backfill-content'
-      preLoaderRoute: typeof ApiPublicHooksBackfillContentRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/hooks/content-drain': {
-      id: '/api/public/hooks/content-drain'
-      path: '/api/public/hooks/content-drain'
-      fullPath: '/api/public/hooks/content-drain'
-      preLoaderRoute: typeof ApiPublicHooksContentDrainRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/hooks/image-facts-drain': {
-      id: '/api/public/hooks/image-facts-drain'
-      path: '/api/public/hooks/image-facts-drain'
-      fullPath: '/api/public/hooks/image-facts-drain'
-      preLoaderRoute: typeof ApiPublicHooksImageFactsDrainRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/hooks/indexing-retry': {
-      id: '/api/public/hooks/indexing-retry'
-      path: '/api/public/hooks/indexing-retry'
-      fullPath: '/api/public/hooks/indexing-retry'
-      preLoaderRoute: typeof ApiPublicHooksIndexingRetryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/hooks/landing-facts-drain': {
-      id: '/api/public/hooks/landing-facts-drain'
-      path: '/api/public/hooks/landing-facts-drain'
-      fullPath: '/api/public/hooks/landing-facts-drain'
-      preLoaderRoute: typeof ApiPublicHooksLandingFactsDrainRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/hooks/notify-indexers-backfill': {
-      id: '/api/public/hooks/notify-indexers-backfill'
-      path: '/api/public/hooks/notify-indexers-backfill'
-      fullPath: '/api/public/hooks/notify-indexers-backfill'
-      preLoaderRoute: typeof ApiPublicHooksNotifyIndexersBackfillRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/hooks/pipeline-status': {
-      id: '/api/public/hooks/pipeline-status'
-      path: '/api/public/hooks/pipeline-status'
-      fullPath: '/api/public/hooks/pipeline-status'
-      preLoaderRoute: typeof ApiPublicHooksPipelineStatusRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/hooks/smoke-image-facts': {
-      id: '/api/public/hooks/smoke-image-facts'
-      path: '/api/public/hooks/smoke-image-facts'
-      fullPath: '/api/public/hooks/smoke-image-facts'
-      preLoaderRoute: typeof ApiPublicHooksSmokeImageFactsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/hooks/smoke-landing-facts': {
-      id: '/api/public/hooks/smoke-landing-facts'
-      path: '/api/public/hooks/smoke-landing-facts'
-      fullPath: '/api/public/hooks/smoke-landing-facts'
-      preLoaderRoute: typeof ApiPublicHooksSmokeLandingFactsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/hooks/submit-sitemap': {
-      id: '/api/public/hooks/submit-sitemap'
-      path: '/api/public/hooks/submit-sitemap'
-      fullPath: '/api/public/hooks/submit-sitemap'
-      preLoaderRoute: typeof ApiPublicHooksSubmitSitemapRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/hooks/sync-adcombo': {
-      id: '/api/public/hooks/sync-adcombo'
-      path: '/api/public/hooks/sync-adcombo'
-      fullPath: '/api/public/hooks/sync-adcombo'
-      preLoaderRoute: typeof ApiPublicHooksSyncAdcomboRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/hooks/sync-cpa-tl': {
-      id: '/api/public/hooks/sync-cpa-tl'
-      path: '/api/public/hooks/sync-cpa-tl'
-      fullPath: '/api/public/hooks/sync-cpa-tl'
-      preLoaderRoute: typeof ApiPublicHooksSyncCpaTlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/hooks/sync-cpagetti': {
-      id: '/api/public/hooks/sync-cpagetti'
-      path: '/api/public/hooks/sync-cpagetti'
-      fullPath: '/api/public/hooks/sync-cpagetti'
-      preLoaderRoute: typeof ApiPublicHooksSyncCpagettiRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/hooks/sync-daily': {
-      id: '/api/public/hooks/sync-daily'
-      path: '/api/public/hooks/sync-daily'
-      fullPath: '/api/public/hooks/sync-daily'
-      preLoaderRoute: typeof ApiPublicHooksSyncDailyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/hooks/sync-feeds': {
-      id: '/api/public/hooks/sync-feeds'
-      path: '/api/public/hooks/sync-feeds'
-      fullPath: '/api/public/hooks/sync-feeds'
-      preLoaderRoute: typeof ApiPublicHooksSyncFeedsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/hooks/sync-kma': {
-      id: '/api/public/hooks/sync-kma'
-      path: '/api/public/hooks/sync-kma'
-      fullPath: '/api/public/hooks/sync-kma'
-      preLoaderRoute: typeof ApiPublicHooksSyncKmaRouteImport
+    '/api/public/hooks/sync-shakes': {
+      id: '/api/public/hooks/sync-shakes'
+      path: '/api/public/hooks/sync-shakes'
+      fullPath: '/api/public/hooks/sync-shakes'
+      preLoaderRoute: typeof ApiPublicHooksSyncShakesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/hooks/sync-m1-top': {
@@ -920,11 +855,116 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicHooksSyncM1TopRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/hooks/sync-shakes': {
-      id: '/api/public/hooks/sync-shakes'
-      path: '/api/public/hooks/sync-shakes'
-      fullPath: '/api/public/hooks/sync-shakes'
-      preLoaderRoute: typeof ApiPublicHooksSyncShakesRouteImport
+    '/api/public/hooks/sync-kma': {
+      id: '/api/public/hooks/sync-kma'
+      path: '/api/public/hooks/sync-kma'
+      fullPath: '/api/public/hooks/sync-kma'
+      preLoaderRoute: typeof ApiPublicHooksSyncKmaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/sync-feeds': {
+      id: '/api/public/hooks/sync-feeds'
+      path: '/api/public/hooks/sync-feeds'
+      fullPath: '/api/public/hooks/sync-feeds'
+      preLoaderRoute: typeof ApiPublicHooksSyncFeedsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/sync-daily': {
+      id: '/api/public/hooks/sync-daily'
+      path: '/api/public/hooks/sync-daily'
+      fullPath: '/api/public/hooks/sync-daily'
+      preLoaderRoute: typeof ApiPublicHooksSyncDailyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/sync-cpagetti': {
+      id: '/api/public/hooks/sync-cpagetti'
+      path: '/api/public/hooks/sync-cpagetti'
+      fullPath: '/api/public/hooks/sync-cpagetti'
+      preLoaderRoute: typeof ApiPublicHooksSyncCpagettiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/sync-cpa-tl': {
+      id: '/api/public/hooks/sync-cpa-tl'
+      path: '/api/public/hooks/sync-cpa-tl'
+      fullPath: '/api/public/hooks/sync-cpa-tl'
+      preLoaderRoute: typeof ApiPublicHooksSyncCpaTlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/sync-adcombo': {
+      id: '/api/public/hooks/sync-adcombo'
+      path: '/api/public/hooks/sync-adcombo'
+      fullPath: '/api/public/hooks/sync-adcombo'
+      preLoaderRoute: typeof ApiPublicHooksSyncAdcomboRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/submit-sitemap': {
+      id: '/api/public/hooks/submit-sitemap'
+      path: '/api/public/hooks/submit-sitemap'
+      fullPath: '/api/public/hooks/submit-sitemap'
+      preLoaderRoute: typeof ApiPublicHooksSubmitSitemapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/smoke-landing-facts': {
+      id: '/api/public/hooks/smoke-landing-facts'
+      path: '/api/public/hooks/smoke-landing-facts'
+      fullPath: '/api/public/hooks/smoke-landing-facts'
+      preLoaderRoute: typeof ApiPublicHooksSmokeLandingFactsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/smoke-image-facts': {
+      id: '/api/public/hooks/smoke-image-facts'
+      path: '/api/public/hooks/smoke-image-facts'
+      fullPath: '/api/public/hooks/smoke-image-facts'
+      preLoaderRoute: typeof ApiPublicHooksSmokeImageFactsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/pipeline-status': {
+      id: '/api/public/hooks/pipeline-status'
+      path: '/api/public/hooks/pipeline-status'
+      fullPath: '/api/public/hooks/pipeline-status'
+      preLoaderRoute: typeof ApiPublicHooksPipelineStatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/notify-indexers-backfill': {
+      id: '/api/public/hooks/notify-indexers-backfill'
+      path: '/api/public/hooks/notify-indexers-backfill'
+      fullPath: '/api/public/hooks/notify-indexers-backfill'
+      preLoaderRoute: typeof ApiPublicHooksNotifyIndexersBackfillRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/landing-facts-drain': {
+      id: '/api/public/hooks/landing-facts-drain'
+      path: '/api/public/hooks/landing-facts-drain'
+      fullPath: '/api/public/hooks/landing-facts-drain'
+      preLoaderRoute: typeof ApiPublicHooksLandingFactsDrainRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/indexing-retry': {
+      id: '/api/public/hooks/indexing-retry'
+      path: '/api/public/hooks/indexing-retry'
+      fullPath: '/api/public/hooks/indexing-retry'
+      preLoaderRoute: typeof ApiPublicHooksIndexingRetryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/image-facts-drain': {
+      id: '/api/public/hooks/image-facts-drain'
+      path: '/api/public/hooks/image-facts-drain'
+      fullPath: '/api/public/hooks/image-facts-drain'
+      preLoaderRoute: typeof ApiPublicHooksImageFactsDrainRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/content-drain': {
+      id: '/api/public/hooks/content-drain'
+      path: '/api/public/hooks/content-drain'
+      fullPath: '/api/public/hooks/content-drain'
+      preLoaderRoute: typeof ApiPublicHooksContentDrainRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/backfill-content': {
+      id: '/api/public/hooks/backfill-content'
+      path: '/api/public/hooks/backfill-content'
+      fullPath: '/api/public/hooks/backfill-content'
+      preLoaderRoute: typeof ApiPublicHooksBackfillContentRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -944,6 +984,7 @@ const rootRouteChildren: RootRouteChildren = {
   TermsRoute: TermsRoute,
   CategoryBrandRoute: CategoryBrandRoute,
   CategorySlugRoute: CategorySlugRoute,
+  ClankySlugRoute: ClankySlugRoute,
   DeliverySlugRoute: DeliverySlugRoute,
   GhidSlugRoute: GhidSlugRoute,
   ProductSlugRoute: ProductSlugRoute,
@@ -953,6 +994,7 @@ const rootRouteChildren: RootRouteChildren = {
   SluzbyVodniBilanceRoute: SluzbyVodniBilanceRoute,
   CatIndexRoute: CatIndexRoute,
   CategoryIndexRoute: CategoryIndexRoute,
+  ClankyIndexRoute: ClankyIndexRoute,
   DeliveryIndexRoute: DeliveryIndexRoute,
   ProductIndexRoute: ProductIndexRoute,
   SluzbyIndexRoute: SluzbyIndexRoute,
@@ -980,3 +1022,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

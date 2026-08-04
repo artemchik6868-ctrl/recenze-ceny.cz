@@ -27,6 +27,7 @@ const RESERVED_FIRST_SEGMENTS = new Set([
   "sluzby",
   "pruvodce",
   "ghid",
+  "clanky",
   "api",
 ]);
 

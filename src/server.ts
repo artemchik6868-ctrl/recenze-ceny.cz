@@ -30,6 +30,7 @@ const CACHEABLE_EXACT = new Set([
   "/product",
   "/pruvodce",
   "/sluzby",
+  "/clanky",
 ]);
 
 function isCacheableHtmlPath(pathname: string): boolean {
@@ -42,6 +43,7 @@ function isCacheableHtmlPath(pathname: string): boolean {
   if (path.startsWith("/pruvodce/")) return true;
   if (path.startsWith("/delivery/")) return true;
   if (path.startsWith("/sluzby/")) return true;
+  if (path.startsWith("/clanky/")) return true;
   return false;
 }
 

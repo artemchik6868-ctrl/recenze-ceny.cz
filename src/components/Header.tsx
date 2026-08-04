@@ -78,6 +78,13 @@ export function Header() {
             {T.nav.services}
           </Link>
           <Link
+            to={href("/clanky")}
+            activeProps={{ className: "text-foreground font-semibold" }}
+            className="transition-colors hover:text-foreground"
+          >
+            {T.nav.blog}
+          </Link>
+          <Link
             to={href("/contact")}
             activeProps={{ className: "text-foreground font-semibold" }}
             className="cta-underline font-semibold text-cta"
@@ -88,7 +95,7 @@ export function Header() {
 
         <div className="flex items-center gap-2 md:hidden">
           <button
-            aria-label="menu"
+            aria-label="Menu"
             onClick={() => setOpen((v) => !v)}
             className="inline-flex h-10 w-10 items-center justify-center rounded-[10px] border border-border bg-card"
           >
@@ -110,6 +117,7 @@ export function Header() {
                 { to: href("/payment"), label: T.nav.payment },
                 { to: href("/faq"), label: T.nav.faq },
                 { to: href("/sluzby"), label: T.nav.services },
+                { to: href("/clanky"), label: T.nav.blog },
                 { to: href("/contact"), label: T.nav.contact },
               ].map((i) => (
                 <li key={i.to}>

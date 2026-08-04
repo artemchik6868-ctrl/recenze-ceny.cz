@@ -10,6 +10,7 @@ export function Footer() {
   const links = [
     { to: "/about", label: T.nav.about },
     { to: "/medical-expert", label: T.footer.medicalExpert },
+    { to: "/clanky", label: T.footer.blog },
     { to: "/sluzby", label: T.footer.services },
     { to: "/delivery", label: T.nav.delivery },
     { to: "/payment", label: T.footer.payment },
