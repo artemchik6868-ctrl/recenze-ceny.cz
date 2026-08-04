@@ -194,11 +194,6 @@ function BlogPostPage() {
               decoding="async"
               referrerPolicy="no-referrer"
             />
-            {sourceLabel ? (
-              <figcaption className="mt-2 text-xs text-muted-foreground">
-                {T.blog.sourceLabel}: {sourceLabel}
-              </figcaption>
-            ) : null}
           </figure>
         ) : null}
 

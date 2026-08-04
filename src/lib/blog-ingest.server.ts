@@ -435,7 +435,7 @@ Pravidla:
   3) 0–1 tabulka v obalu:
      <div class="editorial-table-wrap"><table><caption>…</caption><thead>…</thead><tbody>…</tbody></table></div>
 - Vlož přesně jeden marker ${BLOG_PRODUCTS_MARKER} uprostřed článku po uzavřeném odstavci <p> (ne hned pod H2).
-- Na konci body_html můžeš zmínit název zdroje textem (bez odkazu / bez URL).
+- Na konci body_html NEpřidávej „Zdroj:“ ani název média — zdroj se zobrazí na stránce samostatně.
 - category_slug MUSÍ být přesně preferred_category_slug.
 - faq: 0–3 položky {q,a} nebo [].
 Formát odpovědi (povinný, bez markdown fence):

@@ -59,6 +59,9 @@ export function stripLlmFormatArtifacts(html: string): string {
   const cut = s.search(/(?:^|\n)\s*(?:BODY_HTML|META_JSON)\s*:/i);
   if (cut >= 0) s = s.slice(0, cut);
   s = s.replace(/^\s*(?:BODY_HTML|META_JSON)\s*:\s*/i, "");
+  // LLM sometimes appends its own "Zdroj: …" — page footer already shows the outlet.
+  s = s.replace(/(?:<p>\s*)?(?:<em>)?Zdroj\s*:\s*[\s\S]*?(?:<\/em>)?\s*(?:<\/p>)?\s*$/i, "");
+  s = s.replace(/<p>\s*(?:<em>)?Zdroj\s*:[\s\S]*?(?:<\/em>)?\s*<\/p>\s*$/i, "");
   return s.trim();
 }
 
