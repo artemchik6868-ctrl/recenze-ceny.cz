@@ -13,7 +13,6 @@ import { categoryDisplayName } from "@/lib/category-display-name";
 import { categoryPath } from "@/lib/category-path";
 import { LANG_LOCALE } from "@/lib/lang";
 import { BlogProductPicks } from "@/components/blog/BlogProductPicks";
-import { BlogStickyCta } from "@/components/blog/BlogStickyCta";
 import { clampDesc } from "@/lib/seo-meta";
 
 export const Route = createFileRoute("/clanky/$slug")({
@@ -159,14 +158,13 @@ function BlogPostPage() {
     ) : null;
 
   return (
-    <>
-      <main className="mx-auto max-w-3xl px-4 py-12 pb-28 md:pb-12">
-        <nav className="text-sm text-muted-foreground">
-          <Link to={href("/")}>{T.nav.home}</Link>
-          {" / "}
-          <Link to={href(BLOG_PATH)}>{T.blog.breadcrumb}</Link>
-          {` / ${truncateBlogLabel(post.title)}`}
-        </nav>
+    <main className="mx-auto max-w-3xl px-4 py-12">
+      <nav className="text-sm text-muted-foreground">
+        <Link to={href("/")}>{T.nav.home}</Link>
+        {" / "}
+        <Link to={href(BLOG_PATH)}>{T.blog.breadcrumb}</Link>
+        {` / ${truncateBlogLabel(post.title)}`}
+      </nav>
 
         <p className="mt-6 text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
           <Link
@@ -270,9 +268,6 @@ function BlogPostPage() {
         )}
 
         <p className="mt-6 text-sm leading-relaxed text-muted-foreground">{T.blog.disclaimer}</p>
-      </main>
-
-      <BlogStickyCta productCount={pricedOffers.length} categorySlug={post.categorySlug} />
-    </>
+    </main>
   );
 }
