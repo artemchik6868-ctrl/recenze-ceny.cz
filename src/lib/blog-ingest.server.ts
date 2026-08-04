@@ -191,7 +191,7 @@ function sleep(ms: number): Promise<void> {
 
 function isRetryableLlmError(err: unknown): boolean {
   const msg = err instanceof Error ? err.message : String(err);
-  return /LLM HTTP 429|LLM HTTP 404|No endpoints|aborted|AbortError|timeout|Empty LLM content/i.test(
+  return /LLM HTTP 429|LLM HTTP 404|No endpoints|aborted|AbortError|timeout|Empty LLM content|no JSON object|Unexpected token|Expected ['":]|JSON\.parse|is not valid JSON|property name in JSON|Unterminated string|META_JSON|BODY_HTML/i.test(
     msg,
   );
 }
