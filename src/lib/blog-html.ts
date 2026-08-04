@@ -64,6 +64,8 @@ export function sanitizeBlogHtml(html: string | null | undefined): string {
 
   s = s.replace(/<(script|style|iframe|object|embed|svg|math)\b[\s\S]*?<\/\1>/gi, "");
   s = s.replace(/<!--[\s\S]*?-->/g, "");
+  // Drop LLM "Upozornění" disclaimer boxes — not useful on editorial blog posts.
+  s = s.replace(/<aside\b[^>]*class=["'][^"']*editorial-callout[^"']*["'][^>]*>[\s\S]*?<\/aside>/gi, "");
 
   s = s.replace(/<\/?([a-zA-Z][a-zA-Z0-9]*)\b([^>]*)>/g, (match, rawName: string, rawAttrs: string) => {
     const tag = rawName.toLowerCase();

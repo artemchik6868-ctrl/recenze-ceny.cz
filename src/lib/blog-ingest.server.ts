@@ -421,14 +421,13 @@ Pravidla:
 - Nepropaguj konkrétní léčiva jako zázrak; doplňky stravy nenahrazují léčbu.
 - HTML body — povolené tagy: <p>, <h2>, <h3>, <ul>, <ol>, <li>, <strong>, <em>, <br>,
   <table>, <thead>, <tbody>, <tr>, <th>, <td>, <caption>,
-  <div class="editorial-table-wrap">, <aside class="editorial-callout">.
-  Zakázáno: <script>, <a href>, inline style=, jiné class než editorial-callout / editorial-callout-title / editorial-table-wrap.
+  <div class="editorial-table-wrap">.
+  Zakázáno: <script>, <a href>, inline style=, <aside>, editorial-callout,
+  právní/zdravotní disclaimer boxy („Upozornění“, „Důležité“, „Není lék“…).
 - Struktura body_html (povinné):
   1) ≥1 odrážkový seznam <ul><li>…</li></ul>
   2) ≥1 číslovaný seznam <ol><li>…</li></ol> (kroky / „co zvážit“)
-  3) přesně 1 callout:
-     <aside class="editorial-callout"><p class="editorial-callout-title">…</p><p>…</p></aside>
-  4) 0–1 tabulka (srovnání / fakta), vždy v obalu:
+  3) 0–1 tabulka (srovnání / fakta), vždy v obalu:
      <div class="editorial-table-wrap"><table><caption>…</caption><thead>…</thead><tbody>…</tbody></table></div>
 - Vlož přesně jeden marker ${BLOG_PRODUCTS_MARKER} uprostřed článku po uzavřeném odstavci <p> (ne hned pod H2).
 - Na konci body_html můžeš zmínit název zdroje textem (bez odkazu / bez URL).
@@ -439,7 +438,7 @@ Formát odpovědi (povinný, bez markdown fence):
 META_JSON: {"title":"...","excerpt":"...","meta_title":"...","meta_description":"...","category_slug":"...","faq":[]}
 BODY_HTML:
 <p>…celý HTML článek…</p>
-(V META_JSON nepiš body_html. V HTML atributech používej jen jednoduché uvozovky: class='editorial-callout'.)`;
+(V META_JSON nepiš body_html. V HTML atributech používej jen jednoduché uvozovky: class='editorial-table-wrap'.)`;
 
   const user = JSON.stringify({
     source_name: input.sourceName,

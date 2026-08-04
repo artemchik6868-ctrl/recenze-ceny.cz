@@ -266,8 +266,6 @@ function BlogPostPage() {
             {post.sourceName || post.coverCredit}
           </p>
         )}
-
-        <p className="mt-6 text-sm leading-relaxed text-muted-foreground">{T.blog.disclaimer}</p>
     </main>
   );
 }
