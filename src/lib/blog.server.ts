@@ -90,21 +90,39 @@ export function blogCoverPublicUrl(path: string | null | undefined): string | nu
   return null;
 }
 
-export async function listPublishedBlogPosts(limit = 20): Promise<BlogPostListItem[]> {
-  const { data, error } = await supabaseAdmin
+export async function listPublishedBlogPosts(limit = 30): Promise<BlogPostListItem[]> {
+  const { posts } = await listPublishedBlogPostsPage({ limit, offset: 0 });
+  return posts;
+}
+
+/** Initial hub page size (SSR) and each “load more” chunk. */
+export const BLOG_INDEX_PAGE_SIZE = 30;
+
+export async function listPublishedBlogPostsPage(opts: {
+  limit?: number;
+  offset?: number;
+}): Promise<{ posts: BlogPostListItem[]; total: number }> {
+  const limit = Math.max(1, Math.min(opts.limit ?? BLOG_INDEX_PAGE_SIZE, 50));
+  const offset = Math.max(0, opts.offset ?? 0);
+
+  const { data, error, count } = await supabaseAdmin
     .from("blog_posts")
     .select(
       "id, slug, title, excerpt, body_html, meta_title, meta_description, category_slug, cover_image_path, cover_credit, source_url, source_name, product_ids, faq, status, published_at, content_hash, created_at",
+      { count: "exact" },
     )
     .eq("status", "published")
     .order("published_at", { ascending: false })
-    .limit(Math.max(1, Math.min(limit, 50)));
+    .range(offset, offset + limit - 1);
 
   if (error || !data) {
-    if (error) console.error("[blog] listPublishedBlogPosts:", error.message);
-    return [];
+    if (error) console.error("[blog] listPublishedBlogPostsPage:", error.message);
+    return { posts: [], total: 0 };
   }
-  return (data as BlogRow[]).map(mapListItem);
+  return {
+    posts: (data as BlogRow[]).map(mapListItem),
+    total: typeof count === "number" ? count : data.length + offset,
+  };
 }
 
 export async function loadPublishedBlogPost(slug: string): Promise<BlogPost | null> {

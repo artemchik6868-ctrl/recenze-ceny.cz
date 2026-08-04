@@ -418,6 +418,8 @@ export const T = {
     indexLead:
       "Krátké texty k tématům, která se prolínají s našimi kategoriemi — s odkazy na průvodce a produkty v katalogu.",
     empty: "Zatím tu nejsou žádné publikované články.",
+    loadMore: "Načíst další",
+    loadMoreLoading: "Načítám…",
     relatedCategory: "Související kategorie",
     relatedCategoryLead: (name: string) =>
       `Porovnejte doplňky v kategorii „${name}“ — forma, cena a doručení po České republice.`,

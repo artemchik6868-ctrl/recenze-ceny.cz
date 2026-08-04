@@ -2,15 +2,20 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import type { BlogPost, BlogPostListItem } from "@/lib/blog";
 import {
+  BLOG_INDEX_PAGE_SIZE,
   blogCoverPublicUrl,
-  listPublishedBlogPosts,
+  listPublishedBlogPostsPage,
   loadOffersByProductKeys,
   loadPublishedBlogPost,
 } from "@/lib/blog.server";
 import type { Offer } from "@/lib/types";
 
+export type BlogIndexPost = BlogPostListItem & { coverUrl: string | null };
+
 export type BlogIndexData = {
-  posts: Array<BlogPostListItem & { coverUrl: string | null }>;
+  posts: BlogIndexPost[];
+  total: number;
+  pageSize: number;
 };
 
 export type BlogPostData = {
@@ -19,17 +24,47 @@ export type BlogPostData = {
   coverUrl: string | null;
 };
 
+function withCover(posts: BlogPostListItem[]): BlogIndexPost[] {
+  return posts.map((p) => ({
+    ...p,
+    coverUrl: blogCoverPublicUrl(p.coverImagePath),
+  }));
+}
+
 export const getBlogIndexData = createServerFn({ method: "GET" }).handler(
   async (): Promise<BlogIndexData> => {
-    const posts = await listPublishedBlogPosts(24);
+    const { posts, total } = await listPublishedBlogPostsPage({
+      limit: BLOG_INDEX_PAGE_SIZE,
+      offset: 0,
+    });
     return {
-      posts: posts.map((p) => ({
-        ...p,
-        coverUrl: blogCoverPublicUrl(p.coverImagePath),
-      })),
+      posts: withCover(posts),
+      total,
+      pageSize: BLOG_INDEX_PAGE_SIZE,
     };
   },
 );
+
+/** Client “load more” — next chunk after SSR first page. */
+export const getBlogIndexMore = createServerFn({ method: "GET" })
+  .inputValidator((data: { offset: number }) =>
+    z
+      .object({
+        offset: z.number().int().min(0).max(5000),
+      })
+      .parse(data),
+  )
+  .handler(async ({ data }): Promise<BlogIndexData> => {
+    const { posts, total } = await listPublishedBlogPostsPage({
+      limit: BLOG_INDEX_PAGE_SIZE,
+      offset: data.offset,
+    });
+    return {
+      posts: withCover(posts),
+      total,
+      pageSize: BLOG_INDEX_PAGE_SIZE,
+    };
+  });
 
 export const getBlogPostData = createServerFn({ method: "GET" })
   .inputValidator((data: { slug: string }) =>
