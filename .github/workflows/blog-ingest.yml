@@ -1,10 +1,12 @@
 name: Blog ingest
 
 # Daily offline RSS → LLM rewrite → Supabase blog_posts (keeps Worker free).
+# Note: GitHub may skip the first schedule after a new workflow lands — bumping
+# the cron re-registers it on the default branch.
 on:
   schedule:
-    # 08:15 UTC
-    - cron: "15 8 * * *"
+    # 08:37 UTC — avoid :00/:15 load spikes that delay/skip schedules
+    - cron: "37 8 * * *"
   workflow_dispatch:
     inputs:
       limit:
@@ -45,10 +47,14 @@ jobs:
       - name: Run blog ingest
         id: ingest
         run: |
-          LIMIT="${{ github.event.inputs.limit || '3' }}"
-          DRAFT="${{ github.event.inputs.draft || 'false' }}"
+          # schedule events have empty inputs — default to 3
+          LIMIT="${{ github.event.inputs.limit }}"
+          if [ -z "$LIMIT" ]; then LIMIT=3; fi
+          DRAFT="${{ github.event.inputs.draft }}"
+          if [ -z "$DRAFT" ]; then DRAFT=false; fi
           ARGS="--limit=${LIMIT}"
           if [ "$DRAFT" = "true" ]; then ARGS="$ARGS --draft"; fi
+          echo "Running blog-ingest $ARGS (event=${{ github.event_name }})"
           npx tsx scripts/blog-ingest.ts $ARGS
 
       - name: Notify Telegram
