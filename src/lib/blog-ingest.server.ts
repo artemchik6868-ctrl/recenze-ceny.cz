@@ -39,17 +39,23 @@ const LLM_429_BACKOFF_MS = 20_000;
 /** Never publish product blocks thinner than this — skip the article instead. */
 const MIN_PRODUCTS = 4;
 const TARGET_PRODUCTS = 4;
+/** Cap multi-topic titles so the mid-article rail stays ~4 products. */
+const MAX_SHELVES = 2;
+const PRODUCTS_PER_SHELF = 2;
+
+/**
+ * Cognitive / memory cues → anti-stress shelf. When a disease niche also matches,
+ * both shelves are kept (disease first, stres second) for 2+2 product picks.
+ */
+const COGNITIVE_TO_STRES =
+  /alzheimer|demenc|dement|neurodegener|cognitive\s*impair|pam[eě][tť]/i;
 
 /**
  * Topic → shelf hints. Matched against the TITLE only (body is too noisy for WHO/CDC
  * press releases that casually mention chronic disease).
+ * Disease / niche shelves come before broad cognitive→stres so first-match is correct.
  */
 const BLOG_TOPIC_HINTS: Array<[RegExp, string]> = [
-  [/alzheimer|dement|neurodegener|cognitive\s*impair|pam[eě]t/i, "stres"],
-  [
-    /anxiety|depress|insomni|sleep\s*disorder|can[\u2019']?t\s*sleep|poor\s*sleep|burnout|úzkost|nespav|\bspán|\bspan(?:ek|ku|kem|ím)?\b|stres(?:u|em)?\b|circadian|jet\s*lag|cortisol|mindfulness/i,
-    "stres",
-  ],
   [
     /diabet|prediabetes|blood\s*sugar|gluk[oó]z|cukrov|hypoglyc|insulin|\ba1c\b|hba1c|type\s*2\s*diabetes/i,
     "cukrovka",
@@ -85,40 +91,62 @@ const BLOG_TOPIC_HINTS: Array<[RegExp, string]> = [
   [/erectile|\bed\b|libido|impoten|potenc|testosterone\s*deficien/i, "potence"],
   [/papilloma|wart\b|bradavic|papilom|hpv\b/i, "papilomy"],
   [/nail\s*fungus|onychomyc|plís[eě]n\s*neht|plisen\s*neht|toenail\s*fung/i, "plisen-nehtu"],
+  [
+    /anxiety|depress|insomni|sleep\s*disorder|can[\u2019']?t\s*sleep|poor\s*sleep|burnout|úzkost|nespav|\bspán|\bspan(?:ek|ku|kem|ím)?\b|stres(?:u|em)?\b|circadian|jet\s*lag|cortisol|mindfulness/i,
+    "stres",
+  ],
+  // Broad cognitive → stres last among topic hints (pure dementia / Alzheimer titles).
+  [COGNITIVE_TO_STRES, "stres"],
 ];
 
 /** Diplomacy / funding / institutional PR — never map to a supplement shelf. */
 const INSTITUTIONAL_NOISE =
   /director-general|\bvisits?\b|paying tribute|certified .{0,40}free|notification of withdrawal|united states|geopolit|obituar|in memoriam|appoints?\b|statement on notification|strategic partnership|renew.{0,40}partner|african union|world health day|health systems?|eib global|fifa|world cup|hospital[- ]acquired|healthcare[- ]associated|hai\b|press briefing|memorandum of understanding|\bmou\b|funding|philanthrop|public health across|strengthen(?:ing)?\s+public\s+health|outbreak\s+response\s+readiness|policy\s+brief|\(z\/m\)|odborný pracovník|přírodovědní analytik|volná místa|hledáme posilu|převest lékařskou praxi|pravní rámec/i;
 
-function matchTopicHint(text: string): string | null {
+/** All matching shelves in hint-priority order (unique). */
+function matchAllTopicHints(text: string): string[] {
+  const out: string[] = [];
+  const seen = new Set<string>();
   for (const [re, slug] of BLOG_TOPIC_HINTS) {
     if (!re.test(text)) continue;
     const ok = validateShelfSlug(slug);
-    if (ok && isSupplementCategory(ok)) return ok;
+    if (!ok || !isSupplementCategory(ok) || seen.has(ok)) continue;
+    seen.add(ok);
+    out.push(ok);
   }
-  return null;
+  return out;
 }
 
 /** Diet / weight cues — longevity alone is anti-aging, but not with these. */
 const LONGEVITY_DIET_WEIGHT =
   /\bdiet\b|weight|lose\s*fat|losing\s*fat|body\s*fat|obesit|overweight|calorie|hubnut|bariatric/i;
 
-/** Strict niche gate: TITLE must carry the catalog topic. Body-only hits are rejected. */
-function hintShelfFromText(title: string, _text: string): string | null {
+/**
+ * All catalog shelves hinted by the TITLE (max {@link MAX_SHELVES}).
+ * Body-only hits are rejected — title must carry the niche.
+ * Primary shelf is always `result[0]` (disease niches before broad cognitive→stres).
+ */
+export function hintShelvesFromText(title: string, _text = ""): string[] {
   const t = title.trim();
-  if (!t || INSTITUTIONAL_NOISE.test(t)) return null;
-  const shelf = matchTopicHint(t);
+  if (!t || INSTITUTIONAL_NOISE.test(t)) return [];
+  let shelves = matchAllTopicHints(t);
   // Bare "longevity" → anti-aging, but longevity + diet/weight → hubnuti.
   if (
-    shelf === "anti-aging" &&
+    shelves.includes("anti-aging") &&
     /\blongevity\b/i.test(t) &&
     LONGEVITY_DIET_WEIGHT.test(t)
   ) {
     const hub = validateShelfSlug("hubnuti");
-    if (hub && isSupplementCategory(hub)) return hub;
+    if (hub && isSupplementCategory(hub)) {
+      shelves = [hub, ...shelves.filter((s) => s !== "anti-aging" && s !== hub)];
+    }
   }
-  return shelf;
+  return shelves.slice(0, MAX_SHELVES);
+}
+
+/** Primary shelf only — first of {@link hintShelvesFromText}. */
+export function hintShelfFromText(title: string, _text = ""): string | null {
+  return hintShelvesFromText(title, _text)[0] ?? null;
 }
 
 /** Supplement shelves that currently have enough indexable offers for a product block. */
@@ -559,21 +587,145 @@ async function rewriteWithLlm(input: {
   throw lastErr instanceof Error ? lastErr : new Error(String(lastErr));
 }
 
-/** Products only from the article shelf — never fill from unrelated catalog niches. */
+/**
+ * Pick up to `count` product keys from one shelf (unique brands, pad same shelf).
+ * Returns [] when the pool is thinner than `count`.
+ */
 function pickProductIdsFromShelf(
   offersByShelf: Map<string, Offer[]>,
   categorySlug: string,
-  count = TARGET_PRODUCTS,
+  count: number,
+  usedKeys: Set<string> = new Set(),
 ): string[] {
-  const pool = offersByShelf.get(categorySlug) ?? [];
-  if (pool.length < MIN_PRODUCTS) return [];
+  const pool = (offersByShelf.get(categorySlug) ?? []).filter(
+    (o) => !usedKeys.has(offerProductKey(o)),
+  );
+  if (pool.length < count) return [];
   const unique = pickRandomUniqueBrandOffers(pool, Math.min(count, pool.length));
-  // Unique-brand sampling can undershoot on thin niches — pad from same shelf only.
-  if (unique.length >= MIN_PRODUCTS) return unique.map(offerProductKey);
+  if (unique.length >= count) return unique.map(offerProductKey);
   const used = new Set(unique.map(offerProductKey));
   const pad = pool.filter((o) => !used.has(offerProductKey(o))).slice(0, count - unique.length);
   const merged = [...unique, ...pad];
-  return merged.length >= MIN_PRODUCTS ? merged.map(offerProductKey) : [];
+  return merged.length >= count ? merged.map(offerProductKey) : [];
+}
+
+/**
+ * One shelf → {@link TARGET_PRODUCTS} from that shelf.
+ * Several shelves → {@link PRODUCTS_PER_SHELF} from each (capped at {@link MAX_SHELVES}),
+ * pad from primary if under {@link MIN_PRODUCTS}.
+ */
+function pickProductIdsForShelves(
+  offersByShelf: Map<string, Offer[]>,
+  categorySlugs: string[],
+): string[] {
+  const stocked = categorySlugs.filter(
+    (s) => (offersByShelf.get(s)?.length ?? 0) >= PRODUCTS_PER_SHELF,
+  );
+  if (!stocked.length) return [];
+
+  if (stocked.length === 1) {
+    return pickProductIdsFromShelf(offersByShelf, stocked[0], TARGET_PRODUCTS);
+  }
+
+  const selected = stocked.slice(0, MAX_SHELVES);
+  const ids: string[] = [];
+  const used = new Set<string>();
+  for (const shelf of selected) {
+    const picked = pickProductIdsFromShelf(
+      offersByShelf,
+      shelf,
+      PRODUCTS_PER_SHELF,
+      used,
+    );
+    for (const id of picked) {
+      used.add(id);
+      ids.push(id);
+    }
+  }
+
+  if (ids.length < MIN_PRODUCTS) {
+    const pad = pickProductIdsFromShelf(
+      offersByShelf,
+      selected[0],
+      MIN_PRODUCTS - ids.length,
+      used,
+    );
+    ids.push(...pad);
+  }
+
+  return ids.length >= MIN_PRODUCTS ? ids.slice(0, TARGET_PRODUCTS) : [];
+}
+
+export type BlogReclassifyResult = {
+  slug: string;
+  previousCategorySlug: string;
+  categorySlug: string;
+  categorySlugs: string[];
+  productIds: string[];
+  dryRun: boolean;
+};
+
+/**
+ * Re-bind an existing blog post to one or more shelves and refresh product_ids.
+ * First shelf is primary (`category_slug`); multi-shelf picks 2 products each.
+ */
+export async function reclassifyBlogPostShelf(opts: {
+  slug: string;
+  /** Primary shelf, or comma-separated / array of shelves (first = primary). */
+  categorySlug: string | string[];
+  dryRun?: boolean;
+}): Promise<BlogReclassifyResult> {
+  const raw = Array.isArray(opts.categorySlug)
+    ? opts.categorySlug
+    : opts.categorySlug.split(",").map((s) => s.trim()).filter(Boolean);
+  const shelves: string[] = [];
+  const seen = new Set<string>();
+  for (const s of raw) {
+    const ok = validateShelfSlug(s);
+    if (!ok || !isSupplementCategory(ok)) {
+      throw new Error(`Invalid supplement shelf: ${s}`);
+    }
+    if (seen.has(ok)) continue;
+    seen.add(ok);
+    shelves.push(ok);
+  }
+  if (!shelves.length) throw new Error("At least one shelf is required");
+  shelves.splice(MAX_SHELVES);
+
+  const { data: row, error } = await supabaseAdmin
+    .from("blog_posts")
+    .select("id, slug, category_slug, product_ids")
+    .eq("slug", opts.slug)
+    .maybeSingle();
+  if (error) throw new Error(error.message);
+  if (!row) throw new Error(`Blog post not found: ${opts.slug}`);
+
+  const { offersByShelf } = await loadStockedBlogShelves(PRODUCTS_PER_SHELF);
+  const productIds = pickProductIdsForShelves(offersByShelf, shelves);
+  if (productIds.length < MIN_PRODUCTS) {
+    throw new Error(
+      `Shelves [${shelves.join(", ")}] could not yield ${MIN_PRODUCTS} stocked products`,
+    );
+  }
+
+  const primary = shelves[0];
+  const dryRun = Boolean(opts.dryRun);
+  if (!dryRun) {
+    const { error: updErr } = await supabaseAdmin
+      .from("blog_posts")
+      .update({ category_slug: primary, product_ids: productIds })
+      .eq("id", row.id);
+    if (updErr) throw new Error(updErr.message);
+  }
+
+  return {
+    slug: row.slug,
+    previousCategorySlug: row.category_slug,
+    categorySlug: primary,
+    categorySlugs: shelves,
+    productIds,
+    dryRun,
+  };
 }
 
 async function ensureUniqueSlug(base: string): Promise<string> {
@@ -605,7 +757,7 @@ export async function runBlogIngest(opts: BlogIngestOptions = {}): Promise<BlogI
     slugs: [],
   };
 
-  const { shelves, offersByShelf } = await loadStockedBlogShelves(MIN_PRODUCTS);
+  const { shelves, offersByShelf } = await loadStockedBlogShelves(PRODUCTS_PER_SHELF);
   if (!shelves.length) {
     result.errors.push("No stocked supplement shelves with enough products for blog blocks");
     return result;
@@ -648,10 +800,12 @@ export async function runBlogIngest(opts: BlogIngestOptions = {}): Promise<BlogI
         continue;
       }
 
-      const preferredShelf = hintShelfFromText(item.title, articleText);
-      if (!preferredShelf || !shelves.includes(preferredShelf)) {
+      const hintedShelves = hintShelvesFromText(item.title, articleText);
+      const usableShelves = hintedShelves.filter((s) => shelves.includes(s));
+      const preferredShelf = usableShelves[0] ?? null;
+      if (!preferredShelf) {
         console.log(
-          `[blog-ingest] skip (no catalog niche match): ${item.title.slice(0, 80)} → ${preferredShelf ?? "none"}`,
+          `[blog-ingest] skip (no catalog niche match): ${item.title.slice(0, 80)} → ${hintedShelves.join(",") || "none"}`,
         );
         result.skipped += 1;
         continue;
@@ -680,17 +834,13 @@ export async function runBlogIngest(opts: BlogIngestOptions = {}): Promise<BlogI
 
       const bodyHtml = ensureBlogProductsMarker(sanitizeBlogHtml(rewritten.body_html));
 
-      // Title-hint shelf only — LLM category is ignored.
+      // Title-hint shelves only — LLM category is ignored. Primary = first usable.
       const categorySlug = preferredShelf;
-      if (!shelves.includes(categorySlug)) {
-        console.log(`[blog-ingest] skip (shelf not stocked): ${categorySlug}`);
-        result.skipped += 1;
-        continue;
-      }
-
-      const productIds = pickProductIdsFromShelf(offersByShelf, categorySlug, TARGET_PRODUCTS);
+      const productIds = pickProductIdsForShelves(offersByShelf, usableShelves);
       if (productIds.length < MIN_PRODUCTS) {
-        console.log(`[blog-ingest] skip (thin product pool): ${categorySlug}`);
+        console.log(
+          `[blog-ingest] skip (thin product pool): ${usableShelves.join(",")}`,
+        );
         result.skipped += 1;
         continue;
       }
@@ -706,7 +856,7 @@ export async function runBlogIngest(opts: BlogIngestOptions = {}): Promise<BlogI
 
       if (dryRun) {
         console.log(
-          `[blog-ingest] dry-run would insert /clanky/${slug} → ${categorySlug} products=${productIds.length}`,
+          `[blog-ingest] dry-run would insert /clanky/${slug} → ${usableShelves.join("+")} products=${productIds.length}`,
         );
         result.inserted += 1;
         result.slugs.push(slug);
@@ -739,7 +889,9 @@ export async function runBlogIngest(opts: BlogIngestOptions = {}): Promise<BlogI
 
       result.inserted += 1;
       result.slugs.push(slug);
-      console.log(`[blog-ingest] inserted /clanky/${slug} [${categorySlug}] products=${productIds.length}`);
+      console.log(
+        `[blog-ingest] inserted /clanky/${slug} [${usableShelves.join("+")}] products=${productIds.length}`,
+      );
     } catch (e) {
       const msg = `${item.link}: ${e instanceof Error ? e.message : String(e)}`;
       result.errors.push(msg);
