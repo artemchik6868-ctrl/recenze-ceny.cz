@@ -79,6 +79,15 @@ console.log(JSON.stringify({ status: res.status, body: text }));`,
     throw new Error(`pipeline-status non-JSON HTTP ${payload.status}`);
   }
   if (payload.status >= 400) {
+    // Worker returns 503 when ok:false (missing AI etc.) — still a readable status body.
+    if (
+      payload.status === 503 &&
+      body &&
+      typeof body === "object" &&
+      Array.isArray(body.alerts)
+    ) {
+      return body;
+    }
     throw new Error(`pipeline-status HTTP ${payload.status}: ${payload.body.slice(0, 200)}`);
   }
   return body;
@@ -301,11 +310,31 @@ if (healthFail) {
     if (secret) {
       const status = fetchPipelineStatus();
       const issues = buildIssues(status);
+      const missing = Number(status?.totals?.missing_content ?? 0);
+      const stale = Number(status?.ops?.stale_content ?? status?.totals?.stale_content ?? 0);
+      const alerts = Array.isArray(status?.alerts) ? status.alerts : [];
+      const stuck = Array.isArray(status?.stuck_offers) ? status.stuck_offers : [];
+
       if (issues.length) {
         detail += `\n\nДетали пайплайна:\n${issues.map((i) => `• ${i.text}`).join("\n")}`;
-      } else {
-        const missing = Number(status?.totals?.missing_content ?? 0);
-        detail += `\n\nПайплайн: missing_content=${missing} (критичных ops-сигналов нет).`;
+      }
+
+      // Always surface backlog on health-fail — even when below OPS_STALE_MIN /
+      // when HTTP 503 only means ok:false (missing AI), not an unreachable endpoint.
+      if (missing > 0 || stale > 0 || alerts.length > 0) {
+        detail += `\n\nПайплайн (ok=${status?.ok === true ? "true" : "false"}): missing_content=${missing}, stale_content=${stale}`;
+        if (stuck.length) {
+          const preview = stuck
+            .slice(0, 8)
+            .map((o) => `${o.source}:${o.offer_id}`)
+            .join(", ");
+          detail += `\nstuck: ${preview}${stuck.length > 8 ? "…" : ""}`;
+        }
+        if (alerts.length) {
+          detail += `\nАлерты:\n${alerts.map((a) => `• ${a}`).join("\n")}`;
+        }
+      } else if (!issues.length) {
+        detail += `\n\nПайплайн: missing_content=0 (критичных ops-сигналов нет).`;
       }
     }
   } catch (e) {
