@@ -173,3 +173,9 @@ export function offerUrls(categorySlug: string, slug: string): string[] {
   const base = `https://${INDEXNOW_HOST}`;
   return [`${base}/${categorySlug}/${slug}`];
 }
+
+/** Canonical URL for a published blog article (`/clanky/{slug}`). */
+export function blogPostUrls(slug: string): string[] {
+  const base = `https://${INDEXNOW_HOST}`;
+  return [`${base}/clanky/${slug}`];
+}

@@ -19,6 +19,7 @@ import { BLOG_RSS_SOURCES, type BlogRssSource } from "@/lib/blog-sources";
 import { validateShelfSlug } from "@/lib/catalog-shelf";
 import { categoryDisplayName } from "@/lib/category-display-name";
 import { isProductIndexable } from "@/lib/index-policy";
+import { blogPostUrls, notifyIndexers } from "@/lib/indexers.server";
 import { isSupplementCategory } from "@/lib/niche-types";
 import { loadOffers } from "@/lib/offers.server";
 import { pickRandomUniqueBrandOffers } from "@/lib/services/pick-random-offers";
@@ -154,8 +155,13 @@ async function loadStockedBlogShelves(
   minCount = MIN_PRODUCTS,
 ): Promise<{ shelves: string[]; offersByShelf: Map<string, Offer[]> }> {
   const offers = await loadOffers();
+  // Match BlogProductPicks: drop zero-price offers so the mid-article rail stays full.
   const indexable = offers.filter(
-    (o) => isProductIndexable(o) && o.aiCategoryResolved && isSupplementCategory(o.categorySlug),
+    (o) =>
+      isProductIndexable(o) &&
+      o.aiCategoryResolved &&
+      isSupplementCategory(o.categorySlug) &&
+      (o.priceEUR == null || o.priceEUR > 0),
   );
   const offersByShelf = new Map<string, Offer[]>();
   for (const o of indexable) {
@@ -897,6 +903,13 @@ export async function runBlogIngest(opts: BlogIngestOptions = {}): Promise<BlogI
       result.errors.push(msg);
       console.warn("[blog-ingest] item error:", msg);
     }
+  }
+
+  // Await so CLI/GHA process does not exit before IndexNow/Google pings finish.
+  if (!dryRun && status === "published" && result.slugs.length > 0) {
+    const urls = result.slugs.flatMap((slug) => blogPostUrls(slug));
+    console.log(`[blog-ingest] notifyIndexers ${urls.length} url(s)`);
+    await notifyIndexers(urls);
   }
 
   return result;

@@ -62,6 +62,8 @@ jobs:
       SITE_URL: https://recenze-ceny.cz
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+      GOOGLE_INDEXING_SA_JSON: ${{ secrets.GOOGLE_INDEXING_SA_JSON }}
     steps:
       - name: UTC day key
         id: day
