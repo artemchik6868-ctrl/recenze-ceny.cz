@@ -43,8 +43,9 @@ jobs:
         if: failure()
         run: node scripts/ops-telegram-digest.mjs --base="${BG_SYNC_BASE}" --health-fail
 
-  # Backup blog ingest: standalone blog-ingest.yml schedule is flaky on this repo.
-  # health-check DOES receive schedule events — use the 08 UTC hour window.
+  # Backup blog ingest: blog-ingest.yml has NEVER received a schedule event on this
+  # repo (0 runs since creation). health-check DOES get schedules — piggyback here.
+  # Once per UTC day (not hour==08): health-check fires irregularly and may miss 08.
   blog_ingest:
     if: github.event_name == 'schedule'
     runs-on: ubuntu-latest
@@ -61,36 +62,42 @@ jobs:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
     steps:
-      - name: Gate — only during 08 UTC
+      - name: UTC day key
+        id: day
+        run: echo "d=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+
+      - name: Already ran today?
         id: gate
-        run: |
-          H=$(date -u +%H)
-          echo "utc_hour=$H"
-          if [ "$H" = "08" ]; then
-            echo "run=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "run=false" >> "$GITHUB_OUTPUT"
-          fi
+        uses: actions/cache@v4
+        with:
+          path: .blog-ingest-day-marker
+          key: blog-ingest-${{ steps.day.outputs.d }}
 
       - uses: actions/checkout@v4
-        if: steps.gate.outputs.run == 'true'
+        if: steps.gate.outputs.cache-hit != 'true'
 
       - uses: actions/setup-node@v4
-        if: steps.gate.outputs.run == 'true'
+        if: steps.gate.outputs.cache-hit != 'true'
         with:
           node-version: 22
           cache: npm
 
       - name: Install dependencies
-        if: steps.gate.outputs.run == 'true'
+        if: steps.gate.outputs.cache-hit != 'true'
         run: npm install --no-audit --no-fund
 
       - name: Run blog ingest
-        if: steps.gate.outputs.run == 'true'
+        if: steps.gate.outputs.cache-hit != 'true'
         run: |
-          echo "Backup blog-ingest via health-check schedule"
+          echo "Backup blog-ingest via health-check schedule (day=${{ steps.day.outputs.d }})"
           npx tsx scripts/blog-ingest.ts --limit=3
 
       - name: Notify Telegram
-        if: always() && steps.gate.outputs.run == 'true'
+        if: always() && steps.gate.outputs.cache-hit != 'true'
         run: node scripts/notify-blog-ingest.mjs
+
+      - name: Mark day done
+        if: steps.gate.outputs.cache-hit != 'true' && success()
+        run: |
+          mkdir -p .blog-ingest-day-marker
+          date -u > .blog-ingest-day-marker/done

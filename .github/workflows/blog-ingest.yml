@@ -5,10 +5,9 @@ name: Blog ingest
 # also triggers ingest at 08 UTC as a backup (see health-check.yml).
 on:
   schedule:
-    # Primary daily window (UTC)
+    # Primary daily window (UTC). On this repo this workflow has never received a
+    # schedule event (GitHub drops it); real delivery is via health-check.yml backup.
     - cron: "37 8 * * *"
-    # One-shot diagnostic: 2026-08-05 08:35 UTC only (prove schedule delivery)
-    - cron: "35 8 5 8 *"
   workflow_dispatch:
     inputs:
       limit:
