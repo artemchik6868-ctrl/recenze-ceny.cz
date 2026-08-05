@@ -1,12 +1,13 @@
 // Fire-and-forget notifications to search engines about new/updated URLs.
 //
 // Providers:
-// - IndexNow (Bing, Yandex, Seznam, Naver) — instant, no OAuth, no daily limit.
+// - IndexNow global (`api.indexnow.org`) — Bing, Yandex, Naver, Seznam, …
+// - Seznam IndexNow direct (`search.seznam.cz`) — explicit CZ ping (same key)
 // - Google Indexing API — requires a service account; officially supports only
 //   JobPosting/BroadcastEvent, but works in practice for other pages. Hard daily
 //   quota of 200 URL notifications per project — we enforce it via indexing_log.
 //
-// Both providers are best-effort: failures are logged to indexing_log but never
+// All providers are best-effort: failures are logged to indexing_log but never
 // surfaced to callers. Designed to be invoked without `await` from sync paths.
 
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
@@ -21,12 +22,20 @@ const INDEXNOW_KEY_LOCATION = INDEXNOW_KEY
 const GOOGLE_SA_JSON = process.env.GOOGLE_INDEXING_SA_JSON;
 const GOOGLE_DAILY_LIMIT = 200;
 
+type IndexerProvider = "indexnow" | "seznam" | "google";
+
 type LogRow = {
   url: string;
-  provider: "indexnow" | "google";
+  provider: IndexerProvider;
   status: "ok" | "error" | "skipped_quota" | "skipped_config";
   error?: string | null;
 };
+
+/** Global hub + Seznam direct (IndexNow.org lists both). */
+const INDEXNOW_ENDPOINTS: Array<{ provider: "indexnow" | "seznam"; url: string }> = [
+  { provider: "indexnow", url: "https://api.indexnow.org/indexnow" },
+  { provider: "seznam", url: "https://search.seznam.cz/indexnow" },
+];
 
 async function logBatch(rows: LogRow[]): Promise<void> {
   if (rows.length === 0) return;
@@ -41,19 +50,13 @@ function dedupe(urls: string[]): string[] {
   return [...new Set(urls.filter((u) => typeof u === "string" && u.length > 0))];
 }
 
-// ---------- IndexNow ----------
-
-export async function pingIndexNow(urls: string[]): Promise<void> {
-  const list = dedupe(urls);
-  if (list.length === 0) return;
-  if (!INDEXNOW_KEY || !INDEXNOW_KEY_LOCATION) {
-    await logBatch(
-      list.map((url) => ({ url, provider: "indexnow", status: "skipped_config" })),
-    );
-    return;
-  }
+async function postIndexNow(
+  endpoint: string,
+  provider: "indexnow" | "seznam",
+  list: string[],
+): Promise<void> {
   try {
-    const res = await fetch("https://api.indexnow.org/indexnow", {
+    const res = await fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json; charset=utf-8" },
       body: JSON.stringify({
@@ -68,7 +71,7 @@ export async function pingIndexNow(urls: string[]): Promise<void> {
     await logBatch(
       list.map((url) => ({
         url,
-        provider: "indexnow",
+        provider,
         status: ok ? "ok" : "error",
         error: errorText,
       })),
@@ -76,9 +79,38 @@ export async function pingIndexNow(urls: string[]): Promise<void> {
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
     await logBatch(
-      list.map((url) => ({ url, provider: "indexnow", status: "error", error: msg.slice(0, 500) })),
+      list.map((url) => ({ url, provider, status: "error", error: msg.slice(0, 500) })),
     );
   }
+}
+
+// ---------- IndexNow (global + Seznam direct) ----------
+
+export async function pingIndexNow(urls: string[]): Promise<void> {
+  const list = dedupe(urls);
+  if (list.length === 0) return;
+  if (!INDEXNOW_KEY || !INDEXNOW_KEY_LOCATION) {
+    await logBatch(
+      INDEXNOW_ENDPOINTS.flatMap(({ provider }) =>
+        list.map((url) => ({ url, provider, status: "skipped_config" as const })),
+      ),
+    );
+    return;
+  }
+  await Promise.allSettled(
+    INDEXNOW_ENDPOINTS.map(({ provider, url }) => postIndexNow(url, provider, list)),
+  );
+}
+
+/** Explicit Seznam-only IndexNow ping (also covered by pingIndexNow). */
+export async function pingSeznam(urls: string[]): Promise<void> {
+  const list = dedupe(urls);
+  if (list.length === 0) return;
+  if (!INDEXNOW_KEY || !INDEXNOW_KEY_LOCATION) {
+    await logBatch(list.map((url) => ({ url, provider: "seznam", status: "skipped_config" })));
+    return;
+  }
+  await postIndexNow("https://search.seznam.cz/indexnow", "seznam", list);
 }
 
 // ---------- Google Indexing API ----------
@@ -162,6 +194,7 @@ export async function notifyIndexers(urls: string[]): Promise<void> {
   const list = dedupe(urls);
   if (list.length === 0) return;
   try {
+    // pingIndexNow already hits api.indexnow.org + search.seznam.cz
     await Promise.allSettled([pingIndexNow(list), pingGoogleIndexing(list)]);
   } catch (err) {
     console.warn("[indexers] notifyIndexers error:", err);

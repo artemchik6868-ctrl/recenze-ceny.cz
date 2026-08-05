@@ -905,7 +905,7 @@ export async function runBlogIngest(opts: BlogIngestOptions = {}): Promise<BlogI
     }
   }
 
-  // Await so CLI/GHA process does not exit before IndexNow/Google pings finish.
+  // Await so CLI/GHA process does not exit before IndexNow/Seznam/Google pings finish.
   if (!dryRun && status === "published" && result.slugs.length > 0) {
     const urls = result.slugs.flatMap((slug) => blogPostUrls(slug));
     console.log(`[blog-ingest] notifyIndexers ${urls.length} url(s)`);
