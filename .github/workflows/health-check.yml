@@ -42,3 +42,55 @@ jobs:
       - name: Telegram alert on probe failure
         if: failure()
         run: node scripts/ops-telegram-digest.mjs --base="${BG_SYNC_BASE}" --health-fail
+
+  # Backup blog ingest: standalone blog-ingest.yml schedule is flaky on this repo.
+  # health-check DOES receive schedule events — use the 08 UTC hour window.
+  blog_ingest:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      AI_API_KEY: ${{ secrets.AI_API_KEY }}
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      AI_GATEWAY_URL: ${{ vars.AI_GATEWAY_URL || 'https://openrouter.ai/api/v1/chat/completions' }}
+      BLOG_AI_MODEL: ${{ vars.BLOG_AI_MODEL || 'poolside/laguna-s-2.1:free' }}
+      BLOG_AI_MODELS: ${{ vars.BLOG_AI_MODELS || 'poolside/laguna-s-2.1:free,openai/gpt-oss-20b:free,nvidia/nemotron-3-nano-30b-a3b:free' }}
+      SITE_URL: https://recenze-ceny.cz
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+    steps:
+      - name: Gate — only during 08 UTC
+        id: gate
+        run: |
+          H=$(date -u +%H)
+          echo "utc_hour=$H"
+          if [ "$H" = "08" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.gate.outputs.run == 'true'
+
+      - uses: actions/setup-node@v4
+        if: steps.gate.outputs.run == 'true'
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        if: steps.gate.outputs.run == 'true'
+        run: npm install --no-audit --no-fund
+
+      - name: Run blog ingest
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          echo "Backup blog-ingest via health-check schedule"
+          npx tsx scripts/blog-ingest.ts --limit=3
+
+      - name: Notify Telegram
+        if: always() && steps.gate.outputs.run == 'true'
+        run: node scripts/notify-blog-ingest.mjs
