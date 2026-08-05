@@ -47,7 +47,8 @@ jobs:
   # repo (0 runs since creation). health-check DOES get schedules — piggyback here.
   # Once per UTC day (not hour==08): health-check fires irregularly and may miss 08.
   blog_ingest:
-    if: github.event_name == 'schedule'
+    # schedule = daily automation; workflow_dispatch = manual ops/test of the backup path
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 45
     env:
