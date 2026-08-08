@@ -1,6 +1,9 @@
 ﻿/**
  * Gate AI content until landing/image fact extraction has been attempted
  * (any status including errors). Missing DB row while extract is applicable = not ready.
+ *
+ * Soft age bypass: offers older than FACTS_WAIT_MS may claim without a facts row so
+ * content can warm+generate instead of sitting missing for hours (health stale = 2h).
  */
 
 import type { OfferSource } from "./types";
@@ -14,6 +17,24 @@ import {
 
 /** Sources that run landing-facts drain before content. */
 export const LANDING_FACTS_CONTENT_SOURCES = ["shakes", "cpa_tl", "m1_top"] as const;
+
+/**
+ * Fresh offers wait for :00 facts drain; older ones proceed via warm-on-claim.
+ * Keep well below health-check stale (2h).
+ */
+export const FACTS_WAIT_MS = 30 * 60 * 1000;
+
+/** True when offer is old enough that missing facts rows should not block content. */
+export function offerAgeAllowsFactsBypass(
+  syncedAt: string | null | undefined,
+  nowMs = Date.now(),
+  waitMs = FACTS_WAIT_MS,
+): boolean {
+  if (!syncedAt) return false;
+  const ts = Date.parse(syncedAt);
+  if (!Number.isFinite(ts)) return false;
+  return nowMs - ts >= waitMs;
+}
 
 export type LandingFactsContentSource = (typeof LANDING_FACTS_CONTENT_SOURCES)[number];
 
@@ -83,8 +104,15 @@ export function offerFactsReadyForContent(opts: {
   imageFactsEnabled: boolean;
   hasImageUrl: boolean;
   imageStatus: string | null | undefined;
+  /** When set, aged offers bypass a missing facts row (warm runs after claim). */
+  syncedAt?: string | null | undefined;
+  nowMs?: number;
 }): boolean {
-  return landingFactsReadyForContent(opts) && imageFactsReadyForContent(opts);
+  const landingOk = landingFactsReadyForContent(opts);
+  const imageOk = imageFactsReadyForContent(opts);
+  if (landingOk && imageOk) return true;
+  if (offerAgeAllowsFactsBypass(opts.syncedAt, opts.nowMs)) return true;
+  return false;
 }
 
 /** Skip live landing warm when a status row already exists (any outcome). */

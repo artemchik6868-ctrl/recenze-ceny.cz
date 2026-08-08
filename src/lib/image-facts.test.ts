@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import {
   compareImageFactsCandidates,
+  classifyImageFactsExhaustError,
   formatImageFactsForPrompt,
   imageFactsCandidateRank,
   imageFactsHaveContent,
@@ -11,6 +12,7 @@ import {
   normalizeImageFacts,
   parseImageFactsGatewayMeta,
   shouldInjectImageFacts,
+  shouldReprobeExhaustedImageFacts,
 } from "./image-facts";
 
 assert.equal(imageUrlHash("https://A.example/x.jpg"), imageUrlHash("https://a.example/x.jpg"));
@@ -117,5 +119,67 @@ assert.equal(routed.generationId, "gen-abc123");
 const fallback = parseImageFactsGatewayMeta({ choices: [] }, "openrouter/free");
 assert.equal(fallback.model, "openrouter/free");
 assert.equal(fallback.generationId, null);
+
+assert.equal(classifyImageFactsExhaustError("max_llm_per_image"), "llm_cap");
+assert.equal(
+  classifyImageFactsExhaustError("Failed to parse LLM JSON: User Safety: safe"),
+  "safety",
+);
+assert.equal(classifyImageFactsExhaustError("http_502"), "fetch");
+assert.equal(classifyImageFactsExhaustError("preflight:http_403;url_only:thin"), "fetch");
+assert.equal(classifyImageFactsExhaustError("weird"), "other");
+
+const oldIso = "2026-07-20T00:00:00.000Z";
+const now = Date.parse("2026-08-05T12:00:00.000Z");
+assert.equal(
+  shouldReprobeExhaustedImageFacts({
+    status: "exhausted",
+    error: "max_llm_per_image",
+    updatedAt: oldIso,
+    now,
+    minAgeDays: 14,
+  }),
+  true,
+);
+assert.equal(
+  shouldReprobeExhaustedImageFacts({
+    status: "exhausted",
+    error: "http_502",
+    updatedAt: oldIso,
+    now,
+    minAgeDays: 7,
+  }),
+  true,
+);
+assert.equal(
+  shouldReprobeExhaustedImageFacts({
+    status: "exhausted",
+    error: "http_502",
+    updatedAt: "2026-08-04T00:00:00.000Z",
+    now,
+    minAgeDays: 7,
+  }),
+  false,
+);
+assert.equal(
+  shouldReprobeExhaustedImageFacts({
+    status: "exhausted",
+    error: "max_llm_per_image",
+    updatedAt: "2026-08-04T00:00:00.000Z",
+    now,
+    minAgeDays: 14,
+  }),
+  false,
+);
+assert.equal(
+  shouldReprobeExhaustedImageFacts({
+    status: "exhausted",
+    error: "max_llm_per_image",
+    updatedAt: oldIso,
+    now,
+    minAgeDays: 0,
+  }),
+  false,
+);
 
 console.log("image-facts.test.ts: ok");

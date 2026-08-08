@@ -7,12 +7,80 @@ import { syncShakesOffers } from "./shakes-sync.server";
 import {
   generateNewContent,
   getSourceMissingCount,
+  MIN_CONTENT_OFFER_MS,
   purgeContaminatedRows,
   regenMissingReviews,
   resetContentIndexCache,
   type GenerateNewContentResult,
 } from "./content-backfill.server";
 import type { OfferSource } from "./types";
+
+/** Wall time needed so generateNewContent's claim gate (MIN_CONTENT_OFFER_MS) can fire. */
+export const MIN_SOURCE_DRAIN_MS = MIN_CONTENT_OFFER_MS + 8_000;
+
+/**
+ * One fair slot per source in a round-robin pass — enough for a single claim.
+ * Full remaining budget is no longer given to the first source in PIPELINE_SOURCES order.
+ */
+export const SOURCE_DRAIN_SLOT_MS = MIN_SOURCE_DRAIN_MS;
+
+/**
+ * Per-source deadline for generateNewContent given remaining wall ms.
+ * Returns null when the slice is too small to pass the drainMode claim gate.
+ */
+export function sourceDrainDeadlineMs(remainingMs: number): number | null {
+  if (remainingMs < MIN_SOURCE_DRAIN_MS) return null;
+  return remainingMs - 1000;
+}
+
+/** Rotate source list so startIndex is first (fair multi-source drain). */
+export function rotateSourcesFrom<T>(sources: readonly T[], startIndex: number): T[] {
+  if (sources.length === 0) return [];
+  const i = ((startIndex % sources.length) + sources.length) % sources.length;
+  return [...sources.slice(i), ...sources.slice(0, i)];
+}
+
+/**
+ * Prefer the source with the largest AI backlog.
+ * Tie-break: first in `order` (rotation) so fairness still advances.
+ */
+export function pickSourceWithMostMissing(
+  order: readonly OfferSource[],
+  missingBySource: Partial<Record<OfferSource, number>>,
+): OfferSource | null {
+  let best: OfferSource | null = null;
+  let bestCount = 0;
+  for (const source of order) {
+    const n = Number(missingBySource[source] ?? 0);
+    if (n > bestCount) {
+      best = source;
+      bestCount = n;
+    }
+  }
+  return best;
+}
+
+/** Half-hour tick bucket so consecutive scheduled ticks rotate who goes first. */
+export function drainRoundStartIndex(nowMs: number, sourceCount: number): number {
+  if (sourceCount <= 0) return 0;
+  return Math.floor(nowMs / (30 * 60 * 1000)) % sourceCount;
+}
+
+export function mergeGenerateNewContentResult(
+  prev: GenerateNewContentResult | undefined,
+  next: GenerateNewContentResult,
+): GenerateNewContentResult {
+  if (!prev) return next;
+  return {
+    content: {
+      rounds: [...prev.content.rounds, ...next.content.rounds],
+      totalGenerated: prev.content.totalGenerated + next.content.totalGenerated,
+      totalFailed: prev.content.totalFailed + next.content.totalFailed,
+    },
+    timedOut: prev.timedOut || next.timedOut,
+    missingRemaining: next.missingRemaining,
+  };
+}
 
 export const PIPELINE_SOURCES: OfferSource[] = [
   "cpa_tl",
@@ -135,11 +203,15 @@ export type RetryMissingContentResult = {
 };
 
 /**
- * Safety retry: only sources with missing content, one offer at a time.
- * No-op when everything is generated.
+ * Safety retry for sources with missing content.
+ *
+ * Fair multi-source: rotate start so m1/shakes are not always last, but process
+ * **at most one source per Worker invoke**. Free CF plan caps ~50 subrequests;
+ * multi-source full index scans + raw offer loads blow that budget before LLM.
+ * Cron (* /30) still advances every source over successive ticks.
  */
 export async function retryMissingContent(
-  opts: { deadlineMs?: number; sources?: OfferSource[] } = {},
+  opts: { deadlineMs?: number; sources?: OfferSource[]; nowMs?: number } = {},
 ): Promise<RetryMissingContentResult> {
   const started = Date.now();
   const deadlineMs = opts.deadlineMs ?? CONTENT_DRAIN_DEADLINE_MS;
@@ -147,19 +219,24 @@ export async function retryMissingContent(
   const sources: Partial<Record<OfferSource, GenerateNewContentResult>> = {};
   let totalGenerated = 0;
   let totalFailed = 0;
-  let totalMissing = 0;
 
-  // Fresh index per drain request; keep warm during the tick, clear after for isolate reuse.
   resetContentIndexCache(sourceList);
 
   try {
-    const withMissing: OfferSource[] = [];
-    for (const source of sourceList) {
-      const missing = await getSourceMissingCount(source);
-      if (missing > 0) withMissing.push(source);
-    }
+    // Rotate scan order for fairness, but pick the source with the largest backlog
+    // so a single shakes spike is not starved behind empty earlier sources.
+    const order = rotateSourcesFrom(
+      sourceList,
+      drainRoundStartIndex(opts.nowMs ?? Date.now(), sourceList.length),
+    );
 
-    if (withMissing.length === 0) {
+    const missingBySource: Partial<Record<OfferSource, number>> = {};
+    for (const source of order) {
+      missingBySource[source] = await getSourceMissingCount(source);
+    }
+    const chosen = pickSourceWithMostMissing(order, missingBySource);
+
+    if (!chosen) {
       return {
         ok: true,
         elapsed_ms: Date.now() - started,
@@ -170,31 +247,40 @@ export async function retryMissingContent(
       };
     }
 
-    const perSourceMs = Math.max(15_000, Math.floor(deadlineMs / withMissing.length));
-
-    for (const source of withMissing) {
-      const remainingMs = deadlineMs - (Date.now() - started);
-      if (remainingMs < 5000) break;
-
-      const result = await generateNewContent(source, {
-        deadlineMs: Math.min(perSourceMs, remainingMs - 1000),
-      });
-      sources[source] = result;
-      totalGenerated += result.content.totalGenerated;
-      totalFailed += result.content.totalFailed;
-      totalMissing += result.missingRemaining;
-
+    // One source only — full wall budget for real LLM work.
+    const remainingMs = deadlineMs - (Date.now() - started);
+    const sourceDeadlineMs = sourceDrainDeadlineMs(remainingMs);
+    if (sourceDeadlineMs == null) {
       console.info(
-        `[retry-missing] ${source} generated=${result.content.totalGenerated} failed=${result.content.totalFailed} remaining=${result.missingRemaining}`,
+        `[retry-missing] ${chosen} skip: remaining=${remainingMs}ms < min=${MIN_SOURCE_DRAIN_MS}ms`,
       );
+      return {
+        ok: true,
+        elapsed_ms: Date.now() - started,
+        totalGenerated: 0,
+        totalFailed: 0,
+        totalMissing: missingBySource[chosen] ?? 1,
+        sources: {},
+      };
     }
+
+    const result = await generateNewContent(chosen, {
+      deadlineMs: sourceDeadlineMs,
+    });
+    sources[chosen] = result;
+    totalGenerated += result.content.totalGenerated;
+    totalFailed += result.content.totalFailed;
+
+    console.info(
+      `[retry-missing] ${chosen} generated=${result.content.totalGenerated} failed=${result.content.totalFailed} remaining=${result.missingRemaining} backlog=${missingBySource[chosen] ?? "?"}`,
+    );
 
     return {
       ok: true,
       elapsed_ms: Date.now() - started,
       totalGenerated,
       totalFailed,
-      totalMissing,
+      totalMissing: result.missingRemaining,
       sources,
     };
   } finally {

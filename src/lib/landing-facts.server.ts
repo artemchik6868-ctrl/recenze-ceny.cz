@@ -4,6 +4,11 @@ import { getM1TopRawOffer } from "./m1-top-sync.server";
 import { getShakesRawOffer } from "./shakes-sync.server";
 import { parseJsonFromLlm } from "./ai-content-pipeline.cs";
 import {
+  classifyLandingExhaustError,
+  landingFactsReprobePerTick,
+  shouldReprobeExhaustedFacts,
+} from "./facts-recovery";
+import {
   buildLandingFactsLlmPrompt,
   extractCompactLandingFacts,
   formatLandingFactsForPrompt,
@@ -18,11 +23,13 @@ import {
   nextFetchErrorOutcome,
   nextThinOutcome,
   shouldInjectLandingFacts,
+  landingStreakBase,
   type CompactLandingFacts,
   type LandingFactsExtractResult,
   type LandingFactsLang,
   type LandingFactsStatus,
 } from "./landing-facts";
+import { prioritizeOfferIds } from "./indexing-rate-limit";
 
 export type LiveLandingFactsTiming = {
   pickMs: number;
@@ -174,16 +181,31 @@ async function fetchLandingHtml(
   const ac = new AbortController();
   const timer = setTimeout(() => ac.abort(), timeoutMs);
   try {
-    const res = await fetch(url, {
+    // Browser-like UA + cs Accept-Language (partners often block RecenzeCenyBot).
+    const primaryHeaders: Record<string, string> = {
+      "user-agent":
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+      accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      "accept-language": "cs-CZ,cs;q=0.9,en;q=0.8",
+    };
+    let res = await fetch(url, {
       redirect: "follow",
       signal: ac.signal,
-      headers: {
-        "user-agent":
-          "Mozilla/5.0 (compatible; RecenzeCenyBot/1.0; +https://recenze-ceny.cz)",
-        accept: "text/html,application/xhtml+xml",
-        "accept-language": "cs-CZ,cs;q=0.9,en;q=0.8",
-      },
+      headers: primaryHeaders,
     });
+    // One alt retry on 403 — some CDNs soft-block first-party fingerprint.
+    if (res.status === 403) {
+      res = await fetch(url, {
+        redirect: "follow",
+        signal: ac.signal,
+        headers: {
+          "user-agent":
+            "Mozilla/5.0 (compatible; RecenzeCenyBot/1.0; +https://recenze-ceny.cz)",
+          accept: "text/html,application/xhtml+xml",
+          "accept-language": "cs-CZ,cs;q=0.9,en;q=0.8",
+        },
+      });
+    }
     const html = await res.text();
     return { html, finalUrl: res.url, status: res.status };
   } finally {
@@ -225,14 +247,17 @@ async function fetchFirstUsableLandingHtml(
       attempted.push({ url, error: message });
     }
   }
+  const codes = attempted
+    .map((a) => (a.status != null ? `HTTP ${a.status}` : a.error ?? "err"))
+    .join("; ");
   const last = attempted[attempted.length - 1];
-  const detail = last
+  const lastDetail = last
     ? last.error
       ? `${last.url}: ${last.error}`
       : `${last.url}: HTTP ${last.status}`
     : "unknown";
   throw new Error(
-    `all ${candidates.length} landing candidate(s) failed (last: ${detail})`,
+    `all ${candidates.length} landing candidate(s) failed [${codes}] (last: ${lastDetail})`,
   );
 }
 
@@ -332,6 +357,38 @@ function llmExtractOutcome(
     error,
   };
 }
+
+/**
+ * Reset fail streak when primary/source URL hash changes (mirrors image-facts hashChanged).
+ * Re-exported from landing-facts for drain/extract call sites.
+ */
+export { landingStreakBase } from "./landing-facts";
+
+/** Soft re-open exhausted non-terminal rows after TTL. */
+export function shouldReopenExhaustedLanding(
+  existing: {
+    status: string;
+    error: string | null;
+    updated_at: string;
+  },
+  now = Date.now(),
+): boolean {
+  if (existing.status !== "exhausted") return false;
+  const exhaustClass = classifyLandingExhaustError(existing.error);
+  return shouldReprobeExhaustedFacts({
+    status: existing.status,
+    exhaustClass,
+    updatedAt: existing.updated_at,
+    now,
+  });
+}
+
+export type LandingNeedsExtractResult = {
+  need: boolean;
+  sourceUrl: string | null;
+  /** Exhausted soft-reprobe (counts toward per-tick cap). */
+  isReprobe: boolean;
+};
 
 export async function getShakesLandingFactsFromDb(
   offerId: number,
@@ -584,7 +641,8 @@ export async function extractAndStoreShakesLandingFacts(
     const llm = await callLandingFactsLlm(title, plain);
     const extractMs = Date.now() - extractStarted;
     const facts = llm.facts;
-    const outcome = llmExtractOutcome(prev, facts);
+    const streak = landingStreakBase(prev, urlHash);
+    const outcome = llmExtractOutcome(streak, facts);
     const decision = shouldInjectLandingFacts({
       status: outcome.status,
       langHint,
@@ -621,12 +679,15 @@ export async function extractAndStoreShakesLandingFacts(
   } catch (err) {
     const fetchMs = Date.now() - fetchStarted;
     const message = err instanceof Error ? err.message : String(err);
-    const fetchOutcome = nextFetchErrorOutcome(prev?.status ?? "", prev?.fail_count ?? 0);
     const urlHash = landingUrlHash(sourceUrl);
+    const streak = landingStreakBase(prev, urlHash);
+    const fetchOutcome = nextFetchErrorOutcome(streak.status, streak.fail_count, Date.now(), {
+      errorMessage: message,
+    });
     const result: LiveLandingFactsResult = {
       sourceUrl,
       langHint: "unknown",
-      status: "fetch_error",
+      status: fetchOutcome.status,
       facts: null,
       fullTextChars: 0,
       jsonChars: 0,
@@ -639,7 +700,7 @@ export async function extractAndStoreShakesLandingFacts(
       offer_id: offerId,
       source_url: sourceUrl,
       url_hash: urlHash,
-      status: "fetch_error",
+      status: fetchOutcome.status,
       lang_hint: "unknown",
       method: "llm",
       facts: null,
@@ -671,35 +732,41 @@ export type LandingFactsDrainResult = {
 function needsExtract(
   raw: { landings?: Array<{ type?: string; url?: string }> },
   existing: ShakesLandingFactsRow | undefined,
-): { need: boolean; sourceUrl: string | null } {
+): LandingNeedsExtractResult {
   const candidates = listAdaptiveLandingUrls(raw);
   const sourceUrl = candidates[0] ?? null;
   if (!candidates.length || !candidates.some((u) => isClearlyCzLandingUrl(u))) {
-    return { need: false, sourceUrl };
+    return { need: false, sourceUrl, isReprobe: false };
   }
-  if (!existing) return { need: true, sourceUrl };
+  if (!existing) return { need: true, sourceUrl, isReprobe: false };
   if (existing.locked_until && new Date(existing.locked_until).getTime() > Date.now()) {
-    return { need: false, sourceUrl };
+    return { need: false, sourceUrl, isReprobe: false };
   }
   const candidateHashes = new Set(candidates.map((u) => landingUrlHash(u)));
   // Successful extract from a fallback URL still counts — don't re-queue while that URL remains.
   if (existing.status === "ok" && existing.url_hash && candidateHashes.has(existing.url_hash)) {
-    return { need: false, sourceUrl };
+    return { need: false, sourceUrl, isReprobe: false };
   }
   const primaryHash = landingUrlHash(sourceUrl!);
-  if (existing.url_hash !== primaryHash) return { need: true, sourceUrl };
-  if (existing.status === "ok") return { need: false, sourceUrl };
-  if (existing.status === "no_url" || existing.status === "skip_geo" || existing.status === "exhausted") {
-    return { need: false, sourceUrl };
+  if (existing.url_hash !== primaryHash) return { need: true, sourceUrl, isReprobe: false };
+  if (existing.status === "ok") return { need: false, sourceUrl, isReprobe: false };
+  if (existing.status === "no_url" || existing.status === "skip_geo") {
+    return { need: false, sourceUrl, isReprobe: false };
+  }
+  if (existing.status === "exhausted") {
+    const reopen = shouldReopenExhaustedLanding(existing);
+    return { need: reopen, sourceUrl, isReprobe: reopen };
   }
   // thin / fetch_error — retry after cooldown
-  return { need: true, sourceUrl };
+  return { need: true, sourceUrl, isReprobe: false };
 }
 
 /** Drain pending Shakes landing facts within a deadline budget. */
 export async function drainShakesLandingFacts(opts: {
   deadlineMs?: number;
   limit?: number;
+  /** Offer IDs missing AI content — drain these first so the facts gate unblocks. */
+  preferOfferIds?: number[];
 } = {}): Promise<LandingFactsDrainResult> {
   const deadlineMs = opts.deadlineMs ?? LANDING_FACTS_DRAIN_DEADLINE_MS;
   const limit = opts.limit ?? 8;
@@ -723,16 +790,22 @@ export async function drainShakesLandingFacts(opts: {
     byId.set(row.offer_id, row);
   }
 
-  const queue: number[] = [];
+  const normal: number[] = [];
+  const reprobe: number[] = [];
   for (const o of offers ?? []) {
     const offerId = Number((o as { offer_id: number }).offer_id);
     const raw = ((o as { raw?: unknown }).raw ?? {}) as {
       landings?: Array<{ type?: string; url?: string }>;
     };
-    const { need } = needsExtract(raw, byId.get(offerId));
-    if (need) queue.push(offerId);
+    const { need, isReprobe } = needsExtract(raw, byId.get(offerId));
+    if (!need) continue;
+    if (isReprobe) reprobe.push(offerId);
+    else normal.push(offerId);
   }
-
+  const queue = prioritizeOfferIds(
+    [...normal, ...reprobe.slice(0, landingFactsReprobePerTick())],
+    opts.preferOfferIds ?? [],
+  );
   const items: LandingFactsDrainResult["items"] = [];
   let okCount = 0;
   let failed = 0;
@@ -756,7 +829,7 @@ export async function drainShakesLandingFacts(opts: {
         error: result.error,
       });
       if (result.status === "ok") okCount += 1;
-      else if (result.status === "fetch_error") failed += 1;
+      else if (result.status === "fetch_error" || result.status === "exhausted") failed += 1;
       console.info(
         `[landing-facts-drain] ${offerId} status=${result.status} ms=${elapsed} json=${result.jsonChars}`,
       );
@@ -868,7 +941,8 @@ export async function extractAndStoreM1TopLandingFacts(
     const llm = await callLandingFactsLlm(title, plain);
     const extractMs = Date.now() - extractStarted;
     const facts = llm.facts;
-    const outcome = llmExtractOutcome(prev, facts);
+    const streak = landingStreakBase(prev, urlHash);
+    const outcome = llmExtractOutcome(streak, facts);
     const decision = shouldInjectLandingFacts({
       status: outcome.status,
       langHint: "cs",
@@ -905,12 +979,15 @@ export async function extractAndStoreM1TopLandingFacts(
   } catch (err) {
     const fetchMs = Date.now() - fetchStarted;
     const message = err instanceof Error ? err.message : String(err);
-    const fetchOutcome = nextFetchErrorOutcome(prev?.status ?? "", prev?.fail_count ?? 0);
     const urlHash = landingUrlHash(sourceUrl);
+    const streak = landingStreakBase(prev, urlHash);
+    const fetchOutcome = nextFetchErrorOutcome(streak.status, streak.fail_count, Date.now(), {
+      errorMessage: message,
+    });
     const result: LiveLandingFactsResult = {
       sourceUrl,
       langHint: "cs",
-      status: "fetch_error",
+      status: fetchOutcome.status,
       facts: null,
       fullTextChars: 0,
       jsonChars: 0,
@@ -923,7 +1000,7 @@ export async function extractAndStoreM1TopLandingFacts(
       offer_id: offerId,
       source_url: sourceUrl,
       url_hash: urlHash,
-      status: "fetch_error",
+      status: fetchOutcome.status,
       lang_hint: "cs",
       method: "llm",
       facts: null,
@@ -939,33 +1016,38 @@ export async function extractAndStoreM1TopLandingFacts(
 function needsM1Extract(
   raw: { tracking_link?: Array<string | null | undefined> | null },
   existing: M1LandingFactsRow | undefined,
-): { need: boolean; sourceUrl: string | null } {
+): LandingNeedsExtractResult {
   const candidates = listM1TopLandingUrls(raw);
   const sourceUrl = candidates[0] ?? null;
   if (!candidates.length) {
-    return { need: false, sourceUrl };
+    return { need: false, sourceUrl, isReprobe: false };
   }
-  if (!existing) return { need: true, sourceUrl };
+  if (!existing) return { need: true, sourceUrl, isReprobe: false };
   if (existing.locked_until && new Date(existing.locked_until).getTime() > Date.now()) {
-    return { need: false, sourceUrl };
+    return { need: false, sourceUrl, isReprobe: false };
   }
   const candidateHashes = new Set(candidates.map((u) => landingUrlHash(u)));
   if (existing.status === "ok" && existing.url_hash && candidateHashes.has(existing.url_hash)) {
-    return { need: false, sourceUrl };
+    return { need: false, sourceUrl, isReprobe: false };
   }
   const primaryHash = landingUrlHash(sourceUrl!);
-  if (existing.url_hash !== primaryHash) return { need: true, sourceUrl };
-  if (existing.status === "ok") return { need: false, sourceUrl };
-  if (existing.status === "no_url" || existing.status === "skip_geo" || existing.status === "exhausted") {
-    return { need: false, sourceUrl };
+  if (existing.url_hash !== primaryHash) return { need: true, sourceUrl, isReprobe: false };
+  if (existing.status === "ok") return { need: false, sourceUrl, isReprobe: false };
+  if (existing.status === "no_url" || existing.status === "skip_geo") {
+    return { need: false, sourceUrl, isReprobe: false };
   }
-  return { need: true, sourceUrl };
+  if (existing.status === "exhausted") {
+    const reopen = shouldReopenExhaustedLanding(existing);
+    return { need: reopen, sourceUrl, isReprobe: reopen };
+  }
+  return { need: true, sourceUrl, isReprobe: false };
 }
 
 /** Drain pending m1.top landing facts within a deadline budget. */
 export async function drainM1TopLandingFacts(opts: {
   deadlineMs?: number;
   limit?: number;
+  preferOfferIds?: number[];
 } = {}): Promise<LandingFactsDrainResult> {
   const deadlineMs = opts.deadlineMs ?? LANDING_FACTS_DRAIN_DEADLINE_MS;
   const limit = opts.limit ?? 8;
@@ -989,16 +1071,22 @@ export async function drainM1TopLandingFacts(opts: {
     byId.set(row.offer_id, row);
   }
 
-  const queue: number[] = [];
+  const normal: number[] = [];
+  const reprobe: number[] = [];
   for (const o of offers ?? []) {
     const offerId = Number((o as { offer_id: number }).offer_id);
     const raw = ((o as { raw?: unknown }).raw ?? {}) as {
       tracking_link?: Array<string | null | undefined> | null;
     };
-    const { need } = needsM1Extract(raw, byId.get(offerId));
-    if (need) queue.push(offerId);
+    const { need, isReprobe } = needsM1Extract(raw, byId.get(offerId));
+    if (!need) continue;
+    if (isReprobe) reprobe.push(offerId);
+    else normal.push(offerId);
   }
-
+  const queue = prioritizeOfferIds(
+    [...normal, ...reprobe.slice(0, landingFactsReprobePerTick())],
+    opts.preferOfferIds ?? [],
+  );
   const items: LandingFactsDrainResult["items"] = [];
   let okCount = 0;
   let failed = 0;
@@ -1022,7 +1110,7 @@ export async function drainM1TopLandingFacts(opts: {
         error: result.error,
       });
       if (result.status === "ok") okCount += 1;
-      else if (result.status === "fetch_error") failed += 1;
+      else if (result.status === "fetch_error" || result.status === "exhausted") failed += 1;
       console.info(
         `[landing-facts-drain] m1_top ${offerId} status=${result.status} ms=${elapsed} json=${result.jsonChars}`,
       );
@@ -1134,7 +1222,8 @@ export async function extractAndStoreCpaTlLandingFacts(
     const llm = await callLandingFactsLlm(title, plain);
     const extractMs = Date.now() - extractStarted;
     const facts = llm.facts;
-    const outcome = llmExtractOutcome(prev, facts);
+    const streak = landingStreakBase(prev, urlHash);
+    const outcome = llmExtractOutcome(streak, facts);
     const decision = shouldInjectLandingFacts({
       status: outcome.status,
       langHint: "cs",
@@ -1171,12 +1260,15 @@ export async function extractAndStoreCpaTlLandingFacts(
   } catch (err) {
     const fetchMs = Date.now() - fetchStarted;
     const message = err instanceof Error ? err.message : String(err);
-    const fetchOutcome = nextFetchErrorOutcome(prev?.status ?? "", prev?.fail_count ?? 0);
     const urlHash = landingUrlHash(sourceUrl);
+    const streak = landingStreakBase(prev, urlHash);
+    const fetchOutcome = nextFetchErrorOutcome(streak.status, streak.fail_count, Date.now(), {
+      errorMessage: message,
+    });
     const result: LiveLandingFactsResult = {
       sourceUrl,
       langHint: "cs",
-      status: "fetch_error",
+      status: fetchOutcome.status,
       facts: null,
       fullTextChars: 0,
       jsonChars: 0,
@@ -1189,7 +1281,7 @@ export async function extractAndStoreCpaTlLandingFacts(
       offer_id: offerId,
       source_url: sourceUrl,
       url_hash: urlHash,
-      status: "fetch_error",
+      status: fetchOutcome.status,
       lang_hint: "cs",
       method: "llm",
       facts: null,
@@ -1207,33 +1299,38 @@ function needsCpaTlExtract(
     landings?: Array<{ url?: string; language_code?: string; language?: string }>;
   },
   existing: CpaTlLandingFactsRow | undefined,
-): { need: boolean; sourceUrl: string | null } {
+): LandingNeedsExtractResult {
   const candidates = listCpaTlCzLandingUrls(raw);
   const sourceUrl = candidates[0] ?? null;
   if (!candidates.length) {
-    return { need: false, sourceUrl };
+    return { need: false, sourceUrl, isReprobe: false };
   }
-  if (!existing) return { need: true, sourceUrl };
+  if (!existing) return { need: true, sourceUrl, isReprobe: false };
   if (existing.locked_until && new Date(existing.locked_until).getTime() > Date.now()) {
-    return { need: false, sourceUrl };
+    return { need: false, sourceUrl, isReprobe: false };
   }
   const candidateHashes = new Set(candidates.map((u) => landingUrlHash(u)));
   if (existing.status === "ok" && existing.url_hash && candidateHashes.has(existing.url_hash)) {
-    return { need: false, sourceUrl };
+    return { need: false, sourceUrl, isReprobe: false };
   }
   const primaryHash = landingUrlHash(sourceUrl!);
-  if (existing.url_hash !== primaryHash) return { need: true, sourceUrl };
-  if (existing.status === "ok") return { need: false, sourceUrl };
-  if (existing.status === "no_url" || existing.status === "skip_geo" || existing.status === "exhausted") {
-    return { need: false, sourceUrl };
+  if (existing.url_hash !== primaryHash) return { need: true, sourceUrl, isReprobe: false };
+  if (existing.status === "ok") return { need: false, sourceUrl, isReprobe: false };
+  if (existing.status === "no_url" || existing.status === "skip_geo") {
+    return { need: false, sourceUrl, isReprobe: false };
   }
-  return { need: true, sourceUrl };
+  if (existing.status === "exhausted") {
+    const reopen = shouldReopenExhaustedLanding(existing);
+    return { need: reopen, sourceUrl, isReprobe: reopen };
+  }
+  return { need: true, sourceUrl, isReprobe: false };
 }
 
 /** Drain pending CPA.tl CZ landing facts within a deadline budget. */
 export async function drainCpaTlLandingFacts(opts: {
   deadlineMs?: number;
   limit?: number;
+  preferOfferIds?: number[];
 } = {}): Promise<LandingFactsDrainResult> {
   const deadlineMs = opts.deadlineMs ?? LANDING_FACTS_DRAIN_DEADLINE_MS;
   const limit = opts.limit ?? 8;
@@ -1257,15 +1354,22 @@ export async function drainCpaTlLandingFacts(opts: {
     byId.set(row.offer_id, row);
   }
 
-  const queue: number[] = [];
+  const normal: number[] = [];
+  const reprobe: number[] = [];
   for (const o of offers ?? []) {
     const offerId = Number((o as { offer_id: number }).offer_id);
     const raw = ((o as { raw?: unknown }).raw ?? {}) as {
       landings?: Array<{ url?: string; language_code?: string; language?: string }>;
     };
-    const { need } = needsCpaTlExtract(raw, byId.get(offerId));
-    if (need) queue.push(offerId);
+    const { need, isReprobe } = needsCpaTlExtract(raw, byId.get(offerId));
+    if (!need) continue;
+    if (isReprobe) reprobe.push(offerId);
+    else normal.push(offerId);
   }
+  const queue = prioritizeOfferIds(
+    [...normal, ...reprobe.slice(0, landingFactsReprobePerTick())],
+    opts.preferOfferIds ?? [],
+  );
 
   const items: LandingFactsDrainResult["items"] = [];
   let okCount = 0;
@@ -1290,7 +1394,7 @@ export async function drainCpaTlLandingFacts(opts: {
         error: result.error,
       });
       if (result.status === "ok") okCount += 1;
-      else if (result.status === "fetch_error") failed += 1;
+      else if (result.status === "fetch_error" || result.status === "exhausted") failed += 1;
       console.info(
         `[landing-facts-drain] cpa_tl ${offerId} status=${result.status} ms=${elapsed} json=${result.jsonChars}`,
       );

@@ -19,6 +19,7 @@ import {
   drainMissingReviews,
   CONTENT_DRAIN_DEADLINE_MS,
 } from "./content-pipeline.server";
+import { listSourceMissingOfferIds } from "./content-backfill.server";
 import { runIndexingRetry, type IndexingRetryResult } from "./indexing-retry.server";
 import { runSitemapSubmit, type SitemapSubmitResult } from "./gsc-sitemap.server";
 import {
@@ -33,6 +34,7 @@ import {
   IMAGE_FACTS_DRAIN_DEADLINE_MS,
   type ImageFactsDrainResult,
 } from "./image-facts.server";
+import type { OfferSource } from "./types";
 
 export type { ScheduledTickWorkstream };
 export { isTopOfHourUtc, scheduledTickWorkstream };
@@ -106,40 +108,62 @@ export async function runScheduledTick(now = new Date()): Promise<ScheduledTickR
 
   // :00 — landing facts + image-facts only (no content/reviews in this invoke).
   if (workstream === "facts") {
+    // Prefer offers that still need AI content so the facts gate unblocks health backlog.
+    const [shakesMissing, m1Missing, cpaTlMissing] = await Promise.all([
+      listSourceMissingOfferIds("shakes", { limit: 40 }),
+      listSourceMissingOfferIds("m1_top", { limit: 40 }),
+      listSourceMissingOfferIds("cpa_tl", { limit: 40 }),
+    ]);
+
     const landingFactsDrain = await drainShakesLandingFacts({
       deadlineMs: LANDING_FACTS_DRAIN_DEADLINE_MS,
       limit: 5,
+      preferOfferIds: shakesMissing,
     });
     ran.push("landing-facts-drain");
     console.info(
-      `[scheduled-tick] landing-facts-drain processed=${landingFactsDrain.processed} ok=${landingFactsDrain.okCount} remaining=${landingFactsDrain.remaining}`,
+      `[scheduled-tick] landing-facts-drain processed=${landingFactsDrain.processed} ok=${landingFactsDrain.okCount} remaining=${landingFactsDrain.remaining} prefer=${shakesMissing.length}`,
     );
 
     const m1LandingFactsDrain = await drainM1TopLandingFacts({
       deadlineMs: LANDING_FACTS_DRAIN_DEADLINE_MS,
       limit: 5,
+      preferOfferIds: m1Missing,
     });
     ran.push("m1-landing-facts-drain");
     console.info(
-      `[scheduled-tick] m1-landing-facts-drain processed=${m1LandingFactsDrain.processed} ok=${m1LandingFactsDrain.okCount} remaining=${m1LandingFactsDrain.remaining}`,
+      `[scheduled-tick] m1-landing-facts-drain processed=${m1LandingFactsDrain.processed} ok=${m1LandingFactsDrain.okCount} remaining=${m1LandingFactsDrain.remaining} prefer=${m1Missing.length}`,
     );
 
     const cpaTlLandingFactsDrain = await drainCpaTlLandingFacts({
       deadlineMs: LANDING_FACTS_DRAIN_DEADLINE_MS,
       limit: 5,
+      preferOfferIds: cpaTlMissing,
     });
     ran.push("cpa-tl-landing-facts-drain");
     console.info(
-      `[scheduled-tick] cpa-tl-landing-facts-drain processed=${cpaTlLandingFactsDrain.processed} ok=${cpaTlLandingFactsDrain.okCount} remaining=${cpaTlLandingFactsDrain.remaining}`,
+      `[scheduled-tick] cpa-tl-landing-facts-drain processed=${cpaTlLandingFactsDrain.processed} ok=${cpaTlLandingFactsDrain.okCount} remaining=${cpaTlLandingFactsDrain.remaining} prefer=${cpaTlMissing.length}`,
     );
+
+    const imagePrefer: Array<{ source: OfferSource; offerId: number }> = [
+      ...shakesMissing.map((offerId) => ({ source: "shakes" as const, offerId })),
+      ...m1Missing.map((offerId) => ({ source: "m1_top" as const, offerId })),
+      ...cpaTlMissing.map((offerId) => ({ source: "cpa_tl" as const, offerId })),
+    ];
+    // Also prefer other sources missing AI (image facts cover all six).
+    for (const source of ["kma", "cpagetti", "adcombo"] as OfferSource[]) {
+      const ids = await listSourceMissingOfferIds(source, { limit: 20 });
+      for (const offerId of ids) imagePrefer.push({ source, offerId });
+    }
 
     const imageFactsDrain = await drainOfferImageFacts({
       deadlineMs: IMAGE_FACTS_DRAIN_DEADLINE_MS,
       limit: 3,
+      preferOffers: imagePrefer,
     });
     ran.push("image-facts-drain");
     console.info(
-      `[scheduled-tick] image-facts-drain processed=${imageFactsDrain.processed} ok=${imageFactsDrain.okCount} remaining=${imageFactsDrain.remaining} reason=${imageFactsDrain.stoppedReason ?? "-"} circuit=${imageFactsDrain.circuitTrips}`,
+      `[scheduled-tick] image-facts-drain processed=${imageFactsDrain.processed} ok=${imageFactsDrain.okCount} remaining=${imageFactsDrain.remaining} reason=${imageFactsDrain.stoppedReason ?? "-"} circuit=${imageFactsDrain.circuitTrips} prefer=${imagePrefer.length}`,
     );
 
     return {

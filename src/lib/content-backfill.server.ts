@@ -27,6 +27,11 @@ import {
   isLandingFactsContentSource,
   offerFactsReadyForContent,
 } from "./offer-facts-ready";
+import {
+  CONTENT_STALE_MS,
+  computeFailureCooldownMs,
+  QUARANTINE_AFTER_FAILS,
+} from "./content-gen-cooldown";
 
 const TABLE: Record<OfferSource, string> = {
   cpa_tl: "cpa_tl_offers",
@@ -73,12 +78,50 @@ type ContentGenFailureRow = {
 const GENERATION_LOCK_MS = 4 * 60 * 1000;
 /** Release in-flight locks when Worker died without finishing generation. */
 export const STALE_LOCK_AGE_MS = 3 * 60 * 1000;
-/** Do not claim a new offer unless at least this much wall time remains before deadlineAt. */
-export const MIN_CONTENT_OFFER_MS = 90_000;
-const FAILURE_BASE_COOLDOWN_MS = 5 * 60 * 1000;
-const MAX_FAILURE_COOLDOWN_MS = 6 * 60 * 60 * 1000;
-const QUARANTINE_AFTER_FAILS = 8;
-const QUARANTINE_COOLDOWN_MS = 24 * 60 * 60 * 1000;
+/** Do not claim a new offer unless at least this much wall time remains before deadlineAt.
+ *  Smoke/HTTP generate for one offer is ~30–45s; leave headroom without starving the tick. */
+export const MIN_CONTENT_OFFER_MS = 50_000;
+export { CONTENT_STALE_MS, computeFailureCooldownMs, QUARANTINE_AFTER_FAILS };
+
+/** Pure priority for drain ordering — lower sorts first. */
+export function computeDrainPriority(opts: {
+  missingContent: boolean;
+  bareMissing: boolean;
+  failCount: number;
+  missingQa: boolean;
+  /** Complete row whose source_hash drifted (regenStale path). */
+  regenStaleComplete?: boolean;
+  syncedAt?: string | null;
+  nowMs?: number;
+  drainMode?: boolean;
+}): number {
+  const now = opts.nowMs ?? Date.now();
+  const syncTs = opts.syncedAt ? Date.parse(opts.syncedAt) : NaN;
+  const isStaleSync =
+    opts.drainMode === true && Number.isFinite(syncTs) && now - syncTs >= CONTENT_STALE_MS;
+  // Prefer healthy offers — high fail_count (poison / CF-kill loops) go last.
+  // Stale missing (>2h) boost so health-check targets are claimed first.
+  return (
+    (opts.bareMissing ? -20 : 0) +
+    (opts.missingContent ? -10 : 0) +
+    (isStaleSync ? -15 : 0) +
+    (opts.regenStaleComplete ? -5 : 0) +
+    (opts.missingQa ? 0 : 5) +
+    opts.failCount * 25 +
+    3
+  );
+}
+
+/** Tie-break: oldest synced_at first (ASC), then offer id. */
+export function compareDrainOfferOrder(
+  a: { priority: number; syncedAt: string; id: number },
+  b: { priority: number; syncedAt: string; id: number },
+): number {
+  if (a.priority !== b.priority) return a.priority - b.priority;
+  const bySync = a.syncedAt.localeCompare(b.syncedAt);
+  if (bySync !== 0) return bySync;
+  return a.id - b.id;
+}
 
 // Tiny concurrency limiter — keep AI/image fetches polite.
 async function runWithConcurrency<T>(
@@ -110,14 +153,6 @@ function summarizeError(err: unknown): string {
 
 function isMissingGenFailuresTable(err: { message?: string } | null | undefined): boolean {
   return Boolean(err?.message?.includes("content_gen_failures"));
-}
-
-function computeFailureCooldownMs(failCount: number): number {
-  if (failCount >= QUARANTINE_AFTER_FAILS) return QUARANTINE_COOLDOWN_MS;
-  return Math.min(
-    MAX_FAILURE_COOLDOWN_MS,
-    FAILURE_BASE_COOLDOWN_MS * 2 ** Math.max(0, failCount - 1),
-  );
 }
 
 function hasActiveLock(row: ContentGenFailureRow | undefined, nowMs = Date.now()): boolean {
@@ -257,7 +292,7 @@ type ContentCompletionRow = {
   qa_checked_at: string | null;
 };
 
-const CONTENT_STATUS_PAGE = 25;
+const CONTENT_STATUS_PAGE = 500;
 
 export function isContentComplete(row: {
   display_title_uk: string | null;
@@ -303,7 +338,7 @@ export const WORKER_KILLED_OR_TIMEOUT = "worker_killed_or_timeout";
 
 /** Clear locks left by aborted Worker runs; record explicit failure for visibility + cooldown. */
 export async function releaseStaleLocks(source: OfferSource): Promise<number> {
-  const haveComplete = await loadCompleteOfferIds(source);
+  const { haveComplete } = await loadCompleteContentIndex(source);
   const state = await loadGenerationState(source);
   const nowMs = Date.now();
   let released = 0;
@@ -387,7 +422,7 @@ async function loadCompleteOfferIdsFallback(source: OfferSource): Promise<Set<nu
 async function loadCompleteOfferIds(source: OfferSource): Promise<Set<number>> {
   const complete = new Set<number>();
   let from = 0;
-  const pageSize = 40;
+  const pageSize = 500;
   while (true) {
     let page: ContentCompletionRow[] = [];
     for (let attempt = 1; attempt <= 3; attempt++) {
@@ -416,7 +451,7 @@ async function loadCompleteOfferIds(source: OfferSource): Promise<Set<number>> {
   return complete;
 }
 
-const OFFER_ROWS_PAGE = 30;
+const OFFER_ROWS_PAGE = 200;
 
 const LANDING_FACTS_TABLE: Record<"shakes" | "cpa_tl" | "m1_top", string> = {
   shakes: "shakes_landing_facts",
@@ -473,6 +508,29 @@ async function loadImageFactsStatuses(
     if (Number.isFinite(id) && status) out.set(id, status);
   }
   return out;
+}
+
+async function loadActiveOfferRowsByIds(
+  source: OfferSource,
+  ids: number[],
+): Promise<BackfillOfferRow[]> {
+  if (ids.length === 0) return [];
+  const rows: BackfillOfferRow[] = [];
+  const chunkSize = 100;
+  for (let i = 0; i < ids.length; i += chunkSize) {
+    const chunk = ids.slice(i, i + chunkSize);
+    const { data, error } = await supabaseAdmin
+      .from(TABLE[source])
+      .select(OFFER_SELECT[source])
+      .eq("is_active", true)
+      .in("offer_id", chunk);
+    if (error) {
+      console.warn(`[backfill:${source}] offers by id failed:`, error.message);
+      throw new Error(`[backfill:${source}] offers by id failed: ${error.message}`);
+    }
+    rows.push(...((data ?? []) as BackfillOfferRow[]));
+  }
+  return rows;
 }
 
 async function loadActiveOfferRows(source: OfferSource): Promise<BackfillOfferRow[]> {
@@ -538,7 +596,7 @@ export async function generateMissingContent(
     onlyMissing?: boolean;
     /** When set with onlyMissing, also regenerate rows whose source_hash is stale (e.g. feed price changed). */
     regenStale?: boolean;
-    /** Use full limit and newest-first tie-break (drain cron). */
+    /** Use full limit and oldest/stale-first ordering (drain cron). */
     drainMode?: boolean;
     /** Local batch script: no deadline cap, full job limit, configurable concurrency. */
     localMode?: boolean;
@@ -558,13 +616,49 @@ export async function generateMissingContent(
   factsPendingSkipped: number;
   cachedAfterFailure: number;
 }> {
+  const claimReserveMs = opts.drainMode === true ? MIN_CONTENT_OFFER_MS : 22_000;
   const hasBudget = () =>
     opts.localMode === true ||
     !opts.deadlineAt ||
-    Date.now() <
-      opts.deadlineAt - (opts.drainMode === true ? MIN_CONTENT_OFFER_MS : 22_000);
-  // 1. Active offer rows from the source table (paginated — raw JSON blobs are large).
-  const offerRows = await loadActiveOfferRows(source);
+    opts.deadlineAt - Date.now() >= claimReserveMs;
+
+  // Drain onlyMissing: use content index first, then load raw blobs only for candidates.
+  // Full-table scan of offer raw JSON costs tens of CF subrequests on large feeds.
+  let offerRows: BackfillOfferRow[];
+  let haveHi: Set<number>;
+  let hashMap = new Map<number, string>();
+  const missingQa = new Set<number>();
+
+  if (opts.drainMode === true && opts.onlyMissing === true && opts.regenStale !== true) {
+    const index = await loadCompleteContentIndex(source);
+    haveHi = index.haveComplete;
+    hashMap = index.hashMap;
+    let missingIds = index.offerIds.filter((id) => !haveHi.has(id));
+    if (opts.offerIds?.length) {
+      const allow = new Set(opts.offerIds);
+      missingIds = missingIds.filter((id) => allow.has(id));
+    }
+    // Cap row materialization — one Worker invoke only needs a small claim queue.
+    const materializeCap = Math.max(limit * 8, 24);
+    missingIds = missingIds.slice(0, materializeCap);
+    offerRows = await loadActiveOfferRowsByIds(source, missingIds);
+  } else {
+    offerRows = await loadActiveOfferRows(source);
+    if (opts.drainMode) {
+      const index = await loadCompleteContentIndex(source);
+      haveHi = index.haveComplete;
+      hashMap = index.hashMap;
+    } else {
+      const completeIds = await loadCompleteOfferIds(source);
+      haveHi = new Set(completeIds);
+      const existing = await loadContentCompletionBySource(source);
+      for (const r of existing) {
+        hashMap.set(r.offer_id, r.source_hash);
+        if (!r.qa_checked_at) missingQa.add(r.offer_id);
+      }
+    }
+  }
+
   if (offerRows.length === 0) {
     return {
       checked: 0,
@@ -580,24 +674,6 @@ export async function generateMissingContent(
   const offerById = new Map(offerRows.map((r) => [r.offer_id, r]));
   const resolvedMap = await loadResolvedCategoryMap();
   const generationState = await loadGenerationState(source);
-
-  let haveHi: Set<number>;
-  let hashMap = new Map<number, string>();
-  const missingQa = new Set<number>();
-
-  if (opts.drainMode) {
-    const index = await loadCompleteContentIndex(source);
-    haveHi = index.haveComplete;
-    hashMap = index.hashMap;
-  } else {
-    const completeIds = await loadCompleteOfferIds(source);
-    haveHi = new Set(completeIds);
-    const existing = await loadContentCompletionBySource(source);
-    for (const r of existing) {
-      hashMap.set(r.offer_id, r.source_hash);
-      if (!r.qa_checked_at) missingQa.add(r.offer_id);
-    }
-  }
 
   // 3. Targets: offers missing content, stale hash drift, or missing QA audit.
   type Job = { offerId: number; categorySlug: string };
@@ -619,23 +695,38 @@ export async function generateMissingContent(
   if (opts.onlyMissing === true && opts.regenStale !== true) {
     targetOfferIds = offerIds.filter((id) => !haveHi.has(id));
   }
-  const priority = (id: number) => {
-    const missingContent = !haveHi.has(id);
-    const bareMissing = missingContent && !hashMap.has(id);
-    return (
-      (bareMissing ? -20 : 0) +
-      (missingContent ? -10 : 0) +
-      (opts.regenStale === true && haveHi.has(id) ? -5 : 0) +
-      (missingQa.has(id) ? 0 : 5) +
-      3
-    );
-  };
-  const syncedAt = (id: number) => offerById.get(id)?.synced_at ?? "";
+  const nowMs = Date.now();
+  const oldestFirst = opts.drainMode === true || opts.onlyMissing === true;
   targetOfferIds.sort((a, b) => {
-    const pa = priority(a);
-    const pb = priority(b);
+    const pa = computeDrainPriority({
+      missingContent: !haveHi.has(a),
+      bareMissing: !haveHi.has(a) && !hashMap.has(a),
+      failCount: Number(generationState.get(a)?.fail_count ?? 0),
+      missingQa: missingQa.has(a),
+      regenStaleComplete: opts.regenStale === true && haveHi.has(a),
+      syncedAt: offerById.get(a)?.synced_at,
+      nowMs,
+      drainMode: opts.drainMode === true,
+    });
+    const pb = computeDrainPriority({
+      missingContent: !haveHi.has(b),
+      bareMissing: !haveHi.has(b) && !hashMap.has(b),
+      failCount: Number(generationState.get(b)?.fail_count ?? 0),
+      missingQa: missingQa.has(b),
+      regenStaleComplete: opts.regenStale === true && haveHi.has(b),
+      syncedAt: offerById.get(b)?.synced_at,
+      nowMs,
+      drainMode: opts.drainMode === true,
+    });
+    if (oldestFirst) {
+      return compareDrainOfferOrder(
+        { priority: pa, syncedAt: offerById.get(a)?.synced_at ?? "", id: a },
+        { priority: pb, syncedAt: offerById.get(b)?.synced_at ?? "", id: b },
+      );
+    }
+    // Non-drain force paths keep newest-first tie-break.
     if (pa !== pb) return pa - pb;
-    return syncedAt(b).localeCompare(syncedAt(a));
+    return (offerById.get(b)?.synced_at ?? "").localeCompare(offerById.get(a)?.synced_at ?? "");
   });
   if (opts.startOffset && opts.startOffset > 0) {
     targetOfferIds = targetOfferIds.slice(opts.startOffset);
@@ -654,6 +745,8 @@ export async function generateMissingContent(
       imageFactsEnabled,
       hasImageUrl: Boolean(offerImageUrl(source, row)),
       imageStatus: imageStatuses.get(id) ?? null,
+      syncedAt: row?.synced_at ?? null,
+      nowMs,
     });
   };
 
@@ -727,7 +820,7 @@ export async function generateMissingContent(
       if (
         opts.localMode !== true &&
         opts.deadlineAt &&
-        Date.now() > opts.deadlineAt - MIN_CONTENT_OFFER_MS
+        opts.deadlineAt - Date.now() < MIN_CONTENT_OFFER_MS
       ) {
         return;
       }
@@ -740,12 +833,15 @@ export async function generateMissingContent(
       }
       let finished = false;
       try {
+        // Drain must match the proven HTTP smoke path: no per-step LLM deadline caps.
+        // Outer claim gate + MIN_CONTENT_OFFER_MS already ensure enough wall time to start;
+        // passing deadlineAt into generate caused abort/retry storms and CF hard-kills.
         const out = await getOrGenerateProductContentDetailed(
           source,
           job.offerId,
           "uk",
           job.categorySlug,
-          { forceRegen, deadlineAt: opts.deadlineAt },
+          { forceRegen },
         );
         if (out.status === "generated" && out.content) {
           generated += 1;
@@ -888,34 +984,55 @@ async function loadCompleteContentIndex(source: OfferSource): Promise<ContentInd
   const cached = contentIndexCache.get(source);
   if (cached) return cached;
 
-  const { data: offers, error: offersErr } = await supabaseAdmin
-    .from(TABLE[source])
-    .select("offer_id")
-    .eq("is_active", true);
-
-  if (offersErr) {
-    console.warn(`[backfill:${source}] count offers failed:`, offersErr.message);
-    throw new Error(`[backfill:${source}] count offers failed: ${offersErr.message}`);
-  }
-
-  const offerIds = (offers ?? []).map((r) => r.offer_id as number);
-
-  const { data: content, error: contentErr } = await supabaseAdmin
-    .from("product_content")
-    .select("offer_id, display_title_uk, description_html_uk, faq_uk, source_hash")
-    .eq("source", source);
-
-  if (contentErr) {
-    console.warn(`[backfill:${source}] count content failed:`, contentErr.message);
-    throw new Error(`[backfill:${source}] count content failed: ${contentErr.message}`);
+  // Paginated with large pages — PostgREST caps ~1000/req; tiny pages blow CF subrequest budget.
+  const offerIds: number[] = [];
+  {
+    let from = 0;
+    const pageSize = 1000;
+    while (true) {
+      const { data, error } = await supabaseAdmin
+        .from(TABLE[source])
+        .select("offer_id")
+        .eq("is_active", true)
+        .range(from, from + pageSize - 1);
+      if (error) {
+        console.warn(`[backfill:${source}] count offers failed:`, error.message);
+        throw new Error(`[backfill:${source}] count offers failed: ${error.message}`);
+      }
+      const page = data ?? [];
+      for (const r of page) offerIds.push(r.offer_id as number);
+      if (page.length < pageSize) break;
+      from += pageSize;
+    }
   }
 
   const haveComplete = new Set<number>();
   const hashMap = new Map<number, string>();
-  for (const row of content ?? []) {
-    const id = row.offer_id as number;
-    if (isContentComplete(row as ContentCompletionRow)) haveComplete.add(id);
-    if (row.source_hash) hashMap.set(id, String(row.source_hash));
+  {
+    let from = 0;
+    const pageSize = 1000;
+    while (true) {
+      // Omit description_html_uk body — only need non-null proof + faq length (CF subrequest bandwidth).
+      const { data, error } = await supabaseAdmin
+        .from("product_content")
+        .select("offer_id, display_title_uk, faq_uk, source_hash")
+        .eq("source", source)
+        .not("description_html_uk", "is", null)
+        .range(from, from + pageSize - 1);
+      if (error) {
+        console.warn(`[backfill:${source}] count content failed:`, error.message);
+        throw new Error(`[backfill:${source}] count content failed: ${error.message}`);
+      }
+      const page = data ?? [];
+      for (const row of page) {
+        const id = row.offer_id as number;
+        const faqLen = Array.isArray(row.faq_uk) ? row.faq_uk.length : 0;
+        if (row.display_title_uk && faqLen >= 3) haveComplete.add(id);
+        if (row.source_hash) hashMap.set(id, String(row.source_hash));
+      }
+      if (page.length < pageSize) break;
+      from += pageSize;
+    }
   }
 
   const built: ContentIndex = { offerIds, haveComplete, hashMap };
@@ -928,6 +1045,18 @@ export async function getSourceMissingCount(source: OfferSource): Promise<number
   const { offerIds, haveComplete } = await loadCompleteContentIndex(source);
   if (offerIds.length === 0) return 0;
   return offerIds.filter((id) => !haveComplete.has(id)).length;
+}
+
+/** Active offer IDs still missing complete AI content (for facts catch-up priority). */
+export async function listSourceMissingOfferIds(
+  source: OfferSource,
+  opts?: { limit?: number },
+): Promise<number[]> {
+  const { offerIds, haveComplete } = await loadCompleteContentIndex(source);
+  const missing = offerIds.filter((id) => !haveComplete.has(id));
+  const limit = opts?.limit;
+  if (limit != null && limit >= 0) return missing.slice(0, limit);
+  return missing;
 }
 
 /** Stale hash drift among offers that already have complete content. */
@@ -1002,9 +1131,10 @@ export async function generateNewContent(
     };
   }
 
-  await releaseStaleLocks(source);
   // Ensure this request does not reuse a stale isolate-level index from a prior tick.
   resetContentIndexCache([source]);
+  // Warm index once; releaseStaleLocks reuses the same CompleteContentIndex (1 DB pass).
+  await releaseStaleLocks(source);
 
   while (hasBudget()) {
     const missing = await getSourceMissingCount(source);
@@ -1021,14 +1151,12 @@ export async function generateNewContent(
     totalFailed += r.failed;
 
     if (r.generated > 0) continue;
-    if (r.failed > 0) continue;
-    if (r.cooldownSkipped > 0) break;
-    if (r.factsPendingSkipped > 0) break;
+    if (r.failed > 0) continue; // recorded + cooldown; try another offer while budget remains
     if (r.lockedSkipped > 0) {
       const released = await releaseStaleLocks(source);
       if (released > 0) continue;
-      break;
     }
+    // No progress this round (all cooling / facts-pending / empty) — stop this source.
     break;
   }
 

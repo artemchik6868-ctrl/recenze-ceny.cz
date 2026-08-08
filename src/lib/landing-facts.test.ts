@@ -1,14 +1,17 @@
 import assert from "node:assert/strict";
 import { ALLOWED_SHELF_SLUGS } from "./catalog-shelf";
 import {
+  FETCH_EXHAUST_AFTER,
   THIN_EXHAUST_AFTER,
   buildLandingFactsLlmPrompt,
   isUsableLandingFetch,
+  landingStreakBase,
   listAdaptiveLandingUrls,
   listCpaTlCzLandingUrls,
   listM1TopLandingUrls,
   nextFetchErrorOutcome,
   nextThinOutcome,
+  parseLandingFetchHttpStatus,
   pickAdaptiveLandingUrl,
   pickCpaTlCzLandingUrl,
   pickFirstUsableLandingIndex,
@@ -62,13 +65,106 @@ ok(`nextThinOutcome exhausts after ${THIN_EXHAUST_AFTER} consecutive thin`, () =
 
 ok("nextFetchErrorOutcome resets streak after thin", () => {
   const r = nextFetchErrorOutcome("thin", 4, NOW);
+  assert.equal(r.status, "fetch_error");
   assert.equal(r.fail_count, 1);
   assert.ok(r.locked_until);
 });
 
 ok("nextFetchErrorOutcome continues fetch_error streak", () => {
   const r = nextFetchErrorOutcome("fetch_error", 2, NOW);
+  assert.equal(r.status, "fetch_error");
   assert.equal(r.fail_count, 3);
+  assert.ok(r.locked_until);
+});
+
+ok(`nextFetchErrorOutcome exhausts after ${FETCH_EXHAUST_AFTER} consecutive fetch_error`, () => {
+  const r = nextFetchErrorOutcome("fetch_error", FETCH_EXHAUST_AFTER - 1, NOW);
+  assert.equal(r.status, "exhausted");
+  assert.equal(r.fail_count, FETCH_EXHAUST_AFTER);
+  assert.equal(r.locked_until, null);
+});
+
+ok("nextFetchErrorOutcome confirms 404 after 3 streaks (not 1-shot)", () => {
+  const first = nextFetchErrorOutcome("ok", 0, NOW, {
+    errorMessage: "all 1 landing candidate(s) failed (last: http://x.com/a: HTTP 404)",
+  });
+  assert.equal(first.status, "fetch_error");
+  assert.equal(first.fail_count, 1);
+  assert.ok(first.locked_until);
+  const second = nextFetchErrorOutcome("fetch_error", 1, NOW, {
+    errorMessage: "all 1 landing candidate(s) failed (last: http://x.com/a: HTTP 404)",
+  });
+  assert.equal(second.status, "fetch_error");
+  assert.equal(second.fail_count, 2);
+  const third = nextFetchErrorOutcome("fetch_error", 2, NOW, {
+    errorMessage: "all 1 landing candidate(s) failed (last: http://x.com/a: HTTP 404)",
+  });
+  assert.equal(third.status, "exhausted");
+  assert.equal(third.fail_count, 3);
+  assert.equal(third.locked_until, null);
+});
+
+ok("nextFetchErrorOutcome confirms 410 after 3 streaks", () => {
+  const r = nextFetchErrorOutcome("fetch_error", 2, NOW, {
+    errorMessage: "all 2 landing candidate(s) failed (last: https://x.com: HTTP 410)",
+  });
+  assert.equal(r.status, "exhausted");
+  assert.equal(r.fail_count, 3);
+});
+
+ok("nextFetchErrorOutcome does not fast-exhaust HTTP 530 (same as generic)", () => {
+  const first = nextFetchErrorOutcome("ok", 0, NOW, {
+    errorMessage: "all 2 landing candidate(s) failed (last: https://cz.example.com: HTTP 530)",
+  });
+  assert.equal(first.status, "fetch_error");
+  assert.equal(first.fail_count, 1);
+  const second = nextFetchErrorOutcome("fetch_error", 1, NOW, {
+    errorMessage: "all 2 landing candidate(s) failed (last: https://cz.example.com: HTTP 530)",
+  });
+  assert.equal(second.status, "fetch_error");
+  assert.equal(second.fail_count, 2);
+  assert.ok(second.locked_until);
+  const atExhaust = nextFetchErrorOutcome("fetch_error", FETCH_EXHAUST_AFTER - 1, NOW, {
+    errorMessage: "all 2 landing candidate(s) failed (last: https://cz.example.com: HTTP 530)",
+  });
+  assert.equal(atExhaust.status, "exhausted");
+  assert.equal(atExhaust.fail_count, FETCH_EXHAUST_AFTER);
+});
+
+ok("parseLandingFetchHttpStatus extracts code from aggregate message", () => {
+  assert.equal(
+    parseLandingFetchHttpStatus("all 2 landing candidate(s) failed (last: https://x.com: HTTP 530)"),
+    530,
+  );
+  assert.equal(parseLandingFetchHttpStatus("The operation was aborted"), null);
+});
+
+ok("landingStreakBase resets on url_hash change", () => {
+  const r = landingStreakBase(
+    { status: "fetch_error", fail_count: 4, url_hash: "aaa" },
+    "bbb",
+  );
+  assert.equal(r.status, "");
+  assert.equal(r.fail_count, 0);
+});
+
+ok("landingStreakBase keeps streak when hash matches", () => {
+  const r = landingStreakBase(
+    { status: "fetch_error", fail_count: 4, url_hash: "aaa" },
+    "aaa",
+  );
+  assert.equal(r.status, "fetch_error");
+  assert.equal(r.fail_count, 4);
+});
+
+ok("landingStreakBase hash change then fetch starts at 1", () => {
+  const base = landingStreakBase(
+    { status: "fetch_error", fail_count: 4, url_hash: "old" },
+    "new",
+  );
+  const next = nextFetchErrorOutcome(base.status, base.fail_count, NOW);
+  assert.equal(next.status, "fetch_error");
+  assert.equal(next.fail_count, 1);
 });
 
 ok("listAdaptiveLandingUrls puts CZ first and dedupes", () => {

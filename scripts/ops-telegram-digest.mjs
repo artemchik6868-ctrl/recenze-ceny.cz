@@ -1,6 +1,11 @@
 /**
  * Ops Telegram digest from pipeline-status (low noise, edge-triggered).
  *
+ * Signal tiers:
+ *   A — site probes (GHA health-fail) — root cause = failed step + log snippet
+ *   B — fresh ops incidents only (page daily)
+ *   C — warehouse stock (ops.* only, never page)
+ *
  * Usage:
  *   node scripts/ops-telegram-digest.mjs [--base=https://recenze-ceny.cz]
  *   node scripts/ops-telegram-digest.mjs --health-fail   # after hourly health FAIL
@@ -13,6 +18,11 @@ import { spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  buildIssuesFromStatus,
+  fingerprintIssues,
+  isWarehouseStockAlert,
+} from "./ops-build-issues.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -39,12 +49,14 @@ const dryRun = process.argv.includes("--dry-run");
 const healthFail = process.argv.includes("--health-fail");
 const forceNotify = process.argv.includes("--force");
 
-const STALE_ALERT_MIN = Number(process.env.OPS_STALE_MIN || "5");
-const REPEATED_FAIL_MIN = Number(process.env.OPS_REPEATED_FAIL_MIN || "3");
-const INDEXING_ERROR_MIN = Number(process.env.OPS_INDEXING_ERROR_MIN || "10");
-const INSPECT_ERROR_MIN = Number(process.env.OPS_INSPECT_ERROR_MIN || "5");
-const IMAGE_FACTS_FAIL_MIN = Number(process.env.OPS_IMAGE_FACTS_FAIL_MIN || "5");
-const LANDING_FACTS_FAIL_MIN = Number(process.env.OPS_LANDING_FACTS_FAIL_MIN || "5");
+const thresholds = {
+  staleMin: Number(process.env.OPS_STALE_MIN || "5"),
+  repeatedFailMin: Number(process.env.OPS_REPEATED_FAIL_MIN || "3"),
+  indexingErrorMin: Number(process.env.OPS_INDEXING_ERROR_MIN || "10"),
+  inspectErrorMin: Number(process.env.OPS_INSPECT_ERROR_MIN || "5"),
+  imageFactsFailMin: Number(process.env.OPS_IMAGE_FACTS_FAIL_MIN || "5"),
+  landingFactsFailMin: Number(process.env.OPS_LANDING_FACTS_FAIL_MIN || "5"),
+};
 const SITEMAP_MIN_BYTES = Number(process.env.OPS_SITEMAP_MIN_BYTES || "500");
 
 const statePath =
@@ -136,151 +148,12 @@ console.log(JSON.stringify({ status: res.status, bytes: text.length, hasUrlset: 
   return { ok: true, text: null };
 }
 
-function buildIssues(status) {
-  const ops = status?.ops ?? {};
-  const totals = status?.totals ?? {};
-  const alerts = Array.isArray(status?.alerts) ? status.alerts : [];
-  const issues = [];
-
-  let stale = Number(ops.stale_content ?? totals.stale_content ?? 0);
-  let repeated = Number(ops.repeated_failures ?? totals.repeated_failures ?? 0);
-  const missing = Number(totals.missing_content ?? 0);
-  let feedErr = ops.feed_wave_error || status?.feed_wave?.last_error || null;
-  let feedStale = Boolean(ops.feed_wave_stale || status?.feed_wave?.stale);
-  let indexingErr = Number(ops.indexing_errors_24h ?? 0);
-  let indexingCfg = Number(ops.indexing_config_skips_24h ?? 0);
-  let inspectErr = Number(ops.inspect_errors_24h ?? 0);
-  let imageFail = Number(ops.image_facts_high_fail ?? 0);
-  let imageExhausted = Number(ops.image_facts_exhausted ?? 0);
-  let landingFail = Number(ops.landing_facts_high_fail ?? 0);
-  let gscErrors = ops.gsc_sitemap_errors;
-  let gscErrMsg = ops.gsc_sitemap_error || null;
-  let gscSkipped = ops.gsc_sitemap_skipped || null;
-
-  // Fallback when worker not yet redeployed with full `ops` block.
-  if (!status?.ops || ops.inspect_errors_24h == null) {
-    for (const a of alerts) {
-      const staleMatch = String(a).match(/(\d+)\s+offers missing AI > 2h/i);
-      if (staleMatch) stale += Number(staleMatch[1]);
-      const failMatch = String(a).match(/(\d+)\s+offers have repeated AI failures/i);
-      if (failMatch) repeated += Number(failMatch[1]);
-      if (/feed-wave:\s*stale/i.test(a)) feedStale = true;
-      if (/feed-wave:\s*last_error=/i.test(a) && !feedErr) {
-        feedErr = String(a).replace(/^.*last_error=/i, "");
-      }
-      const idxErr = String(a).match(/indexing:\s*(\d+)\s+errors/i);
-      if (idxErr) indexingErr = Math.max(indexingErr, Number(idxErr[1]));
-      const idxCfg = String(a).match(/indexing:\s*(\d+)\s+skipped_config/i);
-      if (idxCfg) indexingCfg = Math.max(indexingCfg, Number(idxCfg[1]));
-      const insp = String(a).match(/indexing-retry:\s*(\d+)\s+GSC inspect/i);
-      if (insp) inspectErr = Math.max(inspectErr, Number(insp[1]));
-      const img = String(a).match(/image-facts:\s*(\d+)\s+rows with fail_count/i);
-      if (img) imageFail = Math.max(imageFail, Number(img[1]));
-      const imgEx = String(a).match(/image-facts:\s*(\d+)\s+rows status exhausted/i);
-      if (imgEx) imageExhausted = Math.max(imageExhausted, Number(imgEx[1]));
-      const land = String(a).match(/landing-facts:\s*(\d+)\s+rows/i);
-      if (land) landingFail = Math.max(landingFail, Number(land[1]));
-      const gsc = String(a).match(/gsc-sitemap:\s*(\d+)\s+errors/i);
-      if (gsc) gscErrors = Math.max(Number(gscErrors ?? 0), Number(gsc[1]));
-      if (/gsc-sitemap:\s*skipped_config/i.test(a)) gscSkipped = "no_token";
-      if (/gsc-sitemap:\s*get failed/i.test(a) && !gscErrMsg) {
-        gscErrMsg = String(a).replace(/^.*get failed —\s*/i, "");
-      }
-    }
-  }
-
-  if (stale >= STALE_ALERT_MIN) {
-    issues.push({
-      code: "stale_ai",
-      text: `AI-контент застрял: ${stale} офферов без контента >2ч (всего без AI: ${missing})`,
-    });
-  }
-  if (repeated >= REPEATED_FAIL_MIN) {
-    issues.push({
-      code: "ai_failures",
-      text: `Повторяющиеся сбои AI: ${repeated} офферов с fail_count≥3`,
-    });
-  }
-  if (feedStale) {
-    issues.push({
-      code: "feed_wave_stale",
-      text: "Волна фидов зависла (>26ч без прогресса)",
-    });
-  }
-  if (feedErr) {
-    issues.push({
-      code: "feed_wave_error",
-      text: `Ошибка волны фидов: ${String(feedErr).slice(0, 200)}`,
-    });
-  }
-  if (indexingErr >= INDEXING_ERROR_MIN) {
-    issues.push({
-      code: "indexing_errors",
-      text: `Индексация: ${indexingErr} ошибок за 24ч (IndexNow/Google/Seznam)`,
-    });
-  }
-  if (indexingCfg > 0) {
-    issues.push({
-      code: "indexing_config",
-      text: `Индексация: ${indexingCfg} skipped_config за 24ч (проверьте ключи/SA)`,
-    });
-  }
-  if (inspectErr >= INSPECT_ERROR_MIN) {
-    issues.push({
-      code: "inspect_errors",
-      text: `GSC inspect (indexing-retry): ${inspectErr} ошибок за 24ч`,
-    });
-  }
-  if (imageFail >= IMAGE_FACTS_FAIL_MIN) {
-    issues.push({
-      code: "image_facts",
-      text: `Image-facts: ${imageFail} строк с fail_count≥3`,
-    });
-  }
-  if (imageExhausted >= IMAGE_FACTS_FAIL_MIN) {
-    issues.push({
-      code: "image_facts_circuit",
-      text: `Image-facts: ${imageExhausted} строк exhausted/fetch_error (риск circuit breaker)`,
-    });
-  }
-  if (landingFail >= LANDING_FACTS_FAIL_MIN) {
-    issues.push({
-      code: "landing_facts",
-      text: `Landing-facts: ${landingFail} строк с fail_count≥3 или exhausted`,
-    });
-  }
-  if (gscSkipped === "no_token") {
-    issues.push({
-      code: "gsc_config",
-      text: "GSC sitemap: нет токена (GOOGLE_INDEXING_SA_JSON / права Search Console)",
-    });
-  }
-  if (gscErrMsg) {
-    issues.push({
-      code: "gsc_sitemap_api",
-      text: `GSC sitemap API: ${String(gscErrMsg).slice(0, 200)}`,
-    });
-  }
-  if (typeof gscErrors === "number" && gscErrors > 0) {
-    issues.push({
-      code: "gsc_sitemap_errors",
-      text: `GSC sitemap: ${gscErrors} ошибок в Search Console`,
-    });
-  }
-
-  const pub = checkPublicSitemap();
-  if (!pub.ok) {
-    issues.push({ code: "public_sitemap", text: pub.text });
-  }
-
-  return issues;
-}
-
-function fingerprint(issues) {
-  return issues
-    .map((i) => i.code)
-    .sort()
-    .join("|");
+function buildIssues(status, { includePublicSitemap = true } = {}) {
+  const publicSitemap = includePublicSitemap ? checkPublicSitemap() : null;
+  return buildIssuesFromStatus(status, {
+    thresholds,
+    publicSitemap: publicSitemap && !publicSitemap.ok ? publicSitemap : null,
+  });
 }
 
 function notifyTelegram({ title, body, ok = false }) {
@@ -305,36 +178,81 @@ function notifyTelegram({ title, body, ok = false }) {
 // --- main ---
 
 if (healthFail) {
-  let detail = `Ежечасная проверка продакшена упала (smoke / sitemap / pipeline / SEO).\nАдрес: ${base}`;
+  const failedStep = (process.env.HEALTH_FAILED_STEP || "").trim();
+  const probeLog = (process.env.HEALTH_PROBE_LOG_SNIPPET || "").trim();
+  let detail = `Ежечасная проверка продакшена упала.`;
+  if (failedStep) {
+    detail += `\nУпавший шаг (причина probe): ${failedStep}`;
+  } else {
+    detail += `\nШаги: smoke / sitemap / pipeline / SEO (какой — смотри Actions).`;
+  }
+  detail += `\nАдрес: ${base}`;
+  if (process.env.GITHUB_RUN_ID && process.env.GITHUB_REPOSITORY) {
+    detail += `\nПрогон: https://github.com/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`;
+  }
+  if (probeLog) {
+    detail += `\n\nЛог упавшего шага (хвост):\n${probeLog}`;
+  }
+
   try {
     if (secret) {
       const status = fetchPipelineStatus();
-      const issues = buildIssues(status);
+      // Fresh incident issues only — do not dump warehouse stock as "health root cause".
+      // Skip public sitemap here: health probe may already cover it; avoid double noise.
+      const issues = buildIssues(status, { includePublicSitemap: false });
       const missing = Number(status?.totals?.missing_content ?? 0);
       const stale = Number(status?.ops?.stale_content ?? status?.totals?.stale_content ?? 0);
+      const factsPending = Number(status?.totals?.facts_pending ?? 0);
       const alerts = Array.isArray(status?.alerts) ? status.alerts : [];
       const stuck = Array.isArray(status?.stuck_offers) ? status.stuck_offers : [];
 
-      if (issues.length) {
-        detail += `\n\nДетали пайплайна:\n${issues.map((i) => `• ${i.text}`).join("\n")}`;
+      detail += `\n\nКонтекст пайплайна (ok=${status?.ok === true ? "true" : "false"}): missing_content=${missing}, stale_content=${stale}, facts_pending=${factsPending}`;
+
+      const ops = status?.ops ?? {};
+      const rateLimited = Number(ops.indexing_rate_limited_24h ?? 0);
+      if (rateLimited > 0) {
+        detail += `\nIndexNow rate_limited (24h, не hard error): ${rateLimited}`;
       }
 
-      // Always surface backlog on health-fail — even when below OPS_STALE_MIN /
-      // when HTTP 503 only means ok:false (missing AI), not an unreachable endpoint.
-      if (missing > 0 || stale > 0 || alerts.length > 0) {
-        detail += `\n\nПайплайн (ok=${status?.ok === true ? "true" : "false"}): missing_content=${missing}, stale_content=${stale}`;
-        if (stuck.length) {
-          const preview = stuck
-            .slice(0, 8)
-            .map((o) => `${o.source}:${o.offer_id}`)
-            .join(", ");
-          detail += `\nstuck: ${preview}${stuck.length > 8 ? "…" : ""}`;
-        }
-        if (alerts.length) {
-          detail += `\nАлерты:\n${alerts.map((a) => `• ${a}`).join("\n")}`;
-        }
-      } else if (!issues.length) {
-        detail += `\n\nПайплайн: missing_content=0 (критичных ops-сигналов нет).`;
+      const warehouseBits = [];
+      const imgEx = Number(ops.image_facts_exhausted ?? 0);
+      const landEx = Number(ops.landing_facts_exhausted ?? 0);
+      const imgRep = Number(ops.image_facts_reprobe_eligible ?? 0);
+      const landRep = Number(ops.landing_facts_reprobe_eligible ?? 0);
+      if (imgEx > 0 || landEx > 0 || imgRep > 0 || landRep > 0) {
+        warehouseBits.push(
+          `warehouse (stock, не причина probe): image_exhausted=${imgEx} (reprobe=${imgRep}), landing_exhausted=${landEx} (reprobe=${landRep})`,
+        );
+      }
+      if (warehouseBits.length) {
+        detail += `\n${warehouseBits.join("; ")}`;
+      }
+
+      if (issues.length) {
+        detail += `\n\nСвежие ops-сигналы (не обязательно причина падения probe):\n${issues.map((i) => `• ${i.text}`).join("\n")}`;
+      }
+
+      if (stuck.length) {
+        const preview = stuck
+          .slice(0, 8)
+          .map((o) => {
+            const reason = o.block_reason ? `/${o.block_reason}` : "";
+            const err = o.last_error ? ` (${String(o.last_error).slice(0, 60)})` : "";
+            return `${o.source}:${o.offer_id}${reason}${err}`;
+          })
+          .join(", ");
+        detail += `\nstuck: ${preview}${stuck.length > 8 ? "…" : ""}`;
+      }
+      const idxSamples = Array.isArray(status?.ops?.indexing_error_samples)
+        ? status.ops.indexing_error_samples
+        : [];
+      if (idxSamples.length) {
+        detail += `\nindexing hard-error samples: ${idxSamples.slice(0, 3).join(" | ")}`;
+      }
+      // Only surface AI / feed alerts — skip factory warehouse stock strings.
+      const filteredAlerts = alerts.filter((a) => !isWarehouseStockAlert(a));
+      if (filteredAlerts.length) {
+        detail += `\nАлерты:\n${filteredAlerts.map((a) => `• ${a}`).join("\n")}`;
       }
     }
   } catch (e) {
@@ -372,7 +290,7 @@ try {
 }
 
 const issues = buildIssues(status);
-const fp = fingerprint(issues);
+const fp = fingerprintIssues(issues);
 const bad = issues.length > 0;
 const prev = loadState();
 

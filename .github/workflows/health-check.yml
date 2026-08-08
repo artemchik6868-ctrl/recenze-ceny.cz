@@ -17,6 +17,7 @@ jobs:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       OPS_TELEGRAM_STATE_PATH: ${{ github.workspace }}/.ops-telegram-state/state.json
+      HEALTH_LOG_DIR: ${{ github.workspace }}/.health-logs
     steps:
       - uses: actions/checkout@v4
 
@@ -24,24 +25,65 @@ jobs:
         with:
           node-version: 22
 
+      - name: Prepare probe log dir
+        run: mkdir -p "$HEALTH_LOG_DIR"
+
+      # Avoid hourly `npx --yes tsx` registry flake — local install + npm cache only.
+      - name: Cache npm for tsx install
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: health-npm-tsx-4.20.3-${{ runner.os }}-node22
+
+      - name: Install tsx (SEO meta only)
+        run: npm install --no-save --no-audit --no-fund --no-package-lock tsx@4.20.3
+
       - name: Monitor content pipeline
-        run: node scripts/monitor-content-pipeline.mjs --base="${BG_SYNC_BASE}" --max-missing-content="${MAX_MISSING_CONTENT}"
+        id: pipeline
+        run: |
+          set -o pipefail
+          node scripts/monitor-content-pipeline.mjs --base="${BG_SYNC_BASE}" --max-missing-content="${MAX_MISSING_CONTENT}" --self-heal-drain \
+            2>&1 | tee "${HEALTH_LOG_DIR}/pipeline.log"
 
       - name: Check sitemap health
-        run: node scripts/check-sitemap-health.mjs --base="${BG_SYNC_BASE}" --timeout-ms=20000
+        id: sitemap
+        run: |
+          set -o pipefail
+          node scripts/check-sitemap-health.mjs --base="${BG_SYNC_BASE}" --timeout-ms=20000 \
+            2>&1 | tee "${HEALTH_LOG_DIR}/sitemap.log"
 
       - name: Run public smoke test
-        run: node scripts/smoke-cz.mjs --base="${BG_SYNC_BASE}"
+        id: smoke
+        run: |
+          set -o pipefail
+          node scripts/smoke-cz.mjs --base="${BG_SYNC_BASE}" \
+            2>&1 | tee "${HEALTH_LOG_DIR}/smoke.log"
 
       - name: SEO meta unit tests
-        run: npx --yes tsx@4.20.3 scripts/test-seo-meta-cz.mjs
+        id: seo_meta
+        run: |
+          set -o pipefail
+          node ./node_modules/tsx/dist/cli.mjs scripts/test-seo-meta-cz.mjs \
+            2>&1 | tee "${HEALTH_LOG_DIR}/seo_meta.log"
 
       - name: SEO preflight
-        run: node scripts/seo-preflight.mjs --base="${BG_SYNC_BASE}"
+        id: seo_preflight
+        run: |
+          set -o pipefail
+          node scripts/seo-preflight.mjs --base="${BG_SYNC_BASE}" \
+            2>&1 | tee "${HEALTH_LOG_DIR}/seo_preflight.log"
 
       - name: Telegram alert on probe failure
         if: failure()
-        run: node scripts/ops-telegram-digest.mjs --base="${BG_SYNC_BASE}" --health-fail
+        env:
+          # First failed step wins — surfaces real probe cause (not warehouse facts).
+          HEALTH_FAILED_STEP: ${{ steps.pipeline.outcome == 'failure' && 'Monitor content pipeline' || steps.sitemap.outcome == 'failure' && 'Check sitemap health' || steps.smoke.outcome == 'failure' && 'Run public smoke test' || steps.seo_meta.outcome == 'failure' && 'SEO meta unit tests' || steps.seo_preflight.outcome == 'failure' && 'SEO preflight' || 'unknown probe step' }}
+          HEALTH_FAILED_LOG: ${{ steps.pipeline.outcome == 'failure' && 'pipeline' || steps.sitemap.outcome == 'failure' && 'sitemap' || steps.smoke.outcome == 'failure' && 'smoke' || steps.seo_meta.outcome == 'failure' && 'seo_meta' || steps.seo_preflight.outcome == 'failure' && 'seo_preflight' || '' }}
+        run: |
+          if [ -n "${HEALTH_FAILED_LOG}" ] && [ -f "${HEALTH_LOG_DIR}/${HEALTH_FAILED_LOG}.log" ]; then
+            export HEALTH_PROBE_LOG_SNIPPET="$(tail -n 15 "${HEALTH_LOG_DIR}/${HEALTH_FAILED_LOG}.log" | head -c 1800)"
+          fi
+          node scripts/ops-telegram-digest.mjs --base="${BG_SYNC_BASE}" --health-fail
 
   # Backup blog ingest: blog-ingest.yml has NEVER received a schedule event on this
   # repo (0 runs since creation). health-check DOES get schedules — piggyback here.

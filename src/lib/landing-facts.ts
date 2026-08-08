@@ -45,6 +45,22 @@ export type LandingFactsExtractResult = {
 
 /** Consecutive thin outcomes before we stop LLM retries for this url_hash. */
 export const THIN_EXHAUST_AFTER = 5;
+/** Consecutive fetch_error outcomes before we stop retrying (mirrors image-facts). */
+export const FETCH_EXHAUST_AFTER = 5;
+/**
+ * Partner "dead URL" codes — confirm over multiple ticks (not one-shot).
+ * One-blip partner outages should not terminal-exhaust.
+ */
+export const FETCH_TERMINAL_HTTP_CODES = new Set([404, 410]);
+/** Confirm 404/410 this many consecutive fetch outcomes before exhaust. */
+export const FETCH_TERMINAL_CONFIRM_AFTER = 3;
+/**
+ * @deprecated 530 is no longer fast-exhausted — same streak as generic fetch.
+ * Kept for backfill scripts / import stability.
+ */
+export const FETCH_FAST_EXHAUST_HTTP_CODES = new Set<number>();
+/** @deprecated use FETCH_EXHAUST_AFTER; kept for backfill script imports. */
+export const FETCH_FAST_EXHAUST_AFTER = FETCH_EXHAUST_AFTER;
 
 export function backoffLockedUntilMinutes(failCount: number): number {
   return Math.min(360, 15 * Math.max(1, 2 ** Math.min(failCount, 5)));
@@ -53,6 +69,14 @@ export function backoffLockedUntilMinutes(failCount: number): number {
 export function backoffLockedUntilFromStreak(streak: number, now = Date.now()): string {
   const minutes = backoffLockedUntilMinutes(streak);
   return new Date(now + minutes * 60_000).toISOString();
+}
+
+/** Parse `HTTP 404` / `HTTP 530` from fetch-aggregate error messages. */
+export function parseLandingFetchHttpStatus(errorMessage: string): number | null {
+  const m = String(errorMessage).match(/\bHTTP\s+(\d{3})\b/i);
+  if (!m) return null;
+  const code = Number(m[1]);
+  return Number.isFinite(code) ? code : null;
 }
 
 export type ThinOutcome = {
@@ -79,21 +103,72 @@ export function nextThinOutcome(
 }
 
 export type FetchErrorOutcome = {
+  status: "fetch_error" | "exhausted";
   fail_count: number;
-  locked_until: string;
+  locked_until: string | null;
 };
 
-/** Backoff for fetch/network errors — independent from thin streak. */
+export type NextFetchErrorOpts = {
+  /** Aggregate error from fetchFirstUsableLandingHtml — used for 404/410 confirm streak. */
+  errorMessage?: string;
+};
+
+/**
+ * Backoff for fetch/network errors — independent from thin streak.
+ * Exhausts after FETCH_EXHAUST_AFTER consecutive fetch_error.
+ * 404/410 confirm after FETCH_TERMINAL_CONFIRM_AFTER (longer lock between attempts).
+ * 530/5xx use the same generic streak (no fast-exhaust).
+ */
 export function nextFetchErrorOutcome(
   prevStatus: string,
   prevFailCount: number,
   now = Date.now(),
+  opts?: NextFetchErrorOpts,
 ): FetchErrorOutcome {
   const streak = (prevStatus === "fetch_error" ? prevFailCount : 0) + 1;
+  const httpStatus = opts?.errorMessage
+    ? parseLandingFetchHttpStatus(opts.errorMessage)
+    : null;
+
+  const isDeadCode =
+    httpStatus != null && FETCH_TERMINAL_HTTP_CODES.has(httpStatus);
+  const exhaustAfter = isDeadCode
+    ? FETCH_TERMINAL_CONFIRM_AFTER
+    : FETCH_EXHAUST_AFTER;
+
+  if (streak >= exhaustAfter) {
+    return { status: "exhausted", fail_count: streak, locked_until: null };
+  }
+
+  // 404/410 mid-confirm: longer park so we don't thrash partner CDN.
+  if (isDeadCode) {
+    const lockMs = 24 * 60 * 60 * 1000; // 24h
+    return {
+      status: "fetch_error",
+      fail_count: streak,
+      locked_until: new Date(now + lockMs).toISOString(),
+    };
+  }
+
   return {
+    status: "fetch_error",
     fail_count: streak,
     locked_until: backoffLockedUntilFromStreak(streak, now),
   };
+}
+
+/**
+ * Reset fail streak when URL hash changes (mirrors image-facts hashChanged).
+ */
+export function landingStreakBase(
+  prev: { status: string; fail_count: number; url_hash?: string | null } | null | undefined,
+  currentUrlHash: string,
+): { status: string; fail_count: number } {
+  if (!prev) return { status: "", fail_count: 0 };
+  if (prev.url_hash && prev.url_hash !== currentUrlHash) {
+    return { status: "", fail_count: 0 };
+  }
+  return { status: prev.status, fail_count: prev.fail_count };
 }
 
 const ADAPTIVE_MARK = "\u0410\u0434\u0430\u043f\u0442\u0438\u0432"; // Адаптив

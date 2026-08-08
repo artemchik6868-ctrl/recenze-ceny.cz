@@ -27,6 +27,12 @@ const maxMissingContent = Number(
     process.env.MAX_MISSING_CONTENT ??
     "0",
 );
+/** Max excess above MAX that self-heal will try to clear with one content-drain. */
+const selfHealSlack = Number(
+  process.argv.find((a) => a.startsWith("--self-heal-slack="))?.slice(18) ??
+    process.env.SELF_HEAL_SLACK ??
+    "3",
+);
 
 if (!secret) {
   console.error("HOOK_SECRET missing in environment or .env");
@@ -34,6 +40,7 @@ if (!secret) {
 }
 
 const triggerDrain = process.argv.includes("--trigger-drain");
+const selfHealDrain = process.argv.includes("--self-heal-drain");
 
 function fetchJson(path) {
   const url = `${base}${path}?secret=${encodeURIComponent(secret)}`;
@@ -56,23 +63,44 @@ console.log(JSON.stringify({ status: res.status, body: text }));`,
   return { status: payload.status, body };
 }
 
-const statusRes = fetchJson("/api/public/hooks/pipeline-status");
-const totals = statusRes.body?.totals ?? {};
-const missingContent = Number(totals.missing_content ?? 0);
-const alerts = Array.isArray(statusRes.body?.alerts) ? statusRes.body.alerts : [];
-
-console.log(`pipeline-status=${statusRes.status}`);
-console.log(`missing_content=${missingContent}`);
-console.log(`max_missing_content=${maxMissingContent}`);
-if (alerts.length) {
-  console.log(`alerts=${alerts.join(" | ")}`);
+function logStatus(label, statusRes) {
+  const totals = statusRes.body?.totals ?? {};
+  const ops = statusRes.body?.ops ?? {};
+  const missingContent = Number(totals.missing_content ?? 0);
+  const staleContent = Number(ops.stale_content ?? totals.stale_content ?? 0);
+  const alerts = Array.isArray(statusRes.body?.alerts) ? statusRes.body.alerts : [];
+  console.log(`${label}pipeline-status=${statusRes.status}`);
+  console.log(`missing_content=${missingContent}`);
+  console.log(`stale_content=${staleContent}`);
+  console.log(`max_missing_content=${maxMissingContent}`);
+  if (alerts.length) {
+    console.log(`alerts=${alerts.join(" | ")}`);
+  }
+  return { missingContent, staleContent, alerts };
 }
 
-if (triggerDrain && missingContent > 0) {
-  console.log("triggering content-drain...");
+let statusRes = fetchJson("/api/public/hooks/pipeline-status");
+let { missingContent, staleContent } = logStatus("", statusRes);
+
+const shouldForceDrain = triggerDrain && missingContent > 0;
+const healCeiling = maxMissingContent + Math.max(0, selfHealSlack);
+const shouldSelfHeal =
+  selfHealDrain &&
+  missingContent > maxMissingContent &&
+  missingContent <= healCeiling &&
+  staleContent === 0;
+
+if (shouldForceDrain || shouldSelfHeal) {
+  console.log(
+    shouldSelfHeal
+      ? `self-heal: missing=${missingContent} > max=${maxMissingContent} (≤${healCeiling}, stale=0) → content-drain once`
+      : "triggering content-drain...",
+  );
   const drainRes = fetchJson("/api/public/hooks/content-drain");
   console.log(`content-drain=${drainRes.status}`);
   console.log(JSON.stringify(drainRes.body, null, 2));
+  statusRes = fetchJson("/api/public/hooks/pipeline-status");
+  ({ missingContent, staleContent } = logStatus("post-drain ", statusRes));
 }
 
 if (missingContent > maxMissingContent) {

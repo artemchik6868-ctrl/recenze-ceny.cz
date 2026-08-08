@@ -1,6 +1,12 @@
 /** Compact vision facts from product images (OpenRouter multimodal). */
 
 import type { OfferSource } from "./types";
+import {
+  classifyImageExhaustToFacts,
+  factsReprobeThinLlmDays,
+  factsReprobeTransientFetchDays,
+  shouldReprobeExhaustedFacts,
+} from "./facts-recovery";
 
 export const IMAGE_FACTS_SOURCES: readonly OfferSource[] = [
   "cpa_tl",
@@ -20,6 +26,12 @@ export const IMAGE_FACTS_LLM_TIMEOUT_MS = 45_000;
 export const IMAGE_FACTS_MAX_TOKENS = 800;
 export const IMAGE_FACTS_TICK_CIRCUIT_FAILS = 3;
 export const FETCH_EXHAUST_AFTER = 5;
+/** Soft re-probe exhausted rows older than this many days (0 = disabled). Default thin/LLM. */
+export const IMAGE_FACTS_REPROBE_EXHAUSTED_DAYS_DEFAULT = 14;
+/** Soft re-probe for fetch-class exhausted (CDN/egress recovery). */
+export const IMAGE_FACTS_REPROBE_FETCH_DAYS_DEFAULT = 7;
+/** Max forced re-probes per drain tick. */
+export const IMAGE_FACTS_REPROBE_PER_TICK_DEFAULT = 1;
 
 /** Default env-backed caps (Phase 4 cautious; override via env). */
 export const IMAGE_FACTS_DEFAULTS = {
@@ -29,6 +41,73 @@ export const IMAGE_FACTS_DEFAULTS = {
   maxTokensPerDay: 150_000,
   maxLlmPerImage: 2,
 } as const;
+
+export type ImageFactsExhaustClass = "llm_cap" | "safety" | "fetch" | "other";
+
+/** Classify terminal exhausted errors — ops + re-probe policy. */
+export function classifyImageFactsExhaustError(
+  error: string | null | undefined,
+): ImageFactsExhaustClass {
+  const e = String(error ?? "");
+  if (!e) return "other";
+  if (e.includes("max_llm_per_image")) return "llm_cap";
+  if (/User Safety|safety/i.test(e) || /parse LLM JSON/i.test(e)) return "safety";
+  if (
+    /^http_\d+/i.test(e) ||
+    e.startsWith("download:") ||
+    e.startsWith("preflight:") ||
+    /fetch_error|url_only/i.test(e)
+  ) {
+    return "fetch";
+  }
+  return "other";
+}
+
+/** Days before thin/LLM exhausted rows may be force-reprobed. */
+export function imageFactsReprobeExhaustedDays(): number {
+  const n = Number(process.env.IMAGE_FACTS_REPROBE_EXHAUSTED_DAYS);
+  if (Number.isFinite(n) && n >= 0) return n;
+  return factsReprobeThinLlmDays();
+}
+
+/** Days before fetch-class exhausted may re-probe (CDN recovery). */
+export function imageFactsReprobeFetchDays(): number {
+  const n = Number(process.env.IMAGE_FACTS_REPROBE_FETCH_DAYS);
+  if (Number.isFinite(n) && n >= 0) return n;
+  return factsReprobeTransientFetchDays();
+}
+
+export function imageFactsReprobePerTick(): number {
+  const n = Number(process.env.IMAGE_FACTS_REPROBE_PER_TICK);
+  if (Number.isFinite(n) && n >= 0) return Math.min(3, Math.floor(n));
+  return IMAGE_FACTS_REPROBE_PER_TICK_DEFAULT;
+}
+
+/**
+ * Whether a terminal exhausted row is eligible for a rare force re-probe.
+ * thin_llm (safety/llm_cap): after thin TTL; transient_fetch: after fetch TTL.
+ */
+export function shouldReprobeExhaustedImageFacts(opts: {
+  status: string;
+  error: string | null | undefined;
+  updatedAt: string | null | undefined;
+  now?: number;
+  minAgeDays?: number;
+}): boolean {
+  const imageCls = classifyImageFactsExhaustError(opts.error);
+  const exhaustClass = classifyImageExhaustToFacts(imageCls);
+  const defaultDays =
+    exhaustClass === "transient_fetch"
+      ? imageFactsReprobeFetchDays()
+      : imageFactsReprobeExhaustedDays();
+  return shouldReprobeExhaustedFacts({
+    status: opts.status,
+    exhaustClass,
+    updatedAt: opts.updatedAt,
+    now: opts.now,
+    minAgeDays: opts.minAgeDays ?? defaultDays,
+  });
+}
 
 export type CompactImageFacts = {
   /** Catalog-aligned type — not free-form. */

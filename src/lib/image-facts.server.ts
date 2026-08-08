@@ -17,6 +17,7 @@ import {
   imageFactsMaxLlmPerImage,
   imageFactsMaxPaidPerDay,
   imageFactsMaxTokensPerDay,
+  imageFactsReprobePerTick,
   compareImageFactsCandidates,
   imageUrlHash,
   isImageFactsEnabled,
@@ -29,6 +30,7 @@ import {
   normalizeImageFacts,
   parseImageFactsGatewayMeta,
   shouldInjectImageFacts,
+  shouldReprobeExhaustedImageFacts,
   utcBudgetDay,
   type CompactImageFacts,
   type ImageFactsExtractResult,
@@ -971,6 +973,56 @@ async function listPendingImageFactCandidates(opts: {
   }));
 }
 
+/** Rare force re-probe of old LLM-exhausted rows (safety / max_llm). */
+async function listExhaustedImageFactsReprobeCandidates(opts: {
+  limit: number;
+}): Promise<OfferImageCandidate[]> {
+  const limit = Math.max(0, opts.limit);
+  if (limit <= 0) return [];
+
+  const { data, error } = await db
+    .from("offer_image_facts")
+    .select("source,offer_id,status,error,updated_at,image_url")
+    .eq("status", "exhausted")
+    .order("updated_at", { ascending: true })
+    .limit(40);
+  if (error || !data) {
+    if (error) console.warn("[image-facts] reprobe scan:", error.message);
+    return [];
+  }
+
+  const out: OfferImageCandidate[] = [];
+  for (const row of data as Array<{
+    source: string;
+    offer_id: number;
+    status: string;
+    error: string | null;
+    updated_at: string | null;
+    image_url: string | null;
+  }>) {
+    if (
+      !shouldReprobeExhaustedImageFacts({
+        status: row.status,
+        error: row.error,
+        updatedAt: row.updated_at,
+      })
+    ) {
+      continue;
+    }
+    if (!isImageFactsSource(row.source)) continue;
+    const imageUrl = String(row.image_url ?? "").trim();
+    if (!imageUrl) continue;
+    out.push({
+      source: row.source,
+      offerId: row.offer_id,
+      title: `offer ${row.offer_id}`,
+      imageUrl,
+    });
+    if (out.length >= limit) break;
+  }
+  return out;
+}
+
 /**
  * Drain pending image facts. No-op when IMAGE_FACTS_ENABLED is off
  * (smoke uses extractAndStoreImageFacts with smoke:true instead).
@@ -978,6 +1030,8 @@ async function listPendingImageFactCandidates(opts: {
 export async function drainOfferImageFacts(opts?: {
   deadlineMs?: number;
   limit?: number;
+  /** Prefer these source:offerId pairs (missing AI) at the front of the queue. */
+  preferOffers?: Array<{ source: OfferSource; offerId: number }>;
 }): Promise<ImageFactsDrainResult> {
   const started = Date.now();
   const deadlineMs = opts?.deadlineMs ?? IMAGE_FACTS_DRAIN_DEADLINE_MS;
@@ -1006,13 +1060,43 @@ export async function drainOfferImageFacts(opts?: {
     };
   }
 
-  const candidates = await listPendingImageFactCandidates({ limit });
+  const preferKeys = new Set(
+    (opts?.preferOffers ?? []).map((p) => `${p.source}:${p.offerId}`),
+  );
+
+  const reprobeCap = imageFactsReprobePerTick();
+  const reprobe =
+    reprobeCap > 0
+      ? await listExhaustedImageFactsReprobeCandidates({ limit: reprobeCap })
+      : [];
+  const normalSlots = Math.max(0, limit - reprobe.length);
+  const candidates = await listPendingImageFactCandidates({
+    limit: Math.max(normalSlots * 3, 8),
+  });
+
+  // Prefer missing-AI offers first, then default ranking order.
+  const ranked = [...candidates].sort((a, b) => {
+    const ap = preferKeys.has(`${a.source}:${a.offerId}`) ? 0 : 1;
+    const bp = preferKeys.has(`${b.source}:${b.offerId}`) ? 0 : 1;
+    if (ap !== bp) return ap - bp;
+    return 0;
+  });
+
+  const queue: Array<OfferImageCandidate & { force?: boolean }> = [
+    ...ranked.slice(0, normalSlots).map((c) => ({ ...c, force: false })),
+  ];
+  for (const c of reprobe) {
+    if (queue.length >= limit) break;
+    if (queue.some((q) => q.source === c.source && q.offerId === c.offerId)) continue;
+    queue.push({ ...c, force: true });
+  }
+
   let processed = 0;
   let okCount = 0;
   let consecutiveGatewayFails = 0;
   let stoppedReason: string | null = null;
 
-  for (const c of candidates) {
+  for (const c of queue) {
     if (processed >= limit) break;
     if (Date.now() - started >= deadlineMs) {
       stoppedReason = "deadline";
@@ -1029,6 +1113,7 @@ export async function drainOfferImageFacts(opts?: {
         source: c.source,
         offerId: c.offerId,
         writeDb: true,
+        force: c.force === true,
       });
       processed += 1;
       if (result.status === "ok") okCount += 1;

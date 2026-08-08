@@ -43,10 +43,53 @@ const PAGES = [
   "/medical-expert",
   "/faq",
   "/pruvodce/klouby",
+  "/clanky",
 ];
 
 let fail = 0;
 const report = { base, checkedAt: new Date().toISOString(), checks: [] };
+
+/** Short fetch retry for GHA/CDN flakes (not content assertion flakiness). */
+const FETCH_TIMEOUT_MS = 20_000;
+
+async function fetchRetry(url, init = {}, attempts = 3) {
+  let lastErr;
+  for (let i = 1; i <= attempts; i++) {
+    try {
+      const res = await fetch(url, {
+        ...init,
+        redirect: "follow",
+        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      });
+      if (res.status >= 500 && i < attempts) {
+        await new Promise((r) => setTimeout(r, 400 * i));
+        continue;
+      }
+      return res;
+    } catch (e) {
+      lastErr = e;
+      if (i < attempts) {
+        await new Promise((r) => setTimeout(r, 400 * i));
+        continue;
+      }
+    }
+  }
+  throw lastErr ?? new Error(`fetch failed: ${url}`);
+}
+
+/** HEAD often flakes on CDN; fall back to GET if HEAD is missing/405/timeout. */
+async function headOrGet(url) {
+  try {
+    const head = await fetchRetry(url, { method: "HEAD" });
+    if (head.ok) return head;
+    if (head.status === 405 || head.status === 403 || head.status === 501) {
+      return fetchRetry(url, { method: "GET" });
+    }
+    return head;
+  } catch {
+    return fetchRetry(url, { method: "GET" });
+  }
+}
 
 async function check(name, fn) {
   try {
@@ -82,6 +125,7 @@ const RESERVED_FIRST_SEGMENTS = new Set([
   "sluzby",
   "pruvodce",
   "ghid",
+  "clanky",
   "api",
 ]);
 
@@ -94,7 +138,7 @@ function isProductPath(path) {
 }
 
 async function samplePdpPath() {
-  const res = await fetch(`${base}/sitemap.xml`);
+  const res = await fetchRetry(`${base}/sitemap.xml`);
   if (!res.ok) return null;
   const text = await res.text();
   const locs = [...text.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
@@ -110,7 +154,7 @@ async function samplePdpPath() {
 }
 
 await check("robots.txt", async () => {
-  const res = await fetch(`${base}/robots.txt`);
+  const res = await fetchRetry(`${base}/robots.txt`);
   const text = await res.text();
   const ok =
     res.ok &&
@@ -125,7 +169,7 @@ await check("robots.txt", async () => {
 });
 
 await check("sitemap.xml", async () => {
-  const res = await fetch(`${base}/sitemap.xml`);
+  const res = await fetchRetry(`${base}/sitemap.xml`);
   const text = await res.text();
   const urlCount = (text.match(/<loc>/g) ?? []).length;
   const ok = res.ok && text.includes("<urlset") && urlCount >= 10;
@@ -165,7 +209,7 @@ function hasProductJsonLd(html) {
 
 for (const path of PAGES) {
   await check(`page ${path}`, async () => {
-    const res = await fetch(`${base}${path}`);
+    const res = await fetchRetry(`${base}${path}`);
     const html = await res.text();
     const leaks = LOCALE_LEAKS.filter((m) => html.includes(m));
     const hasCanonical = /rel=["']canonical["']/i.test(html);
@@ -204,18 +248,18 @@ for (const path of PAGES) {
 }
 
 await check("og-image.jpg", async () => {
-  const res = await fetch(`${base}/og-image.jpg`, { method: "HEAD" });
+  const res = await headOrGet(`${base}/og-image.jpg`);
   return { ok: res.ok, status: res.status, detail: res.ok ? "present" : "missing" };
 });
 
 await check("favicon.ico", async () => {
-  const res = await fetch(`${base}/favicon.ico`, { method: "HEAD" });
+  const res = await headOrGet(`${base}/favicon.ico`);
   return { ok: res.ok, status: res.status, detail: res.ok ? "present" : "missing" };
 });
 
 if (pdpPath) {
   await check(`pdp json-ld ${pdpPath}`, async () => {
-    const res = await fetch(`${base}${pdpPath}`);
+    const res = await fetchRetry(`${base}${pdpPath}`);
     const html = await res.text();
     const hasProduct = hasProductJsonLd(html);
     const ok = res.ok && hasProduct;

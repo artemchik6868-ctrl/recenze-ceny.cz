@@ -1,9 +1,11 @@
 ﻿import assert from "node:assert/strict";
 import {
+  FACTS_WAIT_MS,
   hasExtractableLandingForSource,
   imageFactsReadyForContent,
   isFactsExtractionAttempted,
   landingFactsReadyForContent,
+  offerAgeAllowsFactsBypass,
   offerFactsReadyForContent,
   shouldWarmImageFacts,
   shouldWarmLandingFacts,
@@ -143,18 +145,50 @@ assert.equal(
   true,
 );
 
-assert.equal(
-  shouldWarmLandingFacts({ source: "shakes", landingStatus: null }),
-  true,
-);
-assert.equal(
-  shouldWarmLandingFacts({ source: "shakes", landingStatus: "no_url" }),
-  false,
-);
-assert.equal(
-  shouldWarmLandingFacts({ source: "kma", landingStatus: null }),
-  false,
-);
+// Soft age gate: young offer without facts stays blocked.
+{
+  const now = Date.now();
+  assert.equal(offerAgeAllowsFactsBypass(new Date(now - 5 * 60 * 1000).toISOString(), now), false);
+  assert.equal(
+    offerFactsReadyForContent({
+      source: "m1_top",
+      hasExtractableLanding: true,
+      landingStatus: null,
+      imageFactsEnabled: true,
+      hasImageUrl: true,
+      imageStatus: null,
+      syncedAt: new Date(now - 5 * 60 * 1000).toISOString(),
+      nowMs: now,
+    }),
+    false,
+  );
+}
+
+// Soft age gate: aged offer without facts may claim (warm after claim).
+{
+  const now = Date.now();
+  assert.equal(
+    offerAgeAllowsFactsBypass(new Date(now - FACTS_WAIT_MS - 1000).toISOString(), now),
+    true,
+  );
+  assert.equal(
+    offerFactsReadyForContent({
+      source: "m1_top",
+      hasExtractableLanding: true,
+      landingStatus: null,
+      imageFactsEnabled: true,
+      hasImageUrl: true,
+      imageStatus: null,
+      syncedAt: new Date(now - FACTS_WAIT_MS - 1000).toISOString(),
+      nowMs: now,
+    }),
+    true,
+  );
+}
+
+assert.equal(shouldWarmLandingFacts({ source: "shakes", landingStatus: null }), true);
+assert.equal(shouldWarmLandingFacts({ source: "shakes", landingStatus: "no_url" }), false);
+assert.equal(shouldWarmLandingFacts({ source: "kma", landingStatus: null }), false);
 assert.equal(
   shouldWarmImageFacts({
     source: "shakes",
