@@ -5,6 +5,7 @@
 import { readFileSync, existsSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { MIN_PAGE_URLS, probeSitemapDeep } from "./lib/sitemap-probe.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 let indexNowPath = "/15a9670fbe765eb04766383e1349d0a9.txt";
@@ -47,7 +48,7 @@ function isBadResponse(res, body, path) {
     return (
       res.status < 200 ||
       res.status >= 400 ||
-      !body.includes("<urlset") ||
+      !(body.includes("<sitemapindex") || body.includes("<urlset")) ||
       body.includes("Something went wrong")
     );
   }
@@ -74,6 +75,7 @@ const RESERVED_FIRST = new Set([
   "sluzby",
   "pruvodce",
   "ghid",
+  "clanky",
   "api",
   "sitemap.xml",
   "favicon.png",
@@ -87,10 +89,16 @@ function isCategoryHubPath(p) {
   return !RESERVED_FIRST.has(m[1]);
 }
 
-const sitemapBootstrap = await fetch(`${base}/sitemap.xml`);
-const sitemapBootstrapBody = await sitemapBootstrap.text();
-for (const m of sitemapBootstrapBody.matchAll(/<loc>https?:\/\/[^/]+(\/[^<]+)<\/loc>/g)) {
-  const p = m[1].replace(/\/$/, "") || "/";
+/** Deep probe: page URLs live in shards under the sitemapindex. */
+const sitemapProbe = await probeSitemapDeep(base);
+const sitemapLocs = sitemapProbe.locs;
+for (const loc of sitemapLocs) {
+  let p;
+  try {
+    p = new URL(loc).pathname.replace(/\/$/, "") || "/";
+  } catch {
+    continue;
+  }
   if (!isCategoryHubPath(p)) continue;
   if (!paths.includes(p)) paths.splice(2, 0, p);
   if (paths.filter(isCategoryHubPath).length >= 2) break;
@@ -115,19 +123,34 @@ for (const path of paths) {
   }
 }
 
-const urlCount = (sitemapBootstrapBody.match(/<loc>/g) ?? []).length;
-if (urlCount < 10) {
-  console.log(`FAIL sitemap url count ${urlCount} (expected at least 10 static URLs)`);
+const urlCount = sitemapLocs.length;
+if (!sitemapProbe.ok || urlCount < MIN_PAGE_URLS) {
+  console.log(
+    `FAIL sitemap url count ${urlCount} (${sitemapProbe.reason}; expected at least ${MIN_PAGE_URLS} page URLs across shards)`,
+  );
   failed++;
 } else if (urlCount < 100) {
-  console.log(`WARN sitemap url count ${urlCount} (grows after AI content-drain)`);
+  console.log(`WARN sitemap url count ${urlCount} across ${sitemapProbe.shards} shard(s) (grows after AI content-drain)`);
 } else {
-  console.log(`OK   sitemap contains ${urlCount} URLs`);
+  console.log(`OK   sitemap contains ${urlCount} URLs across ${sitemapProbe.shards} shard(s)`);
 }
 
-const productLocRe = /<loc>https?:\/\/[^/]+(\/[^/]+\/[^<]+-g\d+)<\/loc>/;
-const productMatch = sitemapBootstrapBody.match(productLocRe);
-const productPath = productMatch?.[1];
+const productLoc = sitemapLocs.find((loc) => {
+  try {
+    return /\/[^/]+\/[^/]+-g\d+\/?$/.test(new URL(loc).pathname);
+  } catch {
+    return false;
+  }
+});
+const productPath = productLoc
+  ? (() => {
+      try {
+        return new URL(productLoc).pathname.replace(/\/$/, "") || null;
+      } catch {
+        return null;
+      }
+    })()
+  : null;
 if (productPath) {
   const res = await fetch(`${base}${productPath}`, { redirect: "manual" });
   const body = await res.text();

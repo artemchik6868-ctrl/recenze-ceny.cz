@@ -9,6 +9,7 @@ import { readFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { buildSitemapEntries } from "../src/lib/sitemap.server";
+import { probeSitemapDeep } from "./lib/sitemap-probe.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 for (const line of readFileSync(resolve(root, ".env"), "utf8").split(/\r?\n/)) {
@@ -41,11 +42,11 @@ async function expectedPaths(): Promise<{
   return { all, products };
 }
 
-function parseSitemapLocs(xml: string): Set<string> {
+function toPathSet(locs: string[]): Set<string> {
   const out = new Set<string>();
-  for (const m of xml.matchAll(/<loc>([^<]+)<\/loc>/g)) {
+  for (const loc of locs) {
     try {
-      const u = new URL(m[1]);
+      const u = new URL(loc);
       out.add(u.pathname.replace(/\/$/, "") || "/");
     } catch {
       /* skip bad loc */
@@ -54,19 +55,23 @@ function parseSitemapLocs(xml: string): Set<string> {
   return out;
 }
 
+/** /sitemap.xml is a <sitemapindex> — collect page URLs across every shard. */
+async function fetchSitemapPaths(): Promise<Set<string>> {
+  const result = await probeSitemapDeep(base);
+  if (!result.ok && result.pageUrls === 0) {
+    console.error(`FAIL sitemap fetch ${result.status} (${result.reason})`);
+    process.exit(1);
+  }
+  console.log(`Sitemap index: ${result.shards} shard(s)`);
+  return toPathSet(result.locs);
+}
+
 const { all: expected, products: expectedProducts } = await expectedPaths();
 
 console.log(`\n=== sitemap audit — base=${base} ===\n`);
 console.log(`Expected URLs (sitemap.server rules): total=${expected.size} products=${expectedProducts.size}\n`);
 
-const res = await fetch(`${base}/sitemap.xml`, { redirect: "follow" });
-const xml = await res.text();
-if (!res.ok || !xml.includes("<urlset")) {
-  console.error(`FAIL sitemap fetch ${res.status}`);
-  process.exit(1);
-}
-
-const inSitemap = parseSitemapLocs(xml);
+const inSitemap = await fetchSitemapPaths();
 const productInSitemap = [...inSitemap].filter((p) => /^\/[^/]+\/[^/]+/.test(p) && !p.startsWith("/category"));
 
 const missing = [...expected].filter((p) => !inSitemap.has(p));

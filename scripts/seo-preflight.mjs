@@ -2,6 +2,8 @@
  * SEO preflight — live checks for indexation readiness.
  * Usage: node scripts/seo-preflight.mjs [--base=https://recenze-ceny.cz]
  */
+import { probeSitemapDeep } from "./lib/sitemap-probe.mjs";
+
 const base =
   process.argv.find((a) => a.startsWith("--base="))?.slice(7)?.replace(/\/$/, "") ||
   "https://recenze-ceny.cz";
@@ -137,11 +139,18 @@ function isProductPath(path) {
   return !RESERVED_FIRST_SEGMENTS.has(m[1]);
 }
 
+/** /sitemap.xml is a <sitemapindex>; page URLs live in the shards. */
+let sitemapCache;
+async function getSitemap() {
+  if (!sitemapCache) {
+    sitemapCache = await probeSitemapDeep(base, (url, init) => fetchRetry(url, init ?? {}));
+  }
+  return sitemapCache;
+}
+
 async function samplePdpPath() {
-  const res = await fetchRetry(`${base}/sitemap.xml`);
-  if (!res.ok) return null;
-  const text = await res.text();
-  const locs = [...text.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+  const { ok, locs } = await getSitemap();
+  if (!ok) return null;
   const pdp = locs.find((url) => {
     try {
       const path = new URL(url).pathname;
@@ -169,15 +178,16 @@ await check("robots.txt", async () => {
 });
 
 await check("sitemap.xml", async () => {
-  const res = await fetchRetry(`${base}/sitemap.xml`);
-  const text = await res.text();
-  const urlCount = (text.match(/<loc>/g) ?? []).length;
-  const ok = res.ok && text.includes("<urlset") && urlCount >= 10;
+  const result = await getSitemap();
+  const urlCount = result.pageUrls;
   return {
-    ok,
-    status: res.status,
+    ok: result.ok,
+    status: result.status,
     urlCount,
-    detail: ok ? `${urlCount} URLs` : `status=${res.status}, urls=${urlCount}`,
+    shards: result.shards,
+    detail: result.ok
+      ? `${urlCount} URLs across ${result.shards} shard(s)`
+      : `${result.reason}; status=${result.status}, shards=${result.shards}, urls=${urlCount}`,
   };
 });
 

@@ -38,6 +38,7 @@
     "uptime:probe": "node scripts/uptime-probe.mjs",
     "notify:telegram": "node scripts/notify-telegram.mjs",
     "ops:telegram-digest": "node scripts/ops-telegram-digest.mjs",
+    "test:sitemap-probe": "node scripts/sitemap-probe.test.mjs",
     "test:ops-build-issues": "node scripts/ops-build-issues.test.mjs",
     "test:offers-utils": "tsx src/lib/offers-utils.test.ts",
     "test:indexing-rate-limit": "tsx src/lib/indexing-rate-limit.test.ts",
