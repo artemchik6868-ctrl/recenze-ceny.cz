@@ -1,6 +1,17 @@
 import assert from "node:assert/strict";
 import { computeSourceHashForTest } from "./ai-content.server";
-import { shouldEnqueueBackfillJob, shouldReleaseStaleLock, STALE_LOCK_AGE_MS } from "./content-backfill.server";
+import {
+  compareDrainOfferOrder,
+  computeDrainPriority,
+  CONTENT_STALE_MS,
+  capScanWindow,
+  filterIncompleteOfferIds,
+  isIndexContentComplete,
+  shouldYieldAfterWarmOnlyRound,
+  shouldEnqueueBackfillJob,
+  shouldReleaseStaleLock,
+  STALE_LOCK_AGE_MS,
+} from "./content-backfill.server";
 
 let failed = 0;
 
@@ -129,6 +140,104 @@ ok("shouldReleaseStaleLock skips expired cooldown residue after recorded failure
     last_attempt_at: attemptAt,
   };
   assert.equal(shouldReleaseStaleLock(row, new Set(), now), false);
+});
+
+ok("drain priority: high fail_count goes last", () => {
+  const healthy = computeDrainPriority({
+    missingContent: true,
+    bareMissing: true,
+    failCount: 0,
+    missingQa: false,
+    drainMode: true,
+  });
+  const poison = computeDrainPriority({
+    missingContent: true,
+    bareMissing: true,
+    failCount: 5,
+    missingQa: false,
+    drainMode: true,
+  });
+  assert.ok(healthy < poison, `healthy ${healthy} should sort before poison ${poison}`);
+});
+
+ok("drain priority: stale synced_at gets boost in drainMode", () => {
+  const now = Date.now();
+  const fresh = computeDrainPriority({
+    missingContent: true,
+    bareMissing: true,
+    failCount: 0,
+    missingQa: false,
+    syncedAt: new Date(now - 10 * 60 * 1000).toISOString(),
+    nowMs: now,
+    drainMode: true,
+  });
+  const stale = computeDrainPriority({
+    missingContent: true,
+    bareMissing: true,
+    failCount: 0,
+    missingQa: false,
+    syncedAt: new Date(now - CONTENT_STALE_MS - 1000).toISOString(),
+    nowMs: now,
+    drainMode: true,
+  });
+  assert.ok(stale < fresh, `stale ${stale} should sort before fresh ${fresh}`);
+});
+
+ok("compareDrainOfferOrder: oldest synced_at first on equal priority", () => {
+  const ids = [
+    { priority: 0, syncedAt: "2026-08-06T12:00:00.000Z", id: 3 },
+    { priority: 0, syncedAt: "2026-08-06T10:00:00.000Z", id: 1 },
+    { priority: 0, syncedAt: "2026-08-06T11:00:00.000Z", id: 2 },
+  ];
+  ids.sort(compareDrainOfferOrder);
+  assert.deepEqual(
+    ids.map((x) => x.id),
+    [1, 2, 3],
+  );
+});
+
+ok("compareDrainOfferOrder: lower priority wins over older sync", () => {
+  const ids = [
+    { priority: 10, syncedAt: "2026-08-01T00:00:00.000Z", id: 1 },
+    { priority: -20, syncedAt: "2026-08-06T12:00:00.000Z", id: 2 },
+  ];
+  ids.sort(compareDrainOfferOrder);
+  assert.deepEqual(
+    ids.map((x) => x.id),
+    [2, 1],
+  );
+});
+
+ok("shouldYieldAfterWarmOnlyRound only yields on warm-only progress", () => {
+  assert.equal(shouldYieldAfterWarmOnlyRound({ generated: 0, failed: 0, warmedFacts: 1 }), true);
+  assert.equal(shouldYieldAfterWarmOnlyRound({ generated: 1, failed: 0, warmedFacts: 1 }), false);
+  assert.equal(shouldYieldAfterWarmOnlyRound({ generated: 0, failed: 1, warmedFacts: 1 }), false);
+  assert.equal(shouldYieldAfterWarmOnlyRound({ generated: 0, failed: 0, warmedFacts: 0 }), false);
+});
+
+ok("filterIncompleteOfferIds skips complete rows and honors limit", () => {
+  const windowIds = [10, 20, 30, 40, 50];
+  const haveComplete = new Set([20, 40]);
+  assert.deepEqual(filterIncompleteOfferIds(windowIds, haveComplete), [10, 30, 50]);
+  assert.deepEqual(filterIncompleteOfferIds(windowIds, haveComplete, 2), [10, 30]);
+  assert.deepEqual(filterIncompleteOfferIds(windowIds, new Set(windowIds)), []);
+});
+
+ok("capScanWindow stops before enumerating a large catalog", () => {
+  const ids = Array.from({ length: 5000 }, (_, i) => i + 1);
+  assert.equal(capScanWindow(ids, 400).length, 400);
+  assert.deepEqual(capScanWindow(ids, 400), ids.slice(0, 400));
+  assert.deepEqual(capScanWindow([1, 2, 3], 400), [1, 2, 3]);
+  assert.deepEqual(capScanWindow(ids, 0), []);
+});
+
+ok("isIndexContentComplete matches faq≥3 + title", () => {
+  assert.equal(
+    isIndexContentComplete({ display_title_uk: "A", faq_uk: ["q", "w", "e"] }),
+    true,
+  );
+  assert.equal(isIndexContentComplete({ display_title_uk: "A", faq_uk: ["q"] }), false);
+  assert.equal(isIndexContentComplete({ display_title_uk: null, faq_uk: ["q", "w", "e"] }), false);
 });
 
 if (failed > 0) {

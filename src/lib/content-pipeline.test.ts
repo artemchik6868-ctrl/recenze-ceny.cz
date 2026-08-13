@@ -71,15 +71,18 @@ ok("rotateSourcesFrom moves startIndex to front", () => {
   assert.deepEqual(rotateSourcesFrom(sources, 5), ["kma", "m1_top", "shakes", "cpa_tl"]);
 });
 
-ok("pickSourceWithMostMissing prefers largest backlog", () => {
+ok("pickSourceWithMostMissing prefers largest bounded window", () => {
   const order = ["cpa_tl", "kma", "shakes", "m1_top"] as const;
   assert.equal(
     pickSourceWithMostMissing(order, { cpa_tl: 1, kma: 0, shakes: 3, m1_top: 2 }),
     "shakes",
   );
   assert.equal(pickSourceWithMostMissing(order, { cpa_tl: 0, kma: 0 }), null);
-  // Tie → first in rotation order
   assert.equal(pickSourceWithMostMissing(order, { cpa_tl: 2, shakes: 2 }), "cpa_tl");
+  assert.equal(
+    pickSourceWithMostMissing(order, { cpa_tl: 4, kma: 0, shakes: 2, m1_top: 0 }),
+    "cpa_tl",
+  );
 });
 
 ok("drainRoundStartIndex rotates by half-hour buckets", () => {
@@ -117,6 +120,7 @@ ok("mergeGenerateNewContentResult accumulates rounds", () => {
     cooldownSkipped: 0,
     factsPendingSkipped: 0,
     cachedAfterFailure: 0,
+    warmedFacts: 0,
   };
   const a: GenerateNewContentResult = {
     content: { rounds: [emptyRound], totalGenerated: 1, totalFailed: 0 },

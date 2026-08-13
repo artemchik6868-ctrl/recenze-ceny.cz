@@ -13,11 +13,10 @@ import {
   getExpectedSourceHash,
   computeFormKind,
   generateReviewsOnlyForOffer,
+  warmOfferFactsBeforeContent,
 } from "./ai-content.server";
 import { loadResolvedCategoryMap } from "./catalog-shelf.server";
 import { categorySlugFromRow, type SourceOfferRow } from "./offer-row-map.server";
-import { notifyIndexers, offerUrls } from "./indexers.server";
-import { findOfferById } from "./offers.server";
 import { reviewCountFor } from "./review-slots-gen";
 import type { OfferSource } from "./types";
 import { ENABLE_AI_CONTENT } from "./market";
@@ -81,6 +80,7 @@ export const STALE_LOCK_AGE_MS = 3 * 60 * 1000;
 /** Do not claim a new offer unless at least this much wall time remains before deadlineAt.
  *  Smoke/HTTP generate for one offer is ~30–45s; leave headroom without starving the tick. */
 export const MIN_CONTENT_OFFER_MS = 50_000;
+export const MAX_DRAIN_FACTS_WARMUPS_PER_ROUND = 1;
 export { CONTENT_STALE_MS, computeFailureCooldownMs, QUARANTINE_AFTER_FAILS };
 
 /** Pure priority for drain ordering — lower sorts first. */
@@ -303,6 +303,44 @@ export function isContentComplete(row: {
   return Boolean(row.display_title_uk && row.description_html_uk && faqLen >= 3);
 }
 
+/** Index / bounded-window completion when HTML body was already filtered non-null. */
+export function isIndexContentComplete(row: {
+  display_title_uk: string | null;
+  faq_uk: unknown;
+}): boolean {
+  const faqLen = Array.isArray(row.faq_uk) ? row.faq_uk.length : 0;
+  return Boolean(row.display_title_uk && faqLen >= 3);
+}
+
+/** Newest-first window: keep only IDs without complete AI, up to limit. */
+export function filterIncompleteOfferIds(
+  windowIds: readonly number[],
+  haveComplete: ReadonlySet<number>,
+  limit?: number,
+): number[] {
+  const missing: number[] = [];
+  for (const id of windowIds) {
+    if (haveComplete.has(id)) continue;
+    missing.push(id);
+    if (limit != null && missing.length >= limit) break;
+  }
+  return missing;
+}
+
+/** Hard cap so drain never enumerates a large catalog in memory. */
+export function capScanWindow(ids: readonly number[], scanCap: number): number[] {
+  const cap = Math.max(0, scanCap);
+  if (ids.length <= cap) return [...ids];
+  return ids.slice(0, cap);
+}
+
+export const BOUNDED_MISSING_PAGE_SIZE = 200;
+export const BOUNDED_MISSING_SCAN_CAP = 400;
+export const BOUNDED_MISSING_DRAIN_LIMIT = 8;
+/** Full-index pagination ceiling — Worker drain must not use this path. */
+export const CONTENT_INDEX_PAGE_SIZE = 1000;
+export const CONTENT_INDEX_MAX_PAGES = 8;
+
 /** Pure helper for stale-lock release (unit-tested). */
 export function shouldReleaseStaleLock(
   row: ContentGenFailureRow,
@@ -334,16 +372,56 @@ export function shouldReleaseStaleLock(
   return false;
 }
 
+export function shouldYieldAfterWarmOnlyRound(round: {
+  generated: number;
+  failed: number;
+  warmedFacts: number;
+}): boolean {
+  return round.generated === 0 && round.failed === 0 && round.warmedFacts > 0;
+}
+
 export const WORKER_KILLED_OR_TIMEOUT = "worker_killed_or_timeout";
 
-/** Clear locks left by aborted Worker runs; record explicit failure for visibility + cooldown. */
+/** Clear locks left by aborted Worker runs; free same-tick re-claim when possible. */
 export async function releaseStaleLocks(source: OfferSource): Promise<number> {
-  const { haveComplete } = await loadCompleteContentIndex(source);
   const state = await loadGenerationState(source);
+  if (state.size === 0) return 0;
+  const lockedIds = [...state.values()].map((row) => row.offer_id);
+  const { complete: haveComplete } = await loadContentCompletionForIds(source, lockedIds);
   const nowMs = Date.now();
   let released = 0;
   for (const row of state.values()) {
     if (!shouldReleaseStaleLock(row, haveComplete, nowMs)) continue;
+
+    // Silent CF kill on first attempt (fail_count=0, no prior last_error): free the lock
+    // without a 5m failure cooldown so this content-drain invoke can re-claim immediately.
+    // Visibility: stamp last_error; do not bump fail_count (that parks new offers).
+    if ((row.fail_count ?? 0) === 0 && !row.last_error) {
+      const nowIso = new Date(nowMs).toISOString();
+      const { error } = await supabaseAdmin
+        .from("content_gen_failures")
+        .update({
+          locked_until: null,
+          last_error: WORKER_KILLED_OR_TIMEOUT,
+          last_failed_at: null,
+          last_attempt_at: row.last_attempt_at ?? nowIso,
+        })
+        .eq("source", source)
+        .eq("offer_id", row.offer_id);
+      if (error && !isMissingGenFailuresTable(error)) {
+        console.warn(
+          `[backfill:${source}] soft-release stale ${row.offer_id} failed:`,
+          error.message,
+        );
+        continue;
+      }
+      released += 1;
+      console.warn(
+        `[backfill:${source}] soft-release stale lock offer=${row.offer_id} attempt=${row.last_attempt_at} (no cooldown)`,
+      );
+      continue;
+    }
+
     await recordGenerationFailure(source, row.offer_id, WORKER_KILLED_OR_TIMEOUT);
     released += 1;
     console.warn(
@@ -351,7 +429,7 @@ export async function releaseStaleLocks(source: OfferSource): Promise<number> {
     );
   }
   if (released > 0) {
-    console.info(`[backfill:${source}] recorded ${released} worker_killed_or_timeout failure(s)`);
+    console.info(`[backfill:${source}] released ${released} stale generation lock(s)`);
   }
   return released;
 }
@@ -533,6 +611,84 @@ async function loadActiveOfferRowsByIds(
   return rows;
 }
 
+const ID_IN_CHUNK = 100;
+
+async function loadContentCompletionForIds(
+  source: OfferSource,
+  ids: number[],
+): Promise<{ complete: Set<number>; hashMap: Map<number, string> }> {
+  const complete = new Set<number>();
+  const hashMap = new Map<number, string>();
+  if (ids.length === 0) return { complete, hashMap };
+  for (let i = 0; i < ids.length; i += ID_IN_CHUNK) {
+    const chunk = ids.slice(i, i + ID_IN_CHUNK);
+    const { data, error } = await supabaseAdmin
+      .from("product_content")
+      .select("offer_id, display_title_uk, description_html_uk, faq_uk, source_hash")
+      .eq("source", source)
+      .in("offer_id", chunk);
+    if (error) {
+      console.warn(`[backfill:${source}] content by id failed:`, error.message);
+      throw new Error(`[backfill:${source}] content by id failed: ${error.message}`);
+    }
+    for (const row of data ?? []) {
+      const id = Number((row as { offer_id: number }).offer_id);
+      const hash = (row as { source_hash?: string | null }).source_hash;
+      if (hash) hashMap.set(id, String(hash));
+      if (
+        isContentComplete({
+          display_title_uk: (row as { display_title_uk: string | null }).display_title_uk,
+          description_html_uk: (row as { description_html_uk: string | null }).description_html_uk,
+          faq_uk: (row as { faq_uk: unknown }).faq_uk,
+        })
+      ) {
+        complete.add(id);
+      }
+    }
+  }
+  return { complete, hashMap };
+}
+
+/**
+ * Newest-active missing AI IDs without paging the whole catalog.
+ * scanCap IDs max, then one content .in() per 100 ids.
+ */
+export async function listMissingActiveOfferIdsBounded(
+  source: OfferSource,
+  opts?: { limit?: number; scanCap?: number },
+): Promise<number[]> {
+  const limit = opts?.limit ?? BOUNDED_MISSING_DRAIN_LIMIT;
+  const scanCap = opts?.scanCap ?? BOUNDED_MISSING_SCAN_CAP;
+  if (limit <= 0 || scanCap <= 0) return [];
+
+  const windowIds: number[] = [];
+  let from = 0;
+  while (windowIds.length < scanCap) {
+    const take = Math.min(BOUNDED_MISSING_PAGE_SIZE, scanCap - windowIds.length);
+    const { data, error } = await supabaseAdmin
+      .from(TABLE[source])
+      .select("offer_id")
+      .eq("is_active", true)
+      .order("synced_at", { ascending: false })
+      .order("offer_id", { ascending: false })
+      .range(from, from + take - 1);
+    if (error) {
+      console.warn(`[backfill:${source}] bounded offers failed:`, error.message);
+      throw new Error(`[backfill:${source}] bounded offers failed: ${error.message}`);
+    }
+    const page = (data ?? [])
+      .map((r) => Number((r as { offer_id: number }).offer_id))
+      .filter((id) => Number.isFinite(id));
+    if (page.length === 0) break;
+    windowIds.push(...page);
+    if (page.length < take) break;
+    from += take;
+  }
+
+  const { complete } = await loadContentCompletionForIds(source, windowIds);
+  return filterIncompleteOfferIds(windowIds, complete, limit);
+}
+
 async function loadActiveOfferRows(source: OfferSource): Promise<BackfillOfferRow[]> {
   const rows: BackfillOfferRow[] = [];
   let from = 0;
@@ -606,6 +762,8 @@ export async function generateMissingContent(
     startOffset?: number;
     /** Regenerate only these offer IDs (must be active in source table). */
     offerIds?: number[];
+    /** Warm landing/image facts before skipping a not-ready offer. */
+    allowWarmFactsBeforeClaim?: boolean;
   } = {},
 ): Promise<{
   checked: number;
@@ -615,6 +773,7 @@ export async function generateMissingContent(
   cooldownSkipped: number;
   factsPendingSkipped: number;
   cachedAfterFailure: number;
+  warmedFacts: number;
 }> {
   const claimReserveMs = opts.drainMode === true ? MIN_CONTENT_OFFER_MS : 22_000;
   const hasBudget = () =>
@@ -622,25 +781,28 @@ export async function generateMissingContent(
     !opts.deadlineAt ||
     opts.deadlineAt - Date.now() >= claimReserveMs;
 
-  // Drain onlyMissing: use content index first, then load raw blobs only for candidates.
-  // Full-table scan of offer raw JSON costs tens of CF subrequests on large feeds.
+  // Drain onlyMissing: bounded missing window, then load raw blobs only for candidates.
   let offerRows: BackfillOfferRow[];
   let haveHi: Set<number>;
   let hashMap = new Map<number, string>();
   const missingQa = new Set<number>();
 
   if (opts.drainMode === true && opts.onlyMissing === true && opts.regenStale !== true) {
-    const index = await loadCompleteContentIndex(source);
-    haveHi = index.haveComplete;
-    hashMap = index.hashMap;
-    let missingIds = index.offerIds.filter((id) => !haveHi.has(id));
+    const materializeCap =
+      opts.allowWarmFactsBeforeClaim === true
+        ? Math.max(limit * 2, 4)
+        : Math.max(limit * 4, 8);
+    let missingIds: number[];
     if (opts.offerIds?.length) {
-      const allow = new Set(opts.offerIds);
-      missingIds = missingIds.filter((id) => allow.has(id));
+      const completion = await loadContentCompletionForIds(source, opts.offerIds);
+      haveHi = completion.complete;
+      hashMap = completion.hashMap;
+      missingIds = filterIncompleteOfferIds(opts.offerIds, haveHi, materializeCap);
+    } else {
+      missingIds = await listMissingActiveOfferIdsBounded(source, { limit: materializeCap });
+      haveHi = new Set();
+      hashMap = new Map();
     }
-    // Cap row materialization — one Worker invoke only needs a small claim queue.
-    const materializeCap = Math.max(limit * 8, 24);
-    missingIds = missingIds.slice(0, materializeCap);
     offerRows = await loadActiveOfferRowsByIds(source, missingIds);
   } else {
     offerRows = await loadActiveOfferRows(source);
@@ -668,6 +830,7 @@ export async function generateMissingContent(
       cooldownSkipped: 0,
       factsPendingSkipped: 0,
       cachedAfterFailure: 0,
+      warmedFacts: 0,
     };
   }
   const offerIds = offerRows.map((r) => r.offer_id);
@@ -681,12 +844,14 @@ export async function generateMissingContent(
   let lockedSkipped = 0;
   let cooldownSkipped = 0;
   let factsPendingSkipped = 0;
+  let warmedFacts = 0;
   const jobLimit =
     opts.localMode === true || opts.drainMode
       ? limit
       : opts.deadlineAt
         ? limit
         : Math.min(limit, 4);
+  const singleWarmupDrainPass = opts.drainMode === true && opts.onlyMissing === true;
   let targetOfferIds = offerIds;
   if (opts.offerIds?.length) {
     const allow = new Set(opts.offerIds);
@@ -735,6 +900,16 @@ export async function generateMissingContent(
   const imageFactsEnabled = isImageFactsEnabled();
   const landingStatuses = await loadLandingFactsStatuses(source, targetOfferIds);
   const imageStatuses = await loadImageFactsStatuses(source, targetOfferIds);
+  const refreshFactsStatuses = async (id: number): Promise<void> => {
+    const [landing, image] = await Promise.all([
+      loadLandingFactsStatuses(source, [id]),
+      loadImageFactsStatuses(source, [id]),
+    ]);
+    if (landing.has(id)) landingStatuses.set(id, landing.get(id) ?? "");
+    else landingStatuses.delete(id);
+    if (image.has(id)) imageStatuses.set(id, image.get(id) ?? "");
+    else imageStatuses.delete(id);
+  };
 
   const isFactsReady = (id: number): boolean => {
     const row = offerById.get(id);
@@ -762,8 +937,24 @@ export async function generateMissingContent(
       continue;
     }
     if (!isFactsReady(id)) {
-      factsPendingSkipped += 1;
-      continue;
+      const canWarmThisOffer =
+        opts.allowWarmFactsBeforeClaim === true &&
+        hasBudget() &&
+        (!singleWarmupDrainPass || warmedFacts < MAX_DRAIN_FACTS_WARMUPS_PER_ROUND);
+      if (canWarmThisOffer) {
+        try {
+          await warmOfferFactsBeforeContent(source, id);
+          warmedFacts += 1;
+          await refreshFactsStatuses(id);
+        } catch (err) {
+          console.warn(`[backfill:${source}] warm facts ${id} failed:`, err);
+        }
+      }
+      if (!isFactsReady(id)) {
+        factsPendingSkipped += 1;
+        if (singleWarmupDrainPass && warmedFacts > 0) break;
+        continue;
+      }
     }
     const row = offerById.get(id);
     const categorySlug =
@@ -794,6 +985,9 @@ export async function generateMissingContent(
     }
     if (jobs.length >= jobLimit) break;
   }
+  let generated = 0;
+  let failed = 0;
+  let cachedAfterFailure = 0;
   if (jobs.length === 0) {
     return {
       checked: targetOfferIds.length,
@@ -803,13 +997,9 @@ export async function generateMissingContent(
       cooldownSkipped,
       factsPendingSkipped,
       cachedAfterFailure: 0,
+      warmedFacts,
     };
   }
-
-  let generated = 0;
-  let failed = 0;
-  let cachedAfterFailure = 0;
-  const notifyIds = new Set<number>();
   const forceRegen = opts.regenMissingQa === true || opts.forceRegen === true;
   const workerCount = opts.concurrency ?? (opts.localMode === true ? 3 : 2);
   await runWithConcurrency(
@@ -833,29 +1023,37 @@ export async function generateMissingContent(
       }
       let finished = false;
       try {
-        // Drain must match the proven HTTP smoke path: no per-step LLM deadline caps.
-        // Outer claim gate + MIN_CONTENT_OFFER_MS already ensure enough wall time to start;
-        // passing deadlineAt into generate caused abort/retry storms and CF hard-kills.
+        // Soft wall deadline so CF hard-kill is a last resort (not the default path).
+        // After warm, generate may return status "deferred" and yield the slot.
         const out = await getOrGenerateProductContentDetailed(
           source,
           job.offerId,
           "uk",
           job.categorySlug,
-          { forceRegen },
+          { forceRegen, deadlineAt: opts.deadlineAt },
         );
         if (out.status === "generated" && out.content) {
           generated += 1;
-          notifyIds.add(job.offerId);
           await clearGenerationState(source, job.offerId);
           markOfferContentComplete(source, job.offerId, out.content.source_hash ?? null);
           console.info(
             `[backfill:${source}] generated offer=${job.offerId} category=${job.categorySlug} ms=${Date.now() - started} force=${forceRegen} tokens=${out.metrics?.totalTokens ?? 0} retries=${out.metrics?.retries ?? 0}`,
           );
+          // Indexing is notified inside getOrGenerateProductContentDetailed after persist.
           finished = true;
           return;
         }
         if (out.status === "cache_hit") {
           await unlockGenerationState(source, job.offerId);
+          finished = true;
+          return;
+        }
+        if (out.status === "deferred") {
+          // Warm spent the tick — unlock without fail_count so next :30 can generate.
+          await unlockGenerationState(source, job.offerId);
+          console.info(
+            `[backfill:${source}] deferred offer=${job.offerId} after warm/budget ms=${Date.now() - started}`,
+          );
           finished = true;
           return;
         }
@@ -886,26 +1084,6 @@ export async function generateMissingContent(
     hasBudget,
   );
 
-  if (notifyIds.size > 0 && hasBudget()) {
-    const urls: string[] = [];
-    for (const id of notifyIds) {
-      try {
-        const offer = await findOfferById(id);
-        if (offer?.categorySlug && offer.slug) {
-          urls.push(...offerUrls(offer.categorySlug, offer.slug));
-        }
-      } catch (err) {
-        console.warn(`[backfill:${source}] url lookup ${id} failed:`, err);
-      }
-    }
-    if (urls.length > 0) {
-      // fire-and-forget; never block sync hook on notifications
-      notifyIndexers(urls).catch((err) =>
-        console.warn(`[backfill:${source}] notifyIndexers failed:`, err),
-      );
-    }
-  }
-
   return {
     checked: targetOfferIds.length,
     generated,
@@ -914,6 +1092,7 @@ export async function generateMissingContent(
     cooldownSkipped,
     factsPendingSkipped,
     cachedAfterFailure,
+    warmedFacts,
   };
 }
 
@@ -985,11 +1164,18 @@ async function loadCompleteContentIndex(source: OfferSource): Promise<ContentInd
   if (cached) return cached;
 
   // Paginated with large pages — PostgREST caps ~1000/req; tiny pages blow CF subrequest budget.
+  // Hard maxPages so a Worker caller fails closed instead of a CF subrequest kill.
   const offerIds: number[] = [];
   {
     let from = 0;
-    const pageSize = 1000;
+    let pages = 0;
+    const pageSize = CONTENT_INDEX_PAGE_SIZE;
     while (true) {
+      if (pages >= CONTENT_INDEX_MAX_PAGES) {
+        throw new Error(
+          `[backfill:${source}] content index exceeded maxPages=${CONTENT_INDEX_MAX_PAGES} (use bounded drain)`,
+        );
+      }
       const { data, error } = await supabaseAdmin
         .from(TABLE[source])
         .select("offer_id")
@@ -1001,6 +1187,7 @@ async function loadCompleteContentIndex(source: OfferSource): Promise<ContentInd
       }
       const page = data ?? [];
       for (const r of page) offerIds.push(r.offer_id as number);
+      pages += 1;
       if (page.length < pageSize) break;
       from += pageSize;
     }
@@ -1010,8 +1197,14 @@ async function loadCompleteContentIndex(source: OfferSource): Promise<ContentInd
   const hashMap = new Map<number, string>();
   {
     let from = 0;
-    const pageSize = 1000;
+    let pages = 0;
+    const pageSize = CONTENT_INDEX_PAGE_SIZE;
     while (true) {
+      if (pages >= CONTENT_INDEX_MAX_PAGES) {
+        throw new Error(
+          `[backfill:${source}] content index exceeded maxPages=${CONTENT_INDEX_MAX_PAGES} (use bounded drain)`,
+        );
+      }
       // Omit description_html_uk body — only need non-null proof + faq length (CF subrequest bandwidth).
       const { data, error } = await supabaseAdmin
         .from("product_content")
@@ -1026,10 +1219,10 @@ async function loadCompleteContentIndex(source: OfferSource): Promise<ContentInd
       const page = data ?? [];
       for (const row of page) {
         const id = row.offer_id as number;
-        const faqLen = Array.isArray(row.faq_uk) ? row.faq_uk.length : 0;
-        if (row.display_title_uk && faqLen >= 3) haveComplete.add(id);
+        if (isIndexContentComplete(row)) haveComplete.add(id);
         if (row.source_hash) hashMap.set(id, String(row.source_hash));
       }
+      pages += 1;
       if (page.length < pageSize) break;
       from += pageSize;
     }
@@ -1052,11 +1245,11 @@ export async function listSourceMissingOfferIds(
   source: OfferSource,
   opts?: { limit?: number },
 ): Promise<number[]> {
-  const { offerIds, haveComplete } = await loadCompleteContentIndex(source);
-  const missing = offerIds.filter((id) => !haveComplete.has(id));
-  const limit = opts?.limit;
-  if (limit != null && limit >= 0) return missing.slice(0, limit);
-  return missing;
+  const limit = opts?.limit ?? BOUNDED_MISSING_DRAIN_LIMIT;
+  return listMissingActiveOfferIdsBounded(source, {
+    limit,
+    scanCap: Math.max(BOUNDED_MISSING_SCAN_CAP, limit * 10),
+  });
 }
 
 /** Stale hash drift among offers that already have complete content. */
@@ -1111,7 +1304,12 @@ export type GenerateNewContentResult = {
 /** Sync path: generate missing AI content one offer at a time until done or deadline. */
 export async function generateNewContent(
   source: OfferSource,
-  opts: { deadlineMs?: number } = {},
+  opts: {
+    deadlineMs?: number;
+    offerIds?: number[];
+    allowWarmFactsBeforeClaim?: boolean;
+    maxRounds?: number;
+  } = {},
 ): Promise<GenerateNewContentResult> {
   const started = Date.now();
   const deadlineMs = opts.deadlineMs ?? 55_000;
@@ -1131,27 +1329,36 @@ export async function generateNewContent(
     };
   }
 
-  // Ensure this request does not reuse a stale isolate-level index from a prior tick.
-  resetContentIndexCache([source]);
-  // Warm index once; releaseStaleLocks reuses the same CompleteContentIndex (1 DB pass).
   await releaseStaleLocks(source);
 
+  let remainingIds =
+    opts.offerIds?.length
+      ? [...opts.offerIds]
+      : await listMissingActiveOfferIdsBounded(source, { limit: BOUNDED_MISSING_DRAIN_LIMIT });
+
   while (hasBudget()) {
-    const missing = await getSourceMissingCount(source);
-    if (missing === 0) break;
+    if (opts.maxRounds != null && rounds.length >= Math.max(0, opts.maxRounds)) break;
+    if (remainingIds.length === 0) break;
 
     const r = await generateMissingContent(source, 1, {
       deadlineAt,
       onlyMissing: true,
       concurrency: 1,
       drainMode: true,
+      offerIds: remainingIds,
+      allowWarmFactsBeforeClaim: opts.allowWarmFactsBeforeClaim,
     });
     rounds.push(r);
     totalGenerated += r.generated;
     totalFailed += r.failed;
 
-    if (r.generated > 0) continue;
+    if (r.generated > 0) {
+      const { complete } = await loadContentCompletionForIds(source, remainingIds);
+      remainingIds = filterIncompleteOfferIds(remainingIds, complete);
+      continue;
+    }
     if (r.failed > 0) continue; // recorded + cooldown; try another offer while budget remains
+    if (shouldYieldAfterWarmOnlyRound(r)) break;
     if (r.lockedSkipped > 0) {
       const released = await releaseStaleLocks(source);
       if (released > 0) continue;
@@ -1163,7 +1370,7 @@ export async function generateNewContent(
   return {
     content: { rounds, totalGenerated, totalFailed },
     timedOut: Date.now() >= deadlineAt - reserveMs,
-    missingRemaining: await getSourceMissingCount(source),
+    missingRemaining: remainingIds.length,
   };
 }
 
