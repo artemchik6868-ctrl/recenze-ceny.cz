@@ -7,10 +7,12 @@ import {
   capScanWindow,
   filterIncompleteOfferIds,
   isIndexContentComplete,
+  selectStaleLockCandidates,
   shouldYieldAfterWarmOnlyRound,
   shouldEnqueueBackfillJob,
   shouldReleaseStaleLock,
   STALE_LOCK_AGE_MS,
+  STALE_LOCK_RELEASE_CAP,
 } from "./content-backfill.server";
 
 let failed = 0;
@@ -229,6 +231,33 @@ ok("capScanWindow stops before enumerating a large catalog", () => {
   assert.deepEqual(capScanWindow(ids, 200), ids.slice(0, 200));
   assert.deepEqual(capScanWindow([1, 2, 3], 200), [1, 2, 3]);
   assert.deepEqual(capScanWindow(ids, 0), []);
+});
+
+ok("selectStaleLockCandidates caps and skips cooldown residue", () => {
+  const now = Date.now();
+  const staleAttempt = new Date(now - STALE_LOCK_AGE_MS - 1000).toISOString();
+  const rows = Array.from({ length: STALE_LOCK_RELEASE_CAP + 5 }, (_, i) => ({
+    offer_id: i + 1,
+    source: "shakes",
+    fail_count: 0,
+    last_failed_at: null,
+    last_error: null,
+    locked_until: new Date(now + 60_000).toISOString(),
+    last_attempt_at: staleAttempt,
+  }));
+  const cooldown = {
+    offer_id: 999,
+    source: "shakes",
+    fail_count: 1,
+    last_failed_at: staleAttempt,
+    last_error: "worker_killed_or_timeout",
+    locked_until: new Date(now - 1000).toISOString(),
+    last_attempt_at: staleAttempt,
+  };
+  const picked = selectStaleLockCandidates([cooldown, ...rows], now);
+  assert.equal(picked.length, STALE_LOCK_RELEASE_CAP);
+  assert.equal(picked[0]?.offer_id, 1);
+  assert.ok(picked.every((row) => row.offer_id !== 999));
 });
 
 ok("isIndexContentComplete matches faq≥3 + title", () => {

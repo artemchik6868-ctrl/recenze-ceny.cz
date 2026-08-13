@@ -8,6 +8,7 @@ import {
   generateNewContent,
   listMissingActiveOfferIdsBounded,
   BOUNDED_MISSING_DRAIN_LIMIT,
+  BOUNDED_MISSING_PROBE_CAP,
   MIN_CONTENT_OFFER_MS,
   purgeContaminatedRows,
   regenMissingReviews,
@@ -243,6 +244,7 @@ export async function retryMissingContent(
 
     const offerIds = await listMissingActiveOfferIdsBounded(source, {
       limit: BOUNDED_MISSING_DRAIN_LIMIT,
+      scanCap: BOUNDED_MISSING_PROBE_CAP,
     });
     if (offerIds.length === 0) continue;
 

@@ -77,6 +77,8 @@ type ContentGenFailureRow = {
 const GENERATION_LOCK_MS = 4 * 60 * 1000;
 /** Release in-flight locks when Worker died without finishing generation. */
 export const STALE_LOCK_AGE_MS = 3 * 60 * 1000;
+/** Per-invoke cap: one UPDATE per batch, never one fetch per stale row. */
+export const STALE_LOCK_RELEASE_CAP = 8;
 /** Do not claim a new offer unless at least this much wall time remains before deadlineAt.
  *  Smoke/HTTP generate for one offer is ~30–45s; leave headroom without starving the tick. */
 export const MIN_CONTENT_OFFER_MS = 50_000;
@@ -336,6 +338,8 @@ export function capScanWindow(ids: readonly number[], scanCap: number): number[]
 
 export const BOUNDED_MISSING_PAGE_SIZE = 200;
 export const BOUNDED_MISSING_SCAN_CAP = 200;
+/** Cheap empty-source skip: 1 offer page + 1 content .in(), not a 200-id window. */
+export const BOUNDED_MISSING_PROBE_CAP = 24;
 export const BOUNDED_MISSING_DRAIN_LIMIT = 8;
 /** Full-index pagination ceiling — Worker drain must not use this path. */
 export const CONTENT_INDEX_PAGE_SIZE = 1000;
@@ -372,6 +376,21 @@ export function shouldReleaseStaleLock(
   return false;
 }
 
+/** Oldest-first stale locks, capped so drain never spends the CF subrequest budget here. */
+export function selectStaleLockCandidates(
+  rows: readonly ContentGenFailureRow[],
+  nowMs: number,
+  cap = STALE_LOCK_RELEASE_CAP,
+): ContentGenFailureRow[] {
+  const out: ContentGenFailureRow[] = [];
+  for (const row of rows) {
+    if (!shouldReleaseStaleLock(row, new Set(), nowMs)) continue;
+    out.push(row);
+    if (out.length >= cap) break;
+  }
+  return out;
+}
+
 export function shouldYieldAfterWarmOnlyRound(round: {
   generated: number;
   failed: number;
@@ -384,59 +403,65 @@ export const WORKER_KILLED_OR_TIMEOUT = "worker_killed_or_timeout";
 
 /** Clear locks left by aborted Worker runs; free same-tick re-claim when possible. */
 export async function releaseStaleLocks(source: OfferSource): Promise<number> {
-  const state = await loadGenerationState(source);
-  if (state.size === 0) return 0;
   const nowMs = Date.now();
-  const candidates = [...state.values()].filter((row) =>
-    shouldReleaseStaleLock(row, new Set(), nowMs),
+  const cutoffIso = new Date(nowMs - STALE_LOCK_AGE_MS).toISOString();
+  const { data, error } = await supabaseAdmin
+    .from("content_gen_failures")
+    .select("offer_id,source,fail_count,last_failed_at,locked_until,last_error,last_attempt_at")
+    .eq("source", source)
+    .not("locked_until", "is", null)
+    .lt("last_attempt_at", cutoffIso)
+    .order("last_attempt_at", { ascending: true })
+    .limit(STALE_LOCK_RELEASE_CAP * 3);
+  if (error) {
+    if (!isMissingGenFailuresTable(error)) {
+      console.warn(`[backfill:${source}] stale-lock scan failed:`, error.message);
+    }
+    return 0;
+  }
+  const candidates = selectStaleLockCandidates(
+    (data ?? []) as ContentGenFailureRow[],
+    nowMs,
   );
   if (candidates.length === 0) return 0;
-  const { complete: haveComplete } = await loadContentCompletionForIds(
-    source,
-    candidates.map((row) => row.offer_id),
-  );
-  let released = 0;
+
+  const softIds: number[] = [];
+  const hardIds: number[] = [];
   for (const row of candidates) {
-    if (!shouldReleaseStaleLock(row, haveComplete, nowMs)) continue;
+    if ((row.fail_count ?? 0) === 0 && !row.last_error) softIds.push(row.offer_id);
+    else hardIds.push(row.offer_id);
+  }
 
-    // Silent CF kill on first attempt (fail_count=0, no prior last_error): free the lock
-    // without a 5m failure cooldown so this content-drain invoke can re-claim immediately.
-    // Visibility: stamp last_error; do not bump fail_count (that parks new offers).
-    if ((row.fail_count ?? 0) === 0 && !row.last_error) {
-      const nowIso = new Date(nowMs).toISOString();
-      const { error } = await supabaseAdmin
-        .from("content_gen_failures")
-        .update({
-          locked_until: null,
-          last_error: WORKER_KILLED_OR_TIMEOUT,
-          last_failed_at: null,
-          last_attempt_at: row.last_attempt_at ?? nowIso,
-        })
-        .eq("source", source)
-        .eq("offer_id", row.offer_id);
-      if (error && !isMissingGenFailuresTable(error)) {
-        console.warn(
-          `[backfill:${source}] soft-release stale ${row.offer_id} failed:`,
-          error.message,
-        );
-        continue;
-      }
-      released += 1;
-      console.warn(
-        `[backfill:${source}] soft-release stale lock offer=${row.offer_id} attempt=${row.last_attempt_at} (no cooldown)`,
-      );
-      continue;
+  // Two batched UPDATEs max — never one fetch per lock (that blows the CF ~50 cap).
+  if (softIds.length > 0) {
+    const nowIso = new Date(nowMs).toISOString();
+    const { error: softErr } = await supabaseAdmin
+      .from("content_gen_failures")
+      .update({
+        locked_until: null,
+        last_error: WORKER_KILLED_OR_TIMEOUT,
+        last_failed_at: null,
+        last_attempt_at: nowIso,
+      })
+      .eq("source", source)
+      .in("offer_id", softIds);
+    if (softErr && !isMissingGenFailuresTable(softErr)) {
+      console.warn(`[backfill:${source}] soft-release stale batch failed:`, softErr.message);
     }
+  }
+  if (hardIds.length > 0) {
+    const { error: hardErr } = await supabaseAdmin
+      .from("content_gen_failures")
+      .update({ locked_until: null })
+      .eq("source", source)
+      .in("offer_id", hardIds);
+    if (hardErr && !isMissingGenFailuresTable(hardErr)) {
+      console.warn(`[backfill:${source}] hard-release stale batch failed:`, hardErr.message);
+    }
+  }
 
-    await recordGenerationFailure(source, row.offer_id, WORKER_KILLED_OR_TIMEOUT);
-    released += 1;
-    console.warn(
-      `[backfill:${source}] stale lock → ${WORKER_KILLED_OR_TIMEOUT} offer=${row.offer_id} attempt=${row.last_attempt_at}`,
-    );
-  }
-  if (released > 0) {
-    console.info(`[backfill:${source}] released ${released} stale generation lock(s)`);
-  }
+  const released = candidates.length;
+  console.info(`[backfill:${source}] released ${released} stale generation lock(s)`);
   return released;
 }
 
@@ -800,10 +825,10 @@ export async function generateMissingContent(
         : Math.max(limit * 4, 8);
     let missingIds: number[];
     if (opts.offerIds?.length) {
-      const completion = await loadContentCompletionForIds(source, opts.offerIds);
-      haveHi = completion.complete;
-      hashMap = completion.hashMap;
-      missingIds = filterIncompleteOfferIds(opts.offerIds, haveHi, materializeCap);
+      // Caller already filtered missing IDs — do not spend another content .in() here.
+      haveHi = new Set();
+      hashMap = new Map();
+      missingIds = opts.offerIds.slice(0, materializeCap);
     } else {
       missingIds = await listMissingActiveOfferIdsBounded(source, { limit: materializeCap });
       haveHi = new Set();
