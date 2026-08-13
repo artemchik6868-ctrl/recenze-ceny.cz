@@ -33,6 +33,7 @@
     "ops:health": "node scripts/ops-health-cz.mjs",
     "status:pipeline": "node scripts/backfill-status.mjs",
     "monitor:pipeline": "node scripts/monitor-content-pipeline.mjs",
+    "test:monitor-content-pipeline": "node scripts/monitor-content-pipeline.test.mjs",
     "smoke-test": "node scripts/smoke-test.mjs",
     "smoke:cz": "node scripts/smoke-cz.mjs",
     "uptime:probe": "node scripts/uptime-probe.mjs",

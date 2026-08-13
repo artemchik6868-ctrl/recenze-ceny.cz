@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { classifyStuckBlockReason } from "./pipeline-status.server";
+import { classifyStuckBlockReason, missingActionableCount } from "./pipeline-status.server";
 import { QUARANTINE_AFTER_FAILS } from "./content-gen-cooldown";
 
 let failed = 0;
@@ -85,6 +85,12 @@ ok("never_claimed default", () => {
     }),
     "never_claimed",
   );
+});
+
+ok("missing_actionable subtracts facts-blocked warehouse", () => {
+  assert.equal(missingActionableCount(6, 6), 0);
+  assert.equal(missingActionableCount(4, 1), 3);
+  assert.equal(missingActionableCount(2, 5), 0);
 });
 
 if (failed > 0) {

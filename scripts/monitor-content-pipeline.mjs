@@ -34,13 +34,31 @@ const selfHealSlack = Number(
     "3",
 );
 
-if (!secret) {
-  console.error("HOOK_SECRET missing in environment or .env");
-  process.exit(1);
-}
-
 const triggerDrain = process.argv.includes("--trigger-drain");
 const selfHealDrain = process.argv.includes("--self-heal-drain");
+
+/** Offers drain can actually generate — warehouse facts-blocked stock is not actionable. */
+export function missingActionableCount(missingContent, factsPending) {
+  return Math.max(0, Number(missingContent || 0) - Number(factsPending || 0));
+}
+
+export function shouldSelfHealBacklog({
+  missingActionable,
+  maxMissingContent,
+  selfHealSlack,
+  selfHealDrain,
+}) {
+  const healCeiling = maxMissingContent + Math.max(0, selfHealSlack);
+  return (
+    selfHealDrain &&
+    missingActionable > maxMissingContent &&
+    missingActionable <= healCeiling
+  );
+}
+
+export function shouldFailPipelineHealth({ missingActionable, maxMissingContent }) {
+  return missingActionable > maxMissingContent;
+}
 
 function fetchJson(path) {
   const url = `${base}${path}?secret=${encodeURIComponent(secret)}`;
@@ -67,42 +85,61 @@ function logStatus(label, statusRes) {
   const totals = statusRes.body?.totals ?? {};
   const ops = statusRes.body?.ops ?? {};
   const missingContent = Number(totals.missing_content ?? 0);
+  const factsPending = Number(totals.facts_pending ?? 0);
+  const missingActionable =
+    totals.missing_actionable != null
+      ? Number(totals.missing_actionable)
+      : missingActionableCount(missingContent, factsPending);
   const staleContent = Number(ops.stale_content ?? totals.stale_content ?? 0);
   const alerts = Array.isArray(statusRes.body?.alerts) ? statusRes.body.alerts : [];
   console.log(`${label}pipeline-status=${statusRes.status}`);
   console.log(`missing_content=${missingContent}`);
+  console.log(`facts_pending=${factsPending}`);
+  console.log(`missing_actionable=${missingActionable}`);
   console.log(`stale_content=${staleContent}`);
   console.log(`max_missing_content=${maxMissingContent}`);
   if (alerts.length) {
     console.log(`alerts=${alerts.join(" | ")}`);
   }
-  return { missingContent, staleContent, alerts };
+  return { missingContent, factsPending, missingActionable, staleContent, alerts };
 }
 
-let statusRes = fetchJson("/api/public/hooks/pipeline-status");
-let { missingContent, staleContent } = logStatus("", statusRes);
+function main() {
+  if (!secret) {
+    console.error("HOOK_SECRET missing in environment or .env");
+    process.exit(1);
+  }
 
-const shouldForceDrain = triggerDrain && missingContent > 0;
-const healCeiling = maxMissingContent + Math.max(0, selfHealSlack);
-const shouldSelfHeal =
-  selfHealDrain &&
-  missingContent > maxMissingContent &&
-  missingContent <= healCeiling &&
-  staleContent === 0;
+  let statusRes = fetchJson("/api/public/hooks/pipeline-status");
+  let { missingActionable, staleContent } = logStatus("", statusRes);
 
-if (shouldForceDrain || shouldSelfHeal) {
-  console.log(
-    shouldSelfHeal
-      ? `self-heal: missing=${missingContent} > max=${maxMissingContent} (≤${healCeiling}, stale=0) → content-drain once`
-      : "triggering content-drain...",
-  );
-  const drainRes = fetchJson("/api/public/hooks/content-drain");
-  console.log(`content-drain=${drainRes.status}`);
-  console.log(JSON.stringify(drainRes.body, null, 2));
-  statusRes = fetchJson("/api/public/hooks/pipeline-status");
-  ({ missingContent, staleContent } = logStatus("post-drain ", statusRes));
+  const shouldForceDrain = triggerDrain && missingActionable > 0;
+  const healCeiling = maxMissingContent + Math.max(0, selfHealSlack);
+  const shouldSelfHeal = shouldSelfHealBacklog({
+    missingActionable,
+    maxMissingContent,
+    selfHealSlack,
+    selfHealDrain,
+  });
+
+  if (shouldForceDrain || shouldSelfHeal) {
+    console.log(
+      shouldSelfHeal
+        ? `self-heal: missing_actionable=${missingActionable} > max=${maxMissingContent} (≤${healCeiling}, stale=${staleContent}) → content-drain once`
+        : "triggering content-drain...",
+    );
+    const drainRes = fetchJson("/api/public/hooks/content-drain");
+    console.log(`content-drain=${drainRes.status}`);
+    console.log(JSON.stringify(drainRes.body, null, 2));
+    statusRes = fetchJson("/api/public/hooks/pipeline-status");
+    ({ missingActionable, staleContent } = logStatus("post-drain ", statusRes));
+  }
+
+  if (shouldFailPipelineHealth({ missingActionable, maxMissingContent })) {
+    process.exit(1);
+  }
 }
 
-if (missingContent > maxMissingContent) {
-  process.exit(1);
+if (import.meta.url === `file://${process.argv[1]?.replace(/\\/g, "/")}`) {
+  main();
 }

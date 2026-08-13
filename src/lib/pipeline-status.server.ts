@@ -269,6 +269,11 @@ function offerHasImageUrl(
   return Boolean(String(row.picture_url ?? "").trim());
 }
 
+/** Offers drain can generate — facts-blocked warehouse stock is not actionable. */
+export function missingActionableCount(missingContent: number, factsPending: number): number {
+  return Math.max(0, missingContent - factsPending);
+}
+
 export type SourcePipelineStatus = {
   active: number;
   missing_content: number;
@@ -276,6 +281,7 @@ export type SourcePipelineStatus = {
   missing_uk: number;
   missing_ru: number;
   facts_pending: number;
+  missing_actionable: number;
   cooldown_blocked: number;
 };
 
@@ -346,7 +352,9 @@ export type PipelineStatusResult = {
     stale_content: number;
     repeated_failures: number;
     facts_pending: number;
+    missing_actionable: number;
     cooldown_blocked: number;
+    stuck_by_reason: Record<StuckBlockReason, number>;
   };
   stuck_offers: StuckOfferStatus[];
   feed_wave?: {
@@ -373,6 +381,13 @@ export async function getPipelineStatus(): Promise<PipelineStatusResult> {
   let totalRepeatedFailures = 0;
   let totalFactsPending = 0;
   let totalCooldownBlocked = 0;
+  const totalStuckByReason: Record<StuckBlockReason, number> = {
+    cooldown: 0,
+    locked: 0,
+    facts_pending: 0,
+    never_claimed: 0,
+    repeated_fail: 0,
+  };
   const staleThreshold = Date.now() - STALE_MS;
   const nowMs = Date.now();
   const imageFactsEnabled = isImageFactsEnabled();
@@ -493,6 +508,14 @@ export async function getPipelineStatus(): Promise<PipelineStatusResult> {
       const lockedUntil = failure?.locked_until ? String(failure.locked_until) : null;
       const lastFailedAt = failure?.last_failed_at ? String(failure.last_failed_at) : null;
       const factsPendingOffer = isFactsHardBlocked(offerId);
+      const blockReason = classifyStuckBlockReason({
+        failCount,
+        lastError,
+        lockedUntil,
+        lastFailedAt,
+        factsPending: factsPendingOffer,
+        nowMs,
+      });
       stuckOffers.push({
         source,
         offer_id: offerId,
@@ -500,17 +523,12 @@ export async function getPipelineStatus(): Promise<PipelineStatusResult> {
         fail_count: failCount,
         last_error: lastError,
         locked_until: lockedUntil,
-        block_reason: classifyStuckBlockReason({
-          failCount,
-          lastError,
-          lockedUntil,
-          lastFailedAt,
-          factsPending: factsPendingOffer,
-          nowMs,
-        }),
+        block_reason: blockReason,
       });
+      totalStuckByReason[blockReason] += 1;
     }
 
+    const missingActionable = missingActionableCount(missingComplete.length, factsPending);
     const stat: SourcePipelineStatus = {
       active: ids.length,
       missing_content: missingComplete.length,
@@ -518,6 +536,7 @@ export async function getPipelineStatus(): Promise<PipelineStatusResult> {
       missing_uk: missingUk,
       missing_ru: missingRu,
       facts_pending: factsPending,
+      missing_actionable: missingActionable,
       cooldown_blocked: retryBlocked,
     };
 
@@ -895,7 +914,9 @@ export async function getPipelineStatus(): Promise<PipelineStatusResult> {
       stale_content: totalStaleContent,
       repeated_failures: totalRepeatedFailures,
       facts_pending: totalFactsPending,
+      missing_actionable: missingActionableCount(totalMissingContent, totalFactsPending),
       cooldown_blocked: totalCooldownBlocked,
+      stuck_by_reason: totalStuckByReason,
     },
     stuck_offers: stuckOffers,
     feed_wave,
