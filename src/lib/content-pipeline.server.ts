@@ -229,91 +229,62 @@ export async function retryMissingContent(
   let totalGenerated = 0;
   let totalFailed = 0;
 
-  // Rotate scan order for fairness, but pick the source with the largest *window*
-  // backlog so a shakes spike is not starved behind empty earlier sources.
+  // Rotate for fairness, then drain **one** source per invoke.
+  // Probing all six windows first still blows the CF ~50 subrequest cap.
   const order = rotateSourcesFrom(
     sourceList,
     drainRoundStartIndex(opts.nowMs ?? Date.now(), sourceList.length),
   );
 
-    const missingIdsBySource: Partial<Record<OfferSource, number[]>> = {};
-    const missingBySource: Partial<Record<OfferSource, number>> = {};
-    for (const source of order) {
-      const ids = await listMissingActiveOfferIdsBounded(source, {
-        limit: BOUNDED_MISSING_DRAIN_LIMIT,
-      });
-      missingIdsBySource[source] = ids;
-      missingBySource[source] = ids.length;
-    }
-    const queue = order.filter((source) => Number(missingBySource[source] ?? 0) > 0);
-    if (queue.length === 0) {
-      return {
-        ok: true,
-        elapsed_ms: Date.now() - started,
-        totalGenerated: 0,
-        totalFailed: 0,
-        totalMissing: 0,
-        sources: {},
-        slots: [],
-      };
-    }
+  for (const source of order) {
+    const remainingMs = deadlineMs - (Date.now() - started);
+    const sourceDeadlineMs = sourceDrainDeadlineMs(remainingMs);
+    if (sourceDeadlineMs == null) break;
 
-    while (queue.length > 0) {
-      const remainingMs = deadlineMs - (Date.now() - started);
-      const slotMs = Math.min(SOURCE_DRAIN_SLOT_MS, remainingMs);
-      const sourceDeadlineMs = sourceDrainDeadlineMs(slotMs);
-      if (sourceDeadlineMs == null) break;
+    const offerIds = await listMissingActiveOfferIdsBounded(source, {
+      limit: BOUNDED_MISSING_DRAIN_LIMIT,
+    });
+    if (offerIds.length === 0) continue;
 
-      const chosen = pickSourceWithMostMissing(queue, missingBySource);
-      if (!chosen) break;
-      const backlogBefore = Number(missingBySource[chosen] ?? 0);
-      if (backlogBefore <= 0) {
-        const idx = queue.indexOf(chosen);
-        if (idx >= 0) queue.splice(idx, 1);
-        continue;
-      }
-
-      const result = await generateNewContent(chosen, {
-        deadlineMs: sourceDeadlineMs,
-        offerIds: missingIdsBySource[chosen],
-        allowWarmFactsBeforeClaim: true,
-        maxRounds: 1,
-      });
-      sources[chosen] = mergeGenerateNewContentResult(sources[chosen], result);
-      totalGenerated += result.content.totalGenerated;
-      totalFailed += result.content.totalFailed;
-      missingBySource[chosen] = result.missingRemaining;
-      missingIdsBySource[chosen] = result.missingRemaining > 0 ? missingIdsBySource[chosen] : [];
-      slots.push({
-        source: chosen,
-        backlogBefore,
-        backlogAfter: result.missingRemaining,
-        slot_ms: slotMs,
-        warmedFacts: result.content.rounds.reduce((sum, round) => sum + (round.warmedFacts ?? 0), 0),
-      });
-
-      console.info(
-        `[retry-missing] ${chosen} generated=${result.content.totalGenerated} failed=${result.content.totalFailed} remaining=${result.missingRemaining} backlog=${backlogBefore}`,
-      );
-
-      const idx = queue.indexOf(chosen);
-      if (idx >= 0) queue.splice(idx, 1);
-    }
-
-    const totalMissing = order.reduce(
-      (sum, source) => sum + Number(missingBySource[source] ?? 0),
-      0,
+    const result = await generateNewContent(source, {
+      deadlineMs: sourceDeadlineMs,
+      offerIds,
+      allowWarmFactsBeforeClaim: true,
+      maxRounds: 1,
+    });
+    sources[source] = result;
+    totalGenerated += result.content.totalGenerated;
+    totalFailed += result.content.totalFailed;
+    slots.push({
+      source,
+      backlogBefore: offerIds.length,
+      backlogAfter: result.missingRemaining,
+      slot_ms: remainingMs,
+      warmedFacts: result.content.rounds.reduce((sum, round) => sum + (round.warmedFacts ?? 0), 0),
+    });
+    console.info(
+      `[retry-missing] ${source} generated=${result.content.totalGenerated} failed=${result.content.totalFailed} remaining=${result.missingRemaining} backlog=${offerIds.length}`,
     );
-
     return {
       ok: true,
       elapsed_ms: Date.now() - started,
       totalGenerated,
       totalFailed,
-      totalMissing,
+      totalMissing: result.missingRemaining,
       sources,
       slots,
     };
+  }
+
+  return {
+    ok: true,
+    elapsed_ms: Date.now() - started,
+    totalGenerated: 0,
+    totalFailed: 0,
+    totalMissing: 0,
+    sources: {},
+    slots: [],
+  };
 }
 
 /** @deprecated Use retryMissingContent */

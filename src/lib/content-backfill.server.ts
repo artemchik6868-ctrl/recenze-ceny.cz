@@ -335,7 +335,7 @@ export function capScanWindow(ids: readonly number[], scanCap: number): number[]
 }
 
 export const BOUNDED_MISSING_PAGE_SIZE = 200;
-export const BOUNDED_MISSING_SCAN_CAP = 400;
+export const BOUNDED_MISSING_SCAN_CAP = 200;
 export const BOUNDED_MISSING_DRAIN_LIMIT = 8;
 /** Full-index pagination ceiling — Worker drain must not use this path. */
 export const CONTENT_INDEX_PAGE_SIZE = 1000;
@@ -386,11 +386,17 @@ export const WORKER_KILLED_OR_TIMEOUT = "worker_killed_or_timeout";
 export async function releaseStaleLocks(source: OfferSource): Promise<number> {
   const state = await loadGenerationState(source);
   if (state.size === 0) return 0;
-  const lockedIds = [...state.values()].map((row) => row.offer_id);
-  const { complete: haveComplete } = await loadContentCompletionForIds(source, lockedIds);
   const nowMs = Date.now();
+  const candidates = [...state.values()].filter((row) =>
+    shouldReleaseStaleLock(row, new Set(), nowMs),
+  );
+  if (candidates.length === 0) return 0;
+  const { complete: haveComplete } = await loadContentCompletionForIds(
+    source,
+    candidates.map((row) => row.offer_id),
+  );
   let released = 0;
-  for (const row of state.values()) {
+  for (const row of candidates) {
     if (!shouldReleaseStaleLock(row, haveComplete, nowMs)) continue;
 
     // Silent CF kill on first attempt (fail_count=0, no prior last_error): free the lock
@@ -1248,7 +1254,7 @@ export async function listSourceMissingOfferIds(
   const limit = opts?.limit ?? BOUNDED_MISSING_DRAIN_LIMIT;
   return listMissingActiveOfferIdsBounded(source, {
     limit,
-    scanCap: Math.max(BOUNDED_MISSING_SCAN_CAP, limit * 10),
+    scanCap: BOUNDED_MISSING_SCAN_CAP,
   });
 }
 

@@ -225,9 +225,9 @@ ok("filterIncompleteOfferIds skips complete rows and honors limit", () => {
 
 ok("capScanWindow stops before enumerating a large catalog", () => {
   const ids = Array.from({ length: 5000 }, (_, i) => i + 1);
-  assert.equal(capScanWindow(ids, 400).length, 400);
-  assert.deepEqual(capScanWindow(ids, 400), ids.slice(0, 400));
-  assert.deepEqual(capScanWindow([1, 2, 3], 400), [1, 2, 3]);
+  assert.equal(capScanWindow(ids, 200).length, 200);
+  assert.deepEqual(capScanWindow(ids, 200), ids.slice(0, 200));
+  assert.deepEqual(capScanWindow([1, 2, 3], 200), [1, 2, 3]);
   assert.deepEqual(capScanWindow(ids, 0), []);
 });
 
