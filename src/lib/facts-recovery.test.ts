@@ -4,6 +4,7 @@ import {
   classifyImageExhaustToFacts,
   shouldReprobeExhaustedFacts,
   countReprobeEligible,
+  pageableFreshExhausted,
   parseFactsHttpStatus,
   TERMINAL_DEAD_CONFIRM_AFTER,
 } from "./facts-recovery";
@@ -107,6 +108,18 @@ ok("countReprobeEligible inventory burn-down", () => {
   );
   // only first row (transient old) qualifies at default TTLs
   assert.equal(n, 1);
+});
+
+ok("pageableFreshExhausted subtracts warehouse transient", () => {
+  assert.equal(pageableFreshExhausted(5, { transient_fetch: 5 }), 0);
+  assert.equal(pageableFreshExhausted(5, { terminal_dead: 5, transient_fetch: 0 }), 5);
+  assert.equal(
+    pageableFreshExhausted(8, { terminal_dead: 3, transient_fetch: 5, thin_llm: 0 }),
+    3,
+  );
+  assert.equal(pageableFreshExhausted(6, { transient_fetch: 1, thin_llm: 5 }), 5);
+  assert.equal(pageableFreshExhausted(8, {}), 8);
+  assert.equal(pageableFreshExhausted(0, { transient_fetch: 5 }), 0);
 });
 
 if (failed) process.exit(1);

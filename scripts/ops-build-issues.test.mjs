@@ -7,6 +7,8 @@ import {
   buildIssuesFromStatus,
   fingerprintIssues,
   isWarehouseStockAlert,
+  pageableFreshExhausted,
+  parseFactsClassFromAlert,
 } from "./ops-build-issues.mjs";
 
 let failed = 0;
@@ -93,6 +95,31 @@ ok("fresh image fetch_error ≥5 pages", () => {
   assert.ok(!issues.some((i) => /circuit/i.test(i.text)));
 });
 
+ok("pageableFreshExhausted subtracts transient warehouse", () => {
+  assert.equal(pageableFreshExhausted(5, { transient_fetch: 5 }), 0);
+  assert.equal(pageableFreshExhausted(5, { terminal_dead: 5 }), 5);
+  assert.equal(pageableFreshExhausted(8, { terminal_dead: 3, transient_fetch: 5 }), 3);
+  assert.equal(pageableFreshExhausted(6, { transient_fetch: 1, thin_llm: 5 }), 5);
+});
+
+ok("parseFactsClassFromAlert reads landing and image suffixes", () => {
+  const land = parseFactsClassFromAlert(
+    "landing-facts: 5 newly exhausted (last 48h; dead=0 transient=5 thin=0)",
+  );
+  assert.deepEqual(land, {
+    terminal_dead: 0,
+    transient_fetch: 5,
+    thin_llm: 0,
+    other: 0,
+  });
+  const img = parseFactsClassFromAlert(
+    "image-facts: 6 newly exhausted (last 48h; transient=1 thin_llm=5 other=0)",
+  );
+  assert.equal(img.transient_fetch, 1);
+  assert.equal(img.thin_llm, 5);
+  assert.equal(parseFactsClassFromAlert("landing-facts: 5 newly exhausted"), null);
+});
+
 ok("fresh image exhausted ≥5 pages with fresh class", () => {
   const status = structuredClone(warehouseStatus);
   status.ops.image_facts_exhausted_fresh = 6;
@@ -107,6 +134,19 @@ ok("fresh image exhausted ≥5 pages with fresh class", () => {
   assert.ok(issues[0].text.includes("thin_llm=5"));
 });
 
+ok("fresh image exhausted all-transient does not page", () => {
+  const status = structuredClone(warehouseStatus);
+  status.ops.image_facts_exhausted_fresh = 6;
+  status.ops.image_facts_exhausted_fresh_by_class = {
+    terminal_dead: 0,
+    transient_fetch: 6,
+    thin_llm: 0,
+    other: 0,
+  };
+  const issues = buildIssuesFromStatus(status);
+  assert.ok(!issues.some((i) => i.code === "image_facts_exhausted_fresh"));
+});
+
 ok("fresh landing retryable ≥5 pages", () => {
   const status = structuredClone(warehouseStatus);
   status.ops.landing_facts_retryable_fresh = 8;
@@ -114,7 +154,20 @@ ok("fresh landing retryable ≥5 pages", () => {
   assert.ok(issues.some((i) => i.code === "landing_facts_retryable"));
 });
 
-ok("fresh landing exhausted ≥5 pages", () => {
+ok("fresh landing retryable all-transient does not page", () => {
+  const status = structuredClone(warehouseStatus);
+  status.ops.landing_facts_retryable_fresh = 8;
+  status.ops.landing_facts_retryable_fresh_by_class = {
+    terminal_dead: 0,
+    transient_fetch: 8,
+    thin_llm: 0,
+    other: 0,
+  };
+  const issues = buildIssuesFromStatus(status);
+  assert.ok(!issues.some((i) => i.code === "landing_facts_retryable"));
+});
+
+ok("fresh landing exhausted all-transient does not page", () => {
   const status = structuredClone(warehouseStatus);
   status.ops.landing_facts_exhausted_fresh = 5;
   status.ops.landing_facts_exhausted_fresh_by_class = {
@@ -124,7 +177,49 @@ ok("fresh landing exhausted ≥5 pages", () => {
     other: 0,
   };
   const issues = buildIssuesFromStatus(status);
+  assert.deepEqual(
+    issues.map((i) => i.code),
+    [],
+    JSON.stringify(issues),
+  );
+});
+
+ok("fresh landing exhausted dead=5 pages", () => {
+  const status = structuredClone(warehouseStatus);
+  status.ops.landing_facts_exhausted_fresh = 5;
+  status.ops.landing_facts_exhausted_fresh_by_class = {
+    terminal_dead: 5,
+    transient_fetch: 0,
+    thin_llm: 0,
+    other: 0,
+  };
+  const issues = buildIssuesFromStatus(status);
   assert.ok(issues.some((i) => i.code === "landing_facts_exhausted_fresh"));
+  assert.ok(issues[0].text.includes("dead=5"));
+});
+
+ok("fresh landing exhausted mix dead=3 transient=5 does not page", () => {
+  const status = structuredClone(warehouseStatus);
+  status.ops.landing_facts_exhausted_fresh = 8;
+  status.ops.landing_facts_exhausted_fresh_by_class = {
+    terminal_dead: 3,
+    transient_fetch: 5,
+    thin_llm: 0,
+    other: 0,
+  };
+  const issues = buildIssuesFromStatus(status);
+  assert.ok(!issues.some((i) => i.code === "landing_facts_exhausted_fresh"));
+});
+
+ok("alert-text fallback with transient=5 does not page", () => {
+  const issues = buildIssuesFromStatus({
+    ok: true,
+    alerts: [
+      "landing-facts: 5 newly exhausted (last 48h; dead=0 transient=5 thin=0)",
+    ],
+    totals: {},
+  });
+  assert.deepEqual(issues.map((i) => i.code), []);
 });
 
 ok("legacy warehouse alert strings detected", () => {

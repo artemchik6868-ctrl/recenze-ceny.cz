@@ -8,6 +8,40 @@
 /** @typedef {{ code: string, text: string }} OpsIssue */
 
 /**
+ * Fresh facts that may page (tier B). transient_fetch is warehouse — never page.
+ * @param {number} total
+ * @param {object} [byClass]
+ * @returns {number}
+ */
+export function pageableFreshExhausted(total, byClass = {}) {
+  const n = Number(total || 0);
+  const transient = Number(byClass?.transient_fetch ?? 0);
+  if (!Number.isFinite(n) || n <= 0) return 0;
+  const t = Number.isFinite(transient) ? Math.max(0, transient) : 0;
+  return Math.max(0, n - t);
+}
+
+/**
+ * Parse `dead=` / `transient=` / `thin=` / `thin_llm=` / `other=` from a newly-exhausted alert.
+ * @param {string} text
+ * @returns {{ terminal_dead: number, transient_fetch: number, thin_llm: number, other: number } | null}
+ */
+export function parseFactsClassFromAlert(text) {
+  const a = String(text);
+  const dead = a.match(/\bdead=(\d+)/i);
+  const transient = a.match(/\btransient(?:_fetch)?=(\d+)/i);
+  const thin = a.match(/\bthin(?:_llm)?=(\d+)/i);
+  const other = a.match(/\bother=(\d+)/i);
+  if (!dead && !transient && !thin && !other) return null;
+  return {
+    terminal_dead: dead ? Number(dead[1]) : 0,
+    transient_fetch: transient ? Number(transient[1]) : 0,
+    thin_llm: thin ? Number(thin[1]) : 0,
+    other: other ? Number(other[1]) : 0,
+  };
+}
+
+/**
  * @param {object} status pipeline-status JSON body
  * @param {object} [opts]
  * @param {boolean} [opts.skipPublicSitemap=true] — when true, do not check sitemap (default for pure)
@@ -43,6 +77,9 @@ export function buildIssuesFromStatus(status, opts = {}) {
   let imageExhaustedFresh = Number(ops.image_facts_exhausted_fresh ?? 0);
   let landingRetryFresh = Number(ops.landing_facts_retryable_fresh ?? 0);
   let landingExhaustedFresh = Number(ops.landing_facts_exhausted_fresh ?? 0);
+  let imageExhaustedFreshByClass = ops.image_facts_exhausted_fresh_by_class || {};
+  let landingExhaustedFreshByClass = ops.landing_facts_exhausted_fresh_by_class || {};
+  let landingRetryFreshByClass = ops.landing_facts_retryable_fresh_by_class || {};
   const imageSamples = Array.isArray(ops.image_facts_error_samples)
     ? ops.image_facts_error_samples
     : [];
@@ -73,12 +110,24 @@ export function buildIssuesFromStatus(status, opts = {}) {
       const imgFetch = String(a).match(/image-facts:\s*(\d+)\s+fresh fetch_error/i);
       if (imgFetch) imageFetchFresh = Math.max(imageFetchFresh, Number(imgFetch[1]));
       const imgExFresh = String(a).match(/image-facts:\s*(\d+)\s+newly exhausted/i);
-      if (imgExFresh) imageExhaustedFresh = Math.max(imageExhaustedFresh, Number(imgExFresh[1]));
+      if (imgExFresh) {
+        imageExhaustedFresh = Math.max(imageExhaustedFresh, Number(imgExFresh[1]));
+        const parsed = parseFactsClassFromAlert(a);
+        if (parsed) imageExhaustedFreshByClass = parsed;
+      }
       // Legacy warehouse alert text — never used for paging.
       const landFresh = String(a).match(/landing-facts:\s*(\d+)\s+fresh retryable/i);
-      if (landFresh) landingRetryFresh = Math.max(landingRetryFresh, Number(landFresh[1]));
+      if (landFresh) {
+        landingRetryFresh = Math.max(landingRetryFresh, Number(landFresh[1]));
+        const parsed = parseFactsClassFromAlert(a);
+        if (parsed) landingRetryFreshByClass = parsed;
+      }
       const landExFresh = String(a).match(/landing-facts:\s*(\d+)\s+newly exhausted/i);
-      if (landExFresh) landingExhaustedFresh = Math.max(landingExhaustedFresh, Number(landExFresh[1]));
+      if (landExFresh) {
+        landingExhaustedFresh = Math.max(landingExhaustedFresh, Number(landExFresh[1]));
+        const parsed = parseFactsClassFromAlert(a);
+        if (parsed) landingExhaustedFreshByClass = parsed;
+      }
       const gsc = String(a).match(/gsc-sitemap:\s*(\d+)\s+errors/i);
       if (gsc) gscErrors = Math.max(Number(gscErrors ?? 0), Number(gsc[1]));
       if (/gsc-sitemap:\s*skipped_config/i.test(a)) gscSkipped = "no_token";
@@ -145,8 +194,12 @@ export function buildIssuesFromStatus(status, opts = {}) {
       text: `Image-facts: ${imageFetchFresh} свежих fetch_error за 48ч (CDN/egress)${sampleHint}`,
     });
   }
-  if (imageExhaustedFresh >= t.imageFactsFailMin) {
-    const by = ops.image_facts_exhausted_fresh_by_class || {};
+  const imageExhaustedPageable = pageableFreshExhausted(
+    imageExhaustedFresh,
+    imageExhaustedFreshByClass,
+  );
+  if (imageExhaustedPageable >= t.imageFactsFailMin) {
+    const by = imageExhaustedFreshByClass;
     const classHint =
       by.transient_fetch != null || by.thin_llm != null
         ? ` (transient=${by.transient_fetch ?? 0} thin_llm=${by.thin_llm ?? 0} other=${by.other ?? 0})`
@@ -159,17 +212,30 @@ export function buildIssuesFromStatus(status, opts = {}) {
       text: `Image-facts: ${imageExhaustedFresh} newly exhausted за 48ч${classHint}${sampleHint}`,
     });
   }
-  if (landingRetryFresh >= t.landingFactsFailMin) {
+  const landingRetryPageable = pageableFreshExhausted(
+    landingRetryFresh,
+    landingRetryFreshByClass,
+  );
+  if (landingRetryPageable >= t.landingFactsFailMin) {
+    const by = landingRetryFreshByClass;
+    const classHint =
+      by.terminal_dead != null || by.transient_fetch != null
+        ? ` (dead=${by.terminal_dead ?? 0} transient=${by.transient_fetch ?? 0} thin=${by.thin_llm ?? 0})`
+        : "";
     const sampleHint = landingSamples.length
       ? ` — ${landingSamples.slice(0, 2).join(" | ")}`
       : "";
     issues.push({
       code: "landing_facts_retryable",
-      text: `Landing-facts: ${landingRetryFresh} свежих retryable сбоев за 48ч${sampleHint}`,
+      text: `Landing-facts: ${landingRetryFresh} свежих retryable сбоев за 48ч${classHint}${sampleHint}`,
     });
   }
-  if (landingExhaustedFresh >= t.landingFactsFailMin) {
-    const by = ops.landing_facts_exhausted_fresh_by_class || {};
+  const landingExhaustedPageable = pageableFreshExhausted(
+    landingExhaustedFresh,
+    landingExhaustedFreshByClass,
+  );
+  if (landingExhaustedPageable >= t.landingFactsFailMin) {
+    const by = landingExhaustedFreshByClass;
     const classHint =
       by.terminal_dead != null || by.transient_fetch != null
         ? ` (dead=${by.terminal_dead ?? 0} transient=${by.transient_fetch ?? 0} thin=${by.thin_llm ?? 0})`

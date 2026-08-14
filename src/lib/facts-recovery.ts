@@ -130,6 +130,21 @@ export function emptyFactsExhaustClassCounts(): Record<FactsExhaustClass, number
 }
 
 /**
+ * Fresh facts rows that may page Telegram (tier B).
+ * `transient_fetch` (HTTP 530/502/abort) is warehouse partner/CDN stock — never page.
+ */
+export function pageableFreshExhausted(
+  total: number,
+  byClass?: Partial<Record<FactsExhaustClass, number>> | null,
+): number {
+  const n = Number(total || 0);
+  const transient = Number(byClass?.transient_fetch ?? 0);
+  if (!Number.isFinite(n) || n <= 0) return 0;
+  const t = Number.isFinite(transient) ? Math.max(0, transient) : 0;
+  return Math.max(0, n - t);
+}
+
+/**
  * Count exhausted rows eligible for soft re-probe (transient/thin after TTL).
  * Pure helper for ops metrics + tests — drains use the same rules.
  */

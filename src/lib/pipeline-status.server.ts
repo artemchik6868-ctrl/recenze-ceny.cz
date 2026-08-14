@@ -13,6 +13,7 @@ import {
   classifyLandingExhaustError,
   countReprobeEligible,
   emptyFactsExhaustClassCounts,
+  pageableFreshExhausted,
   type FactsExhaustClass,
 } from "./facts-recovery";
 import {
@@ -335,6 +336,8 @@ export type PipelineOpsSignals = {
   landing_facts_exhausted_fresh: number;
   landing_facts_exhausted_by_class: Record<FactsExhaustClass, number>;
   landing_facts_exhausted_fresh_by_class: Record<FactsExhaustClass, number>;
+  /** Fresh retryable (fetch_error/thin) class breakdown — page non-transient only. */
+  landing_facts_retryable_fresh_by_class: Record<FactsExhaustClass, number>;
   landing_facts_error_samples: string[];
   landing_facts_reprobe_eligible: number;
   /** null = GSC token missing (skipped). */
@@ -732,14 +735,16 @@ export async function getPipelineStatus(): Promise<PipelineStatusResult> {
       }
     }
 
-    // Alert only on fresh problems — warehouse exhausted is stock (tier C), not an incident.
-    // Never frame warehouse stock as "circuit breaker" (tick-local gateway stop).
+    // Alert only on fresh non-transient problems — warehouse 530/CDN is stock (tier C).
     if (imageFactsFetchErrorFresh >= IMAGE_FACTS_FAIL_ALERT_MIN) {
       alerts.push(
         `image-facts: ${imageFactsFetchErrorFresh} fresh fetch_error (CDN/egress, last 48h)`,
       );
     }
-    if (imageFactsExhaustedFresh >= IMAGE_FACTS_FAIL_ALERT_MIN) {
+    if (
+      pageableFreshExhausted(imageFactsExhaustedFresh, imageFactsExhaustedFreshByClass) >=
+      IMAGE_FACTS_FAIL_ALERT_MIN
+    ) {
       const by = imageFactsExhaustedFreshByClass;
       alerts.push(
         `image-facts: ${imageFactsExhaustedFresh} newly exhausted (last 48h; transient=${by.transient_fetch} thin_llm=${by.thin_llm} other=${by.other})`,
@@ -758,6 +763,7 @@ export async function getPipelineStatus(): Promise<PipelineStatusResult> {
   let landingFactsReprobeEligible = 0;
   const landingFactsExhaustedByClass = emptyFactsExhaustClassCounts();
   const landingFactsExhaustedFreshByClass = emptyFactsExhaustClassCounts();
+  const landingFactsRetryableFreshByClass = emptyFactsExhaustClassCounts();
   const landingFactsErrorSamples: string[] = [];
   const landingReprobeRows: Array<{
     status: string;
@@ -795,7 +801,11 @@ export async function getPipelineStatus(): Promise<PipelineStatusResult> {
           }
         } else {
           landingFactsRetryable += 1;
-          if (fresh) landingFactsRetryableFresh += 1;
+          const cls = classifyLandingExhaustError(String(row.error ?? ""));
+          if (fresh) {
+            landingFactsRetryableFresh += 1;
+            landingFactsRetryableFreshByClass[cls] += 1;
+          }
         }
         if (err && landingFactsErrorSamples.length < FACTS_ERROR_SAMPLE_LIMIT) {
           const sample = `${table.replace(/_landing_facts$/, "")}:${status}:${err}`;
@@ -806,12 +816,19 @@ export async function getPipelineStatus(): Promise<PipelineStatusResult> {
       }
     }
     landingFactsReprobeEligible = countReprobeEligible(landingReprobeRows, nowMs);
-    if (landingFactsRetryableFresh >= LANDING_FACTS_FAIL_ALERT_MIN) {
+    if (
+      pageableFreshExhausted(landingFactsRetryableFresh, landingFactsRetryableFreshByClass) >=
+      LANDING_FACTS_FAIL_ALERT_MIN
+    ) {
+      const by = landingFactsRetryableFreshByClass;
       alerts.push(
-        `landing-facts: ${landingFactsRetryableFresh} fresh retryable fetch/thin failures (last 48h)`,
+        `landing-facts: ${landingFactsRetryableFresh} fresh retryable fetch/thin failures (last 48h; dead=${by.terminal_dead} transient=${by.transient_fetch} thin=${by.thin_llm})`,
       );
     }
-    if (landingFactsExhaustedFresh >= LANDING_FACTS_FAIL_ALERT_MIN) {
+    if (
+      pageableFreshExhausted(landingFactsExhaustedFresh, landingFactsExhaustedFreshByClass) >=
+      LANDING_FACTS_FAIL_ALERT_MIN
+    ) {
       const by = landingFactsExhaustedFreshByClass;
       alerts.push(
         `landing-facts: ${landingFactsExhaustedFresh} newly exhausted (last 48h; dead=${by.terminal_dead} transient=${by.transient_fetch} thin=${by.thin_llm})`,
@@ -898,6 +915,7 @@ export async function getPipelineStatus(): Promise<PipelineStatusResult> {
     landing_facts_exhausted_fresh: landingFactsExhaustedFresh,
     landing_facts_exhausted_by_class: landingFactsExhaustedByClass,
     landing_facts_exhausted_fresh_by_class: landingFactsExhaustedFreshByClass,
+    landing_facts_retryable_fresh_by_class: landingFactsRetryableFreshByClass,
     landing_facts_error_samples: landingFactsErrorSamples,
     landing_facts_reprobe_eligible: landingFactsReprobeEligible,
     gsc_sitemap_errors: gscSitemapErrors,
