@@ -13,6 +13,7 @@ import {
   shouldYieldAfterWarmOnlyRound,
   shouldEnqueueBackfillJob,
   shouldReleaseStaleLock,
+  shouldContinueDrainAfterRound,
   STALE_LOCK_AGE_MS,
   STALE_LOCK_RELEASE_CAP,
 } from "./content-backfill.server";
@@ -263,6 +264,25 @@ ok("advanceDrainRemainingIds drops generated and failed ids without a completion
     [18699],
   );
   assert.deepEqual(advanceDrainRemainingIds([1, 2], {}), [1, 2]);
+});
+
+ok("shouldContinueDrainAfterRound stops after a throw stub so leftover wall does not spin", () => {
+  assert.equal(
+    shouldContinueDrainAfterRound({ generated: 1, failed: 0, checked: 4, failedIds: [] }),
+    true,
+  );
+  assert.equal(
+    shouldContinueDrainAfterRound({ generated: 0, failed: 1, checked: 4, failedIds: [18697] }),
+    true,
+  );
+  assert.equal(
+    shouldContinueDrainAfterRound({ generated: 0, failed: 1, checked: 0, failedIds: [] }),
+    false,
+  );
+  assert.equal(
+    shouldContinueDrainAfterRound({ generated: 0, failed: 0, checked: 4, failedIds: [] }),
+    false,
+  );
 });
 
 ok("capScanWindow stops before enumerating a large catalog", () => {

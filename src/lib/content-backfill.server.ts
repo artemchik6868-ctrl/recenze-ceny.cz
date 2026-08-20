@@ -844,6 +844,18 @@ export function advanceDrainRemainingIds(
   return remainingIds.filter((id) => !done.has(id));
 }
 
+/** Another LLM only after real generate/fail. A throw stub (checked=0, no ids) means the isolate is spent. */
+export function shouldContinueDrainAfterRound(round: {
+  generated: number;
+  failed: number;
+  checked: number;
+  failedIds?: number[];
+}): boolean {
+  if (round.generated > 0) return true;
+  if (round.failed > 0 && (round.failedIds?.length ?? 0) > 0) return true;
+  return false;
+}
+
 export async function generateMissingContent(
   source: OfferSource,
   limit = 8,
@@ -1495,7 +1507,7 @@ export async function generateNewContent(
     totalFailed += r.failed;
     remainingIds = advanceDrainRemainingIds(remainingIds, r);
 
-    if (r.generated > 0 || r.failed > 0) continue;
+    if (shouldContinueDrainAfterRound(r)) continue;
     if (shouldYieldAfterWarmOnlyRound(r)) break;
     if (r.lockedSkipped > 0) {
       const released = await releaseStaleLocks(source);
