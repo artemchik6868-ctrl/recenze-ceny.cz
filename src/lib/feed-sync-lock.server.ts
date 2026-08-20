@@ -1,7 +1,8 @@
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 const LOCK_ID = 1;
-export const FEED_SYNC_LOCK_TTL_MS = 45 * 60 * 1000;
+/** Slightly above GHA job timeout (50m) so a killed runner expires before the next hourly backup. */
+export const FEED_SYNC_LOCK_TTL_MS = 55 * 60 * 1000;
 
 function isMissingLockTable(message: string): boolean {
   return (

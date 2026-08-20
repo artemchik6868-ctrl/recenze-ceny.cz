@@ -1,6 +1,7 @@
 /**
  * Telegram summary for Node feed ingest (reads .feed-sync-result.json).
  * Env: TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID (missing → no-op via notify-telegram).
+ * Incomplete (http_403 / skippedOffsets) is never --ok — GHA must retry the day.
  */
 import { readFileSync, existsSync } from "node:fs";
 import { spawnSync } from "node:child_process";
@@ -26,6 +27,7 @@ if (!existsSync(resultPath)) {
 const r = JSON.parse(readFileSync(resultPath, "utf8"));
 const ok = r.ok === true;
 const failed = Array.isArray(r.failed) ? r.failed : [];
+const incomplete = Array.isArray(r.incomplete) ? r.incomplete : [];
 const sources = r.sources && typeof r.sources === "object" ? r.sources : {};
 const lines = Object.entries(sources).map(([name, row]) => {
   if (!row || typeof row !== "object") return `${name}: ?`;
@@ -35,19 +37,26 @@ const lines = Object.entries(sources).map(([name, row]) => {
   const fetched = o.fetched ?? "-";
   const allowed = o.allowed ?? o.ua ?? "-";
   const deactivated = o.deactivated ?? "-";
-  return `${name}: fetched=${fetched} allowed=${allowed} deactivated=${deactivated}`;
+  const skippedOff =
+    typeof o.skippedOffsets === "number" && o.skippedOffsets > 0
+      ? ` skippedOffsets=${o.skippedOffsets}`
+      : "";
+  return `${name}: fetched=${fetched} allowed=${allowed} deactivated=${deactivated}${skippedOff}`;
 });
 
 const title = ok
   ? "Feed sync — ok"
   : failed.includes("lock_busy")
     ? "Feed sync — lock busy"
-    : `Feed sync — fail (${failed.join(",") || "unknown"})`;
+    : incomplete.length && failed.filter((f) => f !== "lock_busy").length === 0
+      ? `Feed sync — incomplete (${incomplete.join(",")})`
+      : `Feed sync — fail (${failed.join(",") || "unknown"})`;
 
 const body = [
   `ok=${ok} lock=${r.lock ?? "?"} elapsed_ms=${r.elapsed_ms ?? "?"}`,
   lines.join("\n") || "(нет source stats)",
   failed.length ? `failed: ${failed.join(", ")}` : "",
+  incomplete.length ? `incomplete: ${incomplete.join(", ")}` : "",
 ]
   .filter(Boolean)
   .join("\n\n");

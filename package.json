@@ -26,7 +26,7 @@
     "setup:www": "node scripts/setup-cloudflare-www.mjs",
     "attach:www": "wrangler deploy --config .output/server/wrangler.json --domain www.recenze-ceny.cz",
     "cron:test": "node scripts/trigger-sync-daily.mjs",
-    "sync:feeds": "node scripts/trigger-hook.mjs sync-feeds",
+    "sync:feeds": "node scripts/trigger-feed-sync-gha.mjs",
     "sync:feeds-local": "node --import ./scripts/win-fetch-proxy.mjs ./node_modules/tsx/dist/cli.mjs scripts/sync-feeds-local.ts",
     "sync:daily": "node scripts/trigger-hook.mjs sync-daily",
     "sync:drain": "node scripts/trigger-hook.mjs content-drain",

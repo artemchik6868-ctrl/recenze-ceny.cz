@@ -74,6 +74,11 @@ export function nextCpagettiPageLimit(limit: number): number | null {
   return CPAGETTI_PAGE_LIMITS[i + 1];
 }
 
+/** Incomplete page list (poison skips) must not deactivate unseen live rows. */
+export function shouldDeactivateAfterSkips(skippedOffsets: number): boolean {
+  return skippedOffsets <= 0;
+}
+
 export function parseCpagettiFeedJson(text: string): {
   offers: unknown[];
   total: number | null;
@@ -112,4 +117,18 @@ export function feedSyncSourceHasError(
   result: Record<string, unknown> | { error: string },
 ): boolean {
   return typeof (result as { error?: unknown }).error === "string";
+}
+
+/**
+ * Source did not finish a complete catalog pass.
+ * Must not mark the UTC day done (GHA retries), and must not deactivate.
+ */
+export function feedSyncSourceIsIncomplete(
+  result: Record<string, unknown> | { error: string },
+): boolean {
+  if (feedSyncSourceHasError(result)) return false;
+  const row = result as Record<string, unknown>;
+  if (typeof row.skipped === "string" && row.skipped.length > 0) return true;
+  if (typeof row.skippedOffsets === "number" && row.skippedOffsets > 0) return true;
+  return false;
 }

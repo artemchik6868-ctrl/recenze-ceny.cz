@@ -2,10 +2,12 @@ import assert from "node:assert/strict";
 import {
   emptyPageBeforeEndError,
   feedSyncSourceHasError,
+  feedSyncSourceIsIncomplete,
   isFeedPageExhausted,
   nextCpagettiPageLimit,
   parseCpagettiFeedJson,
   redactSecretsInUrl,
+  shouldDeactivateAfterSkips,
   shouldDeactivateCatalog,
 } from "./feed-sync-guards";
 
@@ -106,10 +108,23 @@ ok("cpagetti page limit falls back 100 → 10 → 1", () => {
   assert.equal(nextCpagettiPageLimit(1), null);
 });
 
+ok("deactivate skipped when poison offsets were skipped", () => {
+  assert.equal(shouldDeactivateAfterSkips(0), true);
+  assert.equal(shouldDeactivateAfterSkips(1), false);
+});
+
 ok("source error detection", () => {
   assert.equal(feedSyncSourceHasError({ fetched: 1 }), false);
   assert.equal(feedSyncSourceHasError({ skipped: "http_403" }), false);
   assert.equal(feedSyncSourceHasError({ error: "timeout" }), true);
+});
+
+ok("incomplete on skip or poison offsets, not on hard error", () => {
+  assert.equal(feedSyncSourceIsIncomplete({ fetched: 1 }), false);
+  assert.equal(feedSyncSourceIsIncomplete({ skipped: "http_403" }), true);
+  assert.equal(feedSyncSourceIsIncomplete({ skippedOffsets: 1, fetched: 2048 }), true);
+  assert.equal(feedSyncSourceIsIncomplete({ skippedOffsets: 0, fetched: 10 }), false);
+  assert.equal(feedSyncSourceIsIncomplete({ error: "timeout" }), false);
 });
 
 if (failed) {

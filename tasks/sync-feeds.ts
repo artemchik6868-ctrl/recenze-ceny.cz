@@ -1,18 +1,13 @@
 import { defineTask } from "nitro/task";
-import { syncAllFeedsExclusive } from "@/lib/content-pipeline.server";
+import { FEED_INGEST_MOVED_BODY } from "@/lib/feed-sync-moved";
 
 export default defineTask({
   meta: {
     name: "sync-feeds",
-    description: "Emergency Worker CPA ingest (prefer Node scripts/sync-feeds-local.ts)",
+    description: "Disabled — CPA ingest is GitHub Action feed-sync.yml, not the Worker",
   },
-  async run({ context }) {
-    const promise = syncAllFeedsExclusive("worker:task-sync-feeds");
-    context.waitUntil?.(promise);
-    const result = await promise;
-    console.info(
-      `[cron:sync-feeds] lock=${result.lock} elapsed=${result.elapsed_ms}ms failed=${result.failed.join(",") || "none"}`,
-    );
-    return { result };
+  async run() {
+    console.warn("[cron:sync-feeds] skipped: feed_ingest_moved_to_gha");
+    return { result: FEED_INGEST_MOVED_BODY };
   },
 });

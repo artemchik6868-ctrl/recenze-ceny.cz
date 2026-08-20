@@ -15,7 +15,7 @@ import {
   type GenerateNewContentResult,
 } from "./content-backfill.server";
 import { tryAcquireFeedSyncLock, releaseFeedSyncLock } from "./feed-sync-lock.server";
-import { feedSyncSourceHasError } from "./feed-sync-guards";
+import { feedSyncSourceHasError, feedSyncSourceIsIncomplete } from "./feed-sync-guards";
 import type { OfferSource } from "./types";
 
 /** Wall time needed so generateNewContent's claim gate (MIN_CONTENT_OFFER_MS) can fire. */
@@ -181,6 +181,7 @@ export async function syncAllFeeds(): Promise<SyncFeedsResult> {
 export type ExclusiveSyncFeedsResult = SyncFeedsResult & {
   lock: "acquired" | "busy";
   failed: OfferSource[];
+  incomplete: OfferSource[];
 };
 
 /** Full ingest with a DB lock so GHA and Worker hooks cannot deactivate together. */
@@ -197,14 +198,17 @@ export async function syncAllFeedsExclusive(
       adcombo: {},
       shakes: {},
     };
-    return { ok: true, elapsed_ms: 0, sync, lock: "busy", failed: [] };
+    return { ok: true, elapsed_ms: 0, sync, lock: "busy", failed: [], incomplete: [] };
   }
   try {
     const result = await syncAllFeeds();
     const failed = PIPELINE_SOURCES.filter((source) =>
       feedSyncSourceHasError(result.sync[source]),
     );
-    return { ...result, lock: "acquired", failed };
+    const incomplete = PIPELINE_SOURCES.filter((source) =>
+      feedSyncSourceIsIncomplete(result.sync[source]),
+    );
+    return { ...result, lock: "acquired", failed, incomplete };
   } finally {
     await releaseFeedSyncLock(holder);
   }

@@ -13,6 +13,7 @@ import {
   isFeedPageExhausted,
   nextCpagettiPageLimit,
   parseCpagettiFeedJson,
+  shouldDeactivateAfterSkips,
 } from "./feed-sync-guards";
 import { fetchFeed } from "./feed-sync-http";
 import { deactivateMissingActiveOffers } from "./feed-sync-deactivate.server";
@@ -132,6 +133,8 @@ export type FeedPageCursor = {
   geoFilter?: boolean;
   /** Sticky page size after a 500 split so we do not re-probe limit=100 every offset. */
   pageLimit?: number;
+  /** Poison offsets skipped (limit=1 still 500). Deactivate is skipped when > 0. */
+  skippedOffsets?: number;
 };
 
 export type SyncChunkResult = {
@@ -142,6 +145,7 @@ export type SyncChunkResult = {
     allowed: number;
     upserted: number;
     deactivated: number;
+    skippedOffsets: number;
     chunkPages: number;
     done: boolean;
     debug?: unknown;
@@ -168,12 +172,11 @@ export async function syncCpagettiOffersChunk(
   const offerIds = [...(opts.cursor?.offerIds ?? [])];
   let geoFilter = opts.cursor?.geoFilter ?? true;
   let pageLimit = opts.cursor?.pageLimit ?? PAGE_SIZE;
+  let skippedOffsets = opts.cursor?.skippedOffsets ?? 0;
   const debug: {
-    tokenLen: number;
     firstPageSample: unknown;
     pages: Array<{ offset: number; count: number; status?: number; geoFilter?: boolean }>;
   } = {
-    tokenLen: token.length,
     firstPageSample: null,
     pages: [],
   };
@@ -214,6 +217,7 @@ export async function syncCpagettiOffersChunk(
         console.warn(
           `[cpagetti] skip offset=${offset} after HTTP ${pageResult.status} at limit=1`,
         );
+        skippedOffsets += 1;
         offset += 1;
         skippedPoison = true;
         break;
@@ -308,9 +312,13 @@ export async function syncCpagettiOffersChunk(
 
   const done = exhausted;
   let deactivated = 0;
-  if (done) {
+  if (done && shouldDeactivateAfterSkips(skippedOffsets)) {
     const d = await deactivateMissingActiveOffers("cpagetti_offers", offerIds);
     deactivated = d.deactivated;
+  } else if (done && skippedOffsets > 0) {
+    console.warn(
+      `[cpagetti] skip deactivate: skippedOffsets=${skippedOffsets} (incomplete page list)`,
+    );
   }
 
   const stats = {
@@ -318,6 +326,7 @@ export async function syncCpagettiOffersChunk(
     allowed: allowedCount,
     upserted: rows.length,
     deactivated,
+    skippedOffsets,
     chunkPages,
     done,
     debug: opts.cursor ? undefined : debug,
@@ -337,6 +346,7 @@ export async function syncCpagettiOffersChunk(
       allowed: allowedCount,
       geoFilter,
       pageLimit,
+      skippedOffsets,
     },
     stats,
   };
@@ -347,6 +357,7 @@ export async function syncCpagettiOffers(): Promise<{
   allowed: number;
   upserted: number;
   deactivated: number;
+  skippedOffsets: number;
   debug?: unknown;
 }> {
   let cursor: FeedPageCursor | null = null;
@@ -363,6 +374,7 @@ export async function syncCpagettiOffers(): Promise<{
     allowed: last.stats.allowed,
     upserted,
     deactivated: last.stats.deactivated,
+    skippedOffsets: last.stats.skippedOffsets,
     debug,
   };
 }

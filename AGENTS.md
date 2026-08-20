@@ -2,6 +2,12 @@
 
 Czech storefront (`recenze-ceny.cz`). TanStack Start SSR on Cloudflare Workers.
 
+## CPA feed ingest
+
+Daily catalog sync is **Node on GitHub Actions** (`feed-sync.yml`, backup job on `health-check.yml`), not Worker cron. Worker `*/30` only drains landing/image facts and AI content.
+
+Manual ingest: `npm run sync:feeds` (dispatches `feed-sync.yml`). Same script locally/CI: `npm run sync:feeds-local`. Do not paginate partner APIs from Worker hooks.
+
 ## How SEO works
 
 1. **SSR first** — catalog data loads in route `loader` → `createServerFn` → Supabase. Crawlers get full HTML without JS.

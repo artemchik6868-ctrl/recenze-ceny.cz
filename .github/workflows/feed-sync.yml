@@ -1,5 +1,8 @@
 # Daily offline CPA feed ingest (keeps Worker free of partner pagination).
-# GitHub schedule is best-effort; health-check.yml also runs this once per UTC day.
+# GitHub schedule is best-effort; health-check.yml is the backup trigger.
+# Both jobs share cache key feed-sync-YYYY-MM-DD so a day runs once.
+# Same concurrency group as health-check feed_sync (no parallel deactivate / lock_busy).
+# workflow_dispatch always runs (manual retry).
 name: Feed sync
 
 on:
@@ -7,10 +10,14 @@ on:
     - cron: "12 2 * * *"
   workflow_dispatch:
 
+concurrency:
+  group: feed-sync
+  cancel-in-progress: false
+
 jobs:
   sync:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 50
     env:
       SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
       SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
@@ -22,20 +29,47 @@ jobs:
       M1_TOP_WEBMASTER_ID: ${{ secrets.M1_TOP_WEBMASTER_ID }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      FEED_SYNC_LOCK_HOLDER: gha-${{ github.run_id }}
     steps:
+      - name: UTC day key
+        id: day
+        run: echo "d=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+
+      - name: Already ran today?
+        id: gate
+        uses: actions/cache@v4
+        with:
+          path: .feed-sync-day-marker
+          key: feed-sync-${{ steps.day.outputs.d }}
+
       - uses: actions/checkout@v4
+        if: github.event_name == 'workflow_dispatch' || steps.gate.outputs.cache-hit != 'true'
 
       - uses: actions/setup-node@v4
+        if: github.event_name == 'workflow_dispatch' || steps.gate.outputs.cache-hit != 'true'
         with:
           node-version: 22
           cache: npm
 
       - name: Install dependencies
+        if: github.event_name == 'workflow_dispatch' || steps.gate.outputs.cache-hit != 'true'
         run: npm install --no-audit --no-fund
 
       - name: Sync CPA feeds
+        if: github.event_name == 'workflow_dispatch' || steps.gate.outputs.cache-hit != 'true'
         run: npx tsx scripts/sync-feeds-local.ts
 
       - name: Notify Telegram
-        if: always()
+        if: always() && (github.event_name == 'workflow_dispatch' || steps.gate.outputs.cache-hit != 'true')
         run: node scripts/notify-feed-sync.mjs
+
+      - name: Release feed_sync_lock if still held
+        if: always() && (github.event_name == 'workflow_dispatch' || steps.gate.outputs.cache-hit != 'true')
+        continue-on-error: true
+        run: node scripts/release-feed-sync-lock.mjs
+
+      - name: Mark day done
+        if: (github.event_name == 'workflow_dispatch' || steps.gate.outputs.cache-hit != 'true') && success()
+        run: |
+          mkdir -p .feed-sync-day-marker
+          date -u > .feed-sync-day-marker/done

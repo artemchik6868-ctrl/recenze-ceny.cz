@@ -148,11 +148,14 @@ jobs:
           date -u > .blog-ingest-day-marker/done
 
   # Backup feed ingest: feed-sync.yml schedule may never fire (same as blog-ingest).
-  # Once per UTC day via health-check, which does receive schedule events.
+  # Shares cache key feed-sync-YYYY-MM-DD with feed-sync.yml (one successful run per UTC day).
   feed_sync:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    concurrency:
+      group: feed-sync
+      cancel-in-progress: false
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 50
     env:
       SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
       SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
@@ -164,6 +167,7 @@ jobs:
       M1_TOP_WEBMASTER_ID: ${{ secrets.M1_TOP_WEBMASTER_ID }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      FEED_SYNC_LOCK_HOLDER: gha-${{ github.run_id }}
     steps:
       - name: UTC day key
         id: day
@@ -198,6 +202,11 @@ jobs:
       - name: Notify Telegram
         if: always() && steps.gate.outputs.cache-hit != 'true'
         run: node scripts/notify-feed-sync.mjs
+
+      - name: Release feed_sync_lock if still held
+        if: always() && steps.gate.outputs.cache-hit != 'true'
+        continue-on-error: true
+        run: node scripts/release-feed-sync-lock.mjs
 
       - name: Mark day done
         if: steps.gate.outputs.cache-hit != 'true' && success()

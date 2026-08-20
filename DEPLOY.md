@@ -48,13 +48,14 @@ npm run smoke-test -- --base=https://recenze-ceny.<account>.workers.dev
 
 ## Cron (worker `recenze-ceny`)
 
-Nitro scheduled task `scheduled-tick` every 30 minutes dispatches sync / content drain / indexing by UTC clock. See [vite.config.ts](vite.config.ts) and [tasks/scheduled-tick.ts](tasks/scheduled-tick.ts).
+Nitro `scheduled-tick` every 30 minutes drains landing/image facts and AI content (plus GSC jobs at 06:00 / Mon 07:00 UTC). **CPA feed ingest is GitHub Actions** (`feed-sync.yml`, backup on `health-check.yml`), not Worker cron.
 
-Manual hooks (replace `$HOOK_SECRET` and base URL):
+Manual ingest:
 ```powershell
 npm run sync:feeds
-npm run sync:daily
 ```
+
+`npm run sync:daily` only retires leftover `pipeline_feed_wave` state.
 
 ## CPA feeds
 

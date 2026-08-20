@@ -2,11 +2,9 @@
  * Trigger a public hook on the AT worker.
  *
  * Usage:
- *   node scripts/trigger-hook.mjs sync-feeds
- *   node scripts/trigger-hook.mjs sync-daily
  *   node scripts/trigger-hook.mjs content-drain
- *   node scripts/trigger-hook.mjs content-drain --base=https://recenze-ceny.cz --query=task=ai&sources=kma
- *   node scripts/trigger-hook.mjs backfill-content --query=source=kma&task=ai&ai_limit=2
+ *   node scripts/trigger-hook.mjs pipeline-status
+ * Feed ingest is GHA (`npm run sync:feeds`), not a Worker hook.
  *
  * Default base: workers.dev URL until custom domain NS propagate.
  *

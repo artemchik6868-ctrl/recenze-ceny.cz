@@ -6,7 +6,8 @@
  *   npx tsx scripts/sync-feeds-local.ts
  *
  * Requires .env / CI: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, CPA API keys.
- * Exit 0 only when the lock was acquired and every source succeeded.
+ * Exit 0 only when the lock was acquired and every source finished a complete pass
+ * (no error, no skipped, no skippedOffsets). Incomplete must not mark the UTC day done.
  * Writes .feed-sync-result.json for Telegram / GHA.
  */
 import { readFileSync, writeFileSync } from "node:fs";
@@ -44,6 +45,7 @@ type ResultFile = {
   lock: "acquired" | "busy";
   elapsed_ms: number;
   failed: string[];
+  incomplete: string[];
   sources: Record<string, Record<string, unknown> | { error: string }>;
 };
 
@@ -64,21 +66,27 @@ function summarizeSource(
   const fetched = row.fetched ?? "-";
   const allowed = row.allowed ?? row.ua ?? "-";
   const deactivated = row.deactivated ?? "-";
-  return `${source}: fetched=${fetched} allowed=${allowed} deactivated=${deactivated}`;
+  const skippedOff =
+    typeof row.skippedOffsets === "number" && row.skippedOffsets > 0
+      ? ` skippedOffsets=${row.skippedOffsets}`
+      : "";
+  return `${source}: fetched=${fetched} allowed=${allowed} deactivated=${deactivated}${skippedOff}`;
 }
 
 async function main(): Promise<void> {
   loadEnvIntoProcess();
-  const holder = process.env.GITHUB_RUN_ID
-    ? `gha:${process.env.GITHUB_RUN_ID}`
-    : `local:${process.pid}`;
+  const holder = process.env.FEED_SYNC_LOCK_HOLDER
+    || (process.env.GITHUB_RUN_ID ? `gha-${process.env.GITHUB_RUN_ID}` : `local-${process.pid}`);
   console.info(`[sync-feeds-local] start holder=${holder}`);
   const result = await syncAllFeedsExclusive(holder);
+  const incomplete = result.lock === "busy" ? [] : result.incomplete;
+  const failed = result.lock === "busy" ? ["lock_busy"] : result.failed;
   const payload: ResultFile = {
-    ok: result.lock === "acquired" && result.failed.length === 0,
+    ok: result.lock === "acquired" && failed.length === 0 && incomplete.length === 0,
     lock: result.lock,
     elapsed_ms: result.elapsed_ms,
-    failed: result.lock === "busy" ? ["lock_busy"] : result.failed,
+    failed,
+    incomplete,
     sources: result.sync,
   };
   writeResult(payload);
@@ -87,7 +95,7 @@ async function main(): Promise<void> {
     console.info(`  ${summarizeSource(source, result.sync[source])}`);
   }
   console.info(
-    `[sync-feeds-local] done ok=${payload.ok} lock=${result.lock} elapsed=${result.elapsed_ms}ms failed=${payload.failed.join(",") || "none"}`,
+    `[sync-feeds-local] done ok=${payload.ok} lock=${result.lock} elapsed=${result.elapsed_ms}ms failed=${failed.join(",") || "none"} incomplete=${incomplete.join(",") || "none"}`,
   );
 
   if (result.lock === "busy") {
@@ -97,6 +105,12 @@ async function main(): Promise<void> {
   }
   if (result.failed.length > 0) {
     console.error(`[sync-feeds-local] source failures: ${result.failed.join(", ")}`);
+    process.exitCode = 1;
+  }
+  if (incomplete.length > 0) {
+    console.error(
+      `[sync-feeds-local] incomplete (no deactivate, do not mark day done): ${incomplete.join(", ")}`,
+    );
     process.exitCode = 1;
   }
 }
@@ -109,6 +123,7 @@ main().catch((e) => {
     lock: "acquired",
     elapsed_ms: 0,
     failed: [message],
+    incomplete: [],
     sources: {},
   });
   process.exit(1);

@@ -1,5 +1,7 @@
 /**
- * Manual sync-daily trigger (same code path as Cloudflare Cron).
+ * Retires leftover pipeline_feed_wave only — does NOT ingest CPA feeds.
+ * Daily ingest: `npm run sync:feeds` (GitHub Action feed-sync.yml).
+ *
  * Usage: node scripts/trigger-sync-daily.mjs [--base=https://recenze-ceny.cz]
  */
 import { readFileSync } from "node:fs";
@@ -27,6 +29,7 @@ if (!secret) {
 }
 
 const url = `${base}/api/public/hooks/sync-daily?secret=${encodeURIComponent(secret)}`;
+console.log("Note: sync-daily does not ingest feeds (GHA does). This only retires leftover wave.");
 console.log(`GET ${base}/api/public/hooks/sync-daily?secret=***`);
 const started = Date.now();
 const res = await fetch(url, { signal: AbortSignal.timeout(310_000) });

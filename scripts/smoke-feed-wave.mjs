@@ -1,4 +1,18 @@
-/** Local smoke: seed feed wave + drain one unit. Usage: npx tsx scripts/smoke-feed-wave.mjs */
+/**
+ * Disabled: seeding pipeline_feed_wave against prod .env restarts Worker feed paging.
+ * CPA ingest is GitHub Action feed-sync.yml (`npm run sync:feeds`).
+ *
+ * Override (dev DB only): FEED_WAVE_SMOKE=1 npx tsx scripts/smoke-feed-wave.mjs
+ */
+if (process.env.FEED_WAVE_SMOKE !== "1") {
+  console.error(
+    "smoke-feed-wave is disabled: it seeds pipeline_feed_wave (can hit prod if .env points there).\n" +
+      "Ingest: npm run sync:feeds  (GitHub Action).\n" +
+      "Force anyway: FEED_WAVE_SMOKE=1",
+  );
+  process.exit(1);
+}
+
 import { readFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -47,11 +61,3 @@ console.log(
 
 const after = await getFeedWaveStatus();
 console.log("after", JSON.stringify(after, null, 2));
-
-if (!unit.ok) process.exit(1);
-if (unit.source !== "cpa_tl") {
-  console.warn("expected first source cpa_tl, got", unit.source);
-}
-if (after.pending.length !== 6) {
-  console.warn("expected 6 pending after first unit, got", after.pending.length);
-}
