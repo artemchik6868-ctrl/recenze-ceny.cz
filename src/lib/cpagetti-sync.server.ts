@@ -122,7 +122,7 @@ type CpagettiRow = {
 
 export type FeedPageCursor = {
   kind: "page";
-  /** Absolute feed offset (multiples of page size). */
+  /** Absolute feed offset (multiples of page size, except after a split/skip). */
   offset: number;
   /** Allowed offer_ids seen so far (for deactivate on done). */
   offerIds: number[];
@@ -130,6 +130,8 @@ export type FeedPageCursor = {
   allowed: number;
   /** false after geo=CZ probe returned an empty catalog (API ignored/broke filter). */
   geoFilter?: boolean;
+  /** Sticky page size after a 500 split so we do not re-probe limit=100 every offset. */
+  pageLimit?: number;
 };
 
 export type SyncChunkResult = {
@@ -165,6 +167,7 @@ export async function syncCpagettiOffersChunk(
   let allowedCount = opts.cursor?.allowed ?? 0;
   const offerIds = [...(opts.cursor?.offerIds ?? [])];
   let geoFilter = opts.cursor?.geoFilter ?? true;
+  let pageLimit = opts.cursor?.pageLimit ?? PAGE_SIZE;
   const debug: {
     tokenLen: number;
     firstPageSample: unknown;
@@ -178,9 +181,10 @@ export async function syncCpagettiOffersChunk(
   const chunkAllowed: CpagettiRawOffer[] = [];
   let chunkPages = 0;
   let exhausted = false;
+  let consecutiveSkips = 0;
 
   for (let i = 0; i < maxPages; i++) {
-    let usedLimit = PAGE_SIZE;
+    let usedLimit = pageLimit;
     let pageResult = await fetchCpagettiPage(token, offset, usedLimit, geoFilter, {
       maxAttempts: 2,
     });
@@ -199,18 +203,36 @@ export async function syncCpagettiOffersChunk(
       });
     }
 
+    let skippedPoison = false;
     while (pageResult.status >= 500) {
       const nextLimit = nextCpagettiPageLimit(usedLimit);
-      if (nextLimit == null) throw new Error(`CPAgetti feed HTTP ${pageResult.status}`);
+      if (nextLimit == null) {
+        consecutiveSkips += 1;
+        if (consecutiveSkips > 20) {
+          throw new Error(`CPAgetti feed HTTP ${pageResult.status} (20 skipped offsets)`);
+        }
+        console.warn(
+          `[cpagetti] skip offset=${offset} after HTTP ${pageResult.status} at limit=1`,
+        );
+        offset += 1;
+        skippedPoison = true;
+        break;
+      }
       console.warn(
         `[cpagetti] HTTP ${pageResult.status} at offset=${offset} limit=${usedLimit} — retry limit=${nextLimit}`,
       );
       usedLimit = nextLimit;
-      pageResult = await fetchCpagettiPage(token, offset, usedLimit, geoFilter);
+      pageLimit = nextLimit;
+      pageResult = await fetchCpagettiPage(token, offset, usedLimit, geoFilter, {
+        maxAttempts: 2,
+      });
     }
+    if (skippedPoison) continue;
     if (pageResult.status !== 200) {
       throw new Error(`CPAgetti feed HTTP ${pageResult.status}`);
     }
+    consecutiveSkips = 0;
+    pageLimit = usedLimit;
 
     const page = pageResult.offers;
     const emptyErr = emptyPageBeforeEndError({
@@ -255,6 +277,9 @@ export async function syncCpagettiOffersChunk(
       break;
     }
     offset += page.length;
+    if (pageLimit < PAGE_SIZE && offset % PAGE_SIZE === 0) {
+      pageLimit = PAGE_SIZE;
+    }
   }
 
   const syncedAt = new Date().toISOString();
@@ -311,6 +336,7 @@ export async function syncCpagettiOffersChunk(
       fetched,
       allowed: allowedCount,
       geoFilter,
+      pageLimit,
     },
     stats,
   };
