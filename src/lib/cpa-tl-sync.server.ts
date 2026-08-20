@@ -7,6 +7,8 @@ import { buildPartnerClassifyBlob } from "./partner-feed-text";
 import { resolveOfferSlug } from "./slugify";
 import { cleanBrandName } from "./brand-clean";
 import type { Offer } from "./types";
+import { fetchFeed } from "./feed-sync-http";
+import { deactivateMissingActiveOffers } from "./feed-sync-deactivate.server";
 
 const FEED_URL = "https://cpa.tl/api/offers";
 
@@ -69,10 +71,7 @@ export async function syncCpaTlOffers(): Promise<{
   upserted: number;
   deactivated: number;
 }> {
-  const res = await fetch(FEED_URL, {
-    headers: { Accept: "application/json" },
-    signal: AbortSignal.timeout(60_000),
-  });
+  const res = await fetchFeed(FEED_URL);
   if (!res.ok) throw new Error(`CPA.tl feed HTTP ${res.status}`);
   const json = (await res.json()) as { data: CpaTlRawOffer[] };
   const all = json.data || [];
@@ -97,16 +96,7 @@ export async function syncCpaTlOffers(): Promise<{
   }
 
   const ids = rows.map((r) => r.offer_id);
-  let deactivated = 0;
-  if (ids.length > 0) {
-    const { count, error } = await supabaseAdmin
-      .from("cpa_tl_offers")
-      .update({ is_active: false }, { count: "exact" })
-      .not("offer_id", "in", `(${ids.join(",")})`)
-      .eq("is_active", true);
-    if (error) throw new Error(`deactivate cpa_tl_offers: ${error.message}`);
-    deactivated = count ?? 0;
-  }
+  const { deactivated } = await deactivateMissingActiveOffers("cpa_tl_offers", ids);
 
   return {
     fetched: all.length,

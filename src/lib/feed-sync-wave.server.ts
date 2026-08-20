@@ -144,6 +144,20 @@ async function saveWave(state: FeedWaveState): Promise<void> {
   state.updated_at = updated_at;
 }
 
+/** Clear leftover worker wave so pipeline-status is not stuck "in progress". */
+export async function retireFeedWave(reason: string): Promise<FeedWaveState> {
+  const retired = emptyState({
+    pending: [],
+    active_source: null,
+    active_cursor: null,
+    last_error: null,
+    last_result: { retired: reason },
+  });
+  await saveWave(retired);
+  console.info(`[feed-wave] retired: ${reason}`);
+  return retired;
+}
+
 /** Seed a new wave when idle or stale. Does not drain. */
 export async function ensureWave(opts: { force?: boolean } = {}): Promise<FeedWaveState> {
   const state = await loadWave();

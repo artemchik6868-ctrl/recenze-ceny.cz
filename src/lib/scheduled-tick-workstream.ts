@@ -8,7 +8,7 @@ export function isTopOfHourUtc(minute: number): boolean {
 }
 
 /**
- * After special hours / feed-wave: :00 = landing+image, :30 = content+reviews.
+ * After special hours: :00 = landing+image, :30 = content+reviews.
  * Keeps one cron trigger while giving content-drain a full wall budget.
  */
 export function scheduledTickWorkstream(utcMinute: number): ScheduledTickWorkstream {

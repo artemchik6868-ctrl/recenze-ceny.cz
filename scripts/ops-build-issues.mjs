@@ -70,6 +70,7 @@ export function buildIssuesFromStatus(status, opts = {}) {
   const missing = Number(totals.missing_content ?? 0);
   let feedErr = ops.feed_wave_error || status?.feed_wave?.last_error || null;
   let feedStale = Boolean(ops.feed_wave_stale || status?.feed_wave?.stale);
+  let feedSyncStale = Boolean(ops.feed_sync_stale);
   let indexingErr = Number(ops.indexing_errors_24h ?? 0);
   let indexingCfg = Number(ops.indexing_config_skips_24h ?? 0);
   let inspectErr = Number(ops.inspect_errors_24h ?? 0);
@@ -98,6 +99,7 @@ export function buildIssuesFromStatus(status, opts = {}) {
       const failMatch = String(a).match(/(\d+)\s+offers have repeated AI failures/i);
       if (failMatch) repeated += Number(failMatch[1]);
       if (/feed-wave:\s*stale/i.test(a)) feedStale = true;
+      if (/feed-sync:\s*stale/i.test(a)) feedSyncStale = true;
       if (/feed-wave:\s*last_error=/i.test(a) && !feedErr) {
         feedErr = String(a).replace(/^.*last_error=/i, "");
       }
@@ -147,6 +149,12 @@ export function buildIssuesFromStatus(status, opts = {}) {
     issues.push({
       code: "ai_failures",
       text: `Повторяющиеся сбои AI: ${repeated} офферов с fail_count≥3`,
+    });
+  }
+  if (feedSyncStale) {
+    issues.push({
+      code: "feed_sync_stale",
+      text: "Синк фидов протух (synced_at старше 36ч) — проверьте GHA feed-sync / health-check",
     });
   }
   if (feedStale) {

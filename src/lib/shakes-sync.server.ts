@@ -10,6 +10,8 @@ import { normalizeProductTitle, cleanBrandName } from "./brand-clean";
 import { SITE } from "./site";
 import type { Offer } from "./types";
 import { phoneNationalCS } from "./phone.cs";
+import { fetchFeed } from "./feed-sync-http";
+import { deactivateMissingActiveOffers } from "./feed-sync-deactivate.server";
 
 const OFFERS_URL = "https://shakes.pro/index.php?r=offer/offers/json";
 const ORDER_URL = "https://shakes.pro/index.php";
@@ -163,10 +165,7 @@ async function fetchAllOffers(): Promise<ShakesRawOffer[]> {
   const apiKey = process.env.SHAKES_API_KEY;
   const url = new URL(OFFERS_URL);
   if (apiKey) url.searchParams.set("key", apiKey);
-  const res = await fetch(url, {
-    headers: { Accept: "application/json", "User-Agent": "recenze-ceny-sync/1.0" },
-    signal: AbortSignal.timeout(60_000),
-  });
+  const res = await fetchFeed(url.toString());
   if (!res.ok) throw new Error(`Shakes offers HTTP ${res.status}`);
   const json = await res.json();
   return normalizeOffersPayload(json);
@@ -215,16 +214,7 @@ export async function syncShakesOffers(): Promise<{
   }
 
   const ids = rows.map((r) => r.offer_id);
-  let deactivated = 0;
-  if (ids.length > 0) {
-    const { count, error } = await supabaseAdmin
-      .from("shakes_offers")
-      .update({ is_active: false }, { count: "exact" })
-      .not("offer_id", "in", `(${ids.join(",")})`)
-      .eq("is_active", true);
-    if (error) throw new Error(`deactivate shakes_offers: ${error.message}`);
-    deactivated = count ?? 0;
-  }
+  const { deactivated } = await deactivateMissingActiveOffers("shakes_offers", ids);
 
   return {
     fetched: all.length,

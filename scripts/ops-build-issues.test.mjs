@@ -243,6 +243,13 @@ ok("legacy warehouse alert strings detected", () => {
   );
 });
 
+ok("feed_sync_stale pages", () => {
+  const status = structuredClone(warehouseStatus);
+  status.ops.feed_sync_stale = true;
+  const issues = buildIssuesFromStatus(status);
+  assert.ok(issues.some((i) => i.code === "feed_sync_stale"));
+});
+
 ok("repeated AI ≥3 pages, 1 does not", () => {
   assert.equal(buildIssuesFromStatus(warehouseStatus).length, 0);
   const status = structuredClone(warehouseStatus);

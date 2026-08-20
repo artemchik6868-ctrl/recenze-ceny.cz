@@ -7,18 +7,12 @@ import {
   scheduledTickWorkstream,
   type ScheduledTickWorkstream,
 } from "./scheduled-tick-workstream";
-import { runDailySync, type DailySyncResult } from "./sync-daily.server";
-import {
-  drainNextFeedUnit,
-  isWaveActive,
-  loadWave,
-  type FeedUnitResult,
-} from "./feed-sync-wave.server";
 import {
   retryMissingContent,
   drainMissingReviews,
   CONTENT_DRAIN_DEADLINE_MS,
 } from "./content-pipeline.server";
+import { isWaveActive, loadWave, retireFeedWave } from "./feed-sync-wave.server";
 import { listSourceMissingOfferIds } from "./content-backfill.server";
 import { runIndexingRetry, type IndexingRetryResult } from "./indexing-retry.server";
 import { runSitemapSubmit, type SitemapSubmitResult } from "./gsc-sitemap.server";
@@ -45,8 +39,6 @@ export type ScheduledTickResult = {
   utcMinute: number;
   ran: string[];
   workstream?: ScheduledTickWorkstream;
-  syncDaily?: DailySyncResult;
-  feedWaveUnit?: FeedUnitResult;
   landingFactsDrain?: LandingFactsDrainResult;
   m1LandingFactsDrain?: LandingFactsDrainResult;
   cpaTlLandingFactsDrain?: LandingFactsDrainResult;
@@ -63,17 +55,19 @@ export async function runScheduledTick(now = new Date()): Promise<ScheduledTickR
   const onTheHour = isTopOfHourUtc(utcMinute);
   const ran: string[] = [];
 
-  // 02:00 UTC — seed daily feed wave + drain one unit (feeds only; AI via content-drain).
-  if (onTheHour && utcHour === 2) {
-    const syncDaily = await runDailySync();
-    ran.push("sync-daily");
-    console.info(
-      `[scheduled-tick] sync-daily elapsed=${syncDaily.elapsed_ms}ms timedOut=${syncDaily.timedOut} remaining=${syncDaily.remaining_work.join(",") || "none"}`,
-    );
-    return { ok: true, utcHour, utcMinute, ran, syncDaily };
+  // Feed ingest is Node/GHA. Retire leftover worker waves so content ticks are not blocked.
+  try {
+    const wave = await loadWave();
+    if (isWaveActive(wave) || wave.last_error) {
+      await retireFeedWave("feed sync moved to Node/GHA");
+      ran.push("retire-feed-wave");
+    }
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.warn(`[scheduled-tick] retire feed-wave failed: ${message}`);
   }
 
-  // 06:00 UTC — GSC inspect + smart indexer retry (wave continues on later ticks).
+  // 06:00 UTC — GSC inspect + smart indexer retry.
   if (onTheHour && utcHour === 6) {
     const indexingRetry = await runIndexingRetry({ inspectLimit: 15, notifyLimit: 30 });
     ran.push("indexing-retry");
@@ -91,17 +85,6 @@ export async function runScheduledTick(now = new Date()): Promise<ScheduledTickR
       `[scheduled-tick] sitemap-submit ok=${sitemapSubmit.ok} submitted=${sitemapSubmit.submitted} errors=${sitemapSubmit.status?.errors ?? "-"} warnings=${sitemapSubmit.status?.warnings ?? "-"}`,
     );
     return { ok: true, utcHour, utcMinute, ran, sitemapSubmit };
-  }
-
-  // Unfinished feed wave takes priority over landing-facts / content-drain.
-  const wave = await loadWave();
-  if (isWaveActive(wave)) {
-    const feedWaveUnit = await drainNextFeedUnit();
-    ran.push("feed-wave");
-    console.info(
-      `[scheduled-tick] feed-wave source=${feedWaveUnit.source ?? "none"} ok=${feedWaveUnit.ok} waveDone=${feedWaveUnit.waveDone} pending=${feedWaveUnit.pending.join(",") || "none"}`,
-    );
-    return { ok: true, utcHour, utcMinute, ran, feedWaveUnit };
   }
 
   const workstream = scheduledTickWorkstream(utcMinute);

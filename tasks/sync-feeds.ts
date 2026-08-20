@@ -1,16 +1,18 @@
 import { defineTask } from "nitro/task";
-import { syncAllFeeds } from "@/lib/content-pipeline.server";
+import { syncAllFeedsExclusive } from "@/lib/content-pipeline.server";
 
 export default defineTask({
   meta: {
     name: "sync-feeds",
-    description: "Pull CPA feeds and deactivate stale offers (no AI)",
+    description: "Emergency Worker CPA ingest (prefer Node scripts/sync-feeds-local.ts)",
   },
   async run({ context }) {
-    const promise = syncAllFeeds();
+    const promise = syncAllFeedsExclusive("worker:task-sync-feeds");
     context.waitUntil?.(promise);
     const result = await promise;
-    console.info(`[cron:sync-feeds] elapsed=${result.elapsed_ms}ms`);
+    console.info(
+      `[cron:sync-feeds] lock=${result.lock} elapsed=${result.elapsed_ms}ms failed=${result.failed.join(",") || "none"}`,
+    );
     return { result };
   },
 });

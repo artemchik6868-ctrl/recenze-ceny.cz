@@ -1,10 +1,4 @@
-import {
-  ensureWave,
-  drainNextFeedUnit,
-  isWaveActive,
-  loadWave,
-  type FeedUnitResult,
-} from "./feed-sync-wave.server";
+import { retireFeedWave } from "./feed-sync-wave.server";
 import type { OfferSource } from "./types";
 
 export type DailySyncSourceResult = {
@@ -16,6 +10,7 @@ export type DailySyncResult = {
   ok: true;
   elapsed_ms: number;
   timedOut: boolean;
+  skipped?: string;
   sources: Partial<Record<OfferSource, DailySyncSourceResult>>;
   remaining_work: OfferSource[];
   wave: {
@@ -24,52 +19,29 @@ export type DailySyncResult = {
     active_source: OfferSource | null;
     waveDone: boolean;
   };
-  unit: FeedUnitResult;
 };
 
 /**
- * Seed (if needed) and drain one feed-sync work unit.
- * AI content is intentionally not generated here — content-drain handles it.
+ * Worker cron no longer paginates CPA feeds (Node/GHA does).
+ * This hook retires leftover wave state and tells callers to use sync-feeds-local.
  */
 export async function runDailySync(
-  opts: { deadlineMs?: number; forceSeed?: boolean } = {},
+  _opts: { deadlineMs?: number; forceSeed?: boolean } = {},
 ): Promise<DailySyncResult> {
   const started = Date.now();
-  void opts.deadlineMs; // kept for hook API compatibility; units are budget-isolated
-
-  await ensureWave({ force: opts.forceSeed === true });
-  const unit = await drainNextFeedUnit();
-  const state = await loadWave();
-
-  const sources: Partial<Record<OfferSource, DailySyncSourceResult>> = {};
-  if (unit.source) {
-    sources[unit.source] = {
-      sync: unit.ok ? unit.stats : { error: unit.error ?? "unknown" },
-      content: { skipped: "deferred_to_content_drain" },
-    };
-  }
-
-  const remaining_work: OfferSource[] = [
-    ...(state.active_source ? [state.active_source] : []),
-    ...state.pending,
-  ];
-
-  console.info(
-    `[sync-daily] unit source=${unit.source ?? "none"} ok=${unit.ok} waveDone=${unit.waveDone} remaining=${remaining_work.join(",") || "none"} elapsed=${Date.now() - started}ms`,
-  );
-
+  const wave = await retireFeedWave("feed sync moved to Node/GHA");
   return {
     ok: true,
     elapsed_ms: Date.now() - started,
-    timedOut: isWaveActive(state),
-    sources,
-    remaining_work,
+    timedOut: false,
+    skipped: "feed_sync_moved_to_node",
+    sources: {},
+    remaining_work: [],
     wave: {
-      wave_id: state.wave_id,
-      pending: state.pending,
-      active_source: state.active_source,
-      waveDone: !isWaveActive(state),
+      wave_id: wave.wave_id,
+      pending: [],
+      active_source: null,
+      waveDone: true,
     },
-    unit,
   };
 }

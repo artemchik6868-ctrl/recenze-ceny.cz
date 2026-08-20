@@ -1,6 +1,7 @@
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import type { OfferSource } from "./types";
-import { getFeedWaveStatus, WAVE_STALE_MS } from "./feed-sync-wave.server";
+import { getFeedWaveStatus } from "./feed-sync-wave.server";
+import { FEED_SYNC_STALE_MS } from "./feed-sync-guards";
 import { getGoogleAccessToken, GOOGLE_SCOPE_WEBMASTERS } from "./google-sa.server";
 import { getSitemapFromGsc } from "./gsc-sitemap.server";
 import {
@@ -80,6 +81,27 @@ const OFFER_STATUS_SELECT: Record<OfferSource, string> = {
 };
 
 const STALE_MS = 2 * 60 * 60 * 1000;
+
+async function loadFeedSyncedAt(): Promise<Partial<Record<OfferSource, string | null>>> {
+  const out: Partial<Record<OfferSource, string | null>> = {};
+  await Promise.all(
+    PIPELINE_SOURCES.map(async (source) => {
+      const { data, error } = await supabaseAdmin
+        .from(SOURCE_TABLES[source] as never)
+        .select("synced_at")
+        .order("synced_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      if (error) {
+        out[source] = null;
+        return;
+      }
+      out[source] = (data as { synced_at?: string | null } | null)?.synced_at ?? null;
+    }),
+  );
+  return out;
+}
+
 const RETRY_ALERT_FAIL_COUNT = QUARANTINE_AFTER_FAILS;
 const PAGE_OFFERS = 1000;
 const PAGE_CONTENT = 1000;
@@ -301,6 +323,8 @@ export type PipelineOpsSignals = {
   repeated_failures: number;
   feed_wave_error: string | null;
   feed_wave_stale: boolean;
+  feed_sync_stale: boolean;
+  feed_synced_at: Partial<Record<OfferSource, string | null>>;
   /** Hard indexing failures only (excludes IndexNow/Google 429 rate limits). */
   indexing_errors_24h: number;
   /** IndexNow/Seznam/Google rate_limited rows in last 24h (context, never pages alone). */
@@ -371,6 +395,7 @@ export type PipelineStatusResult = {
     last_error: string | null;
     stale: boolean;
   };
+  feed_synced_at?: Partial<Record<OfferSource, string | null>>;
   /** Structured signals for Telegram ops digest (low-noise). */
   ops: PipelineOpsSignals;
 };
@@ -575,15 +600,9 @@ export async function getPipelineStatus(): Promise<PipelineStatusResult> {
   const ok = totalMissingContent === 0;
 
   let feedWaveError: string | null = null;
-  let feedWaveStale = false;
   let feed_wave: PipelineStatusResult["feed_wave"];
   try {
     const wave = await getFeedWaveStatus();
-    const updatedMs = Date.parse(wave.updated_at);
-    feedWaveStale =
-      wave.active &&
-      Number.isFinite(updatedMs) &&
-      Date.now() - updatedMs > WAVE_STALE_MS;
     feedWaveError = wave.last_error;
     feed_wave = {
       active: wave.active,
@@ -594,24 +613,23 @@ export async function getPipelineStatus(): Promise<PipelineStatusResult> {
       started_at: wave.started_at,
       updated_at: wave.updated_at,
       last_error: wave.last_error,
-      stale: feedWaveStale,
+      stale: false,
     };
-    if (feedWaveStale) {
-      alerts.push(`feed-wave: stale (>${Math.round(WAVE_STALE_MS / 3600000)}h without progress)`);
-    } else if (wave.active) {
-      const parts = [
-        wave.active_source ? `active=${wave.active_source}` : null,
-        wave.pending.length ? `pending=${wave.pending.length}` : null,
-      ].filter(Boolean);
-      alerts.push(`feed-wave: in progress (${parts.join(", ")})`);
-    }
-    if (wave.last_error) {
-      alerts.push(`feed-wave: last_error=${wave.last_error}`);
-    }
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     feedWaveError = message;
-    alerts.push(`feed-wave: status failed — ${message}`);
+  }
+
+  const feed_synced_at = await loadFeedSyncedAt();
+  let feedSyncStale = false;
+  const staleHours = Math.round(FEED_SYNC_STALE_MS / 3600000);
+  for (const source of PIPELINE_SOURCES) {
+    const at = feed_synced_at[source];
+    const ts = at ? Date.parse(at) : NaN;
+    if (!Number.isFinite(ts) || Date.now() - ts > FEED_SYNC_STALE_MS) {
+      feedSyncStale = true;
+      alerts.push(`feed-sync: stale ${source} synced_at=${at ?? "never"} (>${staleHours}h)`);
+    }
   }
 
   const sinceIso = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
@@ -892,7 +910,9 @@ export async function getPipelineStatus(): Promise<PipelineStatusResult> {
     stale_content: totalStaleContent,
     repeated_failures: totalRepeatedFailures,
     feed_wave_error: feedWaveError,
-    feed_wave_stale: feedWaveStale,
+    feed_wave_stale: false,
+    feed_sync_stale: feedSyncStale,
+    feed_synced_at,
     indexing_errors_24h: indexingErrors24h,
     indexing_rate_limited_24h: indexingRateLimited24h,
     indexing_config_skips_24h: indexingConfigSkips24h,
@@ -938,6 +958,7 @@ export async function getPipelineStatus(): Promise<PipelineStatusResult> {
     },
     stuck_offers: stuckOffers,
     feed_wave,
+    feed_synced_at,
     ops,
   };
 }

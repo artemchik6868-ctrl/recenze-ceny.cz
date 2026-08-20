@@ -45,3 +45,4 @@ scripts/.cache/translate-content-es/
 scripts/.cache/translate-reviews-es/
 
 .blog-ingest-result.json
+.feed-sync-result.json

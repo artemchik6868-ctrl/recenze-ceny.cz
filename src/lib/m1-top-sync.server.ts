@@ -8,6 +8,8 @@ import { buildPartnerClassifyBlob } from "./partner-feed-text";
 import { resolveOfferSlug } from "./slugify";
 import { cleanBrandName } from "./brand-clean";
 import type { Offer } from "./types";
+import { fetchFeed } from "./feed-sync-http";
+import { deactivateMissingActiveOffers } from "./feed-sync-deactivate.server";
 
 const FEED_URL = "https://m1.top/offers_export_api/";
 
@@ -75,13 +77,12 @@ export async function fetchM1FeedJson(): Promise<M1RawOffer[]> {
     [...cookieJar.entries()].map(([k, v]) => `${k}=${v}`).join("; ");
 
   for (let hop = 0; hop < 8; hop++) {
-    const res = await fetch(url, {
+    const res = await fetchFeed(url, {
       redirect: "manual",
       headers: {
         Accept: "application/json",
         ...(cookieJar.size ? { Cookie: cookieHeader() } : {}),
       },
-      signal: AbortSignal.timeout(60_000),
     });
     const rawCookie = res.headers.getSetCookie?.() ?? [];
     const single = res.headers.get("set-cookie");
@@ -142,16 +143,7 @@ export async function syncM1TopOffers(): Promise<{
   }
 
   const ids = rows.map((r) => r.offer_id);
-  let deactivated = 0;
-  if (ids.length > 0) {
-    const { count, error } = await supabaseAdmin
-      .from("m1_offers")
-      .update({ is_active: false }, { count: "exact" })
-      .not("offer_id", "in", `(${ids.join(",")})`)
-      .eq("is_active", true);
-    if (error) throw new Error(`deactivate m1_offers: ${error.message}`);
-    deactivated = count ?? 0;
-  }
+  const { deactivated } = await deactivateMissingActiveOffers("m1_offers", ids);
 
   return {
     fetched: all.length,

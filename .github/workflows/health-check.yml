@@ -146,3 +146,61 @@ jobs:
         run: |
           mkdir -p .blog-ingest-day-marker
           date -u > .blog-ingest-day-marker/done
+
+  # Backup feed ingest: feed-sync.yml schedule may never fire (same as blog-ingest).
+  # Once per UTC day via health-check, which does receive schedule events.
+  feed_sync:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      KMA_API_KEY: ${{ secrets.KMA_API_KEY }}
+      CPAGETTI_API_TOKEN: ${{ secrets.CPAGETTI_API_TOKEN }}
+      ADCOMBO_API_KEY: ${{ secrets.ADCOMBO_API_KEY }}
+      SHAKES_API_KEY: ${{ secrets.SHAKES_API_KEY }}
+      M1_TOP_API_KEY: ${{ secrets.M1_TOP_API_KEY }}
+      M1_TOP_WEBMASTER_ID: ${{ secrets.M1_TOP_WEBMASTER_ID }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+    steps:
+      - name: UTC day key
+        id: day
+        run: echo "d=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+
+      - name: Already ran today?
+        id: gate
+        uses: actions/cache@v4
+        with:
+          path: .feed-sync-day-marker
+          key: feed-sync-${{ steps.day.outputs.d }}
+
+      - uses: actions/checkout@v4
+        if: steps.gate.outputs.cache-hit != 'true'
+
+      - uses: actions/setup-node@v4
+        if: steps.gate.outputs.cache-hit != 'true'
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        if: steps.gate.outputs.cache-hit != 'true'
+        run: npm install --no-audit --no-fund
+
+      - name: Sync CPA feeds
+        if: steps.gate.outputs.cache-hit != 'true'
+        run: |
+          echo "Backup feed-sync via health-check (day=${{ steps.day.outputs.d }})"
+          npx tsx scripts/sync-feeds-local.ts
+
+      - name: Notify Telegram
+        if: always() && steps.gate.outputs.cache-hit != 'true'
+        run: node scripts/notify-feed-sync.mjs
+
+      - name: Mark day done
+        if: steps.gate.outputs.cache-hit != 'true' && success()
+        run: |
+          mkdir -p .feed-sync-day-marker
+          date -u > .feed-sync-day-marker/done

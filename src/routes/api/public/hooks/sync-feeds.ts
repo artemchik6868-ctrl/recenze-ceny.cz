@@ -1,35 +1,25 @@
-// Feed sync + generate missing AI content per source.
+// Emergency Worker-side feed ingest. Prefer Node: `npx tsx scripts/sync-feeds-local.ts`.
+// Locked so it cannot run deactivate in parallel with GHA.
 //
-// Manual (until custom domain NS propagate):
 //   curl "https://recenze-ceny.cz/api/public/hooks/sync-feeds?secret=$HOOK_SECRET"
 
 import { createFileRoute } from "@tanstack/react-router";
-import { syncAllFeeds, PIPELINE_SOURCES } from "@/lib/content-pipeline.server";
-import { generateNewContent } from "@/lib/content-backfill.server";
+import { syncAllFeedsExclusive } from "@/lib/content-pipeline.server";
 import { checkHookSecret } from "@/lib/hook-auth";
-import { ENABLE_AI_CONTENT } from "@/lib/market";
 
 async function run(request: Request) {
   const unauthorized = checkHookSecret(request);
   if (unauthorized) return unauthorized;
 
-  const url = new URL(request.url);
-  const deadlineMs = Number(url.searchParams.get("deadline_ms") ?? "55000");
-  const perSourceMs = Math.max(15_000, Math.floor(deadlineMs / PIPELINE_SOURCES.length));
-
   try {
-    const result = await syncAllFeeds();
-    const content: Record<string, unknown> = {};
-
-    if (ENABLE_AI_CONTENT) {
-      for (const source of PIPELINE_SOURCES) {
-        if (result.sync[source] && "error" in result.sync[source]) continue;
-        content[source] = await generateNewContent(source, { deadlineMs: perSourceMs });
-      }
+    const result = await syncAllFeedsExclusive("worker:sync-feeds");
+    if (result.lock === "busy") {
+      return Response.json({ ok: false, error: "lock_busy" }, { status: 409 });
     }
-
-    console.info(`[sync-feeds] done elapsed=${result.elapsed_ms}ms`);
-    return Response.json({ ...result, content });
+    console.info(
+      `[sync-feeds] done elapsed=${result.elapsed_ms}ms failed=${result.failed.join(",") || "none"}`,
+    );
+    return Response.json(result);
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     console.error("[sync-feeds] failed:", message);

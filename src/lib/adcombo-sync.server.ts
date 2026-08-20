@@ -9,6 +9,12 @@ import { resolveOfferSlug } from "./slugify";
 import { normalizeProductTitle, cleanBrandName } from "./brand-clean";
 import { SITE } from "./site";
 import type { Offer } from "./types";
+import {
+  emptyPageBeforeEndError,
+  isFeedPageExhausted,
+} from "./feed-sync-guards";
+import { fetchFeed } from "./feed-sync-http";
+import { deactivateMissingActiveOffers } from "./feed-sync-deactivate.server";
 
 const OFFERS_URL = "https://api.adcombo.com/offer/info/";
 const ORDER_URL = "https://api.adcombo.com/api/v2/order/create/";
@@ -131,6 +137,8 @@ export type AdcomboPageCursor = {
   allowed: number;
   blocked: number;
   blockedByReason: Record<string, number>;
+  /** false after country=CZ probe returned empty/400. */
+  countryFilter?: boolean;
 };
 
 export type AdcomboSyncChunkResult = {
@@ -152,6 +160,48 @@ const ADCOMBO_PER_PAGE = 100;
 /** Pages per Worker invocation. */
 export const ADCOMBO_MAX_PAGES_PER_UNIT = 8;
 
+async function fetchAdcomboPage(
+  apiKey: string,
+  page: number,
+  countryFilter: boolean,
+): Promise<{
+  offers: AdcomboRawOffer[];
+  total: number;
+  status: number;
+  countryFilter: boolean;
+}> {
+  const buildUrl = (withCountry: boolean) => {
+    const url = new URL(OFFERS_URL);
+    url.searchParams.set("api_key", apiKey);
+    url.searchParams.set("page", String(page));
+    url.searchParams.set("per_page", String(ADCOMBO_PER_PAGE));
+    if (withCountry) url.searchParams.set("country", MARKET_GEO);
+    return url;
+  };
+
+  let useCountry = countryFilter;
+  let res = await fetchFeed(buildUrl(useCountry));
+  if (useCountry && page === 1 && (res.status === 400 || res.status === 422)) {
+    console.info("[adcombo] country=CZ not accepted — falling back to unfiltered feed");
+    useCountry = false;
+    res = await fetchFeed(buildUrl(false));
+  }
+  if (!res.ok) throw new Error(`AdCombo offers HTTP ${res.status}`);
+  const json = (await res.json()) as { offers?: AdcomboRawOffer[]; total?: number };
+  let pageOffers = json.offers ?? [];
+  let total = json.total ?? pageOffers.length;
+  if (useCountry && page === 1 && pageOffers.length === 0 && (json.total ?? 0) === 0) {
+    console.info("[adcombo] country=CZ probe empty — falling back to unfiltered feed");
+    useCountry = false;
+    res = await fetchFeed(buildUrl(false));
+    if (!res.ok) throw new Error(`AdCombo offers HTTP ${res.status}`);
+    const retry = (await res.json()) as { offers?: AdcomboRawOffer[]; total?: number };
+    pageOffers = retry.offers ?? [];
+    total = retry.total ?? pageOffers.length;
+  }
+  return { offers: pageOffers, total, status: res.status, countryFilter: useCountry };
+}
+
 export async function syncAdcomboOffersChunk(
   opts: {
     cursor?: AdcomboPageCursor | null;
@@ -170,26 +220,23 @@ export async function syncAdcomboOffersChunk(
     ...(opts.cursor?.blockedByReason ?? {}),
   };
   const offerIds = [...(opts.cursor?.offerIds ?? [])];
+  let countryFilter = opts.cursor?.countryFilter ?? true;
 
   const chunkAllowed: AdcomboRawOffer[] = [];
   let chunkPages = 0;
   let exhausted = false;
 
   for (let i = 0; i < maxPages; i++) {
-    const url = new URL(OFFERS_URL);
-    url.searchParams.set("api_key", apiKey);
-    url.searchParams.set("page", String(page));
-    url.searchParams.set("per_page", String(ADCOMBO_PER_PAGE));
-    const res = await fetch(url, {
-      headers: { Accept: "application/json", "User-Agent": "recenze-ceny-sync/1.0" },
-      signal: AbortSignal.timeout(60_000),
+    const pageResult = await fetchAdcomboPage(apiKey, page, countryFilter);
+    countryFilter = pageResult.countryFilter;
+    const pageOffers = pageResult.offers;
+    const emptyErr = emptyPageBeforeEndError({
+      offset: (page - 1) * ADCOMBO_PER_PAGE,
+      pageLength: pageOffers.length,
+      total: pageResult.total,
     });
-    if (!res.ok) throw new Error(`AdCombo offers HTTP ${res.status}`);
-    const json = (await res.json()) as {
-      offers?: AdcomboRawOffer[];
-      total?: number;
-    };
-    const pageOffers = json.offers ?? [];
+    if (emptyErr) throw new Error(`AdCombo feed: ${emptyErr}`);
+
     chunkPages += 1;
     fetched += pageOffers.length;
 
@@ -208,8 +255,15 @@ export async function syncAdcomboOffersChunk(
       });
     }
 
-    const total = json.total ?? pageOffers.length;
-    if (pageOffers.length < ADCOMBO_PER_PAGE || page * ADCOMBO_PER_PAGE >= total) {
+    if (
+      isFeedPageExhausted({
+        httpStatus: pageResult.status,
+        pageLength: pageOffers.length,
+        pageSize: ADCOMBO_PER_PAGE,
+        offset: (page - 1) * ADCOMBO_PER_PAGE,
+        total: pageResult.total,
+      })
+    ) {
       exhausted = true;
       break;
     }
@@ -241,14 +295,9 @@ export async function syncAdcomboOffersChunk(
 
   const done = exhausted;
   let deactivated = 0;
-  if (done && offerIds.length > 0) {
-    const { count, error } = await supabaseAdmin
-      .from("adcombo_offers")
-      .update({ is_active: false }, { count: "exact" })
-      .not("offer_id", "in", `(${offerIds.join(",")})`)
-      .eq("is_active", true);
-    if (error) throw new Error(`deactivate adcombo_offers: ${error.message}`);
-    deactivated = count ?? 0;
+  if (done) {
+    const d = await deactivateMissingActiveOffers("adcombo_offers", offerIds);
+    deactivated = d.deactivated;
   }
 
   if (blocked > 0 && done) {
@@ -281,6 +330,7 @@ export async function syncAdcomboOffersChunk(
       allowed: allowedCount,
       blocked,
       blockedByReason,
+      countryFilter,
     },
     stats,
   };

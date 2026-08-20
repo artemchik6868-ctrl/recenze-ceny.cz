@@ -4,7 +4,7 @@ import { runDailySync } from "@/lib/sync-daily.server";
 export default defineTask({
   meta: {
     name: "sync-daily",
-    description: "Seed/drain one feed-sync wave unit (AI via content-drain)",
+    description: "No-op: feed ingest moved to Node/GHA; retires leftover wave",
   },
   async run({ context }) {
     const promise = runDailySync();

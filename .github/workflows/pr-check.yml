@@ -34,3 +34,9 @@ jobs:
 
       - name: SEO meta unit tests (CZ)
         run: npm run test:seo-meta-cz
+
+      - name: Feed-sync guard unit tests
+        run: npm run test:feed-sync-guards
+
+      - name: Ops issue builder tests
+        run: npm run test:ops-build-issues

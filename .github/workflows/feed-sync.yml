@@ -1,0 +1,41 @@
+# Daily offline CPA feed ingest (keeps Worker free of partner pagination).
+# GitHub schedule is best-effort; health-check.yml also runs this once per UTC day.
+name: Feed sync
+
+on:
+  schedule:
+    - cron: "12 2 * * *"
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      KMA_API_KEY: ${{ secrets.KMA_API_KEY }}
+      CPAGETTI_API_TOKEN: ${{ secrets.CPAGETTI_API_TOKEN }}
+      ADCOMBO_API_KEY: ${{ secrets.ADCOMBO_API_KEY }}
+      SHAKES_API_KEY: ${{ secrets.SHAKES_API_KEY }}
+      M1_TOP_API_KEY: ${{ secrets.M1_TOP_API_KEY }}
+      M1_TOP_WEBMASTER_ID: ${{ secrets.M1_TOP_WEBMASTER_ID }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Sync CPA feeds
+        run: npx tsx scripts/sync-feeds-local.ts
+
+      - name: Notify Telegram
+        if: always()
+        run: node scripts/notify-feed-sync.mjs

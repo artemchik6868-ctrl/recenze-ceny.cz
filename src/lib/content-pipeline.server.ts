@@ -14,6 +14,8 @@ import {
   regenMissingReviews,
   type GenerateNewContentResult,
 } from "./content-backfill.server";
+import { tryAcquireFeedSyncLock, releaseFeedSyncLock } from "./feed-sync-lock.server";
+import { feedSyncSourceHasError } from "./feed-sync-guards";
 import type { OfferSource } from "./types";
 
 /** Wall time needed so generateNewContent's claim gate (MIN_CONTENT_OFFER_MS) can fire. */
@@ -174,6 +176,38 @@ export async function syncAllFeeds(): Promise<SyncFeedsResult> {
   }
 
   return { ok: true, elapsed_ms: Date.now() - started, sync };
+}
+
+export type ExclusiveSyncFeedsResult = SyncFeedsResult & {
+  lock: "acquired" | "busy";
+  failed: OfferSource[];
+};
+
+/** Full ingest with a DB lock so GHA and Worker hooks cannot deactivate together. */
+export async function syncAllFeedsExclusive(
+  holder: string,
+): Promise<ExclusiveSyncFeedsResult> {
+  const acquired = await tryAcquireFeedSyncLock(holder);
+  if (!acquired) {
+    const sync: SyncFeedsResult["sync"] = {
+      cpa_tl: {},
+      kma: {},
+      m1_top: {},
+      cpagetti: {},
+      adcombo: {},
+      shakes: {},
+    };
+    return { ok: true, elapsed_ms: 0, sync, lock: "busy", failed: [] };
+  }
+  try {
+    const result = await syncAllFeeds();
+    const failed = PIPELINE_SOURCES.filter((source) =>
+      feedSyncSourceHasError(result.sync[source]),
+    );
+    return { ...result, lock: "acquired", failed };
+  } finally {
+    await releaseFeedSyncLock(holder);
+  }
 }
 
 /** Sync one source then generate missing AI content (sync → generate → done). */

@@ -8,6 +8,13 @@ import { buildPartnerClassifyBlob } from "./partner-feed-text";
 import { resolveOfferSlug } from "./slugify";
 import { normalizeProductTitle, cleanBrandName } from "./brand-clean";
 import type { Offer } from "./types";
+import {
+  emptyPageBeforeEndError,
+  isFeedPageExhausted,
+  parseCpagettiFeedJson,
+} from "./feed-sync-guards";
+import { fetchFeed } from "./feed-sync-http";
+import { deactivateMissingActiveOffers } from "./feed-sync-deactivate.server";
 
 
 const FEED_URL = "https://api.cpagetti.com/wm/offers";
@@ -75,38 +82,27 @@ function isAllowed(o: CpagettiRawOffer): boolean {
   return true;
 }
 
-async function fetchPage(token: string, offset: number, limit: number) {
+async function fetchCpagettiPage(
+  token: string,
+  offset: number,
+  limit: number,
+  geoFilter: boolean,
+): Promise<{ offers: CpagettiRawOffer[]; total: number | null; status: number }> {
   const url = new URL(FEED_URL);
   url.searchParams.set("token", token);
   url.searchParams.set("lang", "ru");
   url.searchParams.set("limit", String(limit));
   url.searchParams.set("offset", String(offset));
-  const fullUrl = url.toString();
-  console.log(`[cpagetti] GET ${fullUrl.replace(token, "***")} tokenLen=${token.length}`);
-  const res = await fetch(fullUrl, {
-    headers: {
-      Accept: "application/json",
-      "User-Agent": "recenze-ceny-sync/1.0",
-    },
-    signal: AbortSignal.timeout(60_000),
-  });
-  console.log(`[cpagetti] status=${res.status} ct=${res.headers.get("content-type")}`);
+  if (geoFilter) url.searchParams.set("geo", MARKET_GEO);
+  const res = await fetchFeed(url.toString());
   if (!res.ok) throw new Error(`CPAgetti feed HTTP ${res.status}`);
   const text = await res.text();
-  let json: { response?: Record<string, CpagettiRawOffer> | unknown[]; info?: { total?: number | string } } = {};
-  try {
-    json = JSON.parse(text);
-  } catch {
-    console.error("[cpagetti] non-JSON response:", text.slice(0, 300));
-    return [];
-  }
-  console.log(
-    `[cpagetti] fetched offset=${offset} total=${json?.info?.total} respType=${Array.isArray(json?.response) ? "array" : typeof json?.response} keys=${json?.response && typeof json.response === "object" ? Object.keys(json.response).length : 0}`,
-  );
-  const resp = json?.response;
-  if (Array.isArray(resp)) return resp as CpagettiRawOffer[];
-  if (resp && typeof resp === "object") return Object.values(resp as Record<string, CpagettiRawOffer>);
-  return [];
+  const parsed = parseCpagettiFeedJson(text);
+  return {
+    offers: parsed.offers as CpagettiRawOffer[],
+    total: parsed.total,
+    status: res.status,
+  };
 }
 
 type CpagettiRow = {
@@ -128,6 +124,8 @@ export type FeedPageCursor = {
   offerIds: number[];
   fetched: number;
   allowed: number;
+  /** false after geo=CZ probe returned an empty catalog (API ignored/broke filter). */
+  geoFilter?: boolean;
 };
 
 export type SyncChunkResult = {
@@ -162,10 +160,11 @@ export async function syncCpagettiOffersChunk(
   let fetched = opts.cursor?.fetched ?? 0;
   let allowedCount = opts.cursor?.allowed ?? 0;
   const offerIds = [...(opts.cursor?.offerIds ?? [])];
+  let geoFilter = opts.cursor?.geoFilter ?? true;
   const debug: {
     tokenLen: number;
     firstPageSample: unknown;
-    pages: Array<{ offset: number; count: number; status?: number }>;
+    pages: Array<{ offset: number; count: number; status?: number; geoFilter?: boolean }>;
   } = {
     tokenLen: token.length,
     firstPageSample: null,
@@ -177,35 +176,41 @@ export async function syncCpagettiOffersChunk(
   let exhausted = false;
 
   for (let i = 0; i < maxPages; i++) {
-    const url = new URL(FEED_URL);
-    url.searchParams.set("token", token);
-    url.searchParams.set("lang", "ru");
-    url.searchParams.set("limit", String(PAGE_SIZE));
-    url.searchParams.set("offset", String(offset));
-    const res = await fetch(url.toString(), {
-      headers: { Accept: "application/json", "User-Agent": "recenze-ceny-sync/1.0" },
-      signal: AbortSignal.timeout(60_000),
-    });
-    const text = await res.text();
-    let page: CpagettiRawOffer[] = [];
-    let parsed: { response?: unknown; info?: { total?: number | string } } = {};
-    try {
-      parsed = JSON.parse(text);
-      const resp = parsed?.response;
-      if (Array.isArray(resp)) page = resp as CpagettiRawOffer[];
-      else if (resp && typeof resp === "object")
-        page = Object.values(resp as Record<string, CpagettiRawOffer>);
-    } catch {
-      /* ignore */
+    let pageResult = await fetchCpagettiPage(token, offset, PAGE_SIZE, geoFilter);
+    if (
+      geoFilter &&
+      offset === 0 &&
+      chunkPages === 0 &&
+      pageResult.offers.length === 0 &&
+      (pageResult.total == null || pageResult.total === 0)
+    ) {
+      console.info("[cpagetti] geo=CZ probe empty — falling back to unfiltered feed");
+      geoFilter = false;
+      pageResult = await fetchCpagettiPage(token, offset, PAGE_SIZE, false);
     }
+
+    const page = pageResult.offers;
+    const emptyErr = emptyPageBeforeEndError({
+      offset,
+      pageLength: page.length,
+      total: pageResult.total,
+    });
+    if (emptyErr) throw new Error(`CPAgetti feed: ${emptyErr}`);
+
     if (chunkPages === 0 && !opts.cursor) {
       debug.firstPageSample = {
-        status: res.status,
-        total: parsed?.info?.total,
-        bodyHead: text.slice(0, 400),
+        status: pageResult.status,
+        total: pageResult.total,
+        count: page.length,
+        geoFilter,
       };
     }
-    debug.pages.push({ offset, count: page.length, status: res.status });
+    debug.pages.push({
+      offset,
+      count: page.length,
+      status: pageResult.status,
+      geoFilter,
+    });
     chunkPages += 1;
     fetched += page.length;
     for (const o of page) {
@@ -214,7 +219,15 @@ export async function syncCpagettiOffersChunk(
       if (!isAllowed(o)) continue;
       chunkAllowed.push({ ...o, in_geo: inGeo });
     }
-    if (page.length < PAGE_SIZE) {
+    if (
+      isFeedPageExhausted({
+        httpStatus: pageResult.status,
+        pageLength: page.length,
+        pageSize: PAGE_SIZE,
+        offset,
+        total: pageResult.total,
+      })
+    ) {
       exhausted = true;
       break;
     }
@@ -247,14 +260,9 @@ export async function syncCpagettiOffersChunk(
 
   const done = exhausted;
   let deactivated = 0;
-  if (done && offerIds.length > 0) {
-    const { count, error } = await supabaseAdmin
-      .from("cpagetti_offers")
-      .update({ is_active: false }, { count: "exact" })
-      .not("offer_id", "in", `(${offerIds.join(",")})`)
-      .eq("is_active", true);
-    if (error) throw new Error(`deactivate cpagetti_offers: ${error.message}`);
-    deactivated = count ?? 0;
+  if (done) {
+    const d = await deactivateMissingActiveOffers("cpagetti_offers", offerIds);
+    deactivated = d.deactivated;
   }
 
   const stats = {
@@ -279,6 +287,7 @@ export async function syncCpagettiOffersChunk(
       offerIds,
       fetched,
       allowed: allowedCount,
+      geoFilter,
     },
     stats,
   };

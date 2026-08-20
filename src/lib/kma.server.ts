@@ -6,6 +6,8 @@ import { classifyByText, classifyTitleFirst } from "./classify";
 import { resolveOfferSlug } from "./slugify";
 import { cleanBrandName } from "./brand-clean";
 import type { Offer } from "./types";
+import { fetchFeed } from "./feed-sync-http";
+import { deactivateMissingActiveOffers } from "./feed-sync-deactivate.server";
 
 
 const KMA_BASE = "https://api.kma.biz";
@@ -90,10 +92,7 @@ export async function syncKmaOffers(): Promise<{
   if (!token) throw new Error("KMA_API_KEY not configured");
 
   const url = `${KMA_BASE}/?method=getoffers&token=${encodeURIComponent(token)}&return_type=json`;
-  const res = await fetch(url, {
-    headers: { Accept: "application/json" },
-    signal: AbortSignal.timeout(60_000),
-  });
+  const res = await fetchFeed(url);
   if (!res.ok) throw new Error(`KMA getoffers HTTP ${res.status}`);
   const json = (await res.json()) as GetOffersResponse;
   if (json.code !== 0) throw new Error(`KMA error: ${json.msg || json.code}`);
@@ -127,16 +126,7 @@ export async function syncKmaOffers(): Promise<{
   }
 
   const ids = rows.map((r) => r.offer_id);
-  let deactivated = 0;
-  if (ids.length > 0) {
-    const { count, error } = await supabaseAdmin
-      .from("kma_offers")
-      .update({ is_active: false }, { count: "exact" })
-      .not("offer_id", "in", `(${ids.join(",")})`)
-      .eq("is_active", true);
-    if (error) throw new Error(`deactivate kma_offers: ${error.message}`);
-    deactivated = count ?? 0;
-  }
+  const { deactivated } = await deactivateMissingActiveOffers("kma_offers", ids);
 
   return {
     fetched: all.length,

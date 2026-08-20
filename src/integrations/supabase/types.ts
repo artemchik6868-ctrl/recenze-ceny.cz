@@ -146,6 +146,27 @@ export type Database = {
         }
         Relationships: []
       }
+      feed_sync_lock: {
+        Row: {
+          expires_at: string
+          holder: string | null
+          id: number
+          locked_at: string | null
+        }
+        Insert: {
+          expires_at?: string
+          holder?: string | null
+          id?: number
+          locked_at?: string | null
+        }
+        Update: {
+          expires_at?: string
+          holder?: string | null
+          id?: number
+          locked_at?: string | null
+        }
+        Relationships: []
+      }
       pipeline_feed_wave: {
         Row: {
           id: number
