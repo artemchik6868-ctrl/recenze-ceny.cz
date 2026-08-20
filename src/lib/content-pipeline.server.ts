@@ -8,7 +8,7 @@ import {
   generateNewContent,
   listMissingActiveOfferIdsBounded,
   BOUNDED_MISSING_DRAIN_LIMIT,
-  BOUNDED_MISSING_PROBE_CAP,
+  BOUNDED_MISSING_SCAN_CAP,
   MIN_CONTENT_OFFER_MS,
   purgeContaminatedRows,
   regenMissingReviews,
@@ -18,14 +18,14 @@ import { tryAcquireFeedSyncLock, releaseFeedSyncLock } from "./feed-sync-lock.se
 import { feedSyncSourceHasError, feedSyncSourceIsIncomplete } from "./feed-sync-guards";
 import type { OfferSource } from "./types";
 
-/** Wall time needed so generateNewContent's claim gate (MIN_CONTENT_OFFER_MS) can fire. */
-export const MIN_SOURCE_DRAIN_MS = MIN_CONTENT_OFFER_MS + 8_000;
+/** Do not start a source unless one claim+LLM still fits after generateNewContent setup. */
+export const SOURCE_DRAIN_SLOT_MS = MIN_CONTENT_OFFER_MS + 40_000;
 
 /**
- * One fair slot per source in a round-robin pass — enough for a single claim.
- * Full remaining budget is no longer given to the first source in PIPELINE_SOURCES order.
+ * Floor to enter a source. Same as the slot: a 58s slice used to pass this
+ * check then miss the 50s claim gate after ~15s of row/facts loading.
  */
-export const SOURCE_DRAIN_SLOT_MS = MIN_SOURCE_DRAIN_MS;
+export const MIN_SOURCE_DRAIN_MS = SOURCE_DRAIN_SLOT_MS;
 
 /**
  * Per-source deadline for generateNewContent given remaining wall ms.
@@ -36,11 +36,26 @@ export function sourceDrainDeadlineMs(remainingMs: number): number | null {
   return remainingMs - 1000;
 }
 
+/** One source slot — do not give the leftover 180s wall to the first backlog. */
+export function sourceSlotDeadlineMs(remainingMs: number): number | null {
+  return sourceDrainDeadlineMs(Math.min(remainingMs, SOURCE_DRAIN_SLOT_MS));
+}
+
 /** Rotate source list so startIndex is first (fair multi-source drain). */
 export function rotateSourcesFrom<T>(sources: readonly T[], startIndex: number): T[] {
   if (sources.length === 0) return [];
   const i = ((startIndex % sources.length) + sources.length) % sources.length;
   return [...sources.slice(i), ...sources.slice(0, i)];
+}
+
+/**
+ * Prefer small bounded holes (m1/shakes never_claimed) over a fat source window.
+ * Tie-break: original `found` order (already rotated).
+ */
+export function rankDrainSourcesByBacklog<T extends { count: number }>(
+  found: readonly T[],
+): T[] {
+  return [...found].sort((a, b) => a.count - b.count);
 }
 
 /**
@@ -251,11 +266,9 @@ export type RetryMissingContentResult = {
 /**
  * Safety retry for sources with missing content.
  *
- * Fair multi-source: rotate start so m1/shakes are not always last and give
- * each source at most one full claim slot per Worker invocation.
- * Each slot allows facts warm + claim + generate for one source, which avoids
- * both the old "single source per tick" starvation pattern and CF subrequest
- * spikes from repeatedly revisiting the same hot source in one request.
+ * 1) Sequential list (one bounded window per source — no 6-way probe burst).
+ * 2) Rank small backlogs first so m1/shakes never_claimed beat fat cpagetti.
+ * 3) One SOURCE_DRAIN_SLOT_MS generate per source, no early return.
  */
 export async function retryMissingContent(
   opts: { deadlineMs?: number; sources?: OfferSource[]; nowMs?: number } = {},
@@ -267,63 +280,85 @@ export async function retryMissingContent(
   const slots: RetryMissingContentResult["slots"] = [];
   let totalGenerated = 0;
   let totalFailed = 0;
+  let totalMissing = 0;
 
-  // Rotate for fairness, then drain **one** source per invoke.
-  // Probing all six windows first still blows the CF ~50 subrequest cap.
   const order = rotateSourcesFrom(
     sourceList,
     drainRoundStartIndex(opts.nowMs ?? Date.now(), sourceList.length),
   );
 
+  const found: Array<{ source: OfferSource; offerIds: number[]; count: number }> = [];
   for (const source of order) {
     const remainingMs = deadlineMs - (Date.now() - started);
-    const sourceDeadlineMs = sourceDrainDeadlineMs(remainingMs);
+    if (sourceSlotDeadlineMs(remainingMs) == null) break;
+    try {
+      const offerIds = await listMissingActiveOfferIdsBounded(source, {
+        limit: BOUNDED_MISSING_DRAIN_LIMIT,
+        scanCap: BOUNDED_MISSING_SCAN_CAP,
+        oldestFirst: true,
+      });
+      if (offerIds.length > 0) {
+        found.push({ source, offerIds, count: offerIds.length });
+      }
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      console.error(`[retry-missing] ${source} list failed: ${message}`);
+      break;
+    }
+  }
+
+  for (const { source, offerIds } of rankDrainSourcesByBacklog(found)) {
+    const remainingMs = deadlineMs - (Date.now() - started);
+    const sourceDeadlineMs = sourceSlotDeadlineMs(remainingMs);
     if (sourceDeadlineMs == null) break;
 
-    const offerIds = await listMissingActiveOfferIdsBounded(source, {
-      limit: BOUNDED_MISSING_DRAIN_LIMIT,
-      scanCap: BOUNDED_MISSING_PROBE_CAP,
-    });
-    if (offerIds.length === 0) continue;
-
-    const result = await generateNewContent(source, {
-      deadlineMs: sourceDeadlineMs,
-      offerIds,
-      allowWarmFactsBeforeClaim: true,
-      maxRounds: 1,
-    });
-    sources[source] = result;
-    totalGenerated += result.content.totalGenerated;
-    totalFailed += result.content.totalFailed;
-    slots.push({
-      source,
-      backlogBefore: offerIds.length,
-      backlogAfter: result.missingRemaining,
-      slot_ms: remainingMs,
-      warmedFacts: result.content.rounds.reduce((sum, round) => sum + (round.warmedFacts ?? 0), 0),
-    });
-    console.info(
-      `[retry-missing] ${source} generated=${result.content.totalGenerated} failed=${result.content.totalFailed} remaining=${result.missingRemaining} backlog=${offerIds.length}`,
-    );
-    return {
-      ok: true,
-      elapsed_ms: Date.now() - started,
-      totalGenerated,
-      totalFailed,
-      totalMissing: result.missingRemaining,
-      sources,
-      slots,
-    };
+    try {
+      const result = await generateNewContent(source, {
+        deadlineMs: sourceDeadlineMs,
+        offerIds,
+        allowWarmFactsBeforeClaim: true,
+        maxRounds: 1,
+      });
+      sources[source] = result;
+      totalGenerated += result.content.totalGenerated;
+      totalFailed += result.content.totalFailed;
+      totalMissing += result.missingRemaining;
+      const warmedFacts = result.content.rounds.reduce(
+        (sum, round) => sum + (round.warmedFacts ?? 0),
+        0,
+      );
+      slots.push({
+        source,
+        backlogBefore: offerIds.length,
+        backlogAfter: result.missingRemaining,
+        slot_ms: remainingMs,
+        warmedFacts,
+      });
+      console.info(
+        `[retry-missing] ${source} generated=${result.content.totalGenerated} failed=${result.content.totalFailed} remaining=${result.missingRemaining} backlog=${offerIds.length}`,
+      );
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      console.error(`[retry-missing] ${source} threw: ${message}`);
+      totalFailed += 1;
+      slots.push({
+        source,
+        backlogBefore: offerIds.length,
+        backlogAfter: offerIds.length,
+        slot_ms: remainingMs,
+        warmedFacts: 0,
+      });
+    }
   }
 
   return {
     ok: true,
     elapsed_ms: Date.now() - started,
-    totalGenerated: 0,
-    totalFailed: 0,
-    totalMissing: 0,
-    sources: {},
-    slots: [],
+    totalGenerated,
+    totalFailed,
+    totalMissing,
+    sources,
+    slots,
   };
 }
 

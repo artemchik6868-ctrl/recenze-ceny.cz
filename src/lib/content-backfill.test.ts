@@ -5,6 +5,7 @@ import {
   computeDrainPriority,
   CONTENT_STALE_MS,
   capScanWindow,
+  collectIncompleteFromPages,
   filterIncompleteOfferIds,
   isIndexContentComplete,
   selectStaleLockCandidates,
@@ -185,6 +186,32 @@ ok("drain priority: stale synced_at gets boost in drainMode", () => {
   assert.ok(stale < fresh, `stale ${stale} should sort before fresh ${fresh}`);
 });
 
+ok("drain priority: factsAttempted beats age-bypass twin in drainMode", () => {
+  const now = Date.now();
+  const stale = new Date(now - CONTENT_STALE_MS - 1000).toISOString();
+  const bypass = computeDrainPriority({
+    missingContent: true,
+    bareMissing: true,
+    failCount: 0,
+    missingQa: false,
+    syncedAt: stale,
+    nowMs: now,
+    drainMode: true,
+    factsAttempted: false,
+  });
+  const attempted = computeDrainPriority({
+    missingContent: true,
+    bareMissing: true,
+    failCount: 0,
+    missingQa: false,
+    syncedAt: stale,
+    nowMs: now,
+    drainMode: true,
+    factsAttempted: true,
+  });
+  assert.ok(attempted < bypass, `attempted ${attempted} should sort before bypass ${bypass}`);
+});
+
 ok("compareDrainOfferOrder: oldest synced_at first on equal priority", () => {
   const ids = [
     { priority: 0, syncedAt: "2026-08-06T12:00:00.000Z", id: 3 },
@@ -231,6 +258,24 @@ ok("capScanWindow stops before enumerating a large catalog", () => {
   assert.deepEqual(capScanWindow(ids, 200), ids.slice(0, 200));
   assert.deepEqual(capScanWindow([1, 2, 3], 200), [1, 2, 3]);
   assert.deepEqual(capScanWindow(ids, 0), []);
+});
+
+ok("collectIncompleteFromPages: newest-24 miss vs scan-until-missing", () => {
+  const newestComplete = Array.from({ length: 24 }, (_, i) => 9000 + i);
+  const older = [7351, 7352, 8001];
+  const complete = new Set(newestComplete);
+  assert.deepEqual(
+    collectIncompleteFromPages([newestComplete], complete, { limit: 8, scanCap: 24 }),
+    [],
+  );
+  assert.deepEqual(
+    collectIncompleteFromPages([newestComplete, older], complete, { limit: 8, scanCap: 200 }),
+    [7351, 7352, 8001],
+  );
+  assert.deepEqual(
+    collectIncompleteFromPages([older], complete, { limit: 2, scanCap: 200 }),
+    [7351, 7352],
+  );
 });
 
 ok("selectStaleLockCandidates caps and skips cooldown residue", () => {

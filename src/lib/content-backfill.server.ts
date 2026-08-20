@@ -23,6 +23,7 @@ import { ENABLE_AI_CONTENT } from "./market";
 import { isImageFactsEnabled } from "./image-facts";
 import {
   hasExtractableLandingForSource,
+  isFactsExtractionAttempted,
   isLandingFactsContentSource,
   offerFactsReadyForContent,
 } from "./offer-facts-ready";
@@ -96,6 +97,8 @@ export function computeDrainPriority(opts: {
   syncedAt?: string | null;
   nowMs?: number;
   drainMode?: boolean;
+  /** Drain: prefer offers whose landing/image rows already exist over age-bypass warm. */
+  factsAttempted?: boolean;
 }): number {
   const now = opts.nowMs ?? Date.now();
   const syncTs = opts.syncedAt ? Date.parse(opts.syncedAt) : NaN;
@@ -107,6 +110,7 @@ export function computeDrainPriority(opts: {
     (opts.bareMissing ? -20 : 0) +
     (opts.missingContent ? -10 : 0) +
     (isStaleSync ? -15 : 0) +
+    (opts.drainMode === true && opts.factsAttempted === true ? -8 : 0) +
     (opts.regenStaleComplete ? -5 : 0) +
     (opts.missingQa ? 0 : 5) +
     opts.failCount * 25 +
@@ -314,7 +318,7 @@ export function isIndexContentComplete(row: {
   return Boolean(row.display_title_uk && faqLen >= 3);
 }
 
-/** Newest-first window: keep only IDs without complete AI, up to limit. */
+/** Keep only IDs without complete AI, up to limit. */
 export function filterIncompleteOfferIds(
   windowIds: readonly number[],
   haveComplete: ReadonlySet<number>,
@@ -325,6 +329,32 @@ export function filterIncompleteOfferIds(
     if (haveComplete.has(id)) continue;
     missing.push(id);
     if (limit != null && missing.length >= limit) break;
+  }
+  return missing;
+}
+
+/**
+ * Walk offer pages until `limit` incomplete IDs or `scanCap` rows (not “N newest actives”).
+ * Pages must already be in drain order (oldest-first for stale never_claimed).
+ */
+export function collectIncompleteFromPages(
+  pages: readonly ReadonlyArray<number>[],
+  haveComplete: ReadonlySet<number>,
+  opts: { limit: number; scanCap: number },
+): number[] {
+  const missing: number[] = [];
+  let scanned = 0;
+  const limit = Math.max(0, opts.limit);
+  const scanCap = Math.max(0, opts.scanCap);
+  if (limit <= 0 || scanCap <= 0) return [];
+  for (const page of pages) {
+    for (const id of page) {
+      if (scanned >= scanCap) return missing;
+      scanned += 1;
+      if (haveComplete.has(id)) continue;
+      missing.push(id);
+      if (missing.length >= limit) return missing;
+    }
   }
   return missing;
 }
@@ -681,27 +711,29 @@ async function loadContentCompletionForIds(
 }
 
 /**
- * Newest-active missing AI IDs without paging the whole catalog.
- * scanCap IDs max, then one content .in() per 100 ids.
+ * Missing AI IDs without paging the whole catalog.
+ * Scans up to scanCap active rows (oldest-first by default) until `limit` incomplete.
  */
 export async function listMissingActiveOfferIdsBounded(
   source: OfferSource,
-  opts?: { limit?: number; scanCap?: number },
+  opts?: { limit?: number; scanCap?: number; oldestFirst?: boolean },
 ): Promise<number[]> {
   const limit = opts?.limit ?? BOUNDED_MISSING_DRAIN_LIMIT;
   const scanCap = opts?.scanCap ?? BOUNDED_MISSING_SCAN_CAP;
+  const oldestFirst = opts?.oldestFirst !== false;
   if (limit <= 0 || scanCap <= 0) return [];
 
-  const windowIds: number[] = [];
+  const missing: number[] = [];
   let from = 0;
-  while (windowIds.length < scanCap) {
-    const take = Math.min(BOUNDED_MISSING_PAGE_SIZE, scanCap - windowIds.length);
+  let scanned = 0;
+  while (scanned < scanCap && missing.length < limit) {
+    const take = Math.min(BOUNDED_MISSING_PAGE_SIZE, scanCap - scanned);
     const { data, error } = await supabaseAdmin
       .from(TABLE[source])
       .select("offer_id")
       .eq("is_active", true)
-      .order("synced_at", { ascending: false })
-      .order("offer_id", { ascending: false })
+      .order("synced_at", { ascending: oldestFirst })
+      .order("offer_id", { ascending: oldestFirst })
       .range(from, from + take - 1);
     if (error) {
       console.warn(`[backfill:${source}] bounded offers failed:`, error.message);
@@ -711,13 +743,18 @@ export async function listMissingActiveOfferIdsBounded(
       .map((r) => Number((r as { offer_id: number }).offer_id))
       .filter((id) => Number.isFinite(id));
     if (page.length === 0) break;
-    windowIds.push(...page);
+    scanned += page.length;
+    const { complete } = await loadContentCompletionForIds(source, page);
+    missing.push(
+      ...collectIncompleteFromPages([page], complete, {
+        limit: limit - missing.length,
+        scanCap: page.length,
+      }),
+    );
     if (page.length < take) break;
     from += take;
   }
-
-  const { complete } = await loadContentCompletionForIds(source, windowIds);
-  return filterIncompleteOfferIds(windowIds, complete, limit);
+  return missing.slice(0, limit);
 }
 
 async function loadActiveOfferRows(source: OfferSource): Promise<BackfillOfferRow[]> {
@@ -892,6 +929,19 @@ export async function generateMissingContent(
     targetOfferIds = offerIds.filter((id) => !haveHi.has(id));
   }
   const nowMs = Date.now();
+  const imageFactsEnabled = isImageFactsEnabled();
+  const landingStatuses = await loadLandingFactsStatuses(source, targetOfferIds);
+  const imageStatuses = await loadImageFactsStatuses(source, targetOfferIds);
+  const factsAttempted = (id: number): boolean => {
+    const row = offerById.get(id);
+    const landingNeeded = hasExtractableLandingForSource(source, row?.raw);
+    const landingOk =
+      !landingNeeded || isFactsExtractionAttempted(landingStatuses.get(id));
+    const imageNeeded = imageFactsEnabled && Boolean(offerImageUrl(source, row));
+    const imageOk =
+      !imageNeeded || isFactsExtractionAttempted(imageStatuses.get(id));
+    return landingOk && imageOk;
+  };
   const oldestFirst = opts.drainMode === true || opts.onlyMissing === true;
   targetOfferIds.sort((a, b) => {
     const pa = computeDrainPriority({
@@ -903,6 +953,7 @@ export async function generateMissingContent(
       syncedAt: offerById.get(a)?.synced_at,
       nowMs,
       drainMode: opts.drainMode === true,
+      factsAttempted: factsAttempted(a),
     });
     const pb = computeDrainPriority({
       missingContent: !haveHi.has(b),
@@ -913,6 +964,7 @@ export async function generateMissingContent(
       syncedAt: offerById.get(b)?.synced_at,
       nowMs,
       drainMode: opts.drainMode === true,
+      factsAttempted: factsAttempted(b),
     });
     if (oldestFirst) {
       return compareDrainOfferOrder(
@@ -928,9 +980,6 @@ export async function generateMissingContent(
     targetOfferIds = targetOfferIds.slice(opts.startOffset);
   }
 
-  const imageFactsEnabled = isImageFactsEnabled();
-  const landingStatuses = await loadLandingFactsStatuses(source, targetOfferIds);
-  const imageStatuses = await loadImageFactsStatuses(source, targetOfferIds);
   const refreshFactsStatuses = async (id: number): Promise<void> => {
     const [landing, image] = await Promise.all([
       loadLandingFactsStatuses(source, [id]),

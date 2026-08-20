@@ -8,6 +8,8 @@ import {
   rotateSourcesFrom,
   SOURCE_DRAIN_SLOT_MS,
   sourceDrainDeadlineMs,
+  sourceSlotDeadlineMs,
+  rankDrainSourcesByBacklog,
 } from "./content-pipeline.server";
 import { MIN_CONTENT_OFFER_MS } from "./content-backfill.server";
 import type { GenerateNewContentResult } from "./content-backfill.server";
@@ -51,17 +53,27 @@ ok("legacy even-split of many sources would starve the claim gate", () => {
   assert.equal(sourceDrainDeadlineMs(even), null);
 });
 
-ok("SOURCE_DRAIN_SLOT_MS is large enough for one claim", () => {
+ok("SOURCE_DRAIN_SLOT_MS is large enough for one claim after setup", () => {
   assert.ok(SOURCE_DRAIN_SLOT_MS >= MIN_SOURCE_DRAIN_MS);
   const slotDeadline = sourceDrainDeadlineMs(SOURCE_DRAIN_SLOT_MS);
   assert.ok(slotDeadline != null);
   assert.ok(slotDeadline! - 3500 >= MIN_CONTENT_OFFER_MS);
+  const afterSetup = slotDeadline! - 3500 - 15_000;
+  assert.ok(
+    afterSetup >= MIN_CONTENT_OFFER_MS,
+    `after 15s setup ${afterSetup} < claim gate ${MIN_CONTENT_OFFER_MS}`,
+  );
 });
 
-ok("with 180s budget and 3 sources, each gets a full claim slot", () => {
-  // Three round-robin slots of SOURCE_DRAIN_SLOT_MS fit in CONTENT_DRAIN_DEADLINE_MS.
+ok("58s historical slot misses claim gate after 15s setup", () => {
+  const historical = MIN_CONTENT_OFFER_MS + 8_000;
+  const afterSetup = historical - 1000 - 3500 - 15_000;
+  assert.ok(afterSetup < MIN_CONTENT_OFFER_MS);
+});
+
+ok("with 180s budget two 90s slots fit (3×58s could not claim)", () => {
   const slots = Math.floor(CONTENT_DRAIN_DEADLINE_MS / SOURCE_DRAIN_SLOT_MS);
-  assert.ok(slots >= 3, `expected ≥3 slots, got ${slots}`);
+  assert.ok(slots >= 2, `expected ≥2 slots, got ${slots}`);
 });
 
 ok("rotateSourcesFrom moves startIndex to front", () => {
@@ -95,20 +107,35 @@ ok("drainRoundStartIndex rotates by half-hour buckets", () => {
   assert.equal(drainRoundStartIndex(t0, 0), 0);
 });
 
-ok("rotate + 180s prevents permanent m1 skip vs sequential first-source monopolize", () => {
-  // Simulation: sequential full-budget would visit only cpa_tl first tick.
-  // Fair RR visits all withMissing sources while budget remains.
-  const withMissing = ["cpa_tl", "kma", "m1_top"] as const;
-  const order = rotateSourcesFrom(withMissing, drainRoundStartIndex(0, withMissing.length));
-  let budget = CONTENT_DRAIN_DEADLINE_MS;
+ok("sourceSlotDeadlineMs caps 180s so the first source cannot monopolize", () => {
+  const capped = sourceSlotDeadlineMs(CONTENT_DRAIN_DEADLINE_MS);
+  assert.equal(capped, SOURCE_DRAIN_SLOT_MS - 1000);
+  assert.ok(capped! < CONTENT_DRAIN_DEADLINE_MS - 1000);
+  assert.equal(sourceSlotDeadlineMs(MIN_SOURCE_DRAIN_MS - 1), null);
+});
+
+ok("rankDrainSourcesByBacklog puts small holes before fat cpagetti", () => {
+  const ranked = rankDrainSourcesByBacklog([
+    { source: "cpagetti", count: 8 },
+    { source: "shakes", count: 2 },
+    { source: "m1_top", count: 2 },
+  ]);
+  assert.deepEqual(
+    ranked.map((r) => r.source),
+    ["shakes", "m1_top", "cpagetti"],
+  );
+});
+
+ok("after one slot, remaining budget still visits a second source (no early return)", () => {
+  let remaining = CONTENT_DRAIN_DEADLINE_MS;
   const visited: string[] = [];
-  for (const src of order) {
-    if (budget < MIN_SOURCE_DRAIN_MS) break;
+  for (const src of ["shakes", "m1_top", "cpagetti"] as const) {
+    if (sourceSlotDeadlineMs(remaining) == null) break;
     visited.push(src);
-    budget -= SOURCE_DRAIN_SLOT_MS;
+    remaining -= SOURCE_DRAIN_SLOT_MS;
   }
-  assert.deepEqual(visited, ["cpa_tl", "kma", "m1_top"]);
-  assert.ok(visited.includes("m1_top"), "m1_top must get a slot in first pass");
+  assert.deepEqual(visited, ["shakes", "m1_top"]);
+  assert.ok(visited.includes("m1_top"), "m1_top must get a slot in the first pass");
 });
 
 ok("mergeGenerateNewContentResult accumulates rounds", () => {
