@@ -8,6 +8,7 @@ import {
   collectIncompleteFromPages,
   filterIncompleteOfferIds,
   isIndexContentComplete,
+  advanceDrainRemainingIds,
   selectStaleLockCandidates,
   shouldYieldAfterWarmOnlyRound,
   shouldEnqueueBackfillJob,
@@ -250,6 +251,18 @@ ok("filterIncompleteOfferIds skips complete rows and honors limit", () => {
   assert.deepEqual(filterIncompleteOfferIds(windowIds, haveComplete), [10, 30, 50]);
   assert.deepEqual(filterIncompleteOfferIds(windowIds, haveComplete, 2), [10, 30]);
   assert.deepEqual(filterIncompleteOfferIds(windowIds, new Set(windowIds)), []);
+});
+
+ok("advanceDrainRemainingIds drops generated and failed ids without a completion reload", () => {
+  assert.deepEqual(
+    advanceDrainRemainingIds([17993, 18697, 18699], { generatedIds: [17993] }),
+    [18697, 18699],
+  );
+  assert.deepEqual(
+    advanceDrainRemainingIds([18697, 18699], { failedIds: [18697] }),
+    [18699],
+  );
+  assert.deepEqual(advanceDrainRemainingIds([1, 2], {}), [1, 2]);
 });
 
 ok("capScanWindow stops before enumerating a large catalog", () => {

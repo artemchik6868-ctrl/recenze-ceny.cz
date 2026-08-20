@@ -182,6 +182,8 @@ ok("mergeGenerateNewContentResult accumulates rounds", () => {
     factsPendingSkipped: 0,
     cachedAfterFailure: 0,
     warmedFacts: 0,
+    generatedIds: [],
+    failedIds: [],
   };
   const a: GenerateNewContentResult = {
     content: { rounds: [emptyRound], totalGenerated: 1, totalFailed: 0 },

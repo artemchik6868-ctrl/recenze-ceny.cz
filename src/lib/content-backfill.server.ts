@@ -808,6 +808,42 @@ export function shouldEnqueueBackfillJob(
   return state.stale || state.needsQa || needsForce || state.missingContent;
 }
 
+export type GenerateMissingContentRound = {
+  checked: number;
+  generated: number;
+  failed: number;
+  lockedSkipped: number;
+  cooldownSkipped: number;
+  factsPendingSkipped: number;
+  cachedAfterFailure: number;
+  warmedFacts: number;
+  generatedIds: number[];
+  failedIds: number[];
+};
+
+const EMPTY_GENERATE_ROUND: GenerateMissingContentRound = {
+  checked: 0,
+  generated: 0,
+  failed: 0,
+  lockedSkipped: 0,
+  cooldownSkipped: 0,
+  factsPendingSkipped: 0,
+  cachedAfterFailure: 0,
+  warmedFacts: 0,
+  generatedIds: [],
+  failedIds: [],
+};
+
+/** Drop ids this round generated or recorded as failed so the next round can claim another offer. */
+export function advanceDrainRemainingIds(
+  remainingIds: number[],
+  round: { generatedIds?: number[]; failedIds?: number[] },
+): number[] {
+  const done = new Set([...(round.generatedIds ?? []), ...(round.failedIds ?? [])]);
+  if (done.size === 0) return remainingIds;
+  return remainingIds.filter((id) => !done.has(id));
+}
+
 export async function generateMissingContent(
   source: OfferSource,
   limit = 8,
@@ -833,21 +869,27 @@ export async function generateMissingContent(
     /** Warm landing/image facts before skipping a not-ready offer. */
     allowWarmFactsBeforeClaim?: boolean;
   } = {},
-): Promise<{
-  checked: number;
-  generated: number;
-  failed: number;
-  lockedSkipped: number;
-  cooldownSkipped: number;
-  factsPendingSkipped: number;
-  cachedAfterFailure: number;
-  warmedFacts: number;
-}> {
+): Promise<GenerateMissingContentRound> {
   const claimReserveMs = opts.drainMode === true ? MIN_CONTENT_OFFER_MS : 22_000;
   const hasBudget = () =>
     opts.localMode === true ||
     !opts.deadlineAt ||
     opts.deadlineAt - Date.now() >= claimReserveMs;
+
+  try {
+    return await generateMissingContentBody(source, limit, opts, hasBudget);
+  } catch (err) {
+    console.warn(`[backfill:${source}] generateMissingContent threw:`, err);
+    return { ...EMPTY_GENERATE_ROUND, failed: 1 };
+  }
+}
+
+async function generateMissingContentBody(
+  source: OfferSource,
+  limit: number,
+  opts: NonNullable<Parameters<typeof generateMissingContent>[2]>,
+  hasBudget: () => boolean,
+): Promise<GenerateMissingContentRound> {
 
   // Drain onlyMissing: bounded missing window, then load raw blobs only for candidates.
   let offerRows: BackfillOfferRow[];
@@ -899,6 +941,8 @@ export async function generateMissingContent(
       factsPendingSkipped: 0,
       cachedAfterFailure: 0,
       warmedFacts: 0,
+      generatedIds: [],
+      failedIds: [],
     };
   }
   const offerIds = offerRows.map((r) => r.offer_id);
@@ -1068,6 +1112,8 @@ export async function generateMissingContent(
   let generated = 0;
   let failed = 0;
   let cachedAfterFailure = 0;
+  const generatedIds: number[] = [];
+  const failedIds: number[] = [];
   if (jobs.length === 0) {
     return {
       checked: targetOfferIds.length,
@@ -1078,6 +1124,8 @@ export async function generateMissingContent(
       factsPendingSkipped,
       cachedAfterFailure: 0,
       warmedFacts,
+      generatedIds: [],
+      failedIds: [],
     };
   }
   const forceRegen = opts.regenMissingQa === true || opts.forceRegen === true;
@@ -1098,7 +1146,10 @@ export async function generateMissingContent(
       if (!claim.ok) {
         if (claim.reason === "locked") lockedSkipped += 1;
         else if (claim.reason === "cooldown") cooldownSkipped += 1;
-        else failed += 1;
+        else {
+          failed += 1;
+          failedIds.push(job.offerId);
+        }
         return;
       }
       let finished = false;
@@ -1114,6 +1165,7 @@ export async function generateMissingContent(
         );
         if (out.status === "generated" && out.content) {
           generated += 1;
+          generatedIds.push(job.offerId);
           await clearGenerationState(source, job.offerId);
           markOfferContentComplete(source, job.offerId, out.content.source_hash ?? null);
           console.info(
@@ -1141,6 +1193,7 @@ export async function generateMissingContent(
           cachedAfterFailure += 1;
         }
         failed += 1;
+        failedIds.push(job.offerId);
         await recordGenerationFailure(
           source,
           job.offerId,
@@ -1153,6 +1206,7 @@ export async function generateMissingContent(
           err,
         );
         failed += 1;
+        failedIds.push(job.offerId);
         await recordGenerationFailure(source, job.offerId, summarizeError(err));
         finished = true;
       } finally {
@@ -1173,6 +1227,8 @@ export async function generateMissingContent(
     factsPendingSkipped,
     cachedAfterFailure,
     warmedFacts,
+    generatedIds,
+    failedIds,
   };
 }
 
@@ -1397,7 +1453,7 @@ export async function generateNewContent(
   const deadlineAt = started + deadlineMs - reserveMs;
   const hasBudget = () => Date.now() < deadlineAt - 2000;
 
-  const rounds: Awaited<ReturnType<typeof generateMissingContent>>[] = [];
+  const rounds: GenerateMissingContentRound[] = [];
   let totalGenerated = 0;
   let totalFailed = 0;
 
@@ -1420,24 +1476,26 @@ export async function generateNewContent(
     if (opts.maxRounds != null && rounds.length >= Math.max(0, opts.maxRounds)) break;
     if (remainingIds.length === 0) break;
 
-    const r = await generateMissingContent(source, 1, {
-      deadlineAt,
-      onlyMissing: true,
-      concurrency: 1,
-      drainMode: true,
-      offerIds: remainingIds,
-      allowWarmFactsBeforeClaim: opts.allowWarmFactsBeforeClaim,
-    });
+    let r: GenerateMissingContentRound;
+    try {
+      r = await generateMissingContent(source, 1, {
+        deadlineAt,
+        onlyMissing: true,
+        concurrency: 1,
+        drainMode: true,
+        offerIds: remainingIds,
+        allowWarmFactsBeforeClaim: opts.allowWarmFactsBeforeClaim,
+      });
+    } catch (err) {
+      console.warn(`[backfill:${source}] generate round threw:`, err);
+      r = { ...EMPTY_GENERATE_ROUND, failed: 1, checked: remainingIds.length };
+    }
     rounds.push(r);
     totalGenerated += r.generated;
     totalFailed += r.failed;
+    remainingIds = advanceDrainRemainingIds(remainingIds, r);
 
-    if (r.generated > 0) {
-      const { complete } = await loadContentCompletionForIds(source, remainingIds);
-      remainingIds = filterIncompleteOfferIds(remainingIds, complete);
-      continue;
-    }
-    if (r.failed > 0) continue; // recorded + cooldown; try another offer while budget remains
+    if (r.generated > 0 || r.failed > 0) continue;
     if (shouldYieldAfterWarmOnlyRound(r)) break;
     if (r.lockedSkipped > 0) {
       const released = await releaseStaleLocks(source);

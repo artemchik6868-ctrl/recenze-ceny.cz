@@ -357,6 +357,11 @@ export async function retryMissingContent(
       const message = err instanceof Error ? err.message : String(err);
       console.error(`[retry-missing] ${source} threw: ${message}`);
       totalFailed += 1;
+      sources[source] = {
+        content: { rounds: [], totalGenerated: 0, totalFailed: 1 },
+        timedOut: false,
+        missingRemaining: offerIds.length,
+      };
       slots.push({
         source,
         backlogBefore: offerIds.length,
