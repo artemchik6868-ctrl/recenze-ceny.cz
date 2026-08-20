@@ -31,6 +31,7 @@ const lines = Object.entries(sources).map(([name, row]) => {
   if (!row || typeof row !== "object") return `${name}: ?`;
   const o = row;
   if (typeof o.error === "string") return `${name}: ERROR`;
+  if (typeof o.skipped === "string") return `${name}: skipped=${o.skipped}`;
   const fetched = o.fetched ?? "-";
   const allowed = o.allowed ?? o.ua ?? "-";
   const deactivated = o.deactivated ?? "-";

@@ -1,6 +1,5 @@
 import { redactSecretsInUrl } from "./feed-sync-guards";
 
-const FEED_UA = "recenze-ceny-sync/1.0";
 const MAX_ATTEMPTS = 5;
 
 export function retryAfterMs(attempt: number, res?: Response): number {
@@ -23,15 +22,16 @@ export function sleep(ms: number): Promise<void> {
 export async function fetchFeed(
   url: string,
   init: RequestInit = {},
+  opts: { maxAttempts?: number } = {},
 ): Promise<Response> {
+  const maxAttempts = opts.maxAttempts ?? MAX_ATTEMPTS;
   const headers = {
     Accept: "application/json",
-    "User-Agent": FEED_UA,
     ...(init.headers ?? {}),
   };
   let lastRes: Response | undefined;
   let lastErr: unknown;
-  for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+  for (let attempt = 0; attempt < maxAttempts; attempt++) {
     try {
       lastRes = await fetch(url, {
         ...init,
@@ -40,14 +40,14 @@ export async function fetchFeed(
       });
     } catch (err) {
       lastErr = err;
-      if (attempt === MAX_ATTEMPTS - 1) throw err;
+      if (attempt === maxAttempts - 1) throw err;
       await sleep(retryAfterMs(attempt));
       continue;
     }
     if (lastRes.status === 429 || lastRes.status >= 500) {
-      if (attempt === MAX_ATTEMPTS - 1) return lastRes;
+      if (attempt === maxAttempts - 1) return lastRes;
       console.warn(
-        `[feed-sync] HTTP ${lastRes.status} retry ${attempt + 1}/${MAX_ATTEMPTS} ${redactSecretsInUrl(url)}`,
+        `[feed-sync] HTTP ${lastRes.status} retry ${attempt + 1}/${maxAttempts} ${redactSecretsInUrl(url)}`,
       );
       await sleep(retryAfterMs(attempt, lastRes));
       continue;

@@ -60,6 +60,7 @@ function summarizeSource(
   row: Record<string, unknown> | { error: string },
 ): string {
   if ("error" in row && typeof row.error === "string") return `${source}: error`;
+  if ("skipped" in row && typeof row.skipped === "string") return `${source}: skipped=${row.skipped}`;
   const fetched = row.fetched ?? "-";
   const allowed = row.allowed ?? row.ua ?? "-";
   const deactivated = row.deactivated ?? "-";

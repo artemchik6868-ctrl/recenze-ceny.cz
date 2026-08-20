@@ -11,6 +11,7 @@ import type { Offer } from "./types";
 import {
   emptyPageBeforeEndError,
   isFeedPageExhausted,
+  nextCpagettiPageLimit,
   parseCpagettiFeedJson,
 } from "./feed-sync-guards";
 import { fetchFeed } from "./feed-sync-http";
@@ -87,6 +88,7 @@ async function fetchCpagettiPage(
   offset: number,
   limit: number,
   geoFilter: boolean,
+  opts: { maxAttempts?: number } = {},
 ): Promise<{ offers: CpagettiRawOffer[]; total: number | null; status: number }> {
   const url = new URL(FEED_URL);
   url.searchParams.set("token", token);
@@ -94,8 +96,10 @@ async function fetchCpagettiPage(
   url.searchParams.set("limit", String(limit));
   url.searchParams.set("offset", String(offset));
   if (geoFilter) url.searchParams.set("geo", MARKET_GEO);
-  const res = await fetchFeed(url.toString());
-  if (!res.ok) throw new Error(`CPAgetti feed HTTP ${res.status}`);
+  const res = await fetchFeed(url.toString(), {}, { maxAttempts: opts.maxAttempts });
+  if (!res.ok) {
+    return { offers: [], total: null, status: res.status };
+  }
   const text = await res.text();
   const parsed = parseCpagettiFeedJson(text);
   return {
@@ -176,17 +180,36 @@ export async function syncCpagettiOffersChunk(
   let exhausted = false;
 
   for (let i = 0; i < maxPages; i++) {
-    let pageResult = await fetchCpagettiPage(token, offset, PAGE_SIZE, geoFilter);
+    let usedLimit = PAGE_SIZE;
+    let pageResult = await fetchCpagettiPage(token, offset, usedLimit, geoFilter, {
+      maxAttempts: 2,
+    });
     if (
       geoFilter &&
       offset === 0 &&
       chunkPages === 0 &&
+      pageResult.status === 200 &&
       pageResult.offers.length === 0 &&
       (pageResult.total == null || pageResult.total === 0)
     ) {
       console.info("[cpagetti] geo=CZ probe empty — falling back to unfiltered feed");
       geoFilter = false;
-      pageResult = await fetchCpagettiPage(token, offset, PAGE_SIZE, false);
+      pageResult = await fetchCpagettiPage(token, offset, usedLimit, false, {
+        maxAttempts: 2,
+      });
+    }
+
+    while (pageResult.status >= 500) {
+      const nextLimit = nextCpagettiPageLimit(usedLimit);
+      if (nextLimit == null) throw new Error(`CPAgetti feed HTTP ${pageResult.status}`);
+      console.warn(
+        `[cpagetti] HTTP ${pageResult.status} at offset=${offset} limit=${usedLimit} — retry limit=${nextLimit}`,
+      );
+      usedLimit = nextLimit;
+      pageResult = await fetchCpagettiPage(token, offset, usedLimit, geoFilter);
+    }
+    if (pageResult.status !== 200) {
+      throw new Error(`CPAgetti feed HTTP ${pageResult.status}`);
     }
 
     const page = pageResult.offers;
@@ -223,7 +246,7 @@ export async function syncCpagettiOffersChunk(
       isFeedPageExhausted({
         httpStatus: pageResult.status,
         pageLength: page.length,
-        pageSize: PAGE_SIZE,
+        pageSize: usedLimit,
         offset,
         total: pageResult.total,
       })
@@ -231,7 +254,7 @@ export async function syncCpagettiOffersChunk(
       exhausted = true;
       break;
     }
-    offset += PAGE_SIZE;
+    offset += page.length;
   }
 
   const syncedAt = new Date().toISOString();

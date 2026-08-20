@@ -64,6 +64,16 @@ export function emptyPageBeforeEndError(opts: {
   return null;
 }
 
+/** Page sizes to try when CPAgetti 500s on a large page (payload too heavy). */
+export const CPAGETTI_PAGE_LIMITS = [100, 10, 1] as const;
+
+export function nextCpagettiPageLimit(limit: number): number | null {
+  const i = (CPAGETTI_PAGE_LIMITS as readonly number[]).indexOf(limit);
+  if (i < 0) return CPAGETTI_PAGE_LIMITS[1];
+  if (i >= CPAGETTI_PAGE_LIMITS.length - 1) return null;
+  return CPAGETTI_PAGE_LIMITS[i + 1];
+}
+
 export function parseCpagettiFeedJson(text: string): {
   offers: unknown[];
   total: number | null;

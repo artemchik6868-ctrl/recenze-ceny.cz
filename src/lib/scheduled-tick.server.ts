@@ -12,6 +12,7 @@ import {
   drainMissingReviews,
   CONTENT_DRAIN_DEADLINE_MS,
 } from "./content-pipeline.server";
+import { syncCpaTlOffers } from "./cpa-tl-sync.server";
 import { isWaveActive, loadWave, retireFeedWave } from "./feed-sync-wave.server";
 import { listSourceMissingOfferIds } from "./content-backfill.server";
 import { runIndexingRetry, type IndexingRetryResult } from "./indexing-retry.server";
@@ -42,6 +43,7 @@ export type ScheduledTickResult = {
   landingFactsDrain?: LandingFactsDrainResult;
   m1LandingFactsDrain?: LandingFactsDrainResult;
   cpaTlLandingFactsDrain?: LandingFactsDrainResult;
+  cpaTlFeedSync?: Record<string, unknown> | { error: string };
   imageFactsDrain?: ImageFactsDrainResult;
   contentDrain?: Awaited<ReturnType<typeof retryMissingContent>>;
   reviewsDrain?: Awaited<ReturnType<typeof drainMissingReviews>>;
@@ -85,6 +87,26 @@ export async function runScheduledTick(now = new Date()): Promise<ScheduledTickR
       `[scheduled-tick] sitemap-submit ok=${sitemapSubmit.ok} submitted=${sitemapSubmit.submitted} errors=${sitemapSubmit.status?.errors ?? "-"} warnings=${sitemapSubmit.status?.warnings ?? "-"}`,
     );
     return { ok: true, utcHour, utcMinute, ran, sitemapSubmit };
+  }
+
+  // 03:00 UTC — CPA.tl is one request (api.cpa.tl). Backup if Node/GHA missed it.
+  let cpaTlFeedSync: ScheduledTickResult["cpaTlFeedSync"];
+  if (onTheHour && utcHour === 3) {
+    try {
+      cpaTlFeedSync = await syncCpaTlOffers();
+      ran.push("cpa-tl-feed-sync");
+      const skipped =
+        cpaTlFeedSync && "skipped" in cpaTlFeedSync
+          ? String(cpaTlFeedSync.skipped)
+          : undefined;
+      console.info(
+        `[scheduled-tick] cpa-tl-feed-sync fetched=${(cpaTlFeedSync as { fetched?: number }).fetched ?? "-"} skipped=${skipped ?? "none"}`,
+      );
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      cpaTlFeedSync = { error: message };
+      console.warn(`[scheduled-tick] cpa-tl-feed-sync failed: ${message}`);
+    }
   }
 
   const workstream = scheduledTickWorkstream(utcMinute);
@@ -155,6 +177,7 @@ export async function runScheduledTick(now = new Date()): Promise<ScheduledTickR
       utcMinute,
       ran,
       workstream,
+      cpaTlFeedSync,
       landingFactsDrain,
       m1LandingFactsDrain,
       cpaTlLandingFactsDrain,

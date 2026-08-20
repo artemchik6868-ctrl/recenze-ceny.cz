@@ -10,7 +10,7 @@ import type { Offer } from "./types";
 import { fetchFeed } from "./feed-sync-http";
 import { deactivateMissingActiveOffers } from "./feed-sync-deactivate.server";
 
-const FEED_URL = "https://cpa.tl/api/offers";
+const FEED_URL = "https://api.cpa.tl/api/offers";
 
 const CATEGORY_SLUG_MAP: Record<string, string> = {
   "Нутра: диабет": "cukrovka",
@@ -70,9 +70,17 @@ export async function syncCpaTlOffers(): Promise<{
   ua: number;
   upserted: number;
   deactivated: number;
+  skipped?: string;
 }> {
   const res = await fetchFeed(FEED_URL);
-  if (!res.ok) throw new Error(`CPA.tl feed HTTP ${res.status}`);
+  if (!res.ok) {
+    // cpa.tl (www) is WAF-blocked; api.cpa.tl is the live feed. Skip deactivate on 403.
+    if (res.status === 403) {
+      console.warn("[cpa_tl] feed HTTP 403 — skip (no deactivate); Worker retries api.cpa.tl");
+      return { fetched: 0, ua: 0, upserted: 0, deactivated: 0, skipped: "http_403" };
+    }
+    throw new Error(`CPA.tl feed HTTP ${res.status}`);
+  }
   const json = (await res.json()) as { data: CpaTlRawOffer[] };
   const all = json.data || [];
 

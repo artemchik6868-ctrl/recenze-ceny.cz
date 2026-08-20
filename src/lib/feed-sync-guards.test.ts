@@ -3,6 +3,7 @@ import {
   emptyPageBeforeEndError,
   feedSyncSourceHasError,
   isFeedPageExhausted,
+  nextCpagettiPageLimit,
   parseCpagettiFeedJson,
   redactSecretsInUrl,
   shouldDeactivateCatalog,
@@ -99,8 +100,15 @@ ok("redact token/api_key from URLs", () => {
   assert.ok(red.includes("token=***"));
 });
 
+ok("cpagetti page limit falls back 100 → 10 → 1", () => {
+  assert.equal(nextCpagettiPageLimit(100), 10);
+  assert.equal(nextCpagettiPageLimit(10), 1);
+  assert.equal(nextCpagettiPageLimit(1), null);
+});
+
 ok("source error detection", () => {
   assert.equal(feedSyncSourceHasError({ fetched: 1 }), false);
+  assert.equal(feedSyncSourceHasError({ skipped: "http_403" }), false);
   assert.equal(feedSyncSourceHasError({ error: "timeout" }), true);
 });
 

@@ -19,6 +19,7 @@ import { fileURLToPath } from "node:url";
 
 const HOOKS = {
   "sync-feeds": { path: "/api/public/hooks/sync-feeds", timeoutMs: 300_000 },
+  "sync-cpa-tl": { path: "/api/public/hooks/sync-cpa-tl", timeoutMs: 180_000 },
   "sync-daily": { path: "/api/public/hooks/sync-daily", timeoutMs: 310_000 },
   "content-drain": { path: "/api/public/hooks/content-drain", timeoutMs: 150_000 },
   "indexing-retry": { path: "/api/public/hooks/indexing-retry", timeoutMs: 300_000 },
