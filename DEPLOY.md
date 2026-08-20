@@ -48,7 +48,7 @@ npm run smoke-test -- --base=https://recenze-ceny.<account>.workers.dev
 
 ## Cron (worker `recenze-ceny`)
 
-Nitro `scheduled-tick` every 30 minutes drains landing/image facts and AI content (plus GSC jobs at 06:00 / Mon 07:00 UTC). **CPA feed ingest is GitHub Actions** (`feed-sync.yml`, backup on `health-check.yml`), not Worker cron.
+Nitro `scheduled-tick` every 30 minutes drains landing/image facts and AI content (plus GSC jobs at 06:00 / Mon 07:00 UTC). **CPA feed ingest is GitHub Actions** (`health-check.yml` job `feed_sync`), not Worker cron. Manual retry: `npm run sync:feeds` (`feed-sync.yml` `workflow_dispatch`).
 
 Manual ingest:
 ```powershell

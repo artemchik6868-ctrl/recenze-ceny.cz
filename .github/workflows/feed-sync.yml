@@ -1,13 +1,11 @@
-# Daily offline CPA feed ingest (keeps Worker free of partner pagination).
-# GitHub schedule is best-effort; health-check.yml is the backup trigger.
-# Both jobs share cache key feed-sync-YYYY-MM-DD so a day runs once.
-# Same concurrency group as health-check feed_sync (no parallel deactivate / lock_busy).
-# workflow_dispatch always runs (manual retry).
+# Manual CPA feed ingest (keeps Worker free of partner pagination).
+# Daily ingest is health-check.yml job feed_sync — GitHub never scheduled this workflow
+# (0 runs, same as blog-ingest.yml). npm run sync:feeds → workflow_dispatch.
+# Shares cache key feed-sync-YYYY-MM-DD and concurrency group feed-sync with health-check.
+# workflow_dispatch always runs (manual retry, bypasses the day cache).
 name: Feed sync
 
 on:
-  schedule:
-    - cron: "12 2 * * *"
   workflow_dispatch:
 
 concurrency:

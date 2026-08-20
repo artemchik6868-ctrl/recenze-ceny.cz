@@ -1,6 +1,6 @@
 /**
  * Disabled: seeding pipeline_feed_wave against prod .env restarts Worker feed paging.
- * CPA ingest is GitHub Action feed-sync.yml (`npm run sync:feeds`).
+ * Daily ingest: health-check.yml. Manual: `npm run sync:feeds` (feed-sync.yml).
  *
  * Override (dev DB only): FEED_WAVE_SMOKE=1 npx tsx scripts/smoke-feed-wave.mjs
  */

@@ -1,6 +1,6 @@
 /**
  * Retires leftover pipeline_feed_wave only — does NOT ingest CPA feeds.
- * Daily ingest: `npm run sync:feeds` (GitHub Action feed-sync.yml).
+ * Daily ingest: health-check.yml job feed_sync. Manual: `npm run sync:feeds`.
  *
  * Usage: node scripts/trigger-sync-daily.mjs [--base=https://recenze-ceny.cz]
  */

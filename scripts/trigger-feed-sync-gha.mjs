@@ -1,5 +1,6 @@
 /**
- * Dispatch production CPA ingest on GitHub Actions (same Node job as the daily cron).
+ * Dispatch a manual CPA ingest (feed-sync.yml workflow_dispatch).
+ * Daily ingest is health-check.yml job feed_sync, not this workflow's schedule.
  * Does not paginate feeds on the Cloudflare Worker.
  *
  *   npm run sync:feeds

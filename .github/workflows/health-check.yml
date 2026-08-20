@@ -147,8 +147,8 @@ jobs:
           mkdir -p .blog-ingest-day-marker
           date -u > .blog-ingest-day-marker/done
 
-  # Backup feed ingest: feed-sync.yml schedule may never fire (same as blog-ingest).
-  # Shares cache key feed-sync-YYYY-MM-DD with feed-sync.yml (one successful run per UTC day).
+  # Primary daily CPA ingest (Node). feed-sync.yml is workflow_dispatch only
+  # (`npm run sync:feeds`). Shares cache key feed-sync-YYYY-MM-DD (one run per UTC day).
   feed_sync:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     concurrency:
@@ -196,7 +196,7 @@ jobs:
       - name: Sync CPA feeds
         if: steps.gate.outputs.cache-hit != 'true'
         run: |
-          echo "Backup feed-sync via health-check (day=${{ steps.day.outputs.d }})"
+          echo "Daily feed-sync via health-check (day=${{ steps.day.outputs.d }})"
           npx tsx scripts/sync-feeds-local.ts
 
       - name: Notify Telegram

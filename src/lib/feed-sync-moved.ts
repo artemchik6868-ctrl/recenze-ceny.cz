@@ -3,7 +3,7 @@
 export const FEED_INGEST_MOVED_BODY = {
   ok: false as const,
   error: "feed_ingest_moved_to_gha",
-  hint: "Run GitHub Action feed-sync.yml (workflow_dispatch) or `npm run sync:feeds`. Daily ingest is GHA, not this Worker.",
+  hint: "Daily ingest is GitHub Action health-check.yml (job feed_sync). Manual: `npm run sync:feeds` (feed-sync.yml workflow_dispatch). Not this Worker.",
 };
 
 export function feedIngestMovedResponse(): Response {
