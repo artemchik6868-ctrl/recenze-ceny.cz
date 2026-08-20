@@ -10,6 +10,7 @@ import {
   sourceDrainDeadlineMs,
   sourceSlotDeadlineMs,
   rankDrainSourcesByBacklog,
+  sourceDeadlineForQueueSlot,
 } from "./content-pipeline.server";
 import { MIN_CONTENT_OFFER_MS } from "./content-backfill.server";
 import type { GenerateNewContentResult } from "./content-backfill.server";
@@ -112,6 +113,39 @@ ok("sourceSlotDeadlineMs caps 180s so the first source cannot monopolize", () =>
   assert.equal(capped, SOURCE_DRAIN_SLOT_MS - 1000);
   assert.ok(capped! < CONTENT_DRAIN_DEADLINE_MS - 1000);
   assert.equal(sourceSlotDeadlineMs(MIN_SOURCE_DRAIN_MS - 1), null);
+});
+
+ok("solo cpagetti (last/only) gets leftover ~180s, not a 90s cap", () => {
+  const last = sourceDeadlineForQueueSlot({
+    remainingMs: CONTENT_DRAIN_DEADLINE_MS,
+    isLast: true,
+  });
+  assert.equal(last, CONTENT_DRAIN_DEADLINE_MS - 1000);
+  assert.ok(last! > SOURCE_DRAIN_SLOT_MS);
+  const first = sourceDeadlineForQueueSlot({
+    remainingMs: CONTENT_DRAIN_DEADLINE_MS,
+    isLast: false,
+  });
+  assert.equal(first, SOURCE_DRAIN_SLOT_MS - 1000);
+});
+
+ok("two-source queue: first still 90s; last gets whatever wall remains", () => {
+  const first = sourceDeadlineForQueueSlot({
+    remainingMs: CONTENT_DRAIN_DEADLINE_MS,
+    isLast: false,
+  });
+  assert.equal(first, SOURCE_DRAIN_SLOT_MS - 1000);
+  const leftoverAfterFastFirst = CONTENT_DRAIN_DEADLINE_MS - 30_000;
+  const last = sourceDeadlineForQueueSlot({
+    remainingMs: leftoverAfterFastFirst,
+    isLast: true,
+  });
+  assert.equal(last, leftoverAfterFastFirst - 1000);
+  assert.ok(last! > SOURCE_DRAIN_SLOT_MS - 1000);
+  assert.equal(
+    sourceDeadlineForQueueSlot({ remainingMs: MIN_SOURCE_DRAIN_MS - 1, isLast: true }),
+    null,
+  );
 });
 
 ok("rankDrainSourcesByBacklog puts small holes before fat cpagetti", () => {

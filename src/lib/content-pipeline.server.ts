@@ -41,6 +41,18 @@ export function sourceSlotDeadlineMs(remainingMs: number): number | null {
   return sourceDrainDeadlineMs(Math.min(remainingMs, SOURCE_DRAIN_SLOT_MS));
 }
 
+/**
+ * Ranked-queue slot: earlier sources stay capped so m1/shakes get a turn.
+ * The last (or only) source owns the leftover wall — no 90s cap.
+ */
+export function sourceDeadlineForQueueSlot(opts: {
+  remainingMs: number;
+  isLast: boolean;
+}): number | null {
+  if (opts.isLast) return sourceDrainDeadlineMs(opts.remainingMs);
+  return sourceSlotDeadlineMs(opts.remainingMs);
+}
+
 /** Rotate source list so startIndex is first (fair multi-source drain). */
 export function rotateSourcesFrom<T>(sources: readonly T[], startIndex: number): T[] {
   if (sources.length === 0) return [];
@@ -268,7 +280,8 @@ export type RetryMissingContentResult = {
  *
  * 1) Sequential list (one bounded window per source — no 6-way probe burst).
  * 2) Rank small backlogs first so m1/shakes never_claimed beat fat cpagetti.
- * 3) One SOURCE_DRAIN_SLOT_MS generate per source, no early return.
+ * 3) Capped SOURCE_DRAIN_SLOT_MS + maxRounds:1 for earlier sources; last
+ *    source gets leftover wall and generateNewContent's multi-round loop.
  */
 export async function retryMissingContent(
   opts: { deadlineMs?: number; sources?: OfferSource[]; nowMs?: number } = {},
@@ -307,9 +320,12 @@ export async function retryMissingContent(
     }
   }
 
-  for (const { source, offerIds } of rankDrainSourcesByBacklog(found)) {
+  const ranked = rankDrainSourcesByBacklog(found);
+  for (let i = 0; i < ranked.length; i++) {
+    const { source, offerIds } = ranked[i]!;
     const remainingMs = deadlineMs - (Date.now() - started);
-    const sourceDeadlineMs = sourceSlotDeadlineMs(remainingMs);
+    const isLast = i === ranked.length - 1;
+    const sourceDeadlineMs = sourceDeadlineForQueueSlot({ remainingMs, isLast });
     if (sourceDeadlineMs == null) break;
 
     try {
@@ -317,7 +333,7 @@ export async function retryMissingContent(
         deadlineMs: sourceDeadlineMs,
         offerIds,
         allowWarmFactsBeforeClaim: true,
-        maxRounds: 1,
+        ...(isLast ? {} : { maxRounds: 1 }),
       });
       sources[source] = result;
       totalGenerated += result.content.totalGenerated;
