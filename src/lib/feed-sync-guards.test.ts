@@ -3,10 +3,14 @@ import {
   emptyPageBeforeEndError,
   feedSyncSourceHasError,
   feedSyncSourceIsIncomplete,
+  formatCpagettiSkipSuffix,
   isFeedPageExhausted,
   nextCpagettiPageLimit,
   parseCpagettiFeedJson,
+  recordCpagettiSkippedOffset,
+  recoverCpagettiSkippedOffsets,
   redactSecretsInUrl,
+  shouldCountCpagettiPoisonSkip,
   shouldDeactivateAfterSkips,
   shouldDeactivateCatalog,
 } from "./feed-sync-guards";
@@ -125,6 +129,36 @@ ok("incomplete on skip or poison offsets, not on hard error", () => {
   assert.equal(feedSyncSourceIsIncomplete({ skippedOffsets: 1, fetched: 2048 }), true);
   assert.equal(feedSyncSourceIsIncomplete({ skippedOffsets: 0, fetched: 10 }), false);
   assert.equal(feedSyncSourceIsIncomplete({ error: "timeout" }), false);
+});
+
+ok("full-backoff 200 at limit=1 is not a skip", () => {
+  assert.equal(shouldCountCpagettiPoisonSkip(200), false);
+  assert.equal(shouldCountCpagettiPoisonSkip(500), true);
+  assert.equal(shouldCountCpagettiPoisonSkip(502), true);
+});
+
+ok("skip then successful retry → count 0, deactivate ok", () => {
+  let list = recordCpagettiSkippedOffset([], 847);
+  assert.equal(list.length, 1);
+  list = recoverCpagettiSkippedOffsets(list, [847]);
+  assert.equal(list.length, 0);
+  assert.equal(shouldDeactivateAfterSkips(list.length), true);
+  assert.equal(feedSyncSourceIsIncomplete({ skippedOffsets: list.length }), false);
+});
+
+ok("still 500 after retry → count 1, incomplete, no deactivate", () => {
+  const list = recordCpagettiSkippedOffset([], 847);
+  assert.equal(shouldCountCpagettiPoisonSkip(500), true);
+  assert.equal(list.length, 1);
+  assert.equal(shouldDeactivateAfterSkips(list.length), false);
+  assert.equal(
+    feedSyncSourceIsIncomplete({ skippedOffsets: list.length, skippedOffsetList: list }),
+    true,
+  );
+  assert.equal(
+    formatCpagettiSkipSuffix({ skippedOffsets: 1, skippedOffsetList: [847] }),
+    " skippedOffsets=1 offsets=847",
+  );
 });
 
 if (failed) {

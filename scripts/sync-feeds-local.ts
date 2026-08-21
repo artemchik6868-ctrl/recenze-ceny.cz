@@ -14,6 +14,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { PIPELINE_SOURCES, syncAllFeedsExclusive } from "../src/lib/content-pipeline.server";
+import { formatCpagettiSkipSuffix } from "../src/lib/feed-sync-guards";
 import type { OfferSource } from "../src/lib/types";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -66,10 +67,7 @@ function summarizeSource(
   const fetched = row.fetched ?? "-";
   const allowed = row.allowed ?? row.ua ?? "-";
   const deactivated = row.deactivated ?? "-";
-  const skippedOff =
-    typeof row.skippedOffsets === "number" && row.skippedOffsets > 0
-      ? ` skippedOffsets=${row.skippedOffsets}`
-      : "";
+  const skippedOff = formatCpagettiSkipSuffix(row);
   return `${source}: fetched=${fetched} allowed=${allowed} deactivated=${deactivated}${skippedOff}`;
 }
 

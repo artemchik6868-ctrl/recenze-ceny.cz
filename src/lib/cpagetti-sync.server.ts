@@ -13,6 +13,9 @@ import {
   isFeedPageExhausted,
   nextCpagettiPageLimit,
   parseCpagettiFeedJson,
+  recordCpagettiSkippedOffset,
+  recoverCpagettiSkippedOffsets,
+  shouldCountCpagettiPoisonSkip,
   shouldDeactivateAfterSkips,
 } from "./feed-sync-guards";
 import { fetchFeed } from "./feed-sync-http";
@@ -84,6 +87,17 @@ function isAllowed(o: CpagettiRawOffer): boolean {
   return true;
 }
 
+function collectAllowedFromPage(page: CpagettiRawOffer[]): CpagettiRawOffer[] {
+  const out: CpagettiRawOffer[] = [];
+  for (const o of page) {
+    const inGeo = pickInGeo(o);
+    if (!inGeo) continue;
+    if (!isAllowed(o)) continue;
+    out.push({ ...o, in_geo: inGeo });
+  }
+  return out;
+}
+
 async function fetchCpagettiPage(
   token: string,
   offset: number,
@@ -135,6 +149,8 @@ export type FeedPageCursor = {
   pageLimit?: number;
   /** Poison offsets skipped (limit=1 still 500). Deactivate is skipped when > 0. */
   skippedOffsets?: number;
+  /** Absolute offsets that stayed 5xx at limit=1 (for EOF retry + Telegram). */
+  skippedOffsetList?: number[];
 };
 
 export type SyncChunkResult = {
@@ -146,6 +162,7 @@ export type SyncChunkResult = {
     upserted: number;
     deactivated: number;
     skippedOffsets: number;
+    skippedOffsetList: number[];
     chunkPages: number;
     done: boolean;
     debug?: unknown;
@@ -172,7 +189,8 @@ export async function syncCpagettiOffersChunk(
   const offerIds = [...(opts.cursor?.offerIds ?? [])];
   let geoFilter = opts.cursor?.geoFilter ?? true;
   let pageLimit = opts.cursor?.pageLimit ?? PAGE_SIZE;
-  let skippedOffsets = opts.cursor?.skippedOffsets ?? 0;
+  let skippedOffsetList = [...(opts.cursor?.skippedOffsetList ?? [])];
+  let skippedOffsets = skippedOffsetList.length;
   const debug: {
     firstPageSample: unknown;
     pages: Array<{ offset: number; count: number; status?: number; geoFilter?: boolean }>;
@@ -215,9 +233,21 @@ export async function syncCpagettiOffersChunk(
           throw new Error(`CPAgetti feed HTTP ${pageResult.status} (20 skipped offsets)`);
         }
         console.warn(
+          `[cpagetti] HTTP ${pageResult.status} at offset=${offset} limit=1 — full backoff retry`,
+        );
+        pageResult = await fetchCpagettiPage(token, offset, 1, geoFilter, {
+          maxAttempts: 5,
+        });
+        if (!shouldCountCpagettiPoisonSkip(pageResult.status)) {
+          usedLimit = 1;
+          pageLimit = 1;
+          break;
+        }
+        console.warn(
           `[cpagetti] skip offset=${offset} after HTTP ${pageResult.status} at limit=1`,
         );
-        skippedOffsets += 1;
+        skippedOffsetList = recordCpagettiSkippedOffset(skippedOffsetList, offset);
+        skippedOffsets = skippedOffsetList.length;
         offset += 1;
         skippedPoison = true;
         break;
@@ -262,12 +292,7 @@ export async function syncCpagettiOffersChunk(
     });
     chunkPages += 1;
     fetched += page.length;
-    for (const o of page) {
-      const inGeo = pickInGeo(o);
-      if (!inGeo) continue;
-      if (!isAllowed(o)) continue;
-      chunkAllowed.push({ ...o, in_geo: inGeo });
-    }
+    chunkAllowed.push(...collectAllowedFromPage(page));
     if (
       isFeedPageExhausted({
         httpStatus: pageResult.status,
@@ -283,6 +308,35 @@ export async function syncCpagettiOffersChunk(
     offset += page.length;
     if (pageLimit < PAGE_SIZE && offset % PAGE_SIZE === 0) {
       pageLimit = PAGE_SIZE;
+    }
+  }
+
+  if (exhausted && skippedOffsetList.length > 0) {
+    const recoveredOffsets: number[] = [];
+    for (const skipOff of skippedOffsetList) {
+      console.warn(`[cpagetti] EOF retry skipped offset=${skipOff} limit=1`);
+      const retry = await fetchCpagettiPage(token, skipOff, 1, geoFilter, {
+        maxAttempts: 5,
+      });
+      if (shouldCountCpagettiPoisonSkip(retry.status) || retry.offers.length === 0) {
+        continue;
+      }
+      recoveredOffsets.push(skipOff);
+      fetched += retry.offers.length;
+      chunkAllowed.push(...collectAllowedFromPage(retry.offers));
+      debug.pages.push({
+        offset: skipOff,
+        count: retry.offers.length,
+        status: retry.status,
+        geoFilter,
+      });
+    }
+    skippedOffsetList = recoverCpagettiSkippedOffsets(skippedOffsetList, recoveredOffsets);
+    skippedOffsets = skippedOffsetList.length;
+    if (recoveredOffsets.length > 0) {
+      console.info(
+        `[cpagetti] EOF retry recovered offsets=${recoveredOffsets.join(",")} remaining=${skippedOffsets}`,
+      );
     }
   }
 
@@ -317,7 +371,7 @@ export async function syncCpagettiOffersChunk(
     deactivated = d.deactivated;
   } else if (done && skippedOffsets > 0) {
     console.warn(
-      `[cpagetti] skip deactivate: skippedOffsets=${skippedOffsets} (incomplete page list)`,
+      `[cpagetti] skip deactivate: skippedOffsets=${skippedOffsets} offsets=${skippedOffsetList.join(",")} (incomplete page list)`,
     );
   }
 
@@ -327,6 +381,7 @@ export async function syncCpagettiOffersChunk(
     upserted: rows.length,
     deactivated,
     skippedOffsets,
+    skippedOffsetList,
     chunkPages,
     done,
     debug: opts.cursor ? undefined : debug,
@@ -347,6 +402,7 @@ export async function syncCpagettiOffersChunk(
       geoFilter,
       pageLimit,
       skippedOffsets,
+      skippedOffsetList,
     },
     stats,
   };
@@ -358,6 +414,7 @@ export async function syncCpagettiOffers(): Promise<{
   upserted: number;
   deactivated: number;
   skippedOffsets: number;
+  skippedOffsetList: number[];
   debug?: unknown;
 }> {
   let cursor: FeedPageCursor | null = null;
@@ -375,6 +432,7 @@ export async function syncCpagettiOffers(): Promise<{
     upserted,
     deactivated: last.stats.deactivated,
     skippedOffsets: last.stats.skippedOffsets,
+    skippedOffsetList: last.stats.skippedOffsetList,
     debug,
   };
 }

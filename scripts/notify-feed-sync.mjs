@@ -37,9 +37,16 @@ const lines = Object.entries(sources).map(([name, row]) => {
   const fetched = o.fetched ?? "-";
   const allowed = o.allowed ?? o.ua ?? "-";
   const deactivated = o.deactivated ?? "-";
+  const skipList = Array.isArray(o.skippedOffsetList)
+    ? o.skippedOffsetList.map((n) => Number(n)).filter((n) => Number.isFinite(n))
+    : [];
+  const skipN =
+    typeof o.skippedOffsets === "number" && Number.isFinite(o.skippedOffsets)
+      ? o.skippedOffsets
+      : skipList.length;
   const skippedOff =
-    typeof o.skippedOffsets === "number" && o.skippedOffsets > 0
-      ? ` skippedOffsets=${o.skippedOffsets}`
+    skipN > 0
+      ? ` skippedOffsets=${skipN}${skipList.length ? ` offsets=${skipList.join(",")}` : ""}`
       : "";
   return `${name}: fetched=${fetched} allowed=${allowed} deactivated=${deactivated}${skippedOff}`;
 });

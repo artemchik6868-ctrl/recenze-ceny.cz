@@ -79,6 +79,49 @@ export function shouldDeactivateAfterSkips(skippedOffsets: number): boolean {
   return skippedOffsets <= 0;
 }
 
+/** Record a poison feed offset (limit=1 still 5xx). Idempotent. */
+export function recordCpagettiSkippedOffset(
+  list: readonly number[],
+  offset: number,
+): number[] {
+  if (list.includes(offset)) return [...list];
+  return [...list, offset];
+}
+
+/** Drop offsets recovered by a later limit=1 fetch. */
+export function recoverCpagettiSkippedOffsets(
+  list: readonly number[],
+  recovered: readonly number[],
+): number[] {
+  const drop = new Set(recovered);
+  return list.filter((offset) => !drop.has(offset));
+}
+
+/**
+ * After limit=1 still 5xx, a full-backoff retry that returns 200 is not a skip.
+ * Non-200 (including 5xx) still counts as poison.
+ */
+export function shouldCountCpagettiPoisonSkip(retryStatus: number): boolean {
+  return retryStatus !== 200;
+}
+
+/** Telegram / log suffix: skippedOffsets=1 offsets=847 */
+export function formatCpagettiSkipSuffix(opts: {
+  skippedOffsets?: unknown;
+  skippedOffsetList?: unknown;
+}): string {
+  const list = Array.isArray(opts.skippedOffsetList)
+    ? opts.skippedOffsetList.map((n) => Number(n)).filter((n) => Number.isFinite(n))
+    : [];
+  const n =
+    typeof opts.skippedOffsets === "number" && Number.isFinite(opts.skippedOffsets)
+      ? opts.skippedOffsets
+      : list.length;
+  if (n <= 0) return "";
+  const ids = list.length > 0 ? ` offsets=${list.join(",")}` : "";
+  return ` skippedOffsets=${n}${ids}`;
+}
+
 export function parseCpagettiFeedJson(text: string): {
   offers: unknown[];
   total: number | null;
