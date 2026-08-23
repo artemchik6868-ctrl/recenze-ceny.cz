@@ -371,7 +371,7 @@ export async function syncCpagettiOffersChunk(
     deactivated = d.deactivated;
   } else if (done && skippedOffsets > 0) {
     console.warn(
-      `[cpagetti] skip deactivate: skippedOffsets=${skippedOffsets} offsets=${skippedOffsetList.join(",")} (incomplete page list)`,
+      `[cpagetti] skip deactivate: skippedOffsets=${skippedOffsets} offsets=${skippedOffsetList.join(",")} (accepted hole)`,
     );
   }
 

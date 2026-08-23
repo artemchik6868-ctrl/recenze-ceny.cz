@@ -163,8 +163,10 @@ export function feedSyncSourceHasError(
 }
 
 /**
- * Source did not finish a complete catalog pass.
- * Must not mark the UTC day done (GHA retries), and must not deactivate.
+ * Source did not finish a complete catalog pass (e.g. http_403 skip).
+ * Must not mark the UTC day done (GHA retries).
+ * Poison skippedOffsets after same-run retry are accepted holes — not incomplete
+ * (deactivate stays blocked via shouldDeactivateAfterSkips).
  */
 export function feedSyncSourceIsIncomplete(
   result: Record<string, unknown> | { error: string },
@@ -172,6 +174,5 @@ export function feedSyncSourceIsIncomplete(
   if (feedSyncSourceHasError(result)) return false;
   const row = result as Record<string, unknown>;
   if (typeof row.skipped === "string" && row.skipped.length > 0) return true;
-  if (typeof row.skippedOffsets === "number" && row.skippedOffsets > 0) return true;
   return false;
 }

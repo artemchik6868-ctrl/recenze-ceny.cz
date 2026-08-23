@@ -6,8 +6,10 @@
  *   npx tsx scripts/sync-feeds-local.ts
  *
  * Requires .env / CI: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, CPA API keys.
- * Exit 0 only when the lock was acquired and every source finished a complete pass
- * (no error, no skipped, no skippedOffsets). Incomplete must not mark the UTC day done.
+ * Exit 0 when the lock was acquired and no source error / http_403 skip.
+ * Accepted CPAgetti poison skips (skippedOffsets) still exit 0 so the UTC day can
+ * complete; deactivate stays blocked in the sync itself. http_403 incomplete
+ * must not mark the UTC day done.
  * Writes .feed-sync-result.json for Telegram / GHA.
  */
 import { readFileSync, writeFileSync } from "node:fs";
@@ -107,7 +109,7 @@ async function main(): Promise<void> {
   }
   if (incomplete.length > 0) {
     console.error(
-      `[sync-feeds-local] incomplete (no deactivate, do not mark day done): ${incomplete.join(", ")}`,
+      `[sync-feeds-local] incomplete (do not mark day done): ${incomplete.join(", ")}`,
     );
     process.exitCode = 1;
   }

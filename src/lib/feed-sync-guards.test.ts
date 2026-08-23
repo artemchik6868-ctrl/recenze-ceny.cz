@@ -123,10 +123,10 @@ ok("source error detection", () => {
   assert.equal(feedSyncSourceHasError({ error: "timeout" }), true);
 });
 
-ok("incomplete on skip or poison offsets, not on hard error", () => {
+ok("incomplete on http_403 skip, not on accepted poison offsets or hard error", () => {
   assert.equal(feedSyncSourceIsIncomplete({ fetched: 1 }), false);
   assert.equal(feedSyncSourceIsIncomplete({ skipped: "http_403" }), true);
-  assert.equal(feedSyncSourceIsIncomplete({ skippedOffsets: 1, fetched: 2048 }), true);
+  assert.equal(feedSyncSourceIsIncomplete({ skippedOffsets: 1, fetched: 2048 }), false);
   assert.equal(feedSyncSourceIsIncomplete({ skippedOffsets: 0, fetched: 10 }), false);
   assert.equal(feedSyncSourceIsIncomplete({ error: "timeout" }), false);
 });
@@ -146,14 +146,14 @@ ok("skip then successful retry → count 0, deactivate ok", () => {
   assert.equal(feedSyncSourceIsIncomplete({ skippedOffsets: list.length }), false);
 });
 
-ok("still 500 after retry → count 1, incomplete, no deactivate", () => {
+ok("still 500 after retry → count 1, accepted, no deactivate, not incomplete", () => {
   const list = recordCpagettiSkippedOffset([], 847);
   assert.equal(shouldCountCpagettiPoisonSkip(500), true);
   assert.equal(list.length, 1);
   assert.equal(shouldDeactivateAfterSkips(list.length), false);
   assert.equal(
     feedSyncSourceIsIncomplete({ skippedOffsets: list.length, skippedOffsetList: list }),
-    true,
+    false,
   );
   assert.equal(
     formatCpagettiSkipSuffix({ skippedOffsets: 1, skippedOffsetList: [847] }),

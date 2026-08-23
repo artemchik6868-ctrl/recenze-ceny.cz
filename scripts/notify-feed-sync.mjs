@@ -1,7 +1,8 @@
 /**
  * Telegram summary for Node feed ingest (reads .feed-sync-result.json).
  * Env: TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID (missing → no-op via notify-telegram).
- * Incomplete (http_403 / skippedOffsets) is never --ok — GHA must retry the day.
+ * ok (including accepted poison skippedOffsets) → no Telegram.
+ * Incomplete http_403 / lock / source error → 🚨.
  */
 import { readFileSync, existsSync } from "node:fs";
 import { spawnSync } from "node:child_process";
@@ -26,6 +27,10 @@ if (!existsSync(resultPath)) {
 
 const r = JSON.parse(readFileSync(resultPath, "utf8"));
 const ok = r.ok === true;
+if (ok) {
+  console.log("notify-feed-sync: skip Telegram (ok)");
+  process.exit(0);
+}
 const failed = Array.isArray(r.failed) ? r.failed : [];
 const incomplete = Array.isArray(r.incomplete) ? r.incomplete : [];
 const sources = r.sources && typeof r.sources === "object" ? r.sources : {};
@@ -73,7 +78,6 @@ const args = [
   `--title=${title}`,
   `--body=${body}`,
 ];
-if (ok) args.push("--ok");
 
 const res = spawnSync(process.execPath, args, { stdio: "inherit", env: process.env });
 process.exit(res.status ?? 0);
