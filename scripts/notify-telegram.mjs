@@ -1,6 +1,7 @@
 /**
  * Send a Telegram message via Bot API.
  * Env: TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
+ * Kill switch: skipped unless TELEGRAM_ENABLED=1 (TELEGRAM_DISABLED=1 always skips).
  * Usage:
  *   node scripts/notify-telegram.mjs --title="..." --body="..."
  *   node scripts/notify-telegram.mjs --title="..." --body="..." --ok
@@ -18,6 +19,14 @@ const ok = process.argv.includes("--ok");
 
 const token = (process.env.TELEGRAM_BOT_TOKEN || "").trim();
 const chatId = (process.env.TELEGRAM_CHAT_ID || "").trim();
+const flag = (name) => (process.env[name] || "").trim().toLowerCase();
+const enabled = /^(1|true|yes|on)$/.test(flag("TELEGRAM_ENABLED"));
+const disabled = /^(1|true|yes|on)$/.test(flag("TELEGRAM_DISABLED"));
+
+if (disabled || !enabled) {
+  console.warn("notify-telegram: выключено (TELEGRAM_ENABLED≠1) — пропуск");
+  process.exit(0);
+}
 
 if (!token || !chatId) {
   console.warn("notify-telegram: TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID не заданы — пропуск");

@@ -1,10 +1,8 @@
 name: Ops Telegram digest
 
-# Daily low-noise pipeline / feed / indexing alerts (edge-triggered).
+# Telegram alerts are off (notify-telegram requires TELEGRAM_ENABLED=1).
+# Cron disabled to avoid a daily no-op run. Restore schedule when re-enabling.
 on:
-  schedule:
-    # 07:30 UTC — after indexing-retry (06:00) and weekday sitemap (Mon 07:00)
-    - cron: "30 7 * * *"
   workflow_dispatch:
 
 jobs:
